@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Sertifikasi;
 
+use Dompdf\Dompdf;
+
 class SertifikasiController extends Controller
 {
     public function index()
@@ -24,4 +26,17 @@ class SertifikasiController extends Controller
         $sertifikasis = Sertifikasi::where('namaProgram', 'like', '%' . $namaProgram . '%')->get();
         return view('sertifikasi.index', compact('sertifikasis'));
     }
+
+
+
+    public function downloadPDF()
+{
+    $sertifikasis = Sertifikasi::all();
+    $dompdf = new Dompdf();
+    $html = view('sertifikasi.pdf', compact('sertifikasis'))->render();
+    $dompdf->loadHtml($html);
+    $dompdf->setPaper('A4', 'landscape');
+    $dompdf->render();
+    return $dompdf->stream("sertifikasi.pdf");
+}
 }

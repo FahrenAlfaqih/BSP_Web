@@ -85,10 +85,10 @@
                 </div>
             </div>
             <div class="nav-item d-flex align-self-end">
-                <a href="https://www.creative-tim.com/product/soft-ui-dashboard-laravel" target="_blank" class="btn btn-primary active mb-0 text-white" role="button" aria-pressed="true">
-                    Download
-                </a>
-            </div>
+    <a href="{{ route('sertifikasi.download-pdf') }}" class="btn btn-primary active mb-0 text-white" role="button" aria-pressed="true">
+        Download PDF
+    </a>
+</div>
         </div>
     </div>
 </main>
