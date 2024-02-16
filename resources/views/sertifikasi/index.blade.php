@@ -59,6 +59,10 @@
                                         <th
                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                             Nama Penyelenggara</th>
+                                        <th 
+                                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                         Aksi
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -74,6 +78,14 @@
                                         <td>{{ $sertifikasi->days }}</td>
                                         <td>{{ $sertifikasi->tempat }}</td>
                                         <td>{{ $sertifikasi->namaPenyelenggara }}</td>
+                                        <td>
+                                            <a href="{{ route('sertifikasi.edit', $sertifikasi->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                            <form action="{{ route('sertifikasi.destroy', $sertifikasi->id) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                                            </form>
+                                        </td
                                     </tr>
                                     @endforeach
                                 </tbody>

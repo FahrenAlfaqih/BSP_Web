@@ -39,4 +39,20 @@ class SertifikasiController extends Controller
     $dompdf->render();
     return $dompdf->stream("sertifikasi.pdf");
 }
+
+public function editSertifikasi($id)
+{
+    // Temukan data sertifikasi berdasarkan ID
+    $sertifikasi = Sertifikasi::findOrFail($id);
+
+    // Kemudian, kirim data sertifikasi ke view edit
+    return view('sertifikasi.edit', compact('sertifikasi'));
+}
+
+public function deleteSertifikasi($id)
+{
+    $sertifikasi = Sertifikasi::findOrFail($id);
+    $sertifikasi->delete();
+    return redirect()->back()->with('success', 'Data sertifikasi berhasil dihapus.');
+}
 }
