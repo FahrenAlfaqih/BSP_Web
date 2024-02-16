@@ -11,7 +11,7 @@ class SertifikasiController extends Controller
 {
     public function index()
     {
-        $sertifikasis = Sertifikasi::all();
+        $sertifikasis = Sertifikasi::paginate(10);
         return view('sertifikasi.index', compact('sertifikasis'));
     }
 
@@ -32,7 +32,7 @@ class SertifikasiController extends Controller
     public function downloadPDF()
 {
     $sertifikasis = Sertifikasi::all();
-    $dompdf = new Dompdf();
+    $dompdf = new Dompdf(); 
     $html = view('sertifikasi.pdf', compact('sertifikasis'))->render();
     $dompdf->loadHtml($html);
     $dompdf->setPaper('A4', 'landscape');
@@ -53,6 +53,6 @@ public function deleteSertifikasi($id)
 {
     $sertifikasi = Sertifikasi::findOrFail($id);
     $sertifikasi->delete();
-    return redirect()->back()->with('success', 'Data sertifikasi berhasil dihapus.');
+    return redirect()->back();
 }
 }

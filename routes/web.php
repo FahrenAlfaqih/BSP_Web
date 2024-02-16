@@ -37,13 +37,6 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/sertifikasi/{id}/edit', [SertifikasiController::class, 'editSertifikasi'])->name('sertifikasi.edit');
 	Route::delete('/sertifikasi/{id}', [SertifikasiController::class, 'deleteSertifikasi'])->name('sertifikasi.destroy');
 
-
-	
-	
-
-
-
-
 	Route::get('billing', function () {
 		return view('billing');
 	})->name('billing');

@@ -58,9 +58,10 @@
             </tr>
         </thead>
         <tbody>
+            @php $index = 1 @endphp
             @foreach($sertifikasis as $sertifikasi)
             <tr>
-                <td>{{ $sertifikasi->id }}</td>
+                <td>{{ $index }}</td>
                 <td>{{ $sertifikasi->noPek }}</td>
                 <td>{{ $sertifikasi->namaPekerja }}</td>
                 <td>{{ $sertifikasi->dept }}</td>
@@ -73,6 +74,7 @@
                 <td>{{ $sertifikasi->namaPenyelenggara }}</td>
                 <!-- Tambahkan kolom lainnya sesuai kebutuhan -->
             </tr>
+            @php $index++ @endphp
             @endforeach
         </tbody>
     </table>
