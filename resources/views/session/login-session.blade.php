@@ -10,14 +10,8 @@
             <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto">
               <div class="card card-plain mt-8">
                 <div class="card-header pb-0 text-left bg-transparent">
-                  <h3 class="font-weight-bolder text-info text-gradient">Selamat Datang di PT Bumi Siak Pusako</h3>
-                  <p class="mb-0">Buat akun baru<br></p>
-<<<<<<< HEAD
-=======
-                  <p class="mb-0">Atau login dengan kredensial:</p>
-                  <p class="mb-0">Email <b>admin@mail.com</b></p>
-                  <p class="mb-0">Password <b>admin</b></p>
->>>>>>> fd562fe6c52c3c29d649094c1e5aa1931adc722b
+                  <h3 class="font-weight-bolder text-info text-gradient">Selamat Datang di <br>PT Bumi Siak Pusako</h3>
+                  <p class="mb-0">Silahkan login dengan akun yang sudah terdaftar<br></p>
                 </div>
                 <div class="card-body">
                   <form role="form" method="POST" action="/session">
