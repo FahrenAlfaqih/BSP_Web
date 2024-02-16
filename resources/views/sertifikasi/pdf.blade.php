@@ -1,4 +1,3 @@
-<!-- resources/views/sertifikasi/pdf.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,8 +12,19 @@
             margin-bottom: 20px;
             border-bottom: 1px solid #000; /* Garis bawah */
             padding-bottom: 10px; /* Jarak dari garis bawah */
+            position: relative;
         }
-        .logo {
+        .logo-left {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 100px; /* Sesuaikan dengan lebar logo */
+            height: auto;
+        }
+        .logo-right {
+            position: absolute;
+            top: 10px;
+            right: 10px;
             width: 100px; /* Sesuaikan dengan lebar logo */
             height: auto;
         }
@@ -34,9 +44,11 @@
 </head>
 <body>
     <div class="header">
+        <img src="{{ asset('assets/img/lapangan3.jpg') }}" alt="Left Logo" class="logo-left">
         <h1>PT. Bumi Siak Pusako</h1>
         <p>Gedung Surya Dumai LT. 6 Jalan Jendral Sudirman No.395</p>
         <p>Pekanbaru 2866 - INDONESIA</p>
+        <img src="path_to_right_image.jpg" alt="Right Logo" class="logo-right">
     </div>
     <p>Berikut lampiran data rekap sertifikasi PT Bumi Siak Pusako : </p>
     

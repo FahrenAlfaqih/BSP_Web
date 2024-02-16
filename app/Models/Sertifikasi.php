@@ -9,4 +9,8 @@ class Sertifikasi extends Model
 {
     use HasFactory;
     protected $table = 'sertifikasi';
+    protected $fillable = [
+        'noPek', 'namaPekerja', 'dept', 'namaProgram', 'tahunSertifikasi', 'tanggalPelaksanaanMulai', 'tanggalPelaksanaanSelesai', 'days', 'tempat', 'namaPenyelenggara'
+    ];
+    
 }

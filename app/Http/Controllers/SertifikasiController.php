@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Sertifikasi;
-
+use RealRashid\SweetAlert\Facades\Alert;
 use Dompdf\Dompdf;
 
 class SertifikasiController extends Controller
@@ -15,13 +15,15 @@ class SertifikasiController extends Controller
         return view('sertifikasi.index', compact('sertifikasis'));
     }
 
-    public function filterByYear(Request $request){
+    public function filterByYear(Request $request)
+    {
         $tahun = $request->input('tahun');
         $sertifikasis = Sertifikasi::where('tahunSertifikasi', $tahun)->get();
         return view('sertifikasi.index', compact('sertifikasis'));
     }
 
-    public function filterByNamaProgram(Request $request){
+    public function filterByNamaProgram(Request $request)
+    {
         $namaProgram = $request->input('namaProgram');
         $sertifikasis = Sertifikasi::where('namaProgram', 'like', '%' . $namaProgram . '%')->get();
         return view('sertifikasi.index', compact('sertifikasis'));
@@ -30,29 +32,54 @@ class SertifikasiController extends Controller
 
 
     public function downloadPDF()
-{
-    $sertifikasis = Sertifikasi::all();
-    $dompdf = new Dompdf(); 
-    $html = view('sertifikasi.pdf', compact('sertifikasis'))->render();
-    $dompdf->loadHtml($html);
-    $dompdf->setPaper('A4', 'landscape');
-    $dompdf->render();
-    return $dompdf->stream("sertifikasi.pdf");
-}
+    {
+        $sertifikasis = Sertifikasi::all();
+        $dompdf = new Dompdf();
+        $html = view('sertifikasi.pdf', compact('sertifikasis'))->render();
+        $dompdf->loadHtml($html);
+        //$dompdf->set_option('isRemoteEnabled', true);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
 
-public function editSertifikasi($id)
-{
-    // Temukan data sertifikasi berdasarkan ID
-    $sertifikasi = Sertifikasi::findOrFail($id);
+        return $dompdf->stream("sertifikasi.pdf");
+    }
 
-    // Kemudian, kirim data sertifikasi ke view edit
-    return view('sertifikasi.edit', compact('sertifikasi'));
-}
+    public function store(Request $request)
+    {
+        // Validasi data
+        $validatedData = $request->validate([
+            'noPek' => 'required',
+            'namaPekerja' => 'required',
+            'dept' => 'required',
+            'namaProgram' => 'required',
+            'tahunSertifikasi' => 'required',
+            'tanggalPelaksanaanMulai' => 'required',
+            'tanggalPelaksanaanSelesai' => 'required',
+            'days' => 'required',
+            'tempat' => 'required',
+            'namaPenyelenggara' => 'required',
+            // Tambahkan aturan validasi lainnya sesuai kebutuhan
+        ]);
 
-public function deleteSertifikasi($id)
-{
-    $sertifikasi = Sertifikasi::findOrFail($id);
-    $sertifikasi->delete();
-    return redirect()->back();
-}
+        // Simpan data sertifikasi baru ke dalam basis data
+        Sertifikasi::create($validatedData);
+        Alert::success('Success', 'Data sertifikasi berhasil ditambahkan');
+        return redirect()->back();
+    }
+
+    public function editSertifikasi($id)
+    {
+        // Temukan data sertifikasi berdasarkan ID
+        $sertifikasi = Sertifikasi::findOrFail($id);
+
+        // Kemudian, kirim data sertifikasi ke view edit
+        return view('sertifikasi.edit', compact('sertifikasi'));
+    }
+
+    public function deleteSertifikasi($id)
+    {
+        $sertifikasi = Sertifikasi::findOrFail($id);
+        $sertifikasi->delete();
+        return redirect()->back();
+    }
 }

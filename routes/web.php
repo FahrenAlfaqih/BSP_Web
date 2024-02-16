@@ -33,6 +33,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('sertifikasi/filterYear', [SertifikasiController::class, 'filterByYear'])->name('sertifikasi.filterYear');
     Route::get('sertifikasi/filterNamaProgram', [SertifikasiController::class, 'filterByNamaProgram'])->name('sertifikasi.filterNamaProgram');
     Route::get('/sertifikasi/download-pdf', [SertifikasiController::class, 'downloadPDF'])->name('sertifikasi.download-pdf');
+
+    //CRUD DATA SERTIFIKASI
+    Route::post('/sertifikasi/store', [SertifikasiController::class, 'store'])->name('sertifikasi.store');
     Route::get('/sertifikasi/{id}/edit', [SertifikasiController::class, 'editSertifikasi'])->name('sertifikasi.edit');
     Route::delete('/sertifikasi/{id}', [SertifikasiController::class, 'deleteSertifikasi'])->name('sertifikasi.destroy');
 
