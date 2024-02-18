@@ -44,11 +44,11 @@
 </head>
 <body>
     <div class="header">
-        <img src="{{ asset('assets/img/lapangan3.jpg') }}" alt="Left Logo" class="logo-left">
+        <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets\img\apple-icon.png'))) }}" alt="Left Logo" class="logo-left">
         <h1>PT. Bumi Siak Pusako</h1>
         <p>Gedung Surya Dumai LT. 6 Jalan Jendral Sudirman No.395</p>
         <p>Pekanbaru 2866 - INDONESIA</p>
-        <img src="path_to_right_image.jpg" alt="Right Logo" class="logo-right">
+        <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets\img\skkmigas.png'))) }}" alt="Right Logo" class="logo-right">
     </div>
     <p>Berikut lampiran data rekap sertifikasi PT Bumi Siak Pusako : </p>
     
