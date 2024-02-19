@@ -40,7 +40,7 @@
                   </form>
                 </div>
                 <div class="card-footer text-center pt-0 px-lg-2 px-1">
-                <small class="text-muted">Kamu lupa password? Reset password kamu
+                <small class="text-muted">Hubungi IT untuk mendaftar akun atau lupa password
                   <a href="/login/forgot-password" class="text-info text-gradient font-weight-bold">disini</a>
                 </small>
                   <p class="mb-4 text-sm mx-auto">

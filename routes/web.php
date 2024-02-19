@@ -7,6 +7,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\SertifikasiController;
+use App\Http\Controllers\MagangController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Route;
@@ -29,15 +30,40 @@ Route::group(['middleware' => 'auth'], function () {
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('sertifikasi', [SertifikasiController::class, 'index'])->name('sertifikasi');
-    Route::get('sertifikasi/filterYear', [SertifikasiController::class, 'filterByYear'])->name('sertifikasi.filterYear');
-    Route::get('sertifikasi/filterNamaProgram', [SertifikasiController::class, 'filterByNamaProgram'])->name('sertifikasi.filterNamaProgram');
-    Route::get('/sertifikasi/download-pdf', [SertifikasiController::class, 'downloadPDF'])->name('sertifikasi.download-pdf');
+    Route::prefix('sertifikasi')->group(function () {
+        // Menampilkan dan memfilter data sertifikasi
+        Route::get('/', [SertifikasiController::class, 'index'])->name('sertifikasi');
+        Route::get('/filterYear', [SertifikasiController::class, 'filterByYear'])->name('sertifikasi.filterYear');
+        Route::get('/filterNamaProgram', [SertifikasiController::class, 'filterByNamaProgram'])->name('sertifikasi.filterNamaProgram');
+        // Download file PDF
+        Route::get('/download-pdf', [SertifikasiController::class, 'downloadPDF'])->name('sertifikasi.download-pdf');
+        // Upload file Excel untuk inputan data
+        Route::post('/upload-excel', [SertifikasiController::class, 'uploadExcel'])->name('sertifikasi.upload-excel');
+        // CRUD data sertifikasi
+        Route::post('/store', [SertifikasiController::class, 'store'])->name('sertifikasi.store');
+        Route::put('/{id}/edit', [SertifikasiController::class, 'editSertifikasi'])->name('sertifikasi.edit');
+        Route::delete('/{id}', [SertifikasiController::class, 'deleteSertifikasi'])->name('sertifikasi.destroy');
+    });
 
-    //CRUD DATA SERTIFIKASI
-    Route::post('/sertifikasi/store', [SertifikasiController::class, 'store'])->name('sertifikasi.store');
-    Route::get('/sertifikasi/{id}/edit', [SertifikasiController::class, 'editSertifikasi'])->name('sertifikasi.edit');
-    Route::delete('/sertifikasi/{id}', [SertifikasiController::class, 'deleteSertifikasi'])->name('sertifikasi.destroy');
+    Route::prefix('magang')->group(function () {
+        // Menampilkan dan memfilter data magang    
+        Route::get('/', [MagangController::class, 'index'])->name('magang');
+        Route::get('/filterYear', [MagangController::class, 'filterByYear'])->name('magang.filterYear');
+        Route::get('/filterNamaProgram', [MagangController::class, 'filterByNamaProgram'])->name('magang.filterNamaProgram');
+        
+        // Download file PDF
+        Route::get('/download-pdf', [MagangController::class, 'downloadPDF'])->name('magang.download-pdf');
+    
+        // Upload file Excel untuk inputan data
+        Route::post('/upload-excel', [MagangController::class, 'uploadExcel'])->name('magang.upload-excel');
+    
+        // CRUD data magang
+        Route::post('/store', [MagangController::class, 'store'])->name('magang.store');
+        Route::put('/{id}/edit', [MagangController::class, 'editMagang'])->name('magang.edit');
+        Route::delete('/{id}', [MagangController::class, 'deleteMagang'])->name('magang.destroy');
+    });
+    
+
 
     Route::get('billing', function () {
         return view('billing');
@@ -89,3 +115,7 @@ Route::group(['middleware' => 'guest'], function () {
 Route::get('/login', function () {
     return view('session/login-session');
 })->name('login');
+
+//Auth::routes();
+
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
