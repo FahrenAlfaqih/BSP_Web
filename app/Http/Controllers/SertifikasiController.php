@@ -19,6 +19,7 @@ class SertifikasiController extends Controller
         return view('sertifikasi.index', compact('sertifikasis'));
     }
 
+
     public function filterByYear(Request $request)
     {
         $tahun = $request->input('tahun');
