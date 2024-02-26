@@ -26,12 +26,18 @@ class SertifikasiController extends Controller
         return view('sertifikasi.index', compact('sertifikasis'));
     }
 
-    public function filterByNamaProgram(Request $request)
+    public function filterData(Request $request)
     {
-        $namaProgram = $request->input('namaProgram');
-        $sertifikasis = Sertifikasi::where('namaProgram', 'like', '%' . $namaProgram . '%')->paginate(10);;
+        $searchQuery = $request->input('search');
+
+        $sertifikasis = Sertifikasi::where('namaProgram', 'like', '%' . $searchQuery . '%')
+            ->orWhere('namaPekerja', 'like', '%' . $searchQuery . '%')
+            ->orWhere('dept', 'like', '%' . $searchQuery . '%')
+            ->paginate(10);
+
         return view('sertifikasi.index', compact('sertifikasis'));
     }
+
 
 
     public function store(Request $request)
@@ -100,16 +106,44 @@ class SertifikasiController extends Controller
 
     public function downloadPDF(Request $request)
     {
-        $tahun = $request->tahun;
-        $sertifikasis = Sertifikasi::where('tahunSertifikasi', $request->tahun)->get();
-        $dompdf = new Dompdf();
-        $html = view('sertifikasi.pdf', compact('sertifikasis'))->render();
-        // Buat opsi untuk DomPDF
-        $dompdf->loadHtml($html);
-        $dompdf->setPaper('A4', 'landscape');
-        $dompdf->render();
-        return $dompdf->stream("Sertifikasi Training PT BSP Tahun $tahun.pdf");
+        // Ambil nilai pencarian dari permintaan
+        $searchQuery = $request->query('search');
+        // Ambil nilai tahun dari permintaan
+        $tahun = $request->query('tahun');
+
+        // Inisialisasi variabel untuk menyimpan data yang akan dicetak
+        $sertifikasis = null;
+
+        // Periksa apakah permintaan adalah pencarian atau tahun
+        if ($searchQuery) {
+            // Jika ada pencarian, ambil data berdasarkan pencarian
+            $sertifikasis = Sertifikasi::where('namaProgram', 'like', '%' . $searchQuery . '%')
+                ->orWhere('namaPekerja', 'like', '%' . $searchQuery . '%')
+                ->orWhere('dept', 'like', '%' . $searchQuery . '%')
+                ->get();
+        } elseif ($tahun) {
+            // Jika ada tahun, ambil data berdasarkan tahun
+            $sertifikasis = Sertifikasi::where('tahunSertifikasi', $tahun)->get();
+        }
+
+        // Pastikan data yang ditemukan tidak kosong sebelum membuat PDF
+        if ($sertifikasis && $sertifikasis->isNotEmpty()) {
+            // Buat instance Dompdf
+            $dompdf = new Dompdf();
+            // Muat konten HTML dari view
+            $html = view('sertifikasi.pdf', compact('sertifikasis'))->render();
+            // Buat opsi untuk DomPDF
+            $dompdf->loadHtml($html);
+            $dompdf->setPaper('A4', 'landscape');
+            $dompdf->render();
+            // Keluarkan PDF yang dihasilkan ke browser
+            return $dompdf->stream("Sertifikasi.pdf");
+        } else {
+            // Jika $sertifikasis null atau kosong, kembalikan pesan error atau lakukan tindakan yang sesuai
+            return redirect()->back()->with('error', 'Tidak ada data yang ditemukan.');
+        }
     }
+
 
     public function uploadExcel(Request $request)
     {

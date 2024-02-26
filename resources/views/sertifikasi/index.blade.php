@@ -9,10 +9,10 @@
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <div class="d-flex">
 
-                        <!-- Tombol Download PDF -->
-                        <a href="{{ route('sertifikasi.download-pdf', ['tahun' => request()->input('tahun')]) }}" class="btn btn-danger btn-2x me-2">
+                        <a href="{{ route('sertifikasi.download-pdf', ['search' => request()->input('search'), 'tahun' => request()->input('tahun')]) }}" class="btn btn-danger btn-2x me-2">
                             <i class="fas fa-file-pdf"></i> Cetak Sertifikasi PDF
                         </a>
+
 
                         <!-- Button trigger modal input -->
                         <button type="button" class="btn btn-dark btn-2x me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -80,7 +80,7 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label for="days" class="form-label">Jumlah Hari</label>
-                                                <input type="text" class="form-control" id="days" name="days" disabled>
+                                                <input type="text" class="form-control" id="days" name="days">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="namaPenyelenggara" class="form-label">Nama Penyelenggara</label>
@@ -149,9 +149,10 @@
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <h6>Tabel Sertifikasi</h6>
                 </div>
-                <form id="filterNamaProgramForm" class="ms-3" action="{{ route('sertifikasi.filterNamaProgram') }}" method="GET">
-                    <input type="text" name="namaProgram" id="namaProgram" class="form-control" placeholder="Cari Berdasarkan Nama Program">
+                <form id="filterNamaProgramForm" class="ms-3" action="{{ route('sertifikasi.filterData') }}" method="GET">
+                    <input type="text" name="search" id="search" class="form-control" placeholder="Cari Berdasarkan Nama Program, Nama Pekerja, atau Departemen">
                 </form>
+
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive p-0">
                         <table class="table align-items-center mb-0">
@@ -268,7 +269,7 @@
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="days" class="form-label">Jumlah Hari</label>
-                                                        <input type="text" class="form-control" id="days" name="days" value="{{ $sertifikasi->days }}" disabled>
+                                                        <input type="text" class="form-control" id="days" name="days" value="{{ $sertifikasi->days }}">
                                                     </div>
 
                                                     <div class="mb-3">
@@ -304,9 +305,9 @@
                         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
                         <script>
+                            //Konfirmasi untuk hapus data
                             document.addEventListener('DOMContentLoaded', function() {
                                 const deleteButtons = document.querySelectorAll('.deleteButton');
-
                                 deleteButtons.forEach(button => {
                                     button.addEventListener('click', function(e) {
                                         e.preventDefault();
@@ -340,29 +341,6 @@
                                 });
                             });
 
-                            // Ambil elemen input untuk tanggal mulai dan selesai
-                            const inputMulai = document.getElementById('tanggalPelaksanaanMulai');
-                            const inputSelesai = document.getElementById('tanggalPelaksanaanSelesai');
-                            const inputDays = document.getElementById('days');
-
-                            // Tambahkan event listener untuk perubahan nilai tanggal
-                            inputMulai.addEventListener('change', hitungJumlahHari);
-                            inputSelesai.addEventListener('change', hitungJumlahHari);
-
-                            // Fungsi untuk menghitung jumlah hari
-                            function hitungJumlahHari() {
-                                // Ambil nilai dari kedua input tanggal
-                                const tanggalMulai = new Date(inputMulai.value);
-                                const tanggalSelesai = new Date(inputSelesai.value);
-
-                                // Hitung selisih hari antara kedua tanggal
-                                const selisihHari = Math.ceil((tanggalSelesai - tanggalMulai) / (1000 * 3600 * 24));
-
-                                // Masukkan nilai selisih hari ke dalam input days
-                                inputDays.value = selisihHari;
-                            }
-
-
                             //script agar tahun pada tanggalPelaksanaanMulai dan Selesai otomatis terubah sesuai dengan
                             //Tahun sertifikasi yang diinputkan sebelumnya
                             document.addEventListener('DOMContentLoaded', function() {
@@ -390,7 +368,6 @@
                                     }
                                 });
                             });
-
 
                             //unutk menampilkan notif jika file excel belum diinputkan tetapi sudah pencet unggah
                             document.addEventListener('DOMContentLoaded', function() {
@@ -432,10 +409,12 @@
                                 }
                             });
 
-                            //notif untuk berhasil atau error saat update data
+
                             document.getElementById('saveChangesBtn').addEventListener('click', function() {
                                 document.getElementById('editForm').submit();
                             });
+
+                            //notif untuk berhasil atau error saat update data
                             document.addEventListener('DOMContentLoaded', function() {
                                 const successMessage = "{{ session('success_update') }}";
                                 const errorMessage = "{{ session('error_update') }}";
@@ -479,6 +458,29 @@
                                     });
                                 }
                             });
+
+
+                            // Ambil elemen input untuk tanggal mulai dan selesai
+                            const inputMulai = document.getElementById('tanggalPelaksanaanMulai');
+                            const inputSelesai = document.getElementById('tanggalPelaksanaanSelesai');
+                            const inputDays = document.getElementById('days');
+
+                            // Tambahkan event listener untuk perubahan nilai tanggal
+                            inputMulai.addEventListener('change', hitungJumlahHari);
+                            inputSelesai.addEventListener('change', hitungJumlahHari);
+
+                            // Fungsi untuk menghitung jumlah hari
+                            function hitungJumlahHari() {
+                                // Ambil nilai dari kedua input tanggal
+                                const tanggalMulai = new Date(inputMulai.value);
+                                const tanggalSelesai = new Date(inputSelesai.value);
+
+                                // Hitung selisih hari antara kedua tanggal
+                                const selisihHari = Math.ceil((tanggalSelesai - tanggalMulai) / (1000 * 3600 * 24));
+
+                                // Masukkan nilai selisih hari ke dalam input days
+                                inputDays.value = selisihHari;
+                            }
                         </script>
 
                     </div>

@@ -34,7 +34,7 @@ Route::group(['middleware' => 'auth'], function () {
         // Menampilkan dan memfilter data sertifikasi
         Route::get('/', [SertifikasiController::class, 'index'])->name('sertifikasi');
         Route::get('/filterYear', [SertifikasiController::class, 'filterByYear'])->name('sertifikasi.filterYear');
-        Route::get('/filterNamaProgram', [SertifikasiController::class, 'filterByNamaProgram'])->name('sertifikasi.filterNamaProgram');
+        Route::get('/filterData', [SertifikasiController::class, 'filterData'])->name('sertifikasi.filterData');
         // Download file PDF
         Route::get('/download-pdf', [SertifikasiController::class, 'downloadPDF'])->name('sertifikasi.download-pdf');
         // Upload file Excel untuk inputan data
@@ -45,29 +45,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('/{id}', [SertifikasiController::class, 'deleteSertifikasi'])->name('sertifikasi.destroy');
     });
 
-    Route::prefix('magang')->group(function () {
-        // Menampilkan dan memfilter data magang    
-        Route::get('/', [MagangController::class, 'index'])->name('magang');
-        Route::get('/filterYear', [MagangController::class, 'filterByYear'])->name('magang.filterYear');
-        Route::get('/filterNamaProgram', [MagangController::class, 'filterByNamaProgram'])->name('magang.filterNamaProgram');
-        
-        // Download file PDF
-        Route::get('/download-pdf', [MagangController::class, 'downloadPDF'])->name('magang.download-pdf');
-    
-        // Upload file Excel untuk inputan data
-        Route::post('/upload-excel', [MagangController::class, 'uploadExcel'])->name('magang.upload-excel');
-    
-        // CRUD data magang
-        Route::post('/store', [MagangController::class, 'store'])->name('magang.store');
-        Route::put('/{id}/edit', [MagangController::class, 'editMagang'])->name('magang.edit');
-        Route::delete('/{id}', [MagangController::class, 'deleteMagang'])->name('magang.destroy');
-    });
-    
 
 
     Route::get('billing', function () {
         return view('billing');
-    })->name('billing');
+        })->name('billing');
 
     Route::get('profile', function () {
         return view('profile');
