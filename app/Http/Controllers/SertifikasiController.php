@@ -27,6 +27,7 @@ class SertifikasiController extends Controller
         return view('sertifikasi.index', compact('sertifikasis'));
     }
 
+<<<<<<< HEAD
     public function filterByMonth(Request $request)
     {
         $bulan = $request->input('bulan');
@@ -34,6 +35,14 @@ class SertifikasiController extends Controller
         // Memanggil metode scope yang telah dibuat
         $sertifikasis = Sertifikasi::filterByMonth($bulan)->paginate(10);
 
+=======
+    // Di controller Anda
+    public function filterByDate(Request $request)
+    {
+        $bulan = $request->input('bulan');
+        $tahun = $request->input('tahun');
+        $sertifikasis = Sertifikasi::filterByDate($bulan, $tahun)->paginate(10);
+>>>>>>> 3852d5ec34040067431f7a6836a1b9f12fae9f39
         return view('sertifikasi.index', compact('sertifikasis'));
     }
 

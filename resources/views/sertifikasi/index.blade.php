@@ -89,6 +89,8 @@
                                             <!-- Tambahkan input lain sesuai kebutuhan -->
                                             <button type="submit" class="btn btn-primary">Simpan</button>
                                         </form>
+
+
                                     </div>
 
                                 </div>
@@ -131,12 +133,28 @@
                             <i class="fas fa-sync fa-sm"></i> Reload
                         </a>
                         <!-- Filter data berdasarkan tahun sertifikasi-->
-                        <form action="{{ route('sertifikasi.filterYear') }}" method="GET" class="ms-3">
-                            <select name="tahun" id="tahun" onchange="this.form.submit()" class="form-select" style="min-width: 90px;">
-                                <option value="Tahun">Tahun</option>
-                                @for ($i = 2003; $i <= 2024; $i++) <option value="{{ $i }}" {{ request('tahun') == $i ? 'selected' : '' }}>{{ $i }}</option>
-                                    @endfor
+                        <form action="{{ route('sertifikasi.filterByDate') }}" method="GET">
+                            <select name="bulan">
+                                <option value="01">Januari</option>
+                                <option value="02">Februari</option>
+                                <option value="03">Maret</option>
+                                <option value="04">April</option>
+                                <option value="05">Mei</option>
+                                <option value="06">Juni</option>
+                                <option value="07">Juli</option>
+                                <option value="08">Agustus</option>
+                                <option value="09">September</option>
+                                <option value="10">Oktober</option>
+                                <option value="11">November</option>
+                                <option value="12">Desember</option>
                             </select>
+                            <select name="tahun">
+                                <option value="2002">2002</option>
+                                <option value="2023">2023</option>
+                                <option value="2024">2024</option>
+                                <!-- Tambahkan opsi sesuai dengan kebutuhan -->
+                            </select>
+                            <button type="submit">Filter</button>
                         </form>
                         <!-- Filter data berdasarkan tahun sertifikasi-->
                         <form action="{{ route('sertifikasi.filterByMonth') }}" method="GET" class="ms-3">
