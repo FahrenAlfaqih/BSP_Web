@@ -27,6 +27,16 @@ class SertifikasiController extends Controller
         return view('sertifikasi.index', compact('sertifikasis'));
     }
 
+    // Di controller Anda
+    public function filterByDate(Request $request)
+    {
+        $bulan = $request->input('bulan');
+        $tahun = $request->input('tahun');
+        $sertifikasis = Sertifikasi::filterByDate($bulan, $tahun)->paginate(10);
+        return view('sertifikasi.index', compact('sertifikasis'));
+    }
+
+
     public function filterData(Request $request)
     {
         $searchQuery = $request->input('search');
