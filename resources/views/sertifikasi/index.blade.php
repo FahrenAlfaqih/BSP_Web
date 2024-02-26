@@ -9,7 +9,7 @@
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <div class="d-flex">
 
-                        <a href="{{ route('sertifikasi.download-pdf', ['search' => request()->input('search'), 'tahun' => request()->input('tahun')]) }}" class="btn btn-danger btn-2x me-2">
+                        <a href="{{ route('sertifikasi.download-pdf', ['search' => request()->input('search'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-danger btn-2x me-2">
                             <i class="fas fa-file-pdf"></i> Cetak Sertifikasi PDF
                         </a>
 
@@ -138,6 +138,17 @@
                                     @endfor
                             </select>
                         </form>
+                        <!-- Filter data berdasarkan tahun sertifikasi-->
+                        <form action="{{ route('sertifikasi.filterByMonth') }}" method="GET" class="ms-3">
+                            <select name="bulan" id="bulan" onchange="this.form.submit()" class="form-select" style="min-width: 90px;">
+                                <option value="">Bulan</option>
+                                @for ($i = 1; $i <= 12; $i++) <option value="{{ str_pad($i, 2, '0', STR_PAD_LEFT) }}" {{ request('bulan') == str_pad($i, 2, '0', STR_PAD_LEFT) ? 'selected' : '' }}>
+                                    {{ date('F', mktime(0, 0, 0, $i, 1)) }}
+                                    </option>
+                                    @endfor
+                            </select>
+                        </form>
+
 
                     </div>
                 </div>

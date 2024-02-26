@@ -27,6 +27,17 @@ class SertifikasiController extends Controller
         return view('sertifikasi.index', compact('sertifikasis'));
     }
 
+    public function filterByMonth(Request $request)
+    {
+        $bulan = $request->input('bulan');
+
+        // Memanggil metode scope yang telah dibuat
+        $sertifikasis = Sertifikasi::filterByMonth($bulan)->paginate(10);
+
+        return view('sertifikasi.index', compact('sertifikasis'));
+    }
+
+
     public function filterData(Request $request)
     {
         $searchQuery = $request->input('search');
@@ -111,6 +122,7 @@ class SertifikasiController extends Controller
         $searchQuery = $request->query('search');
         // Ambil nilai tahun dari permintaan
         $tahun = $request->query('tahun');
+        $bulan = $request->query('bulan');
 
         // Inisialisasi variabel untuk menyimpan data yang akan dicetak
         $sertifikasis = null;
@@ -125,6 +137,8 @@ class SertifikasiController extends Controller
         } elseif ($tahun) {
             // Jika ada tahun, ambil data berdasarkan tahun
             $sertifikasis = Sertifikasi::where('tahunSertifikasi', $tahun)->get();
+        }elseif($bulan){
+            $sertifikasis = Sertifikasi::filterByMonth($bulan)->get();
         }
 
         // Pastikan data yang ditemukan tidak kosong sebelum membuat PDF

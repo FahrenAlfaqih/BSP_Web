@@ -12,5 +12,9 @@ class Sertifikasi extends Model
     protected $fillable = [
         'noPek', 'namaPekerja', 'dept', 'namaProgram', 'tahunSertifikasi', 'tanggalPelaksanaanMulai', 'tanggalPelaksanaanSelesai', 'days', 'tempat', 'namaPenyelenggara'
     ];
-    
+
+    public function scopeFilterByMonth($query, $bulan)
+    {
+        return $query->whereMonth('tanggalPelaksanaanMulai', $bulan);
+    }
 }

@@ -34,6 +34,7 @@ Route::group(['middleware' => 'auth'], function () {
         // Menampilkan dan memfilter data sertifikasi
         Route::get('/', [SertifikasiController::class, 'index'])->name('sertifikasi');
         Route::get('/filterYear', [SertifikasiController::class, 'filterByYear'])->name('sertifikasi.filterYear');
+        Route::get('/filterByMonth', [SertifikasiController::class, 'filterByMonth'])->name('sertifikasi.filterByMonth');
         Route::get('/filterData', [SertifikasiController::class, 'filterData'])->name('sertifikasi.filterData');
         // Download file PDF
         Route::get('/download-pdf', [SertifikasiController::class, 'downloadPDF'])->name('sertifikasi.download-pdf');
