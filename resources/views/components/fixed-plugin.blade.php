@@ -5,8 +5,7 @@
     <div class="card shadow-lg ">
       <div class="card-header pb-0 pt-3 ">
         <div class="{{ (Request::is('rtl') ? 'float-end' : 'float-start') }}">
-          <h5 class="mt-3 mb-0">Soft UI Configurator</h5>
-          <p>See our dashboard options.</p>
+          <h5 class="mt-3 mb-0">Pengaturan</h5>
         </div>
         <div class="{{ (Request::is('rtl') ? 'float-start mt-4' : 'float-end mt-4') }}">
           <button class="btn btn-link text-dark p-0 fixed-plugin-close-button">
@@ -19,7 +18,7 @@
       <div class="card-body pt-sm-3 pt-0">
         <!-- Sidebar Backgrounds -->
         <div>
-          <h6 class="mb-0">Sidebar Colors</h6>
+          <h6 class="mb-0">Warna Sidebar</h6>
         </div>
         <a href="javascript:void(0)" class="switch-trigger background-color">
           <div class="badge-colors my-2 {{ (Request::is('rtl') ? 'text-end' : 'text-start') }}">
@@ -33,8 +32,8 @@
         </a>
         <!-- Sidenav Type -->
         <div class="mt-3">
-          <h6 class="mb-0">Sidenav Type</h6>
-          <p class="text-sm">Choose between 2 different sidenav types.</p>
+          <h6 class="mb-0">Jenis Sidebar</h6>
+          <p class="text-sm">Pilih antara 2 jenis sidebar.</p>
         </div>
         <div class="d-flex">
           <button class="btn bg-gradient-primary w-100 px-3 mb-2 active" data-class="bg-transparent" onclick="sidebarType(this)">Transparent</button>
@@ -46,7 +45,7 @@
           <h6 class="mb-0">Navbar Fixed</h6>
         </div>
         <div class="form-check form-switch ps-0">
-          <input class="form-check-input mt-1 ms-auto  {{ (Request::is('rtl') ? 'float-end' : '') }}"" type="checkbox" id="navbarFixed" onclick="navbarFixed(this)">
+          <input class="form-check-input mt-1 ms-auto  {{ (Request::is('rtl') ? 'float-end' : '') }}" type="checkbox" id="navbarFixed" onclick="navbarFixed(this)">
         </div>
       </div>
     </div>
