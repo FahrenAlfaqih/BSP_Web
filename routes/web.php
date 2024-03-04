@@ -47,6 +47,22 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('/{id}', [SertifikasiController::class, 'deleteSertifikasi'])->name('sertifikasi.destroy');
     });
 
+    Route::prefix('magang')->group(function () {
+        // Menampilkan dan memfilter data sertifikasi
+        Route::get('/', [MagangController::class, 'index'])->name('magang');
+        Route::get('/filterYear', [MagangController::class, 'filterByYear'])->name('magang.filterYear');
+        Route::get('/filterByMonth', [MagangController::class, 'filterByMonth'])->name('magang.filterByMonth');
+        Route::get('/filterData', [MagangController::class, 'filterData'])->name('magang.filterData');
+        // Download file PDF
+        Route::get('/download-pdf', [MagangController::class, 'downloadPDF'])->name('magang.download-pdf');
+        // Upload file Excel untuk inputan data
+        Route::post('/uploadExcel', [MagangController::class, 'uploadExcel'])->name('magang.uploadExcel');
+        // CRUD data sertifikasi
+        Route::post('/store', [MagangController::class, 'store'])->name('magang.store');
+        Route::put('/{id}/edit', [MagangController::class, 'editMagang'])->name('magang.edit');
+        Route::delete('/{id}', [MagangController::class, 'deleteMagang'])->name('magang.destroy');
+    });
+
 
 
     Route::get('billing', function () {

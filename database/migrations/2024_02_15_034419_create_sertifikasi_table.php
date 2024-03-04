@@ -12,7 +12,7 @@ class CreateSertifikasiTable extends Migration
             $table->id();
             $table->integer('noPek');
             $table->string('namaPekerja');
-            $table->string('dept');
+            $table->string('dept')->nullable();
             $table->string('namaProgram');
             $table->integer('tahunSertifikasi');
             $table->date('tanggalPelaksanaanMulai');

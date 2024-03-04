@@ -13,13 +13,14 @@ use Throwable;
 
 class SertifikasiController extends Controller
 {
+    //function untuk menampilkan keseluruhan data sertifikasi
     public function index()
-    {
+    {   
         $sertifikasis = Sertifikasi::paginate(10);
         return view('sertifikasi.index', compact('sertifikasis'));
     }
 
-
+    //function untuk memfilter data berdasarkan tahun sertifikai
     public function filterByYear(Request $request)
     {
         $tahun = $request->input('tahun');
@@ -36,21 +37,18 @@ class SertifikasiController extends Controller
         return view('sertifikasi.index', compact('sertifikasis'));
     }
 
-
+    //function untuk memfilter data berdasarkan nama program, nama departemen dan nama pekerja
     public function filterData(Request $request)
     {
         $searchQuery = $request->input('search');
-
         $sertifikasis = Sertifikasi::where('namaProgram', 'like', '%' . $searchQuery . '%')
             ->orWhere('namaPekerja', 'like', '%' . $searchQuery . '%')
             ->orWhere('dept', 'like', '%' . $searchQuery . '%')
             ->paginate(10);
-
         return view('sertifikasi.index', compact('sertifikasis'));
     }
 
-
-
+    //function untuk menyimpan data ke database
     public function store(Request $request)
     {
         try {
@@ -68,17 +66,14 @@ class SertifikasiController extends Controller
                 'namaPenyelenggara' => 'required',
 
             ]);
-
-            // Simpan data sertifikasi baru ke dalam basis data
             Sertifikasi::create($validatedData);
-
-            // Berikan notifikasi
             return redirect()->back()->with('success_add', 'Data berhasil ditambahkan!');
         } catch (Throwable $e) {
             return redirect()->back()->with('error_add', 'Terjadi kesalahan saat input data: ' . $e->getMessage());
         }
     }
 
+    //function untuk mengedit data sertifikasi
     public function editSertifikasi(Request $request, $id)
     {
         $sertifikasi = Sertifikasi::findOrFail($id);
@@ -95,19 +90,14 @@ class SertifikasiController extends Controller
                 'tempat' => 'required',
                 'namaPenyelenggara' => 'required',
             ]);
-
-            // Update data sertifikasi
             $sertifikasi->update($validatedData);
-
-            // Berikan notifikasi
             return redirect()->back()->with('success_update', 'Data berhasil diperbarui!');
         } catch (Throwable $e) {
             return redirect()->back()->with('error_update', 'Terjadi kesalahan saat mengupdate data: ' . $e->getMessage());
         }
     }
 
-
-
+    //function untuk menghapus data sertifikasi
     public function deleteSertifikasi($id)
     {
         $sertifikasi = Sertifikasi::findOrFail($id);
@@ -115,62 +105,43 @@ class SertifikasiController extends Controller
         return redirect()->back();
     }
 
+    //function untuk fitur download pdf berdasarkan hasil pencarian, bulan dan tahun
     public function downloadPDF(Request $request)
     {
-        // Ambil nilai pencarian dari permintaan
-        $searchQuery = $request->query('search');
-        // Ambil nilai tahun dari permintaan
+        $searchQuery = $request->query('search');  
         $tahun = $request->query('tahun');
         $bulan = $request->query('bulan');
-
-        // Inisialisasi variabel untuk menyimpan data yang akan dicetak
         $sertifikasis = null;
-
-        // Periksa apakah permintaan adalah pencarian atau tahun
         if ($searchQuery) {
-            // Jika ada pencarian, ambil data berdasarkan pencarian
             $sertifikasis = Sertifikasi::where('namaProgram', 'like', '%' . $searchQuery . '%')
                 ->orWhere('namaPekerja', 'like', '%' . $searchQuery . '%')
                 ->orWhere('dept', 'like', '%' . $searchQuery . '%')
                 ->get();
         } elseif ($tahun) {
-            // Jika ada tahun, ambil data berdasarkan tahun
             $sertifikasis = Sertifikasi::where('tahunSertifikasi', $tahun)->get();
         }elseif($bulan){
             $sertifikasis = Sertifikasi::filterByMonth($bulan)->get();
         }
-
-        // Pastikan data yang ditemukan tidak kosong sebelum membuat PDF
         if ($sertifikasis && $sertifikasis->isNotEmpty()) {
-            // Buat instance Dompdf
             $dompdf = new Dompdf();
-            // Muat konten HTML dari view
             $html = view('sertifikasi.pdf', compact('sertifikasis'))->render();
-            // Buat opsi untuk DomPDF
             $dompdf->loadHtml($html);
             $dompdf->setPaper('A4', 'landscape');
             $dompdf->render();
-            // Keluarkan PDF yang dihasilkan ke browser
             return $dompdf->stream("Sertifikasi.pdf");
         } else {
-            // Jika $sertifikasis null atau kosong, kembalikan pesan error atau lakukan tindakan yang sesuai
             return redirect()->back()->with('error', 'Tidak ada data yang ditemukan.');
         }
     }
 
-
+    //function untuk fitur tambah data dengan metode upload file excel
     public function uploadExcel(Request $request)
     {
         try {
-            // Validasi file yang diunggah
             $request->validate([
                 'file' => 'required|mimes:xlsx,xls',
             ]);
-
-            // Baca file Excel dan simpan datanya
             Excel::import(new SertifikasiImport, $request->file('file'));
-
-            // Berikan notifikasi
             return redirect()->back()->with('success_message', 'Data dari Excel berhasil diunggah!');
         } catch (Throwable $e) {
             return redirect()->back()->with('error_message', 'Terjadi kesalahan saat mengimpor data: ' . $e->getMessage());
