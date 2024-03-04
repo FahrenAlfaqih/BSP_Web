@@ -35,6 +35,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/', [SertifikasiController::class, 'index'])->name('sertifikasi');
         Route::get('/filterYear', [SertifikasiController::class, 'filterByYear'])->name('sertifikasi.filterYear');
         Route::get('/filterByMonth', [SertifikasiController::class, 'filterByMonth'])->name('sertifikasi.filterByMonth');
+        Route::get('/filterByDate', [SertifikasiController::class, 'filterByDate'])->name('sertifikasi.filterByDate');
         Route::get('/filterData', [SertifikasiController::class, 'filterData'])->name('sertifikasi.filterData');
         // Download file PDF
         Route::get('/download-pdf', [SertifikasiController::class, 'downloadPDF'])->name('sertifikasi.download-pdf');
@@ -62,32 +63,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('/{id}', [MagangController::class, 'deleteMagang'])->name('magang.destroy');
     });
 
-
-
-    Route::get('billing', function () {
-        return view('billing');
-        })->name('billing');
-
-    Route::get('profile', function () {
-        return view('profile');
-    })->name('profile');
-
-    Route::get('rtl', function () {
-        return view('rtl');
-    })->name('rtl');
-
-    Route::get('user-management', function () {
-        return view('laravel-examples/user-management');
-    })->name('user-management');
-
-    Route::get('tables', function () {
-        return view('tables');
-    })->name('tables');
-
-    Route::get('virtual-reality', function () {
-        return view('virtual-reality');
-    })->name('virtual-reality');
-
     Route::get('static-sign-up', function () {
         return view('static-sign-up');
     })->name('sign-up');
@@ -114,7 +89,3 @@ Route::group(['middleware' => 'guest'], function () {
 Route::get('/login', function () {
     return view('session/login-session');
 })->name('login');
-
-//Auth::routes();
-
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
