@@ -43,14 +43,6 @@ class SertifikasiImport implements ToModel
                 // Sesuaikan dengan kolom-kolom lainnya
             ]);
         } else {
-            // Data sudah ada (duplikasi), Anda bisa melakukan penanganan yang sesuai di sini
-            // Contoh:
-            // 1. Memberikan notifikasi kepada pengguna bahwa ada data yang sama
-            // 2. Melakukan logging atau pencatatan kejadian duplikasi
-            // 3. Melakukan update pada data yang sudah ada
-            // 4. Mengabaikan baris yang mengandung duplikasi
-
-            // Misalnya, memberikan notifikasi kepada pengguna
             \Illuminate\Support\Facades\Session::flash('warning', 'Duplikasi data ditemukan untuk baris tertentu.');
 
             // Kembalikan nilai null agar baris ini diabaikan

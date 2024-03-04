@@ -9,14 +9,14 @@
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <div class="d-flex">
 
-                        <a href="{{ route('sertifikasi.download-pdf', ['search' => request()->input('search'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-danger btn-2x me-2">
-                            <i class="fas fa-file-pdf"></i> Cetak Sertifikasi PDF
+                        <a href="{{ route('magang.download-pdf', ['search' => request()->input('search'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-danger btn-2x me-2">
+                            <i class="fas fa-file-pdf"></i> Cetak magang PDF
                         </a>
 
 
                         <!-- Button trigger modal input -->
                         <button type="button" class="btn btn-dark btn-2x me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            <i class="fas fa-plus"></i> Tambah Sertifikasi
+                            <i class="fas fa-plus"></i> Tambah magang
                         </button>
 
                         <!-- Modal input data -->
@@ -24,13 +24,13 @@
                             <div class="modal-dialog modal-dialog-centered modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Tambah Sertifikasi</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Tambah magang</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
 
                                     <div class="modal-body" style="max-height: 450px; overflow-y: auto;">
                                         <!-- Isi formulir di sini -->
-                                        <form action="{{ route('sertifikasi.store') }}" method="POST">
+                                        <form action="{{ route('magang.store') }}" method="POST">
                                             @csrf
                                             <!-- Isi formulir dengan input yang sesuai -->
                                             <div class="mb-3">
@@ -63,8 +63,8 @@
                                                 <input type="text" class="form-control" id="namaProgram" name="namaProgram">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="tahunSertifikasi" class="form-label">Tahun Sertifikasi</label>
-                                                <input type="number" class="form-control" id="tahunSertifikasi" name="tahunSertifikasi">
+                                                <label for="tahunmagang" class="form-label">Tahun magang</label>
+                                                <input type="number" class="form-control" id="tahunmagang" name="tahunmagang">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="tanggalPelaksanaanMulai" class="form-label">Tanggal Pelaksanaan Mulai</label>
@@ -96,7 +96,7 @@
                         </div>
 
                         <!-- upload file excel -->
-                        <form id="uploadForm" action="{{ route('sertifikasi.upload-excel') }}" method="POST" enctype="multipart/form-data" class="btn btn-light btn-2x me-2">
+                        <form id="uploadForm" action="{{ route('magang.uploadExcel') }}" method="POST" enctype="multipart/form-data" class="btn btn-light btn-2x me-2">
                             @csrf
                             <i class="fas fa-file-excel  fa-sm"></i>
                             <input type="file" name="file" class="rounded">
@@ -127,19 +127,19 @@
                             </div>
                         </div>
                         <!-- Reload Data Terbaru-->
-                        <a href="{{ route('sertifikasi') }}" class="btn btn-light btn-2x me-2">
+                        <a href="{{ route('magang') }}" class="btn btn-light btn-2x me-2">
                             <i class="fas fa-sync fa-sm"></i> Reload
                         </a>
-                        <!-- Filter data berdasarkan tahun sertifikasi-->
-                        <form action="{{ route('sertifikasi.filterYear') }}" method="GET" class="ms-3">
+                        <!-- Filter data berdasarkan tahun magang-->
+                        <form action="{{ route('magang.filterYear') }}" method="GET" class="ms-3">
                             <select name="tahun" id="tahun" onchange="this.form.submit()" class="form-select" style="min-width: 90px;">
                                 <option value="Tahun">Tahun</option>
                                 @for ($i = 2003; $i <= 2024; $i++) <option value="{{ $i }}" {{ request('tahun') == $i ? 'selected' : '' }}>{{ $i }}</option>
                                     @endfor
                             </select>
                         </form>
-                        <!-- Filter data berdasarkan tahun sertifikasi-->
-                        <form action="{{ route('sertifikasi.filterByMonth') }}" method="GET" class="ms-3">
+                        <!-- Filter data berdasarkan tahun magang-->
+                        <form action="{{ route('magang.filterByMonth') }}" method="GET" class="ms-3">
                             <select name="bulan" id="bulan" onchange="this.form.submit()" class="form-select" style="min-width: 90px;">
                                 <option value="">Bulan</option>
                                 @for ($i = 1; $i <= 12; $i++) <option value="{{ str_pad($i, 2, '0', STR_PAD_LEFT) }}" {{ request('bulan') == str_pad($i, 2, '0', STR_PAD_LEFT) ? 'selected' : '' }}>
@@ -158,10 +158,10 @@
             <!-- Table Sertifkasi -->
             <div class="card mb-4">
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
-                    <h6>Data Sertifikasi</h6>
+                    <h6>Data magang</h6>
                 </div>
-                <form id="filterNamaProgramForm" class="ms-3" action="{{ route('sertifikasi.filterData') }}" method="GET">
-                    <input type="text" name="search" id="search" class="form-control" placeholder="Cari Berdasarkan Nama Program, Nama Pekerja, atau Departemen">
+                <form id="filterNamaProgramForm" class="ms-3" action="{{ route('magang.filterData') }}" method="GET">
+                    <input type="text" name="search" id="search" class="form-control" placeholder="Cari Berdasarkan Nama, Institusi, atau Departemen">
                 </form>
 
                 <div class="card-body px-0 pt-0 pb-2">
@@ -172,23 +172,31 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ">
                                         No</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
-                                        NoPek</th>
+                                        Nama</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
-                                        Nama Pekerja</th>
+                                        Institusi</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
-                                        Dept</th>
+                                        Kategori</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
-                                        Nama Program</th>
+                                        Jurusan/Fakultas</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
                                         Tanggal Mulai</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
                                         Tanggal Selesai</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
-                                        Days</th>
+                                        Kegiatan</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
-                                        Tempat</th>
+                                        Dept</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
-                                        Nama Penyelenggara</th>
+                                        Daring/Luring</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                        Lokasi</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                        Mentor</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                        Status Surat</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                        Keterangan</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
                                         Aksi
                                     </th>
@@ -196,21 +204,25 @@
                             </thead>
                             <tbody>
                                 @php $index = 1 @endphp
-                                @foreach ($sertifikasis as $sertifikasi)
+                                @foreach ($magangs as $magang)
                                 <tr>
                                     <td style="font-size: 14px;">{{ $index }}</td>
-                                    <td style="font-size: 14px;">{{ $sertifikasi->noPek }}</td>
-                                    <td style="font-size: 14px;">{{ $sertifikasi->namaPekerja }}</td>
-                                    <td style="font-size: 14px;">{{ $sertifikasi->dept }}</td>
-                                    <td style="font-size: 14px;">{{ $sertifikasi->namaProgram }}</td>
-                                    <td style="font-size: 14px;">{{ $sertifikasi->tanggalPelaksanaanMulai }}</td>
-                                    <td style="font-size: 14px;">{{ $sertifikasi->tanggalPelaksanaanSelesai }}</td>
-                                    <td style="font-size: 14px;">{{ $sertifikasi->days }}</td>
-                                    <td style="font-size: 14px;">{{ $sertifikasi->tempat }}</td>
-                                    <td style="font-size: 14px;">{{ $sertifikasi->namaPenyelenggara }}</td>
+                                    <td style="font-size: 14px;">{{ $magang->nama }}</td>
+                                    <td style="font-size: 14px;">{{ $magang->institusi }}</td>
+                                    <td style="font-size: 14px;">{{ $magang->kategori }}</td>
+                                    <td style="font-size: 14px;">{{ $magang->jurusan_fakultas }}</td>
+                                    <td style="font-size: 14px;">{{ $magang->tanggalMulai }}</td>
+                                    <td style="font-size: 14px;">{{ $magang->tanggalSelesai }}</td>
+                                    <td style="font-size: 14px;">{{ $magang->kegiatan }}</td>
+                                    <td style="font-size: 14px;">{{ $magang->dept }}</td>
+                                    <td style="font-size: 14px;">{{ $magang->daring_luring }}</td>
+                                    <td style="font-size: 14px;">{{ $magang->lokasi }}</td>
+                                    <td style="font-size: 14px;">{{ $magang->mentor }}</td>
+                                    <td style="font-size: 14px;">{{ $magang->statusSurat }}</td>
+                                    <td style="font-size: 14px;">{{ $magang->keterangan }}</td>
                                     <td style="font-size: 14px;">
-                                        <a href="#" class="btn btn-sm btn-outline-warning editButton" data-bs-toggle="modal" data-bs-target=".modalEdit" data-id="{{ $sertifikasi->id }}">Edit</a>
-                                        <form action="{{ route('sertifikasi.destroy', $sertifikasi->id) }}" method="POST" class="d-inline deleteForm" data-id="{{ $sertifikasi->id }}">
+                                        <a href="#" class="btn btn-sm btn-outline-warning editButton" data-bs-toggle="modal" data-bs-target=".modalEdit" data-id="{{ $magang->id }}">Edit</a>
+                                        <form action="{{ route('magang.destroy', $magang->id) }}" method="POST" class="d-inline deleteForm" data-id="{{ $magang->id }}">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-outline-danger deleteButton">Hapus</button>
@@ -223,27 +235,27 @@
                                     <div class="modal-dialog modal-dialog-centered modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="modalEditLabel">Edit Sertifikasi</h5>
+                                                <h5 class="modal-title" id="modalEditLabel">Edit magang</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body " style="max-height: 450px; overflow-y: auto;">
-                                                <!-- Form untuk mengedit sertifikasi -->
-                                                <form action="{{ route('sertifikasi.edit', $sertifikasi->id) }}" method="POST" id="editForm">
+                                                <!-- Form untuk mengedit magang -->
+                                                <form action="{{ route('magang.edit', $magang->id) }}" method="POST" id="editForm">
                                                     @csrf
                                                     @method('PUT')
                                                     <!-- Isi form sesuai kebutuhan -->
                                                     <div class="mb-3">
                                                         <label for="noPek" class="form-label">Nomor Pekerja</label>
-                                                        <input type="number" class="form-control" id="noPek" name="noPek" value="{{ $sertifikasi->noPek }}">
+                                                        <input type="number" class="form-control" id="noPek" name="noPek" value="{{ $magang->noPek }}">
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="namaPekerja" class="form-label">Nama Pekerja</label>
-                                                        <input type="text" class="form-control" id="namaPekerja" name="namaPekerja" value="{{ $sertifikasi->namaPekerja }}">
+                                                        <input type="text" class="form-control" id="namaPekerja" name="namaPekerja" value="{{ $magang->namaPekerja }}">
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="dept" class="form-label">Nama Departemen</label>
                                                         <select class="form-select" id="dept" name="dept">
-                                                            <option>{{ $sertifikasi->dept}}</option>
+                                                            <option>{{ $magang->dept}}</option>
                                                             <option value="SPRM">SPRM</option>
                                                             <option value="Corporate Secretary">Corporate Secretary</option>
                                                             <option value="Exploration">Exploration</option>
@@ -260,32 +272,32 @@
 
                                                     <div class="mb-3">
                                                         <label for="namaProgram" class="form-label">Nama Program</label>
-                                                        <input type="text" class="form-control" id="namaProgram" name="namaProgram" value="{{ $sertifikasi->namaProgram }}">
+                                                        <input type="text" class="form-control" id="namaProgram" name="namaProgram" value="{{ $magang->namaProgram }}">
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="tahunSertifikasi" class="form-label">Tahun Sertifikasi</label>
-                                                        <input type="number" class="form-control" id="tahunSertifikasi" name="tahunSertifikasi" value="{{ $sertifikasi->tahunSertifikasi }}">
+                                                        <label for="tahunmagang" class="form-label">Tahun magang</label>
+                                                        <input type="number" class="form-control" id="tahunmagang" name="tahunmagang" value="{{ $magang->tahunmagang }}">
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="tanggalPelaksanaanMulai" class="form-label">Tanggal Pelaksanaan Mulai</label>
-                                                        <input type="date" class="form-control" id="tanggalPelaksanaanMulai" name="tanggalPelaksanaanMulai" value="{{ $sertifikasi->tanggalPelaksanaanMulai }}">
+                                                        <input type="date" class="form-control" id="tanggalPelaksanaanMulai" name="tanggalPelaksanaanMulai" value="{{ $magang->tanggalPelaksanaanMulai }}">
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="tanggalPelaksanaanSelesai" class="form-label">Tanggal Pelaksanaan Selesai</label>
-                                                        <input type="date" class="form-control" id="tanggalPelaksanaanSelesai" name="tanggalPelaksanaanSelesai" value="{{ $sertifikasi->tanggalPelaksanaanSelesai }}">
+                                                        <input type="date" class="form-control" id="tanggalPelaksanaanSelesai" name="tanggalPelaksanaanSelesai" value="{{ $magang->tanggalPelaksanaanSelesai }}">
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="tempat" class="form-label">Tempat</label>
-                                                        <input type="text" class="form-control" id="tempat" name="tempat" value="{{ $sertifikasi->tempat }}">
+                                                        <input type="text" class="form-control" id="tempat" name="tempat" value="{{ $magang->tempat }}">
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="days" class="form-label">Jumlah Hari</label>
-                                                        <input type="text" class="form-control" id="days" name="days" value="{{ $sertifikasi->days }}">
+                                                        <input type="text" class="form-control" id="days" name="days" value="{{ $magang->days }}">
                                                     </div>
 
                                                     <div class="mb-3">
                                                         <label for="namaPenyelenggara" class="form-label">Nama Penyelenggara</label>
-                                                        <input type="text" class="form-control" id="namaPenyelenggara" name="namaPenyelenggara" value="{{ $sertifikasi->namaPenyelenggara }}">
+                                                        <input type="text" class="form-control" id="namaPenyelenggara" name="namaPenyelenggara" value="{{ $magang->namaPenyelenggara }}">
                                                     </div>
                                                     <!-- Tambahkan input lainnya sesuai kebutuhan -->
                                                 </form>
@@ -304,12 +316,12 @@
                         </table>
 
                         <div class="d-flex">
-                            {{ $sertifikasis->links() }}
+                            {{ $magangs->links() }}
                         </div>
 
                         <div class="float-start">
                             <p class="text-muted">
-                                Showing {{ $sertifikasis->firstItem() }} to {{ $sertifikasis->lastItem() }} of {{ $sertifikasis->total() }} entries
+                                Showing {{ $magangs->firstItem() }} to {{ $magangs->lastItem() }} of {{ $magangs->total() }} entries
                             </p>
                         </div>
 
@@ -353,27 +365,27 @@
                             });
 
                             //script agar tahun pada tanggalPelaksanaanMulai dan Selesai otomatis terubah sesuai dengan
-                            //Tahun sertifikasi yang diinputkan sebelumnya
+                            //Tahun magang yang diinputkan sebelumnya
                             document.addEventListener('DOMContentLoaded', function() {
-                                // Ambil elemen input tahunSertifikasi
-                                var tahunSertifikasiInput = document.getElementById('tahunSertifikasi');
+                                // Ambil elemen input tahunmagang
+                                var tahunmagangInput = document.getElementById('tahunmagang');
 
                                 // Ambil elemen input tanggalPelaksanaanMulai dan tanggalPelaksanaanSelesai
                                 var tanggalPelaksanaanMulaiInput = document.getElementById('tanggalPelaksanaanMulai');
                                 var tanggalPelaksanaanSelesaiInput = document.getElementById('tanggalPelaksanaanSelesai');
 
-                                // Tambahkan event listener ketika nilai tahunSertifikasi berubah
-                                tahunSertifikasiInput.addEventListener('change', function() {
-                                    // Ambil nilai tahunSertifikasi
-                                    var tahunSertifikasi = tahunSertifikasiInput.value;
+                                // Tambahkan event listener ketika nilai tahunmagang berubah
+                                tahunmagangInput.addEventListener('change', function() {
+                                    // Ambil nilai tahunmagang
+                                    var tahunmagang = tahunmagangInput.value;
 
-                                    // Periksa apakah tahunSertifikasi memiliki nilai
-                                    if (tahunSertifikasi) {
+                                    // Periksa apakah tahunmagang memiliki nilai
+                                    if (tahunmagang) {
                                         // Set nilai tahun pada tanggalPelaksanaanMulai dan tanggalPelaksanaanSelesai
-                                        tanggalPelaksanaanMulaiInput.value = tahunSertifikasi + '-01-01'; // Tanggal mulai diatur menjadi 01 Januari tahunSertifikasi
-                                        tanggalPelaksanaanSelesaiInput.value = tahunSertifikasi + '-12-31'; // Tanggal selesai diatur menjadi 31 Desember tahunSertifikasi
+                                        tanggalPelaksanaanMulaiInput.value = tahunmagang + '-01-01'; // Tanggal mulai diatur menjadi 01 Januari tahunmagang
+                                        tanggalPelaksanaanSelesaiInput.value = tahunmagang + '-12-31'; // Tanggal selesai diatur menjadi 31 Desember tahunmagang
                                     } else {
-                                        // Kosongkan nilai tanggalPelaksanaanMulai dan tanggalPelaksanaanSelesai jika tahunSertifikasi tidak memiliki nilai
+                                        // Kosongkan nilai tanggalPelaksanaanMulai dan tanggalPelaksanaanSelesai jika tahunmagang tidak memiliki nilai
                                         tanggalPelaksanaanMulaiInput.value = '';
                                         tanggalPelaksanaanSelesaiInput.value = '';
                                     }
