@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('ses_nonada', function (Blueprint $table) {
             $table->id('idNonadaSES')->autoIncrement(false)->primary();
+            $table->unsignedBigInteger('idNonadaPO');
             $table->string('judulPekerjaan');
+            $table->foreign('idNonadaPO')->references('idNonadaPO')->on('po_nonada')->onDelete('cascade');
             $table->timestamps();
         });
     }

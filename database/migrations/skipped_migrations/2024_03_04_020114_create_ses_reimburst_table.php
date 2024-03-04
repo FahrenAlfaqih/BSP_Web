@@ -11,9 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ses_service', function (Blueprint $table) {
-            $table->id('idServiceSES')->autoIncrement(false)->primary();
+        Schema::create('ses_reimburst', function (Blueprint $table) {
+            $table->id('idSReimburstSES')->autoIncrement(false)->primary();
+            $table->unsignedBigInteger('idReimburstPO');
             $table->string('judulPekerjaan');
+            $table->foreign('idReimburstPO')->references('idReimburstPO')->on('po_reimburst')->onDelete('cascade');
+
             $table->timestamps();
         });
     }
@@ -23,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ses_service');
+        Schema::dropIfExists('ses_reimburst');
     }
 };
