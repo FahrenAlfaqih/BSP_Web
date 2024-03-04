@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('po_reimburst', function (Blueprint $table) {
-            $table->integer('idReimburstPO')->primary();
-            $table->unsignedBigInteger('idReimburstPR')->nullable();
-            $table->foreign('idReimburstPR')->references('idReimburstPR')->on('pr_reimburst')->onDelete('set null');
+        Schema::create('po_nonada', function (Blueprint $table) {
+            $table->id('idNonadaPO')->autoIncrement(false)->primary();
+            $table->unsignedBigInteger('idNonadaPR');
             $table->string('judulPekerjaan');
             $table->timestamps();
+            $table->foreign('idNonadaPR')->references('idNonadaPR')->on('pr_nonada')->onDelete('cascade');
         });
+        
     }
 
     /**
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('po_reimburst');
+        Schema::dropIfExists('po_nonada');
     }
 };

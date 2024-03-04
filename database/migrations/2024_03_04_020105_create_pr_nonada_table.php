@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pr_nonada', function (Blueprint $table) {
-            $table->integer('idNonadaPR')->primary();
+            $table->id('idNonadaPR')->autoIncrement(false)->primary();
             $table->string('judulPekerjaan');
             $table->timestamps();
         });
