@@ -27,12 +27,13 @@ class SertifikasiController extends Controller
         $sertifikasis = Sertifikasi::where('tahunSertifikasi', $tahun)->paginate(10);;
         return view('sertifikasi.index', compact('sertifikasis'));
     }
-    
-    //function untuk memfilter data berdasarkan bulan di tahun yang telah difilter sebelumnya
-    public function filterByMonth(Request $request)
+
+    // Di controller Anda
+    public function filterByDate(Request $request)
     {
         $bulan = $request->input('bulan');
-        $sertifikasis = Sertifikasi::filterByMonth($bulan)->paginate(10);
+        $tahun = $request->input('tahun');
+        $sertifikasis = Sertifikasi::filterByDate($bulan, $tahun)->paginate(10);
         return view('sertifikasi.index', compact('sertifikasis'));
     }
 

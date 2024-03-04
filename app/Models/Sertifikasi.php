@@ -13,8 +13,15 @@ class Sertifikasi extends Model
         'noPek', 'namaPekerja', 'dept', 'namaProgram', 'tahunSertifikasi', 'tanggalPelaksanaanMulai', 'tanggalPelaksanaanSelesai', 'days', 'tempat', 'namaPenyelenggara'
     ];
 
-    public function scopeFilterByMonth($query, $bulan)
+    // Di model Anda (Sertifikasi)
+    public function scopeFilterByDate($query, $bulan, $tahun)
     {
-        return $query->whereMonth('tanggalPelaksanaanMulai', $bulan);
+        return $query->where(function ($q) use ($bulan, $tahun) {
+            $q->whereMonth('tanggalPelaksanaanMulai', $bulan)
+                ->whereYear('tanggalPelaksanaanMulai', $tahun);
+        })->orWhere(function ($q) use ($bulan, $tahun) {
+            $q->whereMonth('tanggalPelaksanaanSelesai', $bulan)
+                ->whereYear('tanggalPelaksanaanSelesai', $tahun);
+        });
     }
 }
