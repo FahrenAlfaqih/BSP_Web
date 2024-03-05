@@ -28,10 +28,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'auth'], function () {
 
-    Route::get('/', [HomeController::class, 'home'])->name('home');
-    Route::get('dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/', [HomeController::class, 'home'])->name('dashboard'); 
+    Route::get('/dashboard', [HomeController::class, 'home'])->name('dashboard');
+    
+    // Route::get('dashboard', function () {
+    //     return view('dashboard');
+    // })->name('dashboard');
 
     Route::prefix('sertifikasi')->group(function () {
         // Menampilkan dan memfilter data sertifikasi
