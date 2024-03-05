@@ -10,7 +10,9 @@ use Carbon\Carbon;
 class HomeController extends Controller
 {
     public function home(){
-        $data=Sertifikasi::select('id',"tanggalPelaksanaanMulai")->get()->groupBy(function($data){
+        $data=Sertifikasi::select('id',"tanggalPelaksanaanMulai")->get()
+        ->sortBy('tanggalPelaksanaanMulai') 
+        ->groupBy(function($data){
             return Carbon::parse($data->tanggalPelaksanaanMulai)->format('Y');
         });
 
