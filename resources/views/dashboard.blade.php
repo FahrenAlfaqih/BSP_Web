@@ -181,7 +181,7 @@
     new Chart(ctx2, {
       type: "line",
       data: {
-        labels: _ydata2,
+        labels: _ydata,
         datasets: [{
             label: "Mobile apps",
             tension: 0.4,
