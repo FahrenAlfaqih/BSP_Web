@@ -104,14 +104,11 @@
       },
       options: {
         responsive: true,
-        maintainAspectRatio: true,
+        maintainAspectRatio: false,
         plugins: {
           legend: {
             display: false,
           },
-          customCanvasBackgroundColor: {
-            color: 'lightGreen',
-          }
         },
         interaction: {
           intersect: false,
@@ -181,7 +178,7 @@
     new Chart(ctx2, {
       type: "line",
       data: {
-        labels: _ydata,
+        labels: _ydata2,
         datasets: [{
             label: "Mobile apps",
             tension: 0.4,
@@ -192,19 +189,6 @@
             backgroundColor: gradientStroke1,
             fill: true,
             data: _xdata2,
-            maxBarThickness: 6
-
-          },
-          {
-            label: "Websites",
-            tension: 0.4,
-            borderWidth: 0,
-            pointRadius: 0,
-            borderColor: "#3A416F",
-            borderWidth: 3,
-            backgroundColor: gradientStroke2,
-            fill: true,
-            data: _xdata,
             maxBarThickness: 6
           },
         ],
