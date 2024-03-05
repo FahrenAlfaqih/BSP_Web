@@ -8,10 +8,13 @@
             <div class="card mb-3">
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <div class="d-flex">
-
-                        <a href="{{ route('poreimburst.download-pdf', ['search' => request()->input('search'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-danger btn-2x me-2">
-                            <i class="fas fa-file-pdf"></i> Cetak poreimburst PDF
+                        <a href="{{ route('prreimburst.download-excel', ['search' => request()->input('search'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-success btn-2x me-2">
+                            <i class="fas fa-file-excel"></i> Cetak Excel
                         </a>
+                        <a href="{{ route('poreimburst.download-pdf', ['search' => request()->input('search'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-danger btn-2x me-2">
+                            <i class="fas fa-file-pdf"></i> Cetak  PDF
+                        </a>
+
 
 
                         <!-- Button trigger modal input -->
@@ -42,7 +45,8 @@
                                                 <select class="form-select" id="idReimburstPR" name="idReimburstPR">
                                                     @foreach($prReimbursts as $prReimburst)
                                                     <option value="{{ $prReimburst->idReimburstPR }}">
-                                                        {{ $prReimburst->idReimburstPR }} - {{ $prReimburst->judulPekerjaan }}</option>
+                                                        {{ $prReimburst->idReimburstPR }} - {{ $prReimburst->judulPekerjaan }}
+                                                    </option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -118,7 +122,7 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ">
                                         No</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
-                                        Nomor  Pre Order </th>
+                                        Nomor Pre Order </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
                                         Nomor Purchase Request </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">

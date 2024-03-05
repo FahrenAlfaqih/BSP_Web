@@ -8,9 +8,9 @@ use App\Http\Controllers\ResetController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\SertifikasiController;
 use App\Http\Controllers\MagangController;
-use App\Http\Controllers\PoReimburstController;
-use App\Http\Controllers\PrReimburstController;
+use App\Http\Controllers\PurchaseReqController;
 use App\Http\Controllers\SesReimburstController;
+use App\Http\Controllers\PreOrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Route;
@@ -66,46 +66,42 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('/{id}', [MagangController::class, 'deleteMagang'])->name('magang.destroy');
     });
 
-    Route::prefix('prreimburst')->group(function () {
-        // Menampilkan dan memfilter data sertifikasi
-        Route::get('/', [PrReimburstController::class, 'index'])->name('[prreimburst]');
-        Route::get('/filterData', [PrReimburstController::class, 'filterData'])->name('prreimburst.filterData');
-        // Download file PDF
-        Route::get('/download-excel', [PrReimburstController::class, 'downloadExcel'])->name('prreimburst.download-excel');
-        // Upload file Excel untuk inputan data
-        Route::post('/uploadExcel', [PrReimburstController::class, 'uploadExcel'])->name('prreimburst.uploadExcel');
-        // CRUD data sertifikasi
-        Route::post('/store', [PrReimburstController::class, 'store'])->name('prreimburst.store');
-        Route::put('/{id}/edit', [PrReimburstController::class, 'editPrreimburst'])->name('prreimburst.edit');
-        Route::delete('/{id}', [PrReimburstController::class, 'deletePrreimburst'])->name('prreimburst.destroy');
-    });
-    Route::prefix('poreimburst')->group(function () {
-        // Menampilkan dan memfilter data sertifikasi
-        Route::get('/', [PoReimburstController::class, 'index'])->name('[poreimburst]');
-        Route::get('/filterData', [PoReimburstController::class, 'filterData'])->name('poreimburst.filterData');
-        // Download file PDF
-        Route::get('/download-pdf', [PoReimburstController::class, 'downloadPDF'])->name('poreimburst.download-pdf');
-        // Upload file Excel untuk inputan data
-        Route::post('/uploadExcel', [PoReimburstController::class, 'uploadExcel'])->name('poreimburst.uploadExcel');
-        // CRUD data sertifikasi
-        Route::post('/store', [PoReimburstController::class, 'store'])->name('poreimburst.store');
-        Route::put('/{id}/edit', [PoReimburstController::class, 'editPrreimburst'])->name('poreimburst.edit');
-        Route::delete('/{id}', [PoReimburstController::class, 'deletePrreimburst'])->name('poreimburst.destroy');
+
+
+
+    Route::prefix('pr')->group(function () {
+        Route::get('/', [PurchaseReqController::class, 'index'])->name('prreimburst');
+        Route::get('/service', [PurchaseReqController::class, 'indexService'])->name('prservice');
+        Route::get('/nonada', [PurchaseReqController::class, 'indexNonAda'])->name('prnonada');
+
+        Route::get('/filterData', [PurchaseReqController::class, 'filterData'])->name('prreimburst.filterData');
+        Route::get('/download-excel', [PurchaseReqController::class, 'downloadExcel'])->name('prreimburst.download-excel');
+        Route::post('/uploadExcel', [PurchaseReqController::class, 'uploadExcel'])->name('prreimburst.uploadExcel');
+        Route::post('/store', [PurchaseReqController::class, 'store'])->name('prreimburst.store');
+        Route::put('/{id}/edit', [PurchaseReqController::class, 'editPrreimburst'])->name('prreimburst.edit');
+        Route::delete('/{id}', [PurchaseReqController::class, 'deletePrreimburst'])->name('prreimburst.destroy');
     });
 
-    Route::prefix('sesreimburst')->group(function () {
-        // Menampilkan dan memfilter data sertifikasi
-        Route::get('/', [SesReimburstController::class, 'index'])->name('[sesreimburst]');
+    Route::prefix('po')->group(function () {
+        Route::get('/', [PreOrderController::class, 'index'])->name('poreimburst');
+        Route::get('/filterData', [PreOrderController::class, 'filterData'])->name('poreimburst.filterData');
+        Route::get('/download-pdf', [PreOrderController::class, 'downloadPDF'])->name('poreimburst.download-pdf');
+        Route::post('/uploadExcel', [PreOrderController::class, 'uploadExcel'])->name('poreimburst.uploadExcel');
+        Route::post('/store', [PreOrderController::class, 'store'])->name('poreimburst.store');
+        Route::put('/{id}/edit', [PreOrderController::class, 'editPrreimburst'])->name('poreimburst.edit');
+        Route::delete('/{id}', [PreOrderController::class, 'deletePrreimburst'])->name('poreimburst.destroy');
+    });
+
+    Route::prefix('ses')->group(function () {
+        Route::get('/', [SesReimburstController::class, 'index'])->name('sesreimburst');
         Route::get('/filterData', [SesReimburstController::class, 'filterData'])->name('sesreimburst.filterData');
-        // Download file PDF
         Route::get('/download-pdf', [SesReimburstController::class, 'downloadPDF'])->name('sesreimburst.download-pdf');
-        // Upload file Excel untuk inputan data
         Route::post('/uploadExcel', [SesReimburstController::class, 'uploadExcel'])->name('sesreimburst.uploadExcel');
-        // CRUD data sertifikasi
         Route::post('/store', [SesReimburstController::class, 'store'])->name('sesreimburst.store');
         Route::put('/{id}/edit', [SesReimburstController::class, 'editPrreimburst'])->name('sesreimburst.edit');
         Route::delete('/{id}', [SesReimburstController::class, 'deletePrreimburst'])->name('sesreimburst.destroy');
     });
+
 
     Route::get('static-sign-up', function () {
         return view('static-sign-up');

@@ -16,8 +16,12 @@ class MagangController extends Controller
     public function index()
     {
         $magangs = Magang::paginate(10);
-        return view('magang.index', compact('magangs'));
+        $uniqueActivities = Magang::distinct()->pluck('kegiatan');
+        $uniqueDept = Magang::distinct()->pluck('dept');
+
+        return view('magang.index', compact('magangs', 'uniqueActivities', 'uniqueDept'));
     }
+
 
     //function untuk memfilter data berdasarkan tahun sertifikai
     public function filterByYear(Request $request)
@@ -52,16 +56,19 @@ class MagangController extends Controller
         try {
             // Validasi data
             $validatedData = $request->validate([
-                'noPek' => 'required',
-                'namaPekerja' => 'required',
+                'nama' => 'required',
+                'institusi' => 'required',
+                'kategori' => 'required',
+                'jurusan_fakultas' => 'required',
+                'tanggalMulai' => 'required',
+                'tanggalSelesai' => 'required',
+                'kegiatan' => 'required',
                 'dept' => 'required',
-                'namaProgram' => 'required',
-                'tahunMagang' => 'required',
-                'tanggalPelaksanaanMulai' => 'required',
-                'tanggalPelaksanaanSelesai' => 'required',
-                'days' => 'required',
-                'tempat' => 'required',
-                'namaPenyelenggara' => 'required',
+                'daring_luring' => 'required',
+                'lokasi' => 'required',
+                'mentor' => 'required',
+                'statusSurat' => 'required',
+                'keterangan' => 'required',
 
             ]);
             Magang::create($validatedData);

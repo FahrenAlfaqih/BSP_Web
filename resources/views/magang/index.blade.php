@@ -21,75 +21,93 @@
 
                         <!-- Modal input data -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 60%;">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLabel">Tambah magang</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-
-                                    <div class="modal-body" style="max-height: 450px; overflow-y: auto;">
-                                        <!-- Isi formulir di sini -->
-                                        <form action="{{ route('magang.store') }}" method="POST">
+                                    <div class="modal-body" style="max-height: 500px; overflow-y: auto;">
+                                        <form action="{{ route('magang.store') }}" method="POST" class="row g-3">
                                             @csrf
                                             <!-- Isi formulir dengan input yang sesuai -->
-                                            <div class="mb-3">
-                                                <label for="noPek" class="form-label">Nomor Pekerja</label>
-                                                <input type="number" class="form-control" id="noPek" name="noPek">
+                                            <div class="col-md-6">
+                                                <label for="nama" class="form-label">Nama</label>
+                                                <input type="text" class="form-control" id="nama" name="nama">
                                             </div>
-                                            <div class="mb-3">
-                                                <label for="namaPekerja" class="form-label">Nama Pekerja</label>
-                                                <input type="text" class="form-control" id="namaPekerja" name="namaPekerja">
+                                            <div class="col-md-6">
+                                                <label for="institusi" class="form-label">Institusi</label>
+                                                <input type="text" class="form-control" id="institusi" name="institusi">
                                             </div>
-                                            <div class="mb-3">
-                                                <label for="dept" class="form-label">Nama Departemen</label>
+                                            <div class="col-md-6">
+                                                <label for="dept" class="form-label">Departemen</label>
                                                 <select class="form-select" id="dept" name="dept">
-                                                    <option value="SPRM">SPRM</option>
-                                                    <option value="Corporate Secretary">Corporate Secretary</option>
-                                                    <option value="Exploration">Exploration</option>
-                                                    <option value="Exploitation">Exploitation</option>
-                                                    <option value="Production Operation">Production Operation</option>
-                                                    <option value="Drilling & Worker">Drilling & Worker</option>
-                                                    <option value="Operation Support">Operation Support</option>
-                                                    <option value="HCM">HCM</option>
-                                                    <option value="SCM">SCM</option>
-                                                    <option value="Internal Audit">Internal Audit</option>
-                                                    <option value="External Affair">External Affair</option>
+                                                    @foreach($uniqueDept as $dept)
+                                                    <option value="{{ $dept }}">{{ $dept }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="kategori" class="form-label">Jenjang Pendidikan</label>
+                                                <input type="text" class="form-control" id="kategori" name="kategori">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="jurusan_fakultas" class="form-label">Jurusan / Fakultas</label>
+                                                <input type="text" class="form-control" id="jurusan_fakultas" name="jurusan_fakultas">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="tanggalMulai" class="form-label">Tanggal Pelaksanaan Mulai</label>
+                                                <input type="date" class="form-control" id="tanggalMulai" name="tanggalMulai">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="tanggalSelesai" class="form-label">Tanggal Pelaksanaan Selesai</label>
+                                                <input type="date" class="form-control" id="tanggalSelesai" name="tanggalSelesai">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="kegiatan" class="form-label">Kegiatan</label>
+                                                <select class="form-select" id="kegiatan" name="kegiatan">
+                                                    @foreach($uniqueActivities as $activity)
+                                                    <option value="{{ $activity }}">{{ $activity }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
 
-                                            <div class="mb-3">
-                                                <label for="namaProgram" class="form-label">Nama Program</label>
-                                                <input type="text" class="form-control" id="namaProgram" name="namaProgram">
+                                            <div class="col-md-6">
+                                                <label for="daring_luring" class="form-label">Jenis Pelaksanaan</label>
+                                                <select class="form-select" id="daring_luring" name="daring_luring">
+                                                    <option value="OFFLINE">OFFLINE</option>
+                                                    <option value="ONLINE">ONLINE</option>
+                                                    <option value="HYBRID">HYBRID</option>
+                                                </select>
                                             </div>
-                                            <div class="mb-3">
-                                                <label for="tahunmagang" class="form-label">Tahun magang</label>
-                                                <input type="number" class="form-control" id="tahunmagang" name="tahunmagang">
+
+                                            <div class="col-md-6">
+                                                <label for="lokasi" class="form-label">Lokasi</label>
+                                                <input type="text" class="form-control" id="lokasi" name="lokasi">
                                             </div>
-                                            <div class="mb-3">
-                                                <label for="tanggalPelaksanaanMulai" class="form-label">Tanggal Pelaksanaan Mulai</label>
-                                                <input type="date" class="form-control" id="tanggalPelaksanaanMulai" name="tanggalPelaksanaanMulai">
+                                            <div class="col-md-6">
+                                                <label for="mentor" class="form-label">Nama Mentor</label>
+                                                <input type="text" class="form-control" id="mentor" name="mentor">
                                             </div>
-                                            <div class="mb-3">
-                                                <label for="tanggalPelaksanaanSelesai" class="form-label">Tanggal Pelaksanaan Selesai</label>
-                                                <input type="date" class="form-control" id="tanggalPelaksanaanSelesai" name="tanggalPelaksanaanSelesai">
+                                            <div class="col-md-6">
+                                                <label for="statusSurat" class="form-label">Status Surat</label>
+                                                <select class="form-select" id="statusSurat" name="statusSurat">
+                                                    <option value="OK">OK</option>
+                                                    <option value="TIDAK OK">TIDAK OK</option>
+                                                </select>
                                             </div>
-                                            <div class="mb-3">
-                                                <label for="tempat" class="form-label">Tempat</label>
-                                                <input type="text" class="form-control" id="tempat" name="tempat">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="days" class="form-label">Jumlah Hari</label>
-                                                <input type="text" class="form-control" id="days" name="days">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="namaPenyelenggara" class="form-label">Nama Penyelenggara</label>
-                                                <input type="text" class="form-control" id="namaPenyelenggara" name="namaPenyelenggara">
+
+                                            <div class="col-md-6">
+                                                <label for="keterangan" class="form-label">Keterangan</label>
+                                                <input type="text" class="form-control" id="keterangan" name="keterangan">
                                             </div>
                                             <!-- Tambahkan input lain sesuai kebutuhan -->
-                                            <button type="submit" class="btn btn-primary">Simpan</button>
+                                            <div class="col-12">
+                                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                            </div>
                                         </form>
                                     </div>
+
 
                                 </div>
                             </div>
@@ -245,8 +263,8 @@
                                                     @method('PUT')
                                                     <!-- Isi form sesuai kebutuhan -->
                                                     <div class="mb-3">
-                                                        <label for="noPek" class="form-label">Nomor Pekerja</label>
-                                                        <input type="number" class="form-control" id="noPek" name="noPek" value="{{ $magang->noPek }}">
+                                                        <label for="nama" class="form-label">Nomor Pekerja</label>
+                                                        <input type="number" class="form-control" id="nama" name="nama" value="{{ $magang->nama }}">
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="namaPekerja" class="form-label">Nama Pekerja</label>

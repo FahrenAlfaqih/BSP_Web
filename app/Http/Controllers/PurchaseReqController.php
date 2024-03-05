@@ -5,16 +5,27 @@ namespace App\Http\Controllers;
 use App\Exports\PrReimburstExport;
 use App\Imports\PrReimburstImport;
 use App\Models\PRReimburst;
+use App\Models\PRService;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Throwable;
 
-class PrReimburstController extends Controller
+class PurchaseReqController extends Controller
 {
     public function index()
     {
         $prreimbursts = PRReimburst::paginate(10);
         return view('pr.reimburst.index', compact('prreimbursts'));
+    }
+    public function indexService()
+    {
+        $prreimbursts = PRService::paginate(10);
+        return view('pr.service.index', compact('prreimbursts'));
+    }
+    public function indexNonAda()
+    {
+        $prreimbursts = PRReimburst::paginate(10);
+        return view('pr.nonada.index', compact('prreimbursts'));
     }
 
     public function store(Request $request)

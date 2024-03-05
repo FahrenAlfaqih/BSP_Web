@@ -9,8 +9,12 @@
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <div class="d-flex">
 
+                        <a href="{{ route('prreimburst.download-excel', ['search' => request()->input('search'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-success btn-2x me-2">
+                            <i class="fas fa-file-excel"></i> Cetak Excel
+                        </a>
+
                         <a href="{{ route('poreimburst.download-pdf', ['search' => request()->input('search'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-danger btn-2x me-2">
-                            <i class="fas fa-file-pdf"></i> Cetak poreimburst PDF
+                            <i class="fas fa-file-pdf"></i> Cetak  PDF
                         </a>
 
 
@@ -42,7 +46,8 @@
                                                 <select class="form-select" id="idReimburstPO" name="idReimburstPO">
                                                     @foreach($poreimbursts as $poreimburst)
                                                     <option value="{{ $poreimburst->idReimburstPO }}">
-                                                        {{ $poreimburst->idReimburstPO }} - {{ $poreimburst->judulPekerjaan }}</option>
+                                                        {{ $poreimburst->idReimburstPO }} - {{ $poreimburst->judulPekerjaan }}
+                                                    </option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -118,7 +123,7 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ">
                                         No</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
-                                        Nomor  Service Entry Sheet </th>
+                                        Nomor Service Entry Sheet </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
                                         Nomor Pre Order </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
