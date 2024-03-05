@@ -84,16 +84,19 @@ class MagangController extends Controller
         $Magang = Magang::findOrFail($id);
         try {
             $validatedData = $request->validate([
-                'noPek' => 'required',
-                'namaPekerja' => 'required',
+                'nama' => 'required',
+                'institusi' => 'required',
+                'kategori' => 'required',
+                'jurusan_fakultas' => 'required',
+                'tanggalMulai' => 'required',
+                'tanggalSelesai' => 'required',
+                'kegiatan' => 'required',
                 'dept' => 'required',
-                'namaProgram' => 'required',
-                'tahunMagang' => 'required',
-                'tanggalPelaksanaanMulai' => 'required',
-                'tanggalPelaksanaanSelesai' => 'required',
-                'days' => 'required',
-                'tempat' => 'required',
-                'namaPenyelenggara' => 'required',
+                'daring_luring' => 'required',
+                'lokasi' => 'required',
+                'mentor' => 'required',
+                'statusSurat' => 'required',
+                'keterangan' => 'required',
             ]);
             $Magang->update($validatedData);
             return redirect()->back()->with('success_update', 'Data berhasil diperbarui!');
@@ -144,9 +147,13 @@ class MagangController extends Controller
     {
         try {
             $request->validate([
-                'file' => 'required|mimes:xlsx,xls',
+                'file.*' => 'required|mimes:xlsx,xls',
             ]);
-            Excel::import(new MagangImport, $request->file('file'));
+
+            foreach ($request->file('file') as $file) {
+                Excel::import(new MagangImport, $file);
+            }
+
             return redirect()->back()->with('success_message', 'Data dari Excel berhasil diunggah!');
         } catch (Throwable $e) {
             return redirect()->back()->with('error_message', 'Terjadi kesalahan saat mengimpor data: ' . $e->getMessage());

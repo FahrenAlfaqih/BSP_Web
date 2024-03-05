@@ -15,7 +15,7 @@ class SertifikasiController extends Controller
 {
     //function untuk menampilkan keseluruhan data sertifikasi
     public function index()
-    {   
+    {
         $sertifikasis = Sertifikasi::paginate(10);
         return view('sertifikasi.index', compact('sertifikasis'));
     }
@@ -108,7 +108,7 @@ class SertifikasiController extends Controller
     //function untuk fitur download pdf berdasarkan hasil pencarian, bulan dan tahun
     public function downloadPDF(Request $request)
     {
-        $searchQuery = $request->query('search');  
+        $searchQuery = $request->query('search');
         $tahun = $request->query('tahun');
         $bulan = $request->query('bulan');
         $sertifikasis = null;
@@ -119,7 +119,7 @@ class SertifikasiController extends Controller
                 ->get();
         } elseif ($tahun) {
             $sertifikasis = Sertifikasi::where('tahunSertifikasi', $tahun)->get();
-        }elseif($bulan){
+        } elseif ($bulan) {
             $sertifikasis = Sertifikasi::filterByMonth($bulan)->get();
         }
         if ($sertifikasis && $sertifikasis->isNotEmpty()) {
@@ -139,9 +139,13 @@ class SertifikasiController extends Controller
     {
         try {
             $request->validate([
-                'file' => 'required|mimes:xlsx,xls',
+                'file.*' => 'required|mimes:xlsx,xls',
             ]);
-            Excel::import(new SertifikasiImport, $request->file('file'));
+
+            foreach ($request->file('file') as $file) {
+                Excel::import(new SertifikasiImport, $file);
+            }
+
             return redirect()->back()->with('success_message', 'Data dari Excel berhasil diunggah!');
         } catch (Throwable $e) {
             return redirect()->back()->with('error_message', 'Terjadi kesalahan saat mengimpor data: ' . $e->getMessage());

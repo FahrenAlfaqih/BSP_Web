@@ -52,7 +52,7 @@
   <div class="col-lg-5 mb-lg-0 mb-4">
     <div class="card z-index-2">
       <div class="card-body p-3">
-        <p class="font-weight-bolder">Data Sertifikasi</p>
+        <p class="font-weight-bolder">Grafik Sertifikasi Per Tahun</p>
         <div class="bg-gradient-dark border-radius-lg py-3 pe-1 mb-3">
           <div class="chart">
             <canvas id="chart-bars" class="chart-canvas" height="170"></canvas>
