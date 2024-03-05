@@ -98,10 +98,11 @@
                         <!-- upload file excel -->
                         <form id="uploadForm" action="{{ route('sertifikasi.upload-excel') }}" method="POST" enctype="multipart/form-data" class="btn btn-light btn-2x me-2">
                             @csrf
-                            <i class="fas fa-file-excel  fa-sm"></i>
-                            <input type="file" name="file" class="rounded">
+                            <i class="fas fa-file-excel fa-sm"></i>
+                            <input type="file" name="file[]" class="rounded" multiple>
                             <button type="submit" class="btn-outline-dark rounded">Unggah Excel</button>
                         </form>
+
 
                         <!-- Icon informasi -->
                         <a href="#" class="btn btn-light btn-2x me-2" data-bs-toggle="modal" data-bs-target="#modalInformasi">
@@ -138,7 +139,7 @@
                                     @endfor
                             </select>
                         </form>
-                        
+
                         <!-- Filter data berdasarkan tahun sertifikasi-->
                         <form action="{{ route('sertifikasi.filterByMonth') }}" method="GET" class="ms-3">
                             <select name="bulan" id="bulan" onchange="this.form.submit()" class="form-select" style="min-width: 90px;">

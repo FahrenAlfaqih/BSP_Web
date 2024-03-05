@@ -114,10 +114,11 @@
                         </div>
 
                         <!-- upload file excel -->
+
                         <form id="uploadForm" action="{{ route('magang.uploadExcel') }}" method="POST" enctype="multipart/form-data" class="btn btn-light btn-2x me-2">
                             @csrf
-                            <i class="fas fa-file-excel  fa-sm"></i>
-                            <input type="file" name="file" class="rounded">
+                            <i class="fas fa-file-excel fa-sm"></i>
+                            <input type="file" name="file[]" class="rounded" multiple>
                             <button type="submit" class="btn-outline-dark rounded">Unggah Excel</button>
                         </form>
 
