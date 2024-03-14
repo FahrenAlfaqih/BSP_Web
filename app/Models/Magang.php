@@ -11,7 +11,7 @@ class Magang extends Model
     protected $table = 'magang';
     protected $fillable = [
         'nama', 'institusi', 'kategori', 'jurusan_fakultas', 'tanggalMulai', 'tanggalSelesai', 'kegiatan', 'dept', 'daring_luring',
-         'lokasi', 'mentor','statusSurat', 'keterangan'
+        'lokasi', 'mentor','statusSurat', 'keterangan'
     ];
 
 }

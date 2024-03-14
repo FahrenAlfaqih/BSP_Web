@@ -104,14 +104,11 @@
       },
       options: {
         responsive: true,
-        maintainAspectRatio: true,
+        maintainAspectRatio: false,
         plugins: {
           legend: {
             display: false,
           },
-          customCanvasBackgroundColor: {
-            color: 'lightGreen',
-          }
         },
         interaction: {
           intersect: false,
@@ -193,9 +190,13 @@
             fill: true,
             data: _xdata2,
             maxBarThickness: 6
+<<<<<<< HEAD
 
           },
 
+=======
+          },
+>>>>>>> 0766410c93f73ed1933b31e5eaef57d5ab358658
         ],
       },
       options: {
