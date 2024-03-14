@@ -10,7 +10,7 @@
                     <div class="d-flex">
 
                         <a href="{{ route('magang.download-pdf', ['search' => request()->input('search'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-danger btn-2x me-2">
-                            <i class="fas fa-file-pdf"></i> Cetak magang PDF
+                            <i class="fas fa-file-pdf"></i> Cetak PDF
                         </a>
 
 
@@ -42,11 +42,28 @@
                                             <div class="col-md-6">
                                                 <label for="dept" class="form-label">Departemen</label>
                                                 <select class="form-select" id="dept" name="dept">
-                                                    @foreach($uniqueDept as $dept)
-                                                    <option value="{{ $dept }}">{{ $dept }}</option>
-                                                    @endforeach
+                                                    <!-- Tambahkan opsi nilai departemen di sini -->
+                                                    <option value="">Pilih Departemen</option> <!-- Opsi default kosong -->
+                                                    <option value="QHSE">QHSE</option>
+                                                    <option value="PROD. OPERATION">PROD. OPERATION</option>
+                                                    <option value="EA">EA</option>
+                                                    <option value="EPT">EPT</option>
+                                                    <option value="HR">HR</option>
+                                                    <option value="FINEC">FINEC</option>
+                                                    <option value="DWO">DWO</option>
+                                                    <option value="IT Pekanbaru">IT Pekanbaru</option>
+                                                    <option value="Production Operation Dept">Production Operation Dept</option>
+                                                    <option value="OS Dept (Pedada)">OS Dept (Pedada)</option>
+                                                    <option value="IT Zamrud">IT Zamrud</option>
+                                                    <option value="HCM Dept (OPC)">HCM Dept (OPC)</option>
+                                                    <option value="HCM Dept">HCM Dept</option>
+                                                    <option value="QHSE Dept">QHSE Dept</option>
+                                                    <option value="Corporate Secretary">Corporate Secretary</option>
+                                                    <option value="EA Dept">EA Dept</option>
+                                                    <!-- Tambahkan opsi nilai departemen di sini -->
                                                 </select>
                                             </div>
+
                                             <div class="col-md-6">
                                                 <label for="kategori" class="form-label">Jenjang Pendidikan</label>
                                                 <input type="text" class="form-control" id="kategori" name="kategori">
@@ -66,11 +83,25 @@
                                             <div class="col-md-6">
                                                 <label for="kegiatan" class="form-label">Kegiatan</label>
                                                 <select class="form-select" id="kegiatan" name="kegiatan">
-                                                    @foreach($uniqueActivities as $activity)
-                                                    <option value="{{ $activity }}">{{ $activity }}</option>
-                                                    @endforeach
+                                                    <!-- Tambahkan opsi-opsi kegiatan di sini -->
+                                                    <option value="PKL">PKL</option>
+                                                    <option value="KP">KP</option>
+                                                    <option value="MAGANG">MAGANG</option>
+                                                    <option value="Izin Penelitian">Izin Penelitian</option>
+                                                    <option value="RISET PENELITIAN">RISET PENELITIAN</option>
+                                                    <option value="JOB TRAINING">JOB TRAINING</option>
+                                                    <option value="MAGANG GURU">MAGANG GURU</option>
+                                                    <option value="TA">TA</option>
+                                                    <option value="On Job Training">On Job Training</option>
+                                                    <option value="MAGANG/KP">MAGANG/KP</option>
+                                                    <option value="Tugas Akhir">Tugas Akhir</option>
+                                                    <option value="Kerja Praktek">Kerja Praktek</option>
+                                                    <option value="pra Riset">pra Riset</option>
+                                                    <option value="Penelitian Master">Penelitian Master</option>
+                                                    <!-- Tambahkan opsi-opsi kegiatan di sini -->
                                                 </select>
                                             </div>
+
 
                                             <div class="col-md-6">
                                                 <label for="daring_luring" class="form-label">Jenis Pelaksanaan</label>
@@ -150,22 +181,28 @@
                             <i class="fas fa-sync fa-sm"></i> Reload
                         </a>
                         <!-- Filter data berdasarkan tahun magang-->
-                        <form action="{{ route('magang.filterYear') }}" method="GET" class="ms-3">
-                            <select name="tahun" id="tahun" onchange="this.form.submit()" class="form-select" style="min-width: 90px;">
-                                <option value="Tahun">Tahun</option>
-                                @for ($i = 2003; $i <= 2024; $i++) <option value="{{ $i }}" {{ request('tahun') == $i ? 'selected' : '' }}>{{ $i }}</option>
-                                    @endfor
-                            </select>
-                        </form>
-                        <!-- Filter data berdasarkan tahun magang-->
-                        <form action="{{ route('magang.filterByMonth') }}" method="GET" class="ms-3">
-                            <select name="bulan" id="bulan" onchange="this.form.submit()" class="form-select" style="min-width: 90px;">
-                                <option value="">Bulan</option>
-                                @for ($i = 1; $i <= 12; $i++) <option value="{{ str_pad($i, 2, '0', STR_PAD_LEFT) }}" {{ request('bulan') == str_pad($i, 2, '0', STR_PAD_LEFT) ? 'selected' : '' }}>
-                                    {{ date('F', mktime(0, 0, 0, $i, 1)) }}
-                                    </option>
-                                    @endfor
-                            </select>
+                        <form action="{{ route('magang.filterByDate') }}" method="GET" class="ms-3" id="filterForm">
+                            <div class="d-flex">
+                                <!-- Filter data berdasarkan tahun sertifikasi -->
+                                <div class="me-3">
+                                    <select name="tahun" id="tahun" onchange="this.form.submit()" class="form-select" style="min-width: 90px;">
+                                        <option value="">Tahun</option>
+                                        @for ($i = 2003; $i <= 2024; $i++) <option value="{{ $i }}" {{ request('tahun') == $i ? 'selected' : '' }}>{{ $i }}</option>
+                                            @endfor
+                                    </select>
+                                </div>
+
+                                <!-- Filter data berdasarkan bulan sertifikasi -->
+                                <div>
+                                    <select name="bulan" id="bulan" onchange="this.form.submit()" class="form-select" style="min-width: 90px;">
+                                        <option value="">Bulan</option>
+                                        @for ($i = 1; $i <= 12; $i++) <option value="{{ str_pad($i, 2, '0', STR_PAD_LEFT) }}" {{ request('bulan') == str_pad($i, 2, '0', STR_PAD_LEFT) ? 'selected' : '' }}>
+                                            {{ date('F', mktime(0, 0, 0, $i, 1)) }}
+                                            </option>
+                                            @endfor
+                                    </select>
+                                </div>
+                            </div>
                         </form>
 
 
@@ -188,7 +225,7 @@
                         <table class="table align-items-center mb-0">
                             <thead>
                                 <tr>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder">
                                         No</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
                                         Nama</th>
@@ -262,61 +299,106 @@
                                                 <form action="{{ route('magang.edit', $magang->id) }}" method="POST" id="editForm">
                                                     @csrf
                                                     @method('PUT')
-                                                    <!-- Isi form sesuai kebutuhan -->
-                                                    <div class="mb-3">
-                                                        <label for="nama" class="form-label">Nomor Pekerja</label>
-                                                        <input type="number" class="form-control" id="nama" name="nama" value="{{ $magang->nama }}">
+                                                    <div class="col-md-6">
+                                                        <label for="nama" class="form-label">Nama</label>
+                                                        <input type="text" class="form-control" id="nama" name="nama" value="{{ $magang->nama }}">
                                                     </div>
-                                                    <div class="mb-3">
-                                                        <label for="namaPekerja" class="form-label">Nama Pekerja</label>
-                                                        <input type="text" class="form-control" id="namaPekerja" name="namaPekerja" value="{{ $magang->namaPekerja }}">
+                                                    <div class="col-md-6">
+                                                        <label for="institusi" class="form-label">Institusi</label>
+                                                        <input type="text" class="form-control" id="institusi" name="institusi" value="{{ $magang->institusi }}">
                                                     </div>
-                                                    <div class="mb-3">
-                                                        <label for="dept" class="form-label">Nama Departemen</label>
-                                                        <select class="form-select" id="dept" name="dept">
-                                                            <option>{{ $magang->dept}}</option>
-                                                            <option value="SPRM">SPRM</option>
+                                                    <div class="col-md-6">
+                                                        <label for="dept" class="form-label">Departemen</label>
+                                                        <select class="form-select" id="dept" name="dept" value="{{ $magang->dept }}">
+                                                            <!-- Tambahkan opsi nilai departemen di sini -->
+                                                            <option value="">Pilih Departemen</option> <!-- Opsi default kosong -->
+                                                            <option value="QHSE">QHSE</option>
+                                                            <option value="PROD. OPERATION">PROD. OPERATION</option>
+                                                            <option value="EA">EA</option>
+                                                            <option value="EPT">EPT</option>
+                                                            <option value="HR">HR</option>
+                                                            <option value="FINEC">FINEC</option>
+                                                            <option value="DWO">DWO</option>
+                                                            <option value="IT Pekanbaru">IT Pekanbaru</option>
+                                                            <option value="Production Operation Dept">Production Operation Dept</option>
+                                                            <option value="OS Dept (Pedada)">OS Dept (Pedada)</option>
+                                                            <option value="IT Zamrud">IT Zamrud</option>
+                                                            <option value="HCM Dept (OPC)">HCM Dept (OPC)</option>
+                                                            <option value="HCM Dept">HCM Dept</option>
+                                                            <option value="QHSE Dept">QHSE Dept</option>
                                                             <option value="Corporate Secretary">Corporate Secretary</option>
-                                                            <option value="Exploration">Exploration</option>
-                                                            <option value="Exploitation">Exploitation</option>
-                                                            <option value="Production Operation">Production Operation</option>
-                                                            <option value="Drilling & Worker">Drilling & Worker</option>
-                                                            <option value="Operation Support">Operation Support</option>
-                                                            <option value="HCM">HCM</option>
-                                                            <option value="SCM">SCM</option>
-                                                            <option value="Internal Audit">Internal Audit</option>
-                                                            <option value="External Affair">External Affair</option>
+                                                            <option value="EA Dept">EA Dept</option>
+                                                            <!-- Tambahkan opsi nilai departemen di sini -->
                                                         </select>
                                                     </div>
 
-                                                    <div class="mb-3">
-                                                        <label for="namaProgram" class="form-label">Nama Program</label>
-                                                        <input type="text" class="form-control" id="namaProgram" name="namaProgram" value="{{ $magang->namaProgram }}">
+                                                    <div class="col-md-6">
+                                                        <label for="kategori" class="form-label">Jenjang Pendidikan</label>
+                                                        <input type="text" class="form-control" id="kategori" name="kategori" value="{{ $magang->kategori }}">
                                                     </div>
-                                                    <div class="mb-3">
-                                                        <label for="tahunmagang" class="form-label">Tahun magang</label>
-                                                        <input type="number" class="form-control" id="tahunmagang" name="tahunmagang" value="{{ $magang->tahunmagang }}">
+                                                    <div class="col-md-6">
+                                                        <label for="jurusan_fakultas" class="form-label">Jurusan / Fakultas</label>
+                                                        <input type="text" class="form-control" id="jurusan_fakultas" name="jurusan_fakultas" value="{{ $magang->jurusan_fakultas }}">
                                                     </div>
-                                                    <div class="mb-3">
-                                                        <label for="tanggalPelaksanaanMulai" class="form-label">Tanggal Pelaksanaan Mulai</label>
-                                                        <input type="date" class="form-control" id="tanggalPelaksanaanMulai" name="tanggalPelaksanaanMulai" value="{{ $magang->tanggalPelaksanaanMulai }}">
+                                                    <div class="col-md-6">
+                                                        <label for="tanggalMulai" class="form-label">Tanggal Pelaksanaan Mulai</label>
+                                                        <input type="date" class="form-control" id="tanggalMulai" name="tanggalMulai" value="{{ $magang->tanggalMulai }}">
                                                     </div>
-                                                    <div class="mb-3">
-                                                        <label for="tanggalPelaksanaanSelesai" class="form-label">Tanggal Pelaksanaan Selesai</label>
-                                                        <input type="date" class="form-control" id="tanggalPelaksanaanSelesai" name="tanggalPelaksanaanSelesai" value="{{ $magang->tanggalPelaksanaanSelesai }}">
+                                                    <div class="col-md-6">
+                                                        <label for="tanggalSelesai" class="form-label">Tanggal Pelaksanaan Selesai</label>
+                                                        <input type="date" class="form-control" id="tanggalSelesai" name="tanggalSelesai"  value="{{ $magang->tanggalSelesai}}">
                                                     </div>
-                                                    <div class="mb-3">
-                                                        <label for="tempat" class="form-label">Tempat</label>
-                                                        <input type="text" class="form-control" id="tempat" name="tempat" value="{{ $magang->tempat }}">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="days" class="form-label">Jumlah Hari</label>
-                                                        <input type="text" class="form-control" id="days" name="days" value="{{ $magang->days }}">
+                                                    <div class="col-md-6">
+                                                        <label for="kegiatan" class="form-label">Kegiatan</label>
+                                                        <select class="form-select" id="kegiatan" name="kegiatan" value="{{ $magang->kegiatan}}">
+                                                            <!-- Tambahkan opsi-opsi kegiatan di sini -->
+                                                            <option value="PKL">PKL</option>
+                                                            <option value="KP">KP</option>
+                                                            <option value="MAGANG">MAGANG</option>
+                                                            <option value="Izin Penelitian">Izin Penelitian</option>
+                                                            <option value="RISET PENELITIAN">RISET PENELITIAN</option>
+                                                            <option value="JOB TRAINING">JOB TRAINING</option>
+                                                            <option value="MAGANG GURU">MAGANG GURU</option>
+                                                            <option value="TA">TA</option>
+                                                            <option value="On Job Training">On Job Training</option>
+                                                            <option value="MAGANG/KP">MAGANG/KP</option>
+                                                            <option value="Tugas Akhir">Tugas Akhir</option>
+                                                            <option value="Kerja Praktek">Kerja Praktek</option>
+                                                            <option value="pra Riset">pra Riset</option>
+                                                            <option value="Penelitian Master">Penelitian Master</option>
+                                                            <!-- Tambahkan opsi-opsi kegiatan di sini -->
+                                                        </select>
                                                     </div>
 
-                                                    <div class="mb-3">
-                                                        <label for="namaPenyelenggara" class="form-label">Nama Penyelenggara</label>
-                                                        <input type="text" class="form-control" id="namaPenyelenggara" name="namaPenyelenggara" value="{{ $magang->namaPenyelenggara }}">
+
+                                                    <div class="col-md-6">
+                                                        <label for="daring_luring" class="form-label">Jenis Pelaksanaan</label>
+                                                        <select class="form-select" id="daring_luring" name="daring_luring" value="{{ $magang->daring_luring}}">
+                                                            <option value="OFFLINE">OFFLINE</option>
+                                                            <option value="ONLINE">ONLINE</option>
+                                                            <option value="HYBRID">HYBRID</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <label for="lokasi" class="form-label">Lokasi</label>
+                                                        <input type="text" class="form-control" id="lokasi" name="lokasi"  value="{{ $magang->lokasi}}">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label for="mentor" class="form-label">Nama Mentor</label>
+                                                        <input type="text" class="form-control" id="mentor" name="mentor" value="{{ $magang->mentor}}">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label for="statusSurat" class="form-label">Status Surat</label>
+                                                        <select class="form-select" id="statusSurat" name="statusSurat" value="{{ $magang->statusSurat}}">
+                                                            <option value="OK">OK</option>
+                                                            <option value="TIDAK OK">TIDAK OK</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <label for="keterangan" class="form-label">Keterangan</label>
+                                                        <input type="text" class="form-control" id="keterangan" name="keterangan" value="{{ $magang->keterangan}}">
                                                     </div>
                                                     <!-- Tambahkan input lainnya sesuai kebutuhan -->
                                                 </form>

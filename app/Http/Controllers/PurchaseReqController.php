@@ -44,6 +44,29 @@ class PurchaseReqController extends Controller
         }
     }
 
+    public function editPrReimburst(Request $request, $id)
+    {
+        $prreimburst = PRReimburst::findOrFail($id);
+        try {
+            $validatedData = $request->validate([
+                'idReimburstPR' => 'required', 
+                'judulPekerjaan' => 'required', 
+            ]);
+            $prreimburst->update($validatedData);
+            return redirect()->back()->with('success_update', 'Data berhasil diperbarui!');
+        } catch (Throwable $e) {
+            return redirect()->back()->with('error_update', 'Terjadi kesalahan saat mengupdate data: ' . $e->getMessage());
+        }
+    }
+
+
+    public function deletePrreimburst($id)
+    {
+        $prreimburst = Prreimburst::findOrFail($id);
+        $prreimburst->delete();
+        return redirect()->back();
+    }
+
     //function untuk fitur tambah data dengan metode upload file excel
     public function uploadExcel(Request $request)
     {

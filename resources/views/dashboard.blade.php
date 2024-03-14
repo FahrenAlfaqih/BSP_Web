@@ -8,13 +8,13 @@
   <div class="col-lg-7 mb-lg-0 mb-4">
     <div class="card">
       <div class="card-body p-3">
-        <div class="row">
+        <div class="row"> 
           <div class="col-lg-6">
             <div class="d-flex flex-column h-100">
               <p class="mb-1 pt-2 text-bold">Kelola dengan mudah</p>
               <h5 class="font-weight-bolder">Sertifikasi</h5>
-              <p class="mb-5">Mengelola data sertifikasi menjadi lebih efisien dan mencetak ke pdf.</p>
-              <a class="text-body text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="javascript:;">
+              <p class="mb-5">Mengelola data sertifikasi menjadi lebih efisien dan apatkan kontrol penuh atas informasi sertifikasi Anda </p>
+              <a class="text-body text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="{{ url('sertifikasi') }}">
                 Read More
                 <i class="fas fa-arrow-right text-sm ms-1" aria-hidden="true"></i>
               </a>
@@ -39,7 +39,7 @@
         <div class="card-body position-relative z-index-1 d-flex flex-column h-100 p-3">
           <h5 class="text-white font-weight-bolder mb-4 pt-2">Merekrut pegawai/mahasiswa intern</h5>
           <p class="text-white">Kelola data terkait riwayat mahasiswa intern dan pegawai paid internship maupun freshgraduate!</p>
-          <a class="text-white text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="javascript:;">
+          <a class="text-white text-sm font-weight-bold mb-0 icon-move-right mt-auto"href="{{ url('magang') }}">
             Read More
             <i class="fas fa-arrow-right text-sm ms-1" aria-hidden="true"></i>
           </a>
@@ -181,9 +181,9 @@
     new Chart(ctx2, {
       type: "line",
       data: {
-        labels: _ydata,
+        labels: _ydata2,
         datasets: [{
-            label: "Mobile apps",
+            label: "Jumlah",
             tension: 0.4,
             borderWidth: 0,
             pointRadius: 0,
@@ -195,18 +195,7 @@
             maxBarThickness: 6
 
           },
-          {
-            label: "Websites",
-            tension: 0.4,
-            borderWidth: 0,
-            pointRadius: 0,
-            borderColor: "#3A416F",
-            borderWidth: 3,
-            backgroundColor: gradientStroke2,
-            fill: true,
-            data: _xdata,
-            maxBarThickness: 6
-          },
+
         ],
       },
       options: {

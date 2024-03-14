@@ -16,29 +16,32 @@ class MagangController extends Controller
     public function index()
     {
         $magangs = Magang::paginate(10);
-        $uniqueActivities = Magang::distinct()->pluck('kegiatan');
-        $uniqueDept = Magang::distinct()->pluck('dept');
-
-        return view('magang.index', compact('magangs', 'uniqueActivities', 'uniqueDept'));
+        return view('magang.index', compact('magangs'));
     }
-
 
     //function untuk memfilter data berdasarkan tahun sertifikai
-    public function filterByYear(Request $request)
+    public function filterByDate(Request $request)
     {
-        $tahun = $request->input('tahun');
-        $magangs = Magang::where('tahunMagang', $tahun)->paginate(10);;
-        return view('Magang.index', compact('magangs'));
-    }
+        $tahun = $request->tahun;
+        $bulan = $request->bulan;
 
-    //function untuk memfilter data berdasarkan bulan di tahun yang telah difilter sebelumnya
-    public function filterByMonth(Request $request)
-    {
-        $bulan = $request->input('bulan');
-        $magangs = Magang::filterByMonth($bulan)->paginate(10);
-        return view('Magang.index', compact('magangs'));
-    }
+        $MagangQuery = Magang::query();
 
+        if ($tahun && $bulan) {
+            // Filter berdasarkan tahun dan bulan
+            $MagangQuery->whereMonth('tanggalMulai', $bulan)
+                ->whereYear('tanggalMulai', $tahun);
+        } elseif ($tahun) {
+            // Filter hanya berdasarkan tahun
+            $MagangQuery->whereYear('tanggalMulai', $tahun);
+        } elseif ($bulan) {
+            // Filter hanya berdasarkan bulan
+            $MagangQuery->whereMonth('tanggalMulai', $bulan);
+        }
+
+        $magangs = $MagangQuery->paginate(10);
+        return view('magang.index', compact('magangs'));
+    }
     //function untuk memfilter data berdasarkan nama program, nama departemen dan nama pekerja
     public function filterData(Request $request)
     {
@@ -119,24 +122,34 @@ class MagangController extends Controller
         $searchQuery = $request->query('search');
         $tahun = $request->query('tahun');
         $bulan = $request->query('bulan');
-        $magangs = null;
+
+        $MagangQuery = Magang::query();
+
         if ($searchQuery) {
-            $magangs = Magang::where('nama', 'like', '%' . $searchQuery . '%')
-                ->orWhere('institusi', 'like', '%' . $searchQuery . '%')
-                ->orWhere('dept', 'like', '%' . $searchQuery . '%')
-                ->get();
-        } elseif ($tahun) {
-            $magangs = Magang::where('tahunMagang', $tahun)->get();
-        } elseif ($bulan) {
-            $magangs = Magang::filterByMonth($bulan)->get();
+            $MagangQuery->where(function ($query) use ($searchQuery) {
+                $query->where('institusi', 'like', '%' . $searchQuery . '%')
+                    ->orWhere('nama', 'like', '%' . $searchQuery . '%')
+                    ->orWhere('dept', 'like', '%' . $searchQuery . '%');
+            });
         }
-        if ($magangs && $magangs->isNotEmpty()) {
+
+        if ($tahun) {
+            $MagangQuery->whereYear('tanggalMulai', $tahun);
+        }
+
+        if ($bulan) {
+            $MagangQuery->whereMonth('tanggalMulai', $bulan);
+        }
+
+        $magangs = $MagangQuery->get();
+
+        if ($magangs->isNotEmpty()) {
             $dompdf = new Dompdf();
-            $html = view('Magang.pdf', compact('magangs'))->render();
+            $html = view('magang.pdf', compact('magangs'))->render();
             $dompdf->loadHtml($html);
             $dompdf->setPaper('A4', 'landscape');
             $dompdf->render();
-            return $dompdf->stream("Magang.pdf");
+            return $dompdf->stream("Data Magang.pdf");
         } else {
             return redirect()->back()->with('error', 'Tidak ada data yang ditemukan.');
         }

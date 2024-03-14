@@ -28,9 +28,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'auth'], function () {
 
-    Route::get('/', [HomeController::class, 'home'])->name('dashboard'); 
+    Route::get('/', [HomeController::class, 'home'])->name('dashboard');
     Route::get('/dashboard', [HomeController::class, 'home'])->name('dashboard');
-    
+
     // Route::get('dashboard', function () {
     //     return view('dashboard');
     // })->name('dashboard');
@@ -38,10 +38,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('sertifikasi')->group(function () {
         // Menampilkan dan memfilter data sertifikasi
         Route::get('/', [SertifikasiController::class, 'index'])->name('sertifikasi');
-        Route::get('/filterYear', [SertifikasiController::class, 'filterByYear'])->name('sertifikasi.filterYear');
-        Route::get('/filterByMonth', [SertifikasiController::class, 'filterByMonth'])->name('sertifikasi.filterByMonth');
         Route::get('/filterByDate', [SertifikasiController::class, 'filterByDate'])->name('sertifikasi.filterByDate');
         Route::get('/filterData', [SertifikasiController::class, 'filterData'])->name('sertifikasi.filterData');
+        Route::get('/filterByNamaProgram', [SertifikasiController::class, 'filterByNamaProgram'])->name('sertifikasi.filterByNamaProgram');
+
         // Download file PDF
         Route::get('/download-pdf', [SertifikasiController::class, 'downloadPDF'])->name('sertifikasi.download-pdf');
         // Upload file Excel untuk inputan data
@@ -55,8 +55,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('magang')->group(function () {
         // Menampilkan dan memfilter data sertifikasi
         Route::get('/', [MagangController::class, 'index'])->name('magang');
-        Route::get('/filterYear', [MagangController::class, 'filterByYear'])->name('magang.filterYear');
-        Route::get('/filterByMonth', [MagangController::class, 'filterByMonth'])->name('magang.filterByMonth');
+        Route::get('/filterByDate', [MagangController::class, 'filterByDate'])->name('magang.filterByDate');
         Route::get('/filterData', [MagangController::class, 'filterData'])->name('magang.filterData');
         // Download file PDF
         Route::get('/download-pdf', [MagangController::class, 'downloadPDF'])->name('magang.download-pdf');

@@ -142,6 +142,7 @@
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-outline-danger deleteButton">Hapus</button>
                                         </form>
+
                                     </td>
                                 </tr>
                                 @php $index++ @endphp
@@ -150,6 +151,7 @@
                                     <div class="modal-dialog modal-dialog-centered modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">
+                                                
                                                 <h5 class="modal-title" id="modalEditLabel">Edit prreimburst</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
@@ -160,59 +162,13 @@
                                                     @method('PUT')
                                                     <!-- Isi form sesuai kebutuhan -->
                                                     <div class="mb-3">
-                                                        <label for="noPek" class="form-label">Nomor Pekerja</label>
-                                                        <input type="number" class="form-control" id="noPek" name="noPek" value="{{ $prreimburst->noPek }}">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="namaPekerja" class="form-label">Nama Pekerja</label>
-                                                        <input type="text" class="form-control" id="namaPekerja" name="namaPekerja" value="{{ $prreimburst->namaPekerja }}">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="dept" class="form-label">Nama Departemen</label>
-                                                        <select class="form-select" id="dept" name="dept">
-                                                            <option>{{ $prreimburst->dept}}</option>
-                                                            <option value="SPRM">SPRM</option>
-                                                            <option value="Corporate Secretary">Corporate Secretary</option>
-                                                            <option value="Exploration">Exploration</option>
-                                                            <option value="Exploitation">Exploitation</option>
-                                                            <option value="Production Operation">Production Operation</option>
-                                                            <option value="Drilling & Worker">Drilling & Worker</option>
-                                                            <option value="Operation Support">Operation Support</option>
-                                                            <option value="HCM">HCM</option>
-                                                            <option value="SCM">SCM</option>
-                                                            <option value="Internal Audit">Internal Audit</option>
-                                                            <option value="External Affair">External Affair</option>
-                                                        </select>
+                                                        <label for="idReimburstPR" class="form-label">Nomor PR Reimburst</label>
+                                                        <input type="number" class="form-control" id="idReimburstPR" name="idReimburstPR" value="{{ $prreimburst->idReimburstPR }}">
                                                     </div>
 
                                                     <div class="mb-3">
-                                                        <label for="namaProgram" class="form-label">Nama Program</label>
-                                                        <input type="text" class="form-control" id="namaProgram" name="namaProgram" value="{{ $prreimburst->namaProgram }}">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="tahunprreimburst" class="form-label">Tahun prreimburst</label>
-                                                        <input type="number" class="form-control" id="tahunprreimburst" name="tahunprreimburst" value="{{ $prreimburst->tahunprreimburst }}">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="tanggalPelaksanaanMulai" class="form-label">Tanggal Pelaksanaan Mulai</label>
-                                                        <input type="date" class="form-control" id="tanggalPelaksanaanMulai" name="tanggalPelaksanaanMulai" value="{{ $prreimburst->tanggalPelaksanaanMulai }}">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="tanggalPelaksanaanSelesai" class="form-label">Tanggal Pelaksanaan Selesai</label>
-                                                        <input type="date" class="form-control" id="tanggalPelaksanaanSelesai" name="tanggalPelaksanaanSelesai" value="{{ $prreimburst->tanggalPelaksanaanSelesai }}">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="tempat" class="form-label">Tempat</label>
-                                                        <input type="text" class="form-control" id="tempat" name="tempat" value="{{ $prreimburst->tempat }}">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="days" class="form-label">Jumlah Hari</label>
-                                                        <input type="text" class="form-control" id="days" name="days" value="{{ $prreimburst->days }}">
-                                                    </div>
-
-                                                    <div class="mb-3">
-                                                        <label for="namaPenyelenggara" class="form-label">Nama Penyelenggara</label>
-                                                        <input type="text" class="form-control" id="namaPenyelenggara" name="namaPenyelenggara" value="{{ $prreimburst->namaPenyelenggara }}">
+                                                        <label for="judulPekerjaan" class="form-label">Nama Pekerja</label>
+                                                        <input type="text" class="form-control" id="judulPekerjaan" name="judulPekerjaan" value="{{ $prreimburst->judulPekerjaan }}">
                                                     </div>
                                                     <!-- Tambahkan input lainnya sesuai kebutuhan -->
                                                 </form>

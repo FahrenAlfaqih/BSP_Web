@@ -13,6 +13,11 @@ use Throwable;
 
 class SertifikasiController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('namaProgram');
+    }
+
     //function untuk menampilkan keseluruhan data sertifikasi
     public function index()
     {
@@ -21,21 +26,29 @@ class SertifikasiController extends Controller
     }
 
     //function untuk memfilter data berdasarkan tahun sertifikai
-    public function filterByYear(Request $request)
+    public function filterByDate(Request $request)
     {
-        $tahun = $request->input('tahun');
-        $sertifikasis = Sertifikasi::where('tahunSertifikasi', $tahun)->paginate(10);;
+        $tahun = $request->tahun;
+        $bulan = $request->bulan;
+
+        $sertifikasisQuery = Sertifikasi::query();
+
+        if ($tahun && $bulan) {
+            // Filter berdasarkan tahun dan bulan
+            $sertifikasisQuery->whereMonth('tanggalPelaksanaanMulai', $bulan)
+                ->whereYear('tanggalPelaksanaanMulai', $tahun);
+        } elseif ($tahun) {
+            // Filter hanya berdasarkan tahun
+            $sertifikasisQuery->whereYear('tanggalPelaksanaanMulai', $tahun);
+        } elseif ($bulan) {
+            // Filter hanya berdasarkan bulan
+            $sertifikasisQuery->whereMonth('tanggalPelaksanaanMulai', $bulan);
+        }
+
+        $sertifikasis = $sertifikasisQuery->paginate(10);
         return view('sertifikasi.index', compact('sertifikasis'));
     }
 
-    // Di controller Anda
-    public function filterByDate(Request $request)
-    {
-        $bulan = $request->input('bulan');
-        $tahun = $request->input('tahun');
-        $sertifikasis = Sertifikasi::filterByDate($bulan, $tahun)->paginate(10);
-        return view('sertifikasi.index', compact('sertifikasis'));
-    }
 
     //function untuk memfilter data berdasarkan nama program, nama departemen dan nama pekerja
     public function filterData(Request $request)
@@ -47,6 +60,15 @@ class SertifikasiController extends Controller
             ->paginate(10);
         return view('sertifikasi.index', compact('sertifikasis'));
     }
+    public function filterByNamaProgram(Request $request)
+    {
+        $namaProgram = $request->namaProgram;
+        $sertifikasis = Sertifikasi::where('namaProgram', $namaProgram)->paginate(10);
+        return view('sertifikasi.index', compact('sertifikasis'));
+    }
+
+
+
 
     //function untuk menyimpan data ke database
     public function store(Request $request)
@@ -111,18 +133,33 @@ class SertifikasiController extends Controller
         $searchQuery = $request->query('search');
         $tahun = $request->query('tahun');
         $bulan = $request->query('bulan');
-        $sertifikasis = null;
+        $namaProgram = $request->query('namaProgram');
+
+        $sertifikasisQuery = Sertifikasi::query();
+
         if ($searchQuery) {
-            $sertifikasis = Sertifikasi::where('namaProgram', 'like', '%' . $searchQuery . '%')
-                ->orWhere('namaPekerja', 'like', '%' . $searchQuery . '%')
-                ->orWhere('dept', 'like', '%' . $searchQuery . '%')
-                ->get();
-        } elseif ($tahun) {
-            $sertifikasis = Sertifikasi::where('tahunSertifikasi', $tahun)->get();
-        } elseif ($bulan) {
-            $sertifikasis = Sertifikasi::filterByMonth($bulan)->get();
+            $sertifikasisQuery->where(function ($query) use ($searchQuery) {
+                $query->where('namaProgram', 'like', '%' . $searchQuery . '%')
+                    ->orWhere('namaPekerja', 'like', '%' . $searchQuery . '%')
+                    ->orWhere('dept', 'like', '%' . $searchQuery . '%');
+            });
         }
-        if ($sertifikasis && $sertifikasis->isNotEmpty()) {
+
+        if ($tahun) {
+            $sertifikasisQuery->whereYear('tanggalPelaksanaanMulai', $tahun);
+        }
+
+        if ($bulan) {
+            $sertifikasisQuery->whereMonth('tanggalPelaksanaanMulai', $bulan);
+        }
+
+        if ($namaProgram) {
+            $sertifikasisQuery->where('namaProgram', $namaProgram);
+        }
+
+        $sertifikasis = $sertifikasisQuery->get();
+
+        if ($sertifikasis->isNotEmpty()) {
             $dompdf = new Dompdf();
             $html = view('sertifikasi.pdf', compact('sertifikasis'))->render();
             $dompdf->loadHtml($html);

@@ -9,8 +9,8 @@
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <div class="d-flex">
 
-                        <a href="{{ route('sertifikasi.download-pdf', ['search' => request()->input('search'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-danger btn-2x me-2">
-                            <i class="fas fa-file-pdf"></i> Cetak Sertifikasi PDF
+                        <a href="{{ route('sertifikasi.download-pdf', ['search' => request()->input('search'), 'namaProgram' => request()->input('namaProgram'),'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-danger btn-2x me-2">
+                            <i class="fas fa-file-pdf"></i> Cetak PDF
                         </a>
 
 
@@ -131,24 +131,28 @@
                         <a href="{{ route('sertifikasi') }}" class="btn btn-light btn-2x me-2">
                             <i class="fas fa-sync fa-sm"></i> Reload
                         </a>
-                        <!-- Filter data berdasarkan tahun sertifikasi-->
-                        <form action="{{ route('sertifikasi.filterYear') }}" method="GET" class="ms-3">
-                            <select name="tahun" id="tahun" onchange="this.form.submit()" class="form-select" style="min-width: 90px;">
-                                <option value="Tahun">Tahun</option>
-                                @for ($i = 2003; $i <= 2024; $i++) <option value="{{ $i }}" {{ request('tahun') == $i ? 'selected' : '' }}>{{ $i }}</option>
-                                    @endfor
-                            </select>
-                        </form>
+                        <form action="{{ route('sertifikasi.filterByDate') }}" method="GET" class="ms-3" id="filterForm">
+                            <div class="d-flex">
+                                <!-- Filter data berdasarkan tahun sertifikasi -->
+                                <div class="me-3">
+                                    <select name="tahun" id="tahun" onchange="this.form.submit()" class="form-select" style="min-width: 90px;">
+                                        <option value="">Tahun</option>
+                                        @for ($i = 2003; $i <= 2024; $i++) <option value="{{ $i }}" {{ request('tahun') == $i ? 'selected' : '' }}>{{ $i }}</option>
+                                            @endfor
+                                    </select>
+                                </div>
 
-                        <!-- Filter data berdasarkan tahun sertifikasi-->
-                        <form action="{{ route('sertifikasi.filterByMonth') }}" method="GET" class="ms-3">
-                            <select name="bulan" id="bulan" onchange="this.form.submit()" class="form-select" style="min-width: 90px;">
-                                <option value="">Bulan</option>
-                                @for ($i = 1; $i <= 12; $i++) <option value="{{ str_pad($i, 2, '0', STR_PAD_LEFT) }}" {{ request('bulan') == str_pad($i, 2, '0', STR_PAD_LEFT) ? 'selected' : '' }}>
-                                    {{ date('F', mktime(0, 0, 0, $i, 1)) }}
-                                    </option>
-                                    @endfor
-                            </select>
+                                <!-- Filter data berdasarkan bulan sertifikasi -->
+                                <div>
+                                    <select name="bulan" id="bulan" onchange="this.form.submit()" class="form-select" style="min-width: 90px;">
+                                        <option value="">Bulan</option>
+                                        @for ($i = 1; $i <= 12; $i++) <option value="{{ str_pad($i, 2, '0', STR_PAD_LEFT) }}" {{ request('bulan') == str_pad($i, 2, '0', STR_PAD_LEFT) ? 'selected' : '' }}>
+                                            {{ date('F', mktime(0, 0, 0, $i, 1)) }}
+                                            </option>
+                                            @endfor
+                                    </select>
+                                </div>
+                            </div>
                         </form>
 
 
@@ -161,9 +165,17 @@
             <div class="card mb-4">
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <h6>Data Sertifikasi</h6>
+                        <form action="{{ route('sertifikasi.filterByNamaProgram') }}" method="GET" class="ms-3">
+                            <select name="namaProgram" onchange="this.form.submit()" class="form-select">
+                                <option value="">Pilih Nama Program</option>
+                                @foreach($namaPrograms as $program)
+                                <option value="{{ $program }}" {{ request('namaProgram') == $program ? 'selected' : '' }}>{{ $program }}</option>
+                                @endforeach
+                            </select>
+                        </form>
                 </div>
-                <form id="filterNamaProgramForm" class="ms-3" action="{{ route('sertifikasi.filterData') }}" method="GET">
-                    <input type="text" name="search" id="search" class="form-control" placeholder="Cari Berdasarkan Nama Program, Nama Pekerja, atau Departemen">
+                <form id="filterNamaProgramForm" class="ms-3 mt-3" action="{{ route('sertifikasi.filterData') }}" method="GET">
+                    <input type="text" name="search" id="search" class="form-select" placeholder="Cari Berdasarkan Nama Program, Nama Pekerja, atau Departemen">
                 </form>
 
                 <div class="card-body px-0 pt-0 pb-2">
