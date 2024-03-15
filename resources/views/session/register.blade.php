@@ -39,12 +39,12 @@
                   @enderror
                 </div>
                 <div class="form-check form-check-info text-left">
-                  <input class="form-check-input" type="checkbox" name="agreement" id="flexCheckDefault" checked>
+                  <input class="form-check-input" type="checkbox" name="agreement" id="flexCheckDefault">
                   <label class="form-check-label" for="flexCheckDefault">
-                    I agree the <a href="javascript:;" class="text-dark font-weight-bolder">Terms and Conditions</a>
+                    Pastikan data yang diisi sudah benar
                   </label>
                   @error('agreement')
-                    <p class="text-danger text-xs mt-2">First, agree to the Terms and Conditions, then try register again.</p>
+                    <p class="text-danger text-xs mt-2">Siakan checklist jika data sudah benar.</p>
                   @enderror
                 </div>
                 <div class="text-center">
