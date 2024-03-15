@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PoReimburstExport;
 use App\Models\POReimburst;
 use App\Models\PRReimburst;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Throwable;
 
 
@@ -33,5 +35,10 @@ class PreOrderController extends Controller
         } catch (Throwable $e) {
             return redirect()->back()->with('error_add', 'Terjadi kesalahan saat input data: ' . $e->getMessage());
         }
+    }
+
+    public function downloadExcel()
+    {
+        return Excel::download(new PoReimburstExport, 'Data PO Reimburst.xlsx');
     }
 }

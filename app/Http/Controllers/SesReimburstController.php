@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\SesReimburstExport;
 use App\Models\POReimburst;
 use App\Models\SESReimburst;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use Throwable;
 
@@ -30,5 +32,10 @@ class SesReimburstController extends Controller
         } catch (Throwable $e) {
             return redirect()->back()->with('error_add', 'Terjadi kesalahan saat input data: ' . $e->getMessage());
         }
+    }
+
+    public function downloadExcel()
+    {
+        return Excel::download(new SesReimburstExport, 'Data SES Reimburst.xlsx');
     }
 }

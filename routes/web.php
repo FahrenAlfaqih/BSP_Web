@@ -87,6 +87,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/', [PreOrderController::class, 'index'])->name('poreimburst');
         Route::get('/filterData', [PreOrderController::class, 'filterData'])->name('poreimburst.filterData');
         Route::get('/download-pdf', [PreOrderController::class, 'downloadPDF'])->name('poreimburst.download-pdf');
+        Route::get('/download-excel', [PreOrderController::class, 'downloadExcel'])->name('poreimburst.download-excel');
         Route::post('/uploadExcel', [PreOrderController::class, 'uploadExcel'])->name('poreimburst.uploadExcel');
         Route::post('/store', [PreOrderController::class, 'store'])->name('poreimburst.store');
         Route::put('/{id}/edit', [PreOrderController::class, 'editPrreimburst'])->name('poreimburst.edit');
@@ -97,6 +98,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/', [SesReimburstController::class, 'index'])->name('sesreimburst');
         Route::get('/filterData', [SesReimburstController::class, 'filterData'])->name('sesreimburst.filterData');
         Route::get('/download-pdf', [SesReimburstController::class, 'downloadPDF'])->name('sesreimburst.download-pdf');
+        Route::get('/download-excel', [SesReimburstController::class, 'downloadExcel'])->name('sesreimburst.download-excel');
         Route::post('/uploadExcel', [SesReimburstController::class, 'uploadExcel'])->name('sesreimburst.uploadExcel');
         Route::post('/store', [SesReimburstController::class, 'store'])->name('sesreimburst.store');
         Route::put('/{id}/edit', [SesReimburstController::class, 'editPrreimburst'])->name('sesreimburst.edit');
