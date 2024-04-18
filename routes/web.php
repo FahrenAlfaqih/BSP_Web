@@ -8,6 +8,7 @@ use App\Http\Controllers\ResetController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\SertifikasiController;
 use App\Http\Controllers\MagangController;
+use App\Http\Controllers\DpdController;
 use App\Http\Controllers\PurchaseReqController;
 use App\Http\Controllers\SesReimburstController;
 use App\Http\Controllers\PreOrderController;
@@ -66,6 +67,24 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('/{id}/edit', [MagangController::class, 'editMagang'])->name('magang.edit');
         Route::delete('/{id}', [MagangController::class, 'deleteMagang'])->name('magang.destroy');
     });
+
+    Route::prefix('dpd')->group(function () {
+        // Menampilkan dan memfilter data DPD
+        Route::get('/', [DpdController::class, 'index'])->name('dpd');
+        Route::get('/filterByDate', [DpdController::class, 'filterByDate'])->name('dpd.filterByDate');
+        Route::get('/filterByDept', [DpdController::class, 'filterByDept'])->name('dpd.filterByDept');
+        Route::get('/filterData', [DpdController::class, 'filterData'])->name('dpd.filterData');
+
+        // Download file PDFs
+        Route::get('/download-pdf', [DpdController::class, 'downloadPDF'])->name('dpd.download-pdf');
+        // Upload file Excel untuk input data
+        Route::post('/uploadExcel', [DpdController::class, 'uploadExcel'])->name('dpd.uploadExcel');
+        // CRUD data DPD
+        Route::post('/store', [DpdController::class, 'store'])->name('dpd.store');
+        Route::put('/{id}/edit', [DpdController::class, 'editDpd'])->name('dpd.edit');
+        Route::delete('/{id}', [DpdController::class, 'deleteDpd'])->name('dpd.destroy');
+    });
+    
 
 
 
