@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfoUserController;
 use App\Http\Controllers\RegisterController;
@@ -81,7 +82,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/uploadExcel', [DpdController::class, 'uploadExcel'])->name('dpd.uploadExcel');
         // CRUD data DPD
         Route::post('/store', [DpdController::class, 'store'])->name('dpd.store');
+        Route::post('/storeDanaAwal', [DepartmentController::class, 'updateInitialFunds'])->name('updateInitialFunds');
+
         Route::put('/{id}/edit', [DpdController::class, 'editDpd'])->name('dpd.edit');
+
         Route::delete('/{id}', [DpdController::class, 'deleteDpd'])->name('dpd.destroy');
     });
     
