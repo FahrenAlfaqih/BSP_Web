@@ -19,38 +19,61 @@ class DpdController extends Controller
     {
         $this->middleware('dept');
     }
-
     public function index()
     {
-        // Ambil nilai dana awal untuk setiap departemen dari tabel departments
-        $departmentInitialFunds = Department::pluck('initial_fund', 'id');
-
+        // Hitung Total Biaya DPD per Departemen
         // Hitung Total Biaya DPD per Departemen
         $totalDPDFunds = Dpd::selectRaw('dept, SUM(biayadpd) as total')
             ->groupBy('dept')
-            ->get();
+            ->get()
+            ->sortByDesc('total'); // Urutkan berdasarkan total biaya DPD dari yang tertinggi
+
+        // Ambil lima departemen dengan total biaya DPD tertinggi
+        $topDepartments = $totalDPDFunds->take(5);
 
         // Hitung Persentase
         $departmentProgress = [];
-        foreach ($totalDPDFunds as $dpdFund) {
-            $initialFund = $departmentInitialFunds[$dpdFund->dept] ?? 0; // Gunakan nilai default jika nilai dana awal tidak tersedia
-            if ($initialFund != 0) {
-                $percentage = ($dpdFund->total / $initialFund) * 100;
-            } else {
-                $percentage = 0; // Nilai default jika nilai dana awal adalah nol
+        foreach ($totalDPDFunds as $dpd) {
+            $percentage = 0;
+            // Jika total biaya DPD tidak nol, hitung persentase
+            if ($dpd->total != 0) {
+                $percentage = ($dpd->total / $totalDPDFunds->sum('total')) * 100;
             }
-            $departmentProgress[$dpdFund->dept] = $percentage;
+            $departmentProgress[$dpd->dept] = $percentage;
         }
 
-        // Ambil daftar DPD dengan biayadpd tertinggi
-        $highestBiayaDPDList = Dpd::orderBy('biayadpd', 'desc')->paginate(10);
+        // Memformat biaya DPD ke format mata uang rupiah
+        $totalDPDFunds->transform(function ($department) {
+            $department->total = 'Rp. ' . number_format($department->total, 0, ',', '.');
+            return $department;
+        });
 
-        // Ambil semua data DPD
+        // Ambil daftar DPD dengan biayadpd tertinggi
+        // Ambil daftar DPD dengan biayadpd tertinggi dan memformat biaya DPD
+        $highestBiayaDPDList = Dpd::orderBy('biayadpd', 'desc')
+            ->paginate(10)
+            ->map(function ($item, $key) {
+                $item->biayadpd = 'Rp. ' . number_format($item->biayadpd, 0, ',', '.');
+                return $item;
+            });
+
+
+        // Ambil departemen dengan total biaya DPD tertinggi
+        $departemenTertinggi = $totalDPDFunds->sortByDesc('total')->first();
+
         $dpdList = Dpd::paginate(10);
+        $dpdList->getCollection()->transform(function ($item, $key) {
+            $item->biayadpd = 'Rp. ' . number_format($item->biayadpd, 0, ',', '.');
+            return $item;
+        });
+
         $departments = Department::paginate(10);
 
-        return view('dpd.index', compact('highestBiayaDPDList', 'dpdList', 'departments', 'departmentProgress'));
+        return view('dpd.index', compact('highestBiayaDPDList', 'dpdList', 'departments', 'departmentProgress', 'departemenTertinggi', 'topDepartments'));
     }
+
+
+
 
 
     public function filterByDate(Request $request)

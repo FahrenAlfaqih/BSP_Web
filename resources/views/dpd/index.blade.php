@@ -6,41 +6,80 @@
 <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg">
     <div class="container-fluid py-4">
         <div class="row">
-            <div class="card mb-4">
-                <div class="card-header pb-0 d-flex justify-content-between align-items-center">
-                    <h6>List Top Tier Anggaran Pekerja</h6>
-                </div>
-                <div class="card-body px-0 pt-0 pb-2">
-                    <div class="table-responsive p-0">
-                        <table class="table align-items-center mb-0">
-                            <thead>
-                                <tr>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder">
-                                        Nama</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder">
-                                        Nomor SPD</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder">
-                                        Departement</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder">
-                                        Biaya DPD</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($highestBiayaDPDList as $dpd)
-                                <tr>
-                                    <td style="font-size: 14px;">{{ $dpd->nama }}</td>
-                                    <td style="font-size: 14px;">{{ $dpd->nomorspd }}</td>
-                                    <td style="font-size: 14px;">{{ $dpd->dept }}</td>
-                                    <td style="font-size: 14px;">{{ $dpd->biayadpd }}</td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+            <div class="col-md-6">
+                <!-- Card List Top Tier Anggaran Pekerja -->
+                <div class="card mb-3" style="width: 100%;">
+                    <div class="card-header pb-0 d-flex justify-content-between align-items-center">
+                        <h6>List Top Tier Anggaran Pekerja</h6>
+                    </div>
+                    <div class="card-body px-0 pt-0 pb-2">
+                        <div class="table-responsive p-0">
+                            <table class="table align-items-center mb-0">
+                                <thead>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder">
+                                            Nama</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder">
+                                            Nomor SPD</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder">
+                                            Departement</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder">
+                                            Biaya DPD</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($highestBiayaDPDList as $dpd)
+                                    <tr>
+                                        <td style="font-size: 14px;">{{ $dpd->nama }}</td>
+                                        <td style="font-size: 14px;">{{ $dpd->nomorspd }}</td>
+                                        <td style="font-size: 14px;">{{ $dpd->dept }}</td>
+                                        <td style="font-size: 14px;">{{ $dpd->biayadpd }}</td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
 
+
+            <!-- Card 5 Departemen dengan Total Biaya DPD Tertinggi -->
+            <div class="col-md-6">
+                <div class="card mb-4" style="width: 48%;">
+                    <div class="card-header pb-0 d-flex justify-content-between align-items-center">
+                        <h6>5 Departemen dengan Total Biaya DPD Tertinggi</h6>
+                    </div>
+                    <div class="card-body px-0 pt-0 pb-2">
+                        <div class="table-responsive p-0">
+                            <table class="table align-items-center mb-0">
+                                <thead>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder">
+                                            Departemen</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder">
+                                            Total Biaya DPD</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($topDepartments as $department)
+                                    <tr>
+                                        <td style="font-size: 14px;">{{ $department->dept }}</td>
+                                        <td style="font-size: 14px;">{{ $department->total }}</td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
         </div>
+
 
         <div class="card mb-3">
             <div class="card-header pb-0 d-flex justify-content-between align-items-center">
@@ -314,7 +353,7 @@
                                 <td style="font-size: 14px;">{{ $dpd->pr }}</td>
                                 <td style="font-size: 14px;">{{ $dpd->po }}</td>
                                 <td style="font-size: 14px;">{{ $dpd->ses }}</td>
-                                <td style="font-size: 14px;"> Rp.{{ $dpd->biayadpd }}</td>
+                                <td style="font-size: 14px;">{{ $dpd->biayadpd }}</td>
                                 <td style="font-size: 14px;">{{ $dpd->submitfinec}}</td>
                                 <td style="font-size: 14px;">{{ $dpd->status }}</td>
                                 <td style="font-size: 14px;">{{ $dpd->paymentbyfinec }}</td>
@@ -351,7 +390,7 @@
                                                     <input type="text" class="form-control" id="institusi" name="institusi" value="{{ $dpd->institusi }}">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="dept" class="form-label" >Departemen</label>
+                                                    <label for="dept" class="form-label">Departemen</label>
                                                     <select class="form-select" id="dept" name="dept" value="{{ $dpd->dept }}">
                                                         <!-- Tambahkan opsi nilai departemen di sini -->
                                                         <option value="">Pilih Departemen</option> <!-- Opsi default kosong -->
@@ -468,6 +507,7 @@
                             Showing {{ $dpdList->firstItem() }} to {{ $dpdList->lastItem() }} of {{ $dpdList->total() }} entries
                         </p>
                     </div>
+
 
                     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
