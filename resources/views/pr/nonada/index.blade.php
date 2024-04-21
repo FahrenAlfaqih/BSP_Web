@@ -20,7 +20,7 @@
 
                         <!-- Button trigger modal input -->
                         <button type="button" class="btn btn-dark btn-2x me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            <i class="fas fa-plus"></i> Tambah prreimburst
+                            <i class="fas fa-plus"></i> Tambah PR Non ada
                         </button>
 
                         <!-- Modal input data -->
@@ -28,18 +28,18 @@
                             <div class="modal-dialog modal-dialog-centered modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Tambah prreimburst</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Tambah PR NonAda</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
 
                                     <div class="modal-body" style="max-height: 450px; overflow-y: auto;">
                                         <!-- Isi formulir di sini -->
-                                        <form action="{{ route('prreimburst.store') }}" method="POST">
+                                        <form action="{{ route('pr.storePrNonada') }}" method="POST">
                                             @csrf
                                             <!-- Isi formulir dengan input yang sesuai -->
                                             <div class="mb-3">
-                                                <label for="idReimburstPR" class="form-label">Nomor PR Reimburst</label>
-                                                <input type="number" class="form-control" id="idReimburstPR" name="idReimburstPR">
+                                                <label for="idNonadaPR" class="form-label">Nomor PR Nonada</label>
+                                                <input type="number" class="form-control" id="idNonadaPR" name="idNonadaPR">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="judulPekerjaan" class="form-label">Judul Pekerjaan</label>
@@ -89,12 +89,12 @@
                         <a href="{{ route('magang') }}" class="btn btn-light btn-2x me-2">
                             <i class="fas fa-sync fa-sm"></i> Reload
                         </a>
-
                         <form id="myForm" class="ms-3">
                             <select name="pilihan" id="pilihan" class="form-select" style="min-width: 130px;">
-                                <option value="Non Ada">PR Non Ada</option>
-                                <option value="Service">PR Service</option>
-                                <option value="Reimburst">PR Reimburst</option>
+                                <!-- Di dalam tag select -->
+                                <option value="reimburst" {{ session('selected_option') == 'prreimburst' ? 'selected' : '' }}>PR Reimburst</option>
+                                <option value="service" {{ session('selected_option') == 'prservice' ? 'selected' : '' }}>PR Service</option>
+                                <option value="nonada" {{ session('selected_option') == 'prnonada' ? 'selected' : '' }}>PR Non Ada</option>
                             </select>
                         </form>
 
@@ -128,17 +128,17 @@
                                         Aksi
                                     </th>
                                 </tr>
-                            </thead>
+                            </thead>    
                             <tbody>
                                 @php $index = 1 @endphp
-                                @foreach ($prreimbursts as $prreimburst)
+                                @foreach ($prnonadas as $prnonada)
                                 <tr>
                                     <td style="font-size: 14px;">{{ $index }}</td>
-                                    <td style="font-size: 14px;">{{ $prreimburst->idReimburstPR }}</td>
-                                    <td style="font-size: 14px;">{{ $prreimburst->judulPekerjaan }}</td>
+                                    <td style="font-size: 14px;">{{ $prnonada->idNonadaPR }}</td>
+                                    <td style="font-size: 14px;">{{ $prnonada->judulPekerjaan }}</td>
                                     <td style="font-size: 14px;">
-                                        <a href="#" class="btn btn-sm btn-outline-warning editButton" data-bs-toggle="modal" data-bs-target=".modalEdit" data-id="{{ $prreimburst->idReimburstPR }}">Edit</a>
-                                        <form action="{{ route('prreimburst.destroy', $prreimburst->idReimburstPR) }}" method="POST" class="d-inline deleteForm" data-id="{{ $prreimburst->idReimburstPR }}">
+                                        <a href="#" class="btn btn-sm btn-outline-warning editButton" data-bs-toggle="modal" data-bs-target=".modalEdit" data-id="{{ $prnonada->idNonadaPR}}">Edit</a>
+                                        <form action="{{ route('prnonada.destroy', $prnonada->idNonadaPR) }}" method="POST" class="d-inline deleteForm" data-id="{{ $prnonada->idNonadaPR}}">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-outline-danger deleteButton">Hapus</button>
@@ -151,69 +151,24 @@
                                     <div class="modal-dialog modal-dialog-centered modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">
+
                                                 <h5 class="modal-title" id="modalEditLabel">Edit prreimburst</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body " style="max-height: 450px; overflow-y: auto;">
-                                                <!-- Form untuk mengedit prreimburst -->
-                                                <form action="{{ route('prreimburst.edit', $prreimburst->idReimburstPR) }}" method="POST" id="editForm">
+                                                <!-- Form untuk mengedit prservice -->
+                                                <form action="{{ route('prnonada.edit', $prnonada->idNonadaPR) }}" method="POST" id="editForm">
                                                     @csrf
                                                     @method('PUT')
                                                     <!-- Isi form sesuai kebutuhan -->
                                                     <div class="mb-3">
-                                                        <label for="noPek" class="form-label">Nomor Pekerja</label>
-                                                        <input type="number" class="form-control" id="noPek" name="noPek" value="{{ $prreimburst->noPek }}">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="namaPekerja" class="form-label">Nama Pekerja</label>
-                                                        <input type="text" class="form-control" id="namaPekerja" name="namaPekerja" value="{{ $prreimburst->namaPekerja }}">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="dept" class="form-label">Nama Departemen</label>
-                                                        <select class="form-select" id="dept" name="dept">
-                                                            <option>{{ $prreimburst->dept}}</option>
-                                                            <option value="SPRM">SPRM</option>
-                                                            <option value="Corporate Secretary">Corporate Secretary</option>
-                                                            <option value="Exploration">Exploration</option>
-                                                            <option value="Exploitation">Exploitation</option>
-                                                            <option value="Production Operation">Production Operation</option>
-                                                            <option value="Drilling & Worker">Drilling & Worker</option>
-                                                            <option value="Operation Support">Operation Support</option>
-                                                            <option value="HCM">HCM</option>
-                                                            <option value="SCM">SCM</option>
-                                                            <option value="Internal Audit">Internal Audit</option>
-                                                            <option value="External Affair">External Affair</option>
-                                                        </select>
+                                                        <label for="idNonadaPR" class="form-label">Nomor PR Non ada</label>
+                                                        <input type="number" class="form-control" id="idNonadaPR" name="idNonadaPR" value="{{ $prnonada->idNonadaPR}}">
                                                     </div>
 
                                                     <div class="mb-3">
-                                                        <label for="namaProgram" class="form-label">Nama Program</label>
-                                                        <input type="text" class="form-control" id="namaProgram" name="namaProgram" value="{{ $prreimburst->namaProgram }}">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="tahunprreimburst" class="form-label">Tahun prreimburst</label>
-                                                        <input type="number" class="form-control" id="tahunprreimburst" name="tahunprreimburst" value="{{ $prreimburst->tahunprreimburst }}">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="tanggalPelaksanaanMulai" class="form-label">Tanggal Pelaksanaan Mulai</label>
-                                                        <input type="date" class="form-control" id="tanggalPelaksanaanMulai" name="tanggalPelaksanaanMulai" value="{{ $prreimburst->tanggalPelaksanaanMulai }}">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="tanggalPelaksanaanSelesai" class="form-label">Tanggal Pelaksanaan Selesai</label>
-                                                        <input type="date" class="form-control" id="tanggalPelaksanaanSelesai" name="tanggalPelaksanaanSelesai" value="{{ $prreimburst->tanggalPelaksanaanSelesai }}">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="tempat" class="form-label">Tempat</label>
-                                                        <input type="text" class="form-control" id="tempat" name="tempat" value="{{ $prreimburst->tempat }}">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="days" class="form-label">Jumlah Hari</label>
-                                                        <input type="text" class="form-control" id="days" name="days" value="{{ $prreimburst->days }}">
-                                                    </div>
-
-                                                    <div class="mb-3">
-                                                        <label for="namaPenyelenggara" class="form-label">Nama Penyelenggara</label>
-                                                        <input type="text" class="form-control" id="namaPenyelenggara" name="namaPenyelenggara" value="{{ $prreimburst->namaPenyelenggara }}">
+                                                        <label for="judulPekerjaan" class="form-label">Nama Pekerja</label>
+                                                        <input type="text" class="form-control" id="judulPekerjaan" name="judulPekerjaan" value="{{ $prnonada->judulPekerjaan }}">
                                                     </div>
                                                     <!-- Tambahkan input lainnya sesuai kebutuhan -->
                                                 </form>
@@ -231,15 +186,22 @@
                             </tbody>
                         </table>
 
-                        <div class="float-start">
-                            <p class="text-muted">
-                                Showing {{ $prreimbursts->firstItem() }} to {{ $prreimbursts->lastItem() }} of {{ $prreimbursts->total() }} entries
-                            </p>
-                        </div>
-
                         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
                         <script>
+                            document.getElementById('myForm').addEventListener('change', function(event) {
+                                event.preventDefault(); // Mencegah formulir untuk melakukan submit
+
+                                var selectedValue = document.getElementById('pilihan').value;
+
+                                if (selectedValue === 'reimburst') {
+                                    window.location.href = "{{ route('prreimburst') }}";
+                                } else if (selectedValue === 'service') {
+                                    window.location.href = "{{ route('prservice') }}";
+                                } else if (selectedValue === 'nonada') {
+                                    window.location.href = "{{ route('prnonada') }}";
+                                }
+                            });
                             //Konfirmasi untuk hapus data
                             document.addEventListener('DOMContentLoaded', function() {
                                 const deleteButtons = document.querySelectorAll('.deleteButton');

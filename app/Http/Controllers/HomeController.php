@@ -12,8 +12,6 @@ class HomeController extends Controller
     public function home(){
 
 
-
-
         $data=Sertifikasi::select('id',"tanggalPelaksanaanMulai")->get()
         ->sortBy('tanggalPelaksanaanMulai') 
         ->groupBy(function($data){

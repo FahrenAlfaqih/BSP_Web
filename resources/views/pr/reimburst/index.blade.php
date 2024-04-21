@@ -91,9 +91,10 @@
                         </a>
                         <form id="myForm" class="ms-3">
                             <select name="pilihan" id="pilihan" class="form-select" style="min-width: 130px;">
-                                <option value="reimburst">PR Reimburst</option>
-                                <option value="service">PR Service</option>
-                                <option value="nonada">PR Non Ada</option>
+                                <!-- Di dalam tag select -->
+                                <option value="reimburst" {{ session('selected_option') == 'prreimburst' ? 'selected' : '' }}>PR Reimburst</option>
+                                <option value="service" {{ session('selected_option') == 'prservice' ? 'selected' : '' }}>PR Service</option>
+                                <option value="nonada" {{ session('selected_option') == 'prnonada' ? 'selected' : '' }}>PR Non Ada</option>
                             </select>
                         </form>
 
@@ -151,7 +152,7 @@
                                     <div class="modal-dialog modal-dialog-centered modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                
+
                                                 <h5 class="modal-title" id="modalEditLabel">Edit prreimburst</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
