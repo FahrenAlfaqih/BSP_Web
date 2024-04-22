@@ -68,8 +68,9 @@ class DpdController extends Controller
         });
 
         $departments = Department::paginate(10);
+        $depts = Department::pluck('name', 'id');
 
-        return view('dpd.index', compact('highestBiayaDPDList', 'dpdList', 'departments', 'departmentProgress', 'departemenTertinggi', 'topDepartments'));
+        return view('dpd.index', compact('highestBiayaDPDList', 'dpdList', 'departments', 'departmentProgress', 'departemenTertinggi', 'topDepartments', 'depts'));
     }
 
 
