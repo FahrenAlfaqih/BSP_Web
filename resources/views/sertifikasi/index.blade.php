@@ -158,21 +158,19 @@
 
                     </div>
                 </div>
-
-
             </div>
             <!-- Table Sertifkasi -->
             <div class="card mb-4">
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <h6>Data Sertifikasi</h6>
-                        <form action="{{ route('sertifikasi.filterByNamaProgram') }}" method="GET" class="ms-3">
-                            <select name="namaProgram" onchange="this.form.submit()" class="form-select">
-                                <option value="">Pilih Nama Program</option>
-                                @foreach($namaPrograms as $program)
-                                <option value="{{ $program }}" {{ request('namaProgram') == $program ? 'selected' : '' }}>{{ $program }}</option>
-                                @endforeach
-                            </select>
-                        </form>
+                    <form action="{{ route('sertifikasi.filterByNamaProgram') }}" method="GET" class="ms-3">
+                        <select name="namaProgram" onchange="this.form.submit()" class="form-select">
+                            <option value="">Pilih Nama Program</option>
+                            @foreach($namaPrograms as $program)
+                            <option value="{{ $program }}" {{ request('namaProgram') == $program ? 'selected' : '' }}>{{ $program }}</option>
+                            @endforeach
+                        </select>
+                    </form>
                 </div>
                 <form id="filterNamaProgramForm" class="ms-3 mt-3" action="{{ route('sertifikasi.filterData') }}" method="GET">
                     <input type="text" name="search" id="search" class="form-select" placeholder="Cari Berdasarkan Nama Program, Nama Pekerja, atau Departemen">
@@ -317,15 +315,36 @@
                             </tbody>
                         </table>
 
-                        <div class="d-flex">
-                            {{ $sertifikasis->links() }}
-                        </div>
-
                         <div class="float-start">
                             <p class="text-muted">
                                 Showing {{ $sertifikasis->firstItem() }} to {{ $sertifikasis->lastItem() }} of {{ $sertifikasis->total() }} entries
                             </p>
                         </div>
+
+                        <div class="clearfix"></div>
+
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Previous">
+                                        <i class="fa fa-angle-left"></i>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                </li>
+                                @for ($i = 1; $i <= $sertifikasis->lastPage(); $i++)
+                                    <li class="page-item {{ ($sertifikasis->currentPage() == $i) ? 'active' : '' }}">
+                                        <a class="page-link" href="{{ $sertifikasis->url($i) }}">{{ $i }}</a>
+                                    </li>
+                                    @endfor
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Next">
+                                            <i class="fa fa-angle-right"></i>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </li>
+                            </ul>
+                        </nav>
+
 
                         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
