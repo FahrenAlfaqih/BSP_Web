@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+<<<<<<< HEAD
 use App\Exports\SesNonExport;
 use App\Exports\SesReimburstExport;
 use App\Exports\SesServiceExport;
@@ -11,6 +12,11 @@ use App\Models\POService;
 use App\Models\SESNonada;
 use App\Models\SESReimburst;
 use App\Models\SESService;
+=======
+use App\Exports\SesReimburstExport;
+use App\Models\POReimburst;
+use App\Models\SESReimburst;
+>>>>>>> 93e23f8c19d599f36a97a368f81e66a94a3008eb
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use Throwable;
@@ -21,6 +27,7 @@ class ServiceEntryController extends Controller
     {
         $sesreimbursts = SESReimburst::paginate(10);
         $poreimbursts = POReimburst::paginate(10);
+<<<<<<< HEAD
         session(['selected_option' => 'sesreimburst']); // Simpan opsi yang dipilih dalam session
         return view('ses.reimburst.index', compact('sesreimbursts', 'poreimbursts'));
     }
@@ -38,6 +45,10 @@ class ServiceEntryController extends Controller
         session(['selected_option' => 'sesnonada']); // Simpan opsi yang dipilih dalam session
         return view('ses.nonada.index', compact('sesnonadas', 'pononadas'));
     }
+=======
+        return view('ses.reimburst.index', compact('sesreimbursts', 'poreimbursts'));
+    }
+>>>>>>> 93e23f8c19d599f36a97a368f81e66a94a3008eb
 
     public function store(Request $request)
     {
@@ -54,6 +65,7 @@ class ServiceEntryController extends Controller
             return redirect()->back()->with('error_add', 'Terjadi kesalahan saat input data: ' . $e->getMessage());
         }
     }
+<<<<<<< HEAD
     public function storeService(Request $request)
     {
         try {
@@ -149,11 +161,14 @@ class ServiceEntryController extends Controller
         $sesnonada->delete();
         return redirect()->back();
     }
+=======
+>>>>>>> 93e23f8c19d599f36a97a368f81e66a94a3008eb
 
     public function downloadExcel()
     {
         return Excel::download(new SesReimburstExport, 'Data SES Reimburst.xlsx');
     }
+<<<<<<< HEAD
     public function downloadExcelService()
     {
         return Excel::download(new SesServiceExport, 'Data SES Service.xlsx');
@@ -162,4 +177,6 @@ class ServiceEntryController extends Controller
     {
         return Excel::download(new SesNonExport, 'Data SES NonAda.xlsx');
     }
+=======
+>>>>>>> 93e23f8c19d599f36a97a368f81e66a94a3008eb
 }

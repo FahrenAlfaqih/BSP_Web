@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+<<<<<<< HEAD
 use App\Models\SESReimburst;
 use App\Models\SESService;
 use Maatwebsite\Excel\Concerns\FromCollection;
@@ -31,5 +32,17 @@ class SesServiceExport implements FromCollection, WithHeadings
             'Nomor PO Service',
             'Judul Pekerjaan',
         ];
+=======
+use Maatwebsite\Excel\Concerns\FromCollection;
+
+class SesServiceExport implements FromCollection
+{
+    /**
+    * @return \Illuminate\Support\Collection
+    */
+    public function collection()
+    {
+        //
+>>>>>>> 93e23f8c19d599f36a97a368f81e66a94a3008eb
     }
 }

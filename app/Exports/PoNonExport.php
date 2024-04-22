@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Exports;
+<<<<<<< HEAD
 use App\Models\PONonada;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -29,5 +30,18 @@ class PoNonExport implements FromCollection, WithHeadings
             'Nomor PR Non Ada',
             'Judul Pekerjaan',
         ];
+=======
+
+use Maatwebsite\Excel\Concerns\FromCollection;
+
+class PoNonExport implements FromCollection
+{
+    /**
+    * @return \Illuminate\Support\Collection
+    */
+    public function collection()
+    {
+        //
+>>>>>>> 93e23f8c19d599f36a97a368f81e66a94a3008eb
     }
 }

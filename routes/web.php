@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfoUserController;
 use App\Http\Controllers\RegisterController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\ResetController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\SertifikasiController;
 use App\Http\Controllers\MagangController;
+use App\Http\Controllers\DpdController;
 use App\Http\Controllers\PurchaseReqController;
 use App\Http\Controllers\ServiceEntryController;
 use App\Http\Controllers\PreOrderController;
@@ -68,6 +70,27 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('/{id}', [MagangController::class, 'deleteMagang'])->name('magang.destroy');
     });
 
+    Route::prefix('dpd')->group(function () {
+        // Menampilkan dan memfilter data DPD
+        Route::get('/', [DpdController::class, 'index'])->name('dpd');
+        Route::get('/filterByDate', [DpdController::class, 'filterByDate'])->name('dpd.filterByDate');
+        Route::get('/filterByDept', [DpdController::class, 'filterByDept'])->name('dpd.filterByDept');
+        Route::get('/filterData', [DpdController::class, 'filterData'])->name('dpd.filterData');
+
+        // Download file PDFs
+        Route::get('/download-pdf', [DpdController::class, 'downloadPDF'])->name('dpd.download-pdf');
+        // Upload file Excel untuk input data
+        Route::post('/uploadExcel', [DpdController::class, 'uploadExcel'])->name('dpd.uploadExcel');
+        // CRUD data DPD
+        Route::post('/store', [DpdController::class, 'store'])->name('dpd.store');
+        Route::post('/storeDanaAwal', [DepartmentController::class, 'updateInitialFunds'])->name('updateInitialFunds');
+
+        Route::put('/{id}/edit', [DpdController::class, 'editDpd'])->name('dpd.edit');
+
+        Route::delete('/{id}', [DpdController::class, 'deleteDpd'])->name('dpd.destroy');
+    });
+    
+
 
 
     Route::prefix('spd')->group(function () {
@@ -103,12 +126,19 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/download-excel-prnonada', [PurchaseReqController::class, 'downloadExcelPrNonada'])->name('prnonada.download-excel');
 
         Route::post('/uploadExcel', [PurchaseReqController::class, 'uploadExcel'])->name('prreimburst.uploadExcel');
+<<<<<<< HEAD
         Route::post('/uploadExcel-prservice', [PurchaseReqController::class, 'uploadExcelService'])->name('prservice.uploadExcel');
         Route::post('/uploadExcel-prnonada', [PurchaseReqController::class, 'uploadExcelNonada'])->name('prnonada.uploadExcel');
 
         Route::post('/store', [PurchaseReqController::class, 'store'])->name('prreimburst.store');
         Route::post('/store-poservice', [PurchaseReqController::class, 'storeService'])->name('pr.storePrService');
         Route::post('/store-pononada', [PurchaseReqController::class, 'storeNonada'])->name('pr.storePrNonada');
+=======
+        
+        Route::post('/store', [PurchaseReqController::class, 'store'])->name('prreimburst.store');
+        Route::post('/storePrService', [PurchaseReqController::class, 'storeService'])->name('pr.storePrService');
+        Route::post('/storePrNonada', [PurchaseReqController::class, 'storeNonada'])->name('pr.storePrNonada');
+>>>>>>> 93e23f8c19d599f36a97a368f81e66a94a3008eb
 
         Route::put('/{id}/edit', [PurchaseReqController::class, 'editPrreimburst'])->name('prreimburst.edit');
         Route::put('/prservices/{id}/edit', [PurchaseReqController::class, 'editPrService'])->name('prservice.edit');
@@ -156,6 +186,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::prefix('ses')->group(function () {
         Route::get('/', [ServiceEntryController::class, 'index'])->name('sesreimburst');
+<<<<<<< HEAD
         Route::get('/sesservice', [ServiceEntryController::class, 'indexService'])->name('sesservice');
         Route::get('/sesnonada', [ServiceEntryController::class, 'indexNonada'])->name('sesnonada');
 
@@ -179,6 +210,15 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('/{id}', [ServiceEntryController::class, 'deleteSesreimburst'])->name('sesreimburst.destroy');
         Route::delete('/sesservice/{id}', [ServiceEntryController::class, 'deleteSesService'])->name('sesservice.destroy');
         Route::delete('/sesnonada/{id}', [ServiceEntryController::class, 'deleteSesNonada'])->name('sesnonada.destroy');
+=======
+        Route::get('/filterData', [ServiceEntryController::class, 'filterData'])->name('sesreimburst.filterData');
+        Route::get('/download-pdf', [ServiceEntryController::class, 'downloadPDF'])->name('sesreimburst.download-pdf');
+        Route::get('/download-excel', [ServiceEntryController::class, 'downloadExcel'])->name('sesreimburst.download-excel');
+        Route::post('/uploadExcel', [ServiceEntryController::class, 'uploadExcel'])->name('sesreimburst.uploadExcel');
+        Route::post('/store', [ServiceEntryController::class, 'store'])->name('sesreimburst.store');
+        Route::put('/{id}/edit', [ServiceEntryController::class, 'editPrreimburst'])->name('sesreimburst.edit');
+        Route::delete('/{id}', [ServiceEntryController::class, 'deletePrreimburst'])->name('sesreimburst.destroy');
+>>>>>>> 93e23f8c19d599f36a97a368f81e66a94a3008eb
     });
 
 
