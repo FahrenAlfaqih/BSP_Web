@@ -7,10 +7,7 @@ use App\Exports\PrReimburstExport;
 use App\Exports\PrServiceExport;
 use App\Imports\PrNonadaImport;
 use App\Imports\PrReimburstImport;
-<<<<<<< HEAD
 use App\Imports\PrServiceImport;
-=======
->>>>>>> 93e23f8c19d599f36a97a368f81e66a94a3008eb
 use App\Models\PRNonada;
 use App\Models\PRReimburst;
 use App\Models\PRService;
@@ -153,10 +150,6 @@ class PurchaseReqController extends Controller
         $prnonada->delete();
         return redirect()->back();
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> 93e23f8c19d599f36a97a368f81e66a94a3008eb
 
     //function untuk fitur tambah data dengan metode upload file excel
     public function uploadExcel(Request $request)
