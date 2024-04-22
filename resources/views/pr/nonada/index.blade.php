@@ -9,7 +9,7 @@
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <div class="d-flex">
 
-                        <a href="{{ route('prreimburst.download-excel', ['search' => request()->input('search'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-success btn-2x me-2">
+                        <a href="{{ route('prnonada.download-excel', ['search' => request()->input('search'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-success btn-2x me-2">
                             <i class="fas fa-file-excel"></i> Cetak Excel
                         </a>
 
@@ -55,7 +55,7 @@
                         </div>
 
                         <!-- upload file excel -->
-                        <form id="uploadForm" action="{{ route('prreimburst.uploadExcel') }}" method="POST" enctype="multipart/form-data" class="btn btn-light btn-2x me-2">
+                        <form id="uploadForm" action="{{ route('prnonada.uploadExcel') }}" method="POST" enctype="multipart/form-data" class="btn btn-light btn-2x me-2">
                             @csrf
                             <i class="fas fa-file-excel  fa-sm"></i>
                             <input type="file" name="file" class="rounded">
@@ -76,7 +76,7 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body" style="max-height: 450px; overflow-y: auto;">
-                                        <img src="../assets/img/contohExcel.png" class="img-fluid" alt="Contoh Isi Excel">
+                                        <img src="../assets/img/contohExcelTransaksi.png" class="img-fluid" alt="Contoh Isi Excel">
                                     </div>
 
                                     <div class="modal-footer">
@@ -86,7 +86,7 @@
                             </div>
                         </div>
                         <!-- Reload Data Terbaru-->
-                        <a href="{{ route('magang') }}" class="btn btn-light btn-2x me-2">
+                        <a href="{{ route('prnonada') }}" class="btn btn-light btn-2x me-2">
                             <i class="fas fa-sync fa-sm"></i> Reload
                         </a>
                         <form id="myForm" class="ms-3">
@@ -109,8 +109,8 @@
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <h6>Data Purchase Request Non Ada</h6>
                 </div>
-                <form id="filterNamaProgramForm" class="ms-3" action="{{ route('prreimburst.filterData') }}" method="GET">
-                    <input type="text" name="search" id="search" class="form-control" placeholder="Cari Berdasarkan Nama, Institusi, atau Departemen">
+                <form id="filterNamaProgramForm" class="ms-3" action="{{ route('prnonada.filterData') }}" method="GET">
+                    <input type="text" name="search" id="search" class="form-control" placeholder="Cari Berdasarkan Nomor PR atau Judul Pekerjaan">
                 </form>
 
                 <div class="card-body px-0 pt-0 pb-2">
@@ -121,7 +121,7 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ">
                                         No</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
-                                        Nomor PR </th>
+                                        Nomor Purchase Request Non Ada </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
                                         Judul Pekerjaan</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">

@@ -76,7 +76,7 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body" style="max-height: 450px; overflow-y: auto;">
-                                        <img src="../assets/img/contohExcel.png" class="img-fluid" alt="Contoh Isi Excel">
+                                        <img src="../assets/img/contohExcelTransaksi.png" class="img-fluid" alt="Contoh Isi Excel">
                                     </div>
 
                                     <div class="modal-footer">
@@ -86,9 +86,10 @@
                             </div>
                         </div>
                         <!-- Reload Data Terbaru-->
-                        <a href="{{ route('magang') }}" class="btn btn-light btn-2x me-2">
+                        <a href="{{ route('prreimburst') }}" class="btn btn-light btn-2x me-2">
                             <i class="fas fa-sync fa-sm"></i> Reload
                         </a>
+
                         <form id="myForm" class="ms-3">
                             <select name="pilihan" id="pilihan" class="form-select" style="min-width: 130px;">
                                 <!-- Di dalam tag select -->
@@ -110,7 +111,7 @@
                     <h6>Data Purchase Request Reimburst</h6>
                 </div>
                 <form id="filterNamaProgramForm" class="ms-3" action="{{ route('prreimburst.filterData') }}" method="GET">
-                    <input type="text" name="search" id="search" class="form-control" placeholder="Cari Berdasarkan Nama, Institusi, atau Departemen">
+                    <input type="text" name="search" id="search" class="form-control" placeholder="Cari Berdasarkan Nomor PR , atau Judul Pekerjaan">
                 </form>
 
                 <div class="card-body px-0 pt-0 pb-2">
@@ -118,15 +119,10 @@
                         <table class="table align-items-center mb-0">
                             <thead>
                                 <tr>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ">
-                                        No</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
-                                        Nomor PR </th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
-                                        Judul Pekerjaan</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
-                                        Aksi
-                                    </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder">No</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">Nomor Purchase Request Reimburst</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">Judul Pekerjaan</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -137,16 +133,17 @@
                                     <td style="font-size: 14px;">{{ $prreimburst->idReimburstPR }}</td>
                                     <td style="font-size: 14px;">{{ $prreimburst->judulPekerjaan }}</td>
                                     <td style="font-size: 14px;">
-                                        <a href="#" class="btn btn-sm btn-outline-warning editButton" data-bs-toggle="modal" data-bs-target=".modalEdit" data-id="{{ $prreimburst->idReimburstPR }}">Edit</a>
+                                        <a href="#" class="btn btn-sm btn-outline-warning editButton" data-bs-toggle="modal" data-bs-target="#modalEdit{{ $prreimburst->idReimburstPR }}" data-id="{{ $prreimburst->idReimburstPR }}">Edit</a>
                                         <form action="{{ route('prreimburst.destroy', $prreimburst->idReimburstPR) }}" method="POST" class="d-inline deleteForm" data-id="{{ $prreimburst->idReimburstPR }}">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-outline-danger deleteButton">Hapus</button>
                                         </form>
-
                                     </td>
                                 </tr>
                                 @php $index++ @endphp
+<<<<<<< HEAD
+=======
                                 <!-- Modal edit data -->
                                 <div class="modal fade modalEdit" tabindex="-1" aria-labelledby="modalEditLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -182,10 +179,45 @@
                                         </div>
                                     </div>
                                 </div>
+>>>>>>> 93e23f8c19d599f36a97a368f81e66a94a3008eb
                                 @endforeach
                             </tbody>
-                            </tbody>
                         </table>
+
+                        @foreach ($prreimbursts as $prreimburst)
+                        <!-- Modal edit data -->
+                        <div class="modal fade" id="modalEdit{{ $prreimburst->idReimburstPR }}" tabindex="-1" aria-labelledby="modalEditLabel{{ $prreimburst->idReimburstPR }}" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="modalEditLabel{{ $prreimburst->idReimburstPR }}">Edit prreimburst</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body" style="max-height: 450px; overflow-y: auto;">
+                                        <!-- Form untuk mengedit prreimburst -->
+                                        <form action="{{ route('prreimburst.edit', $prreimburst->idReimburstPR) }}" method="POST" id="editForm{{ $prreimburst->idReimburstPR }}">
+                                            @csrf
+                                            @method('PUT')
+                                            <!-- Isi form sesuai kebutuhan -->
+                                            <div class="mb-3">
+                                                <label for="idReimburstPR" class="form-label">Nomor PR Reimburst</label>
+                                                <input type="number" class="form-control" id="idReimburstPR" name="idReimburstPR" value="{{ $prreimburst->idReimburstPR }}">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="judulPekerjaan" class="form-label">Nama Pekerja</label>
+                                                <input type="text" class="form-control" id="judulPekerjaan" name="judulPekerjaan" value="{{ $prreimburst->judulPekerjaan }}">
+                                            </div>
+                                            <!-- Tambahkan input lainnya sesuai kebutuhan -->
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                        <button type="button" class="btn btn-primary" id="saveChangesBtn{{ $prreimburst->idReimburstPR }}">Simpan Perubahan</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
 
                         <div class="float-start">
                             <p class="text-muted">
@@ -242,34 +274,6 @@
                                             }
                                         });
                                     });
-                                });
-                            });
-
-                            //script agar tahun pada tanggalPelaksanaanMulai dan Selesai otomatis terubah sesuai dengan
-                            //Tahun prreimburst yang diinputkan sebelumnya
-                            document.addEventListener('DOMContentLoaded', function() {
-                                // Ambil elemen input tahunprreimburst
-                                var tahunprreimburstInput = document.getElementById('tahunprreimburst');
-
-                                // Ambil elemen input tanggalPelaksanaanMulai dan tanggalPelaksanaanSelesai
-                                var tanggalPelaksanaanMulaiInput = document.getElementById('tanggalPelaksanaanMulai');
-                                var tanggalPelaksanaanSelesaiInput = document.getElementById('tanggalPelaksanaanSelesai');
-
-                                // Tambahkan event listener ketika nilai tahunprreimburst berubah
-                                tahunprreimburstInput.addEventListener('change', function() {
-                                    // Ambil nilai tahunprreimburst
-                                    var tahunprreimburst = tahunprreimburstInput.value;
-
-                                    // Periksa apakah tahunprreimburst memiliki nilai
-                                    if (tahunprreimburst) {
-                                        // Set nilai tahun pada tanggalPelaksanaanMulai dan tanggalPelaksanaanSelesai
-                                        tanggalPelaksanaanMulaiInput.value = tahunprreimburst + '-01-01'; // Tanggal mulai diatur menjadi 01 Januari tahunprreimburst
-                                        tanggalPelaksanaanSelesaiInput.value = tahunprreimburst + '-12-31'; // Tanggal selesai diatur menjadi 31 Desember tahunprreimburst
-                                    } else {
-                                        // Kosongkan nilai tanggalPelaksanaanMulai dan tanggalPelaksanaanSelesai jika tahunprreimburst tidak memiliki nilai
-                                        tanggalPelaksanaanMulaiInput.value = '';
-                                        tanggalPelaksanaanSelesaiInput.value = '';
-                                    }
                                 });
                             });
 

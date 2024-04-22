@@ -19,6 +19,8 @@
                             <i class="fas fa-plus"></i> Tambah magang
                         </button>
 
+
+
                         <!-- Modal input data -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 60%;">
@@ -346,7 +348,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label for="tanggalSelesai" class="form-label">Tanggal Pelaksanaan Selesai</label>
-                                                        <input type="date" class="form-control" id="tanggalSelesai" name="tanggalSelesai"  value="{{ $magang->tanggalSelesai}}">
+                                                        <input type="date" class="form-control" id="tanggalSelesai" name="tanggalSelesai" value="{{ $magang->tanggalSelesai}}">
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label for="kegiatan" class="form-label">Kegiatan</label>
@@ -382,7 +384,7 @@
 
                                                     <div class="col-md-6">
                                                         <label for="lokasi" class="form-label">Lokasi</label>
-                                                        <input type="text" class="form-control" id="lokasi" name="lokasi"  value="{{ $magang->lokasi}}">
+                                                        <input type="text" class="form-control" id="lokasi" name="lokasi" value="{{ $magang->lokasi}}">
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label for="mentor" class="form-label">Nama Mentor</label>

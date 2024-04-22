@@ -11,7 +11,8 @@ class PrReimburstExport implements FromCollection, WithHeadings
     /**
      * @return \Illuminate\Support\Collection
      */
-    public function collection()
+    public function collection(
+    )
     {
         $data = PRReimburst::select('idReimburstPR', 'judulPekerjaan')->get()->toArray();
 

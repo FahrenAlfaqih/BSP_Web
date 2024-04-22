@@ -9,6 +9,7 @@ class POService extends Model
 {
     use HasFactory;
     protected $table = 'po_service';
+    protected $primaryKey = 'idServicePO';
     protected $fillable = [
         'idServicePO', 'idServicePR','judulPekerjaan'
     ];

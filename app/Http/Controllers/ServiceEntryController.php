@@ -2,9 +2,21 @@
 
 namespace App\Http\Controllers;
 
+<<<<<<< HEAD
+use App\Exports\SesNonExport;
+use App\Exports\SesReimburstExport;
+use App\Exports\SesServiceExport;
+use App\Models\PONonada;
+use App\Models\POReimburst;
+use App\Models\POService;
+use App\Models\SESNonada;
+use App\Models\SESReimburst;
+use App\Models\SESService;
+=======
 use App\Exports\SesReimburstExport;
 use App\Models\POReimburst;
 use App\Models\SESReimburst;
+>>>>>>> 93e23f8c19d599f36a97a368f81e66a94a3008eb
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use Throwable;
@@ -15,8 +27,28 @@ class ServiceEntryController extends Controller
     {
         $sesreimbursts = SESReimburst::paginate(10);
         $poreimbursts = POReimburst::paginate(10);
+<<<<<<< HEAD
+        session(['selected_option' => 'sesreimburst']); // Simpan opsi yang dipilih dalam session
         return view('ses.reimburst.index', compact('sesreimbursts', 'poreimbursts'));
     }
+    public function indexService()
+    {
+        $sesservices = SESService::paginate(10);
+        $poservices = POService::paginate(10);
+        session(['selected_option' => 'sesservice']); // Simpan opsi yang dipilih dalam session
+        return view('ses.service.index', compact('sesservices', 'poservices'));
+    }
+    public function indexNonada()
+    {
+        $sesnonadas = SESNonada::paginate(10);
+        $pononadas = PONonada::paginate(10);
+        session(['selected_option' => 'sesnonada']); // Simpan opsi yang dipilih dalam session
+        return view('ses.nonada.index', compact('sesnonadas', 'pononadas'));
+    }
+=======
+        return view('ses.reimburst.index', compact('sesreimbursts', 'poreimbursts'));
+    }
+>>>>>>> 93e23f8c19d599f36a97a368f81e66a94a3008eb
 
     public function store(Request $request)
     {
@@ -33,9 +65,118 @@ class ServiceEntryController extends Controller
             return redirect()->back()->with('error_add', 'Terjadi kesalahan saat input data: ' . $e->getMessage());
         }
     }
+<<<<<<< HEAD
+    public function storeService(Request $request)
+    {
+        try {
+            // Validasi data
+            $validatedData = $request->validate([
+                'idServiceSES' => 'required',
+                'idServicePO' => 'required|unique:ses_service,idServicePO',
+                'judulPekerjaan' => 'required',
+            ]);
+            SESService::create($validatedData);
+            return redirect()->back()->with('success_add', 'Data berhasil ditambahkan!');
+        } catch (Throwable $e) {
+            return redirect()->back()->with('error_add', 'Terjadi kesalahan saat input data: ' . $e->getMessage());
+        }
+    }
+    public function storeNonada(Request $request)
+    {
+        try {
+            // Validasi data
+            $validatedData = $request->validate([
+                'idNonadaSES' => 'required',
+                'idNonadaPO' => 'required|unique:ses_nonada,idNonadaPO',
+                'judulPekerjaan' => 'required',
+            ]);
+            SESNonada::create($validatedData);
+            return redirect()->back()->with('success_add', 'Data berhasil ditambahkan!');
+        } catch (Throwable $e) {
+            return redirect()->back()->with('error_add', 'Terjadi kesalahan saat input data: ' . $e->getMessage());
+        }
+    }
+
+    public function editSesReimburst(Request $request, $id)
+    {
+        $sesreimburst = SESReimburst::findOrFail($id);
+        try {
+            $validatedData = $request->validate([
+                'idSReimburstSES' => 'required',
+                'idReimburstPO' => 'required',
+                'judulPekerjaan' => 'required',
+            ]);
+            $sesreimburst->update($validatedData);
+            return redirect()->back()->with('success_update', 'Data berhasil diperbarui!');
+        } catch (Throwable $e) {
+            return redirect()->back()->with('error_update', 'Terjadi kesalahan saat mengupdate data: ' . $e->getMessage());
+        }
+    }
+    public function editSesService(Request $request, $id)
+    {
+        $sesservice = SESService::findOrFail($id);
+        try {
+            $validatedData = $request->validate([
+                'idServiceSES' => 'required',
+                'idServicePO' => 'required',
+                'judulPekerjaan' => 'required',
+            ]);
+            $sesservice->update($validatedData);
+            return redirect()->back()->with('success_update', 'Data berhasil diperbarui!');
+        } catch (Throwable $e) {
+            return redirect()->back()->with('error_update', 'Terjadi kesalahan saat mengupdate data: ' . $e->getMessage());
+        }
+    }
+    public function editSesNonada(Request $request, $id)
+    {
+        $sesnonada = SESNonada::findOrFail($id);
+        try {
+            $validatedData = $request->validate([
+                'idNonadaSES' => 'required',
+                'idNonadaPO' => 'required',
+                'judulPekerjaan' => 'required',
+            ]);
+            $sesnonada->update($validatedData);
+            return redirect()->back()->with('success_update', 'Data berhasil diperbarui!');
+        } catch (Throwable $e) {
+            return redirect()->back()->with('error_update', 'Terjadi kesalahan saat mengupdate data: ' . $e->getMessage());
+        }
+    }
+
+    public function deleteSesreimburst($id)
+    {
+        $sesreimburst = SESReimburst::findOrFail($id);
+        $sesreimburst->delete();
+        return redirect()->back();
+    }
+    public function deleteSesService($id)
+    {
+        $sesservices = SESService::findOrFail($id);
+        $sesservices->delete();
+        return redirect()->back();
+    }
+    public function deleteSesNonada($id)
+    {
+        $sesnonada = SESNonada::findOrFail($id);
+        $sesnonada->delete();
+        return redirect()->back();
+    }
+=======
+>>>>>>> 93e23f8c19d599f36a97a368f81e66a94a3008eb
 
     public function downloadExcel()
     {
         return Excel::download(new SesReimburstExport, 'Data SES Reimburst.xlsx');
     }
+<<<<<<< HEAD
+    public function downloadExcelService()
+    {
+        return Excel::download(new SesServiceExport, 'Data SES Service.xlsx');
+    }
+    public function downloadExcelNonada()
+    {
+        return Excel::download(new SesNonExport, 'Data SES NonAda.xlsx');
+    }
+=======
+>>>>>>> 93e23f8c19d599f36a97a368f81e66a94a3008eb
 }

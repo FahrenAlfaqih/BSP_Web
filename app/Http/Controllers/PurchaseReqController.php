@@ -2,8 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PrNonExport;
 use App\Exports\PrReimburstExport;
+use App\Exports\PrServiceExport;
+use App\Imports\PrNonadaImport;
 use App\Imports\PrReimburstImport;
+<<<<<<< HEAD
+use App\Imports\PrServiceImport;
+=======
+>>>>>>> 93e23f8c19d599f36a97a368f81e66a94a3008eb
 use App\Models\PRNonada;
 use App\Models\PRReimburst;
 use App\Models\PRService;
@@ -146,6 +153,10 @@ class PurchaseReqController extends Controller
         $prnonada->delete();
         return redirect()->back();
     }
+<<<<<<< HEAD
+
+=======
+>>>>>>> 93e23f8c19d599f36a97a368f81e66a94a3008eb
 
     //function untuk fitur tambah data dengan metode upload file excel
     public function uploadExcel(Request $request)
@@ -160,9 +171,70 @@ class PurchaseReqController extends Controller
             return redirect()->back()->with('error_message', 'Terjadi kesalahan saat mengimpor data: ' . $e->getMessage());
         }
     }
+    public function uploadExcelService(Request $request)
+    {
+        try {
+            $request->validate([
+                'file' => 'required|mimes:xlsx,xls',
+            ]);
+            Excel::import(new PrServiceImport, $request->file('file'));
+            return redirect()->back()->with('success_message', 'Data dari Excel berhasil diunggah!');
+        } catch (Throwable $e) {
+            return redirect()->back()->with('error_message', 'Terjadi kesalahan saat mengimpor data: ' . $e->getMessage());
+        }
+    }
+    public function uploadExcelNonada(Request $request)
+    {
+        try {
+            $request->validate([
+                'file' => 'required|mimes:xlsx,xls',
+            ]);
+            Excel::import(new PrNonadaImport, $request->file('file'));
+            return redirect()->back()->with('success_message', 'Data dari Excel berhasil diunggah!');
+        } catch (Throwable $e) {
+            return redirect()->back()->with('error_message', 'Terjadi kesalahan saat mengimpor data: ' . $e->getMessage());
+        }
+    }
 
     public function downloadExcel()
     {
         return Excel::download(new PrReimburstExport, 'Data PR Reimburst.xlsx');
+    }
+    public function downloadExcelPrService()
+    {
+        return Excel::download(new PrServiceExport, 'Data PR Service.xlsx');
+    }
+    public function downloadExcelPrNonada()
+    {
+        return Excel::download(new PrNonExport, 'Data PR Non ada.xlsx');
+    }
+
+    //function untuk memfilter data berdasarkan nama program, nama departemen dan nama pekerja
+    public function filterData(Request $request)
+    {
+        $searchQuery = $request->input('search');
+        $prreimbursts = PRReimburst::where('idReimburstPR', 'like', '%' . $searchQuery . '%')
+            ->orWhere('judulPekerjaan', 'like', '%' . $searchQuery . '%')
+            ->paginate(10);
+        return view('pr.reimburst.index', compact('prreimbursts'));
+    }
+
+    public function filterDataService(Request $request)
+    {
+        $searchQuery = $request->input('search');
+        $prservices = PRService::where('idServicePR', 'like', '%' . $searchQuery . '%')
+            ->orWhere('judulPekerjaan', 'like', '%' . $searchQuery . '%')
+            ->paginate(10);
+        return view('pr.service.index', compact('prservices'));
+    }
+
+    public function filterDataNonada(Request $request)
+    {
+        $searchQuery = $request->input('search');
+
+        $prnonadas = PRNonada::where('idNonadaPR', 'like', '%' . $searchQuery . '%')
+            ->orWhere('judulPekerjaan', 'like', '%' . $searchQuery . '%')
+            ->paginate(10);
+        return view('pr.nonada.index', compact('prnonadas'));
     }
 }
