@@ -2,7 +2,6 @@
 
 namespace App\Exports;
 
-<<<<<<< HEAD
 use App\Models\SESNonada;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -31,17 +30,5 @@ class SesNonExport implements FromCollection, WithHeadings
             'Nomor PO NonAda',
             'Judul Pekerjaan',
         ];
-=======
-use Maatwebsite\Excel\Concerns\FromCollection;
-
-class SesNonExport implements FromCollection
-{
-    /**
-    * @return \Illuminate\Support\Collection
-    */
-    public function collection()
-    {
-        //
->>>>>>> 93e23f8c19d599f36a97a368f81e66a94a3008eb
     }
 }
