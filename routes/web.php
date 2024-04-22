@@ -9,8 +9,9 @@ use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\SertifikasiController;
 use App\Http\Controllers\MagangController;
 use App\Http\Controllers\PurchaseReqController;
-use App\Http\Controllers\SesReimburstController;
+use App\Http\Controllers\ServiceEntryController;
 use App\Http\Controllers\PreOrderController;
+use App\Http\Controllers\SpdController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Route;
@@ -68,41 +69,115 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
 
+    
+    Route::prefix('spd')->group(function () {
+        // Menampilkan dan memfilter data spd
+        Route::get('/', [SpdController::class, 'index'])->name('spd');
+        Route::get('/filterByDate', [SpdController::class, 'filterByDate'])->name('spd.filterByDate');
+        Route::get('/filterData', [SpdController::class, 'filterData'])->name('spd.filterData');
+        // Download file PDF
+        Route::get('/download-pdf', [SpdController::class, 'downloadPDF'])->name('spd.download-pdf');
+        // Download file Excel
+        Route::get('/download-excel', [SpdController::class, 'downloadExcel'])->name('spd.download-excel');
+        // Upload file Excel 
+        Route::post('/uploadExcel', [SpdController::class, 'uploadExcel'])->name('spd.uploadExcel');
+        // CRUD data spd
+        Route::post('/store', [SpdController::class, 'store'])->name('magang.store');
+        Route::put('/{id}/edit', [SpdController::class, 'editMagang'])->name('magang.edit');
+        Route::delete('/{id}', [SpdController::class, 'deleteSpd'])->name('spd.destroy');
+    });
 
 
     Route::prefix('pr')->group(function () {
         Route::get('/', [PurchaseReqController::class, 'index'])->name('prreimburst');
-        Route::get('/service', [PurchaseReqController::class, 'indexService'])->name('prservice');
-        Route::get('/nonada', [PurchaseReqController::class, 'indexNonAda'])->name('prnonada');
+        Route::get('/prservice', [PurchaseReqController::class, 'indexService'])->name('prservice');
+        Route::get('/prnonada', [PurchaseReqController::class, 'indexNonAda'])->name('prnonada');
 
         Route::get('/filterData', [PurchaseReqController::class, 'filterData'])->name('prreimburst.filterData');
+        Route::get('/filterDataService', [PurchaseReqController::class, 'filterDataService'])->name('prservice.filterData');
+        Route::get('/filterDataNonada', [PurchaseReqController::class, 'filterDataNonada'])->name('prnonada.filterData');
+        
         Route::get('/download-excel', [PurchaseReqController::class, 'downloadExcel'])->name('prreimburst.download-excel');
+        Route::get('/download-excel-prservice', [PurchaseReqController::class, 'downloadExcelPrService'])->name('prservice.download-excel');
+        Route::get('/download-excel-prnonada', [PurchaseReqController::class, 'downloadExcelPrNonada'])->name('prnonada.download-excel');
+
         Route::post('/uploadExcel', [PurchaseReqController::class, 'uploadExcel'])->name('prreimburst.uploadExcel');
+        Route::post('/uploadExcel-prservice', [PurchaseReqController::class, 'uploadExcelService'])->name('prservice.uploadExcel');
+        Route::post('/uploadExcel-prnonada', [PurchaseReqController::class, 'uploadExcelNonada'])->name('prnonada.uploadExcel');
+        
         Route::post('/store', [PurchaseReqController::class, 'store'])->name('prreimburst.store');
+        Route::post('/store-poservice', [PurchaseReqController::class, 'storeService'])->name('pr.storePrService');
+        Route::post('/store-pononada', [PurchaseReqController::class, 'storeNonada'])->name('pr.storePrNonada');
+
         Route::put('/{id}/edit', [PurchaseReqController::class, 'editPrreimburst'])->name('prreimburst.edit');
-        Route::delete('/{id}', [PurchaseReqController::class, 'deletePrreimburst'])->name('prreimburst.destroy');
+        Route::put('/prservices/{id}/edit', [PurchaseReqController::class, 'editPrService'])->name('prservice.edit');
+        Route::put('/prnonada/{id}/edit', [PurchaseReqController::class, 'editPrNonada'])->name('prnonada.edit');
+
+        Route::delete('/prreimburst/{id}', [PurchaseReqController::class, 'deletePrreimburst'])->name('prreimburst.destroy');
+        Route::delete('/prservice/{id}', [PurchaseReqController::class, 'deletePrService'])->name('prservice.destroy');
+        Route::delete('/prnonada/{id}', [PurchaseReqController::class, 'deletePrNonada'])->name('prnonada.destroy');
     });
 
     Route::prefix('po')->group(function () {
         Route::get('/', [PreOrderController::class, 'index'])->name('poreimburst');
+        Route::get('/poservice', [PreOrderController::class, 'indexService'])->name('poservice');
+        Route::get('/pononada', [PreOrderController::class, 'indexNonAda'])->name('pononada');
+
         Route::get('/filterData', [PreOrderController::class, 'filterData'])->name('poreimburst.filterData');
+        Route::get('/filterData-pononada', [PreOrderController::class, 'filterData'])->name('pononada.filterData');
+        Route::get('/filterData-poservice', [PreOrderController::class, 'filterData'])->name('poservice.filterData');
+
         Route::get('/download-pdf', [PreOrderController::class, 'downloadPDF'])->name('poreimburst.download-pdf');
+        Route::get('/download-pdf-pononada', [PreOrderController::class, 'downloadPDF'])->name('pononada.download-pdf');
+        Route::get('/download-pdf-poservice', [PreOrderController::class, 'downloadPDF'])->name('poservice.download-pdf');
+
         Route::get('/download-excel', [PreOrderController::class, 'downloadExcel'])->name('poreimburst.download-excel');
+        Route::get('/download-excel-pononada', [PreOrderController::class, 'downloadExcelPoNonada'])->name('pononada.download-excel');
+        Route::get('/download-excel-poservice', [PreOrderController::class, 'downloadExcelPoService'])->name('poservice.download-excel');
+
         Route::post('/uploadExcel', [PreOrderController::class, 'uploadExcel'])->name('poreimburst.uploadExcel');
+        Route::post('/uploadExcel-pononada', [PreOrderController::class, 'uploadExcel'])->name('pononada.uploadExcel');
+        Route::post('/uploadExcel-poservice', [PreOrderController::class, 'uploadExcel'])->name('poservice.uploadExcel');
+
         Route::post('/store', [PreOrderController::class, 'store'])->name('poreimburst.store');
+        Route::post('/store-pononada', [PreOrderController::class, 'storePoNonAda'])->name('pononada.store');
+        Route::post('/store-poservice', [PreOrderController::class, 'storePoService'])->name('poservice.store');
+
         Route::put('/{id}/edit', [PreOrderController::class, 'editPrreimburst'])->name('poreimburst.edit');
-        Route::delete('/{id}', [PreOrderController::class, 'deletePrreimburst'])->name('poreimburst.destroy');
+        Route::put('/pononada/{id}/edit', [PreOrderController::class, 'editPrreimburst'])->name('pononada.edit');
+        Route::put('/poservice/{id}/edit', [PreOrderController::class, 'editPrreimburst'])->name('poservice.edit');
+
+        Route::delete('/poreimburst/{id}', [PreOrderController::class, 'deletePoreimburst'])->name('poreimburst.destroy');
+        Route::delete('/pononada/{id}', [PreOrderController::class, 'deletePoNonada'])->name('pononada.destroy');
+       
+        Route::delete('/poservice/{id}', [PreOrderController::class, 'deletePoService'])->name('poservice.destroy');
     });
 
     Route::prefix('ses')->group(function () {
-        Route::get('/', [SesReimburstController::class, 'index'])->name('sesreimburst');
-        Route::get('/filterData', [SesReimburstController::class, 'filterData'])->name('sesreimburst.filterData');
-        Route::get('/download-pdf', [SesReimburstController::class, 'downloadPDF'])->name('sesreimburst.download-pdf');
-        Route::get('/download-excel', [SesReimburstController::class, 'downloadExcel'])->name('sesreimburst.download-excel');
-        Route::post('/uploadExcel', [SesReimburstController::class, 'uploadExcel'])->name('sesreimburst.uploadExcel');
-        Route::post('/store', [SesReimburstController::class, 'store'])->name('sesreimburst.store');
-        Route::put('/{id}/edit', [SesReimburstController::class, 'editPrreimburst'])->name('sesreimburst.edit');
-        Route::delete('/{id}', [SesReimburstController::class, 'deletePrreimburst'])->name('sesreimburst.destroy');
+        Route::get('/', [ServiceEntryController::class, 'index'])->name('sesreimburst');
+        Route::get('/sesservice', [ServiceEntryController::class, 'indexService'])->name('sesservice');
+        Route::get('/sesnonada', [ServiceEntryController::class, 'indexNonada'])->name('sesnonada');
+
+        Route::get('/filterData', [ServiceEntryController::class, 'filterData'])->name('sesreimburst.filterData');
+        Route::get('/download-pdf', [ServiceEntryController::class, 'downloadPDF'])->name('sesreimburst.download-pdf');
+
+        Route::get('/download-excel', [ServiceEntryController::class, 'downloadExcel'])->name('sesreimburst.download-excel');
+        Route::get('/download-excel-sesservice', [ServiceEntryController::class, 'downloadExcelService'])->name('sesservice.download-excel');
+        Route::get('/download-excel-sesnonada', [ServiceEntryController::class, 'downloadExcelNonada'])->name('sesnonada.download-excel');
+
+        Route::post('/uploadExcel', [ServiceEntryController::class, 'uploadExcel'])->name('sesreimburst.uploadExcel');
+
+        Route::post('/store', [ServiceEntryController::class, 'store'])->name('sesreimburst.store');
+        Route::post('/storeService', [ServiceEntryController::class, 'storeService'])->name('sesservice.store');
+        Route::post('/storeNonada', [ServiceEntryController::class, 'storeNonada'])->name('sesnonada.store');
+
+        Route::put('/{id}/edit', [ServiceEntryController::class, 'editSesReimburst'])->name('sesreimburst.edit');
+        Route::put('/sesservice/{id}/edit', [ServiceEntryController::class, 'editSesService'])->name('sesservice.edit');
+        Route::put('/sesnonada/{id}/edit', [ServiceEntryController::class, 'editSesNonada'])->name('sesnonada.edit');
+
+        Route::delete('/{id}', [ServiceEntryController::class, 'deleteSesreimburst'])->name('sesreimburst.destroy');
+        Route::delete('/sesservice/{id}', [ServiceEntryController::class, 'deleteSesService'])->name('sesservice.destroy');
+        Route::delete('/sesnonada/{id}', [ServiceEntryController::class, 'deleteSesNonada'])->name('sesnonada.destroy');
     });
 
 

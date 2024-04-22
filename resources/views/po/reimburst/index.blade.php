@@ -12,7 +12,7 @@
                             <i class="fas fa-file-excel"></i> Cetak Excel
                         </a>
                         <a href="{{ route('poreimburst.download-pdf', ['search' => request()->input('search'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-danger btn-2x me-2">
-                            <i class="fas fa-file-pdf"></i> Cetak  PDF
+                            <i class="fas fa-file-pdf"></i> Cetak PDF
                         </a>
 
 
@@ -99,6 +99,15 @@
                         <a href="{{ route('magang') }}" class="btn btn-light btn-2x me-2">
                             <i class="fas fa-sync fa-sm"></i> Reload
                         </a>
+
+                        <form id="myForm" class="ms-3">
+                            <select name="pilihan" id="pilihan" class="form-select" style="min-width: 130px;">
+                                <!-- Di dalam tag select -->
+                                <option value="reimburst" {{ session('selected_option') == 'poreimburst' ? 'selected' : '' }}>PO Reimburst</option>
+                                <option value="service" {{ session('selected_option') == 'poservice' ? 'selected' : '' }}>PO Service</option>
+                                <option value="nonada" {{ session('selected_option') == 'pononada' ? 'selected' : '' }}>PO Non Ada</option>
+                            </select>
+                        </form>
 
                     </div>
                 </div>
@@ -244,6 +253,20 @@
                         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
                         <script>
+                            document.getElementById('myForm').addEventListener('change', function(event) {
+                                event.preventDefault(); // Mencegah formulir untuk melakukan submit
+
+                                var selectedValue = document.getElementById('pilihan').value;
+
+                                if (selectedValue === 'reimburst') {
+                                    window.location.href = "{{ route('poreimburst') }}";
+                                } else if (selectedValue === 'service') {
+                                    window.location.href = "{{ route('poservice') }}";
+                                } else if (selectedValue === 'nonada') {
+                                    window.location.href = "{{ route('pononada') }}";
+                                }
+                            });
+
                             //Konfirmasi untuk hapus data
                             document.addEventListener('DOMContentLoaded', function() {
                                 const deleteButtons = document.querySelectorAll('.deleteButton');

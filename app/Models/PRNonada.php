@@ -9,6 +9,7 @@ class PRNonada extends Model
 {
     use HasFactory;
     protected $table = 'pr_nonada';
+    protected $primaryKey = 'idNonadaPR';
     protected $fillable = [
         'idNonadaPR', 'judulPekerjaan'
     ];

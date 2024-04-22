@@ -2,19 +2,18 @@
 
 namespace App\Exports;
 
-use App\Models\PRReimburst;
+use App\Models\SESNonada;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class PrReimburstExport implements FromCollection, WithHeadings
+class SesNonExport implements FromCollection, WithHeadings
 {
     /**
      * @return \Illuminate\Support\Collection
      */
-    public function collection(
-    )
+    public function collection()
     {
-        $data = PRReimburst::select('idReimburstPR', 'judulPekerjaan')->get()->toArray();
+        $data = SESNonada::select('idNonadaSES','idNonadaPO', 'judulPekerjaan')->get()->toArray();
 
         $data = array_map(function ($item, $key) {
             return array_merge([$key + 1], $item);
@@ -27,7 +26,8 @@ class PrReimburstExport implements FromCollection, WithHeadings
     {
         return [
             'No',
-            'Nomor PR Reimburst',
+            'Nomor SES NonAda',
+            'Nomor PO NonAda',
             'Judul Pekerjaan',
         ];
     }

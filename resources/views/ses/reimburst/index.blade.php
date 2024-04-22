@@ -14,7 +14,7 @@
                         </a>
 
                         <a href="{{ route('poreimburst.download-pdf', ['search' => request()->input('search'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-danger btn-2x me-2">
-                            <i class="fas fa-file-pdf"></i> Cetak  PDF
+                            <i class="fas fa-file-pdf"></i> Cetak PDF
                         </a>
 
 
@@ -100,6 +100,15 @@
                         <a href="{{ route('magang') }}" class="btn btn-light btn-2x me-2">
                             <i class="fas fa-sync fa-sm"></i> Reload
                         </a>
+                        <form id="myForm" class="ms-3">
+                            <select name="pilihan" id="pilihan" class="form-select" style="min-width: 130px;">
+                                <!-- Di dalam tag select -->
+                                <option value="reimburst" {{ session('selected_option') == 'sesreimburst' ? 'selected' : '' }}>SES Reimburst</option>
+                                <option value="service" {{ session('selected_option') == 'sesservice' ? 'selected' : '' }}>SES Service</option>
+                                <option value="nonada" {{ session('selected_option') == 'sesnonada' ? 'selected' : '' }}>SES Non Ada</option>
+                            </select>
+                        </form>
+
 
                     </div>
                 </div>
@@ -164,62 +173,7 @@
                                                 <form action="{{ route('poreimburst.edit', $poreimburst->idReimburstPR) }}" method="POST" id="editForm">
                                                     @csrf
                                                     @method('PUT')
-                                                    <!-- Isi form sesuai kebutuhan -->
-                                                    <div class="mb-3">
-                                                        <label for="noPek" class="form-label">Nomor Pekerja</label>
-                                                        <input type="number" class="form-control" id="noPek" name="noPek" value="{{ $poreimburst->noPek }}">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="namaPekerja" class="form-label">Nama Pekerja</label>
-                                                        <input type="text" class="form-control" id="namaPekerja" name="namaPekerja" value="{{ $poreimburst->namaPekerja }}">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="dept" class="form-label">Nama Departemen</label>
-                                                        <select class="form-select" id="dept" name="dept">
-                                                            <option>{{ $poreimburst->dept}}</option>
-                                                            <option value="SPRM">SPRM</option>
-                                                            <option value="Corporate Secretary">Corporate Secretary</option>
-                                                            <option value="Exploration">Exploration</option>
-                                                            <option value="Exploitation">Exploitation</option>
-                                                            <option value="Production Operation">Production Operation</option>
-                                                            <option value="Drilling & Worker">Drilling & Worker</option>
-                                                            <option value="Operation Support">Operation Support</option>
-                                                            <option value="HCM">HCM</option>
-                                                            <option value="SCM">SCM</option>
-                                                            <option value="Internal Audit">Internal Audit</option>
-                                                            <option value="External Affair">External Affair</option>
-                                                        </select>
-                                                    </div>
 
-                                                    <div class="mb-3">
-                                                        <label for="namaProgram" class="form-label">Nama Program</label>
-                                                        <input type="text" class="form-control" id="namaProgram" name="namaProgram" value="{{ $poreimburst->namaProgram }}">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="tahunporeimburst" class="form-label">Tahun poreimburst</label>
-                                                        <input type="number" class="form-control" id="tahunporeimburst" name="tahunporeimburst" value="{{ $poreimburst->tahunporeimburst }}">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="tanggalPelaksanaanMulai" class="form-label">Tanggal Pelaksanaan Mulai</label>
-                                                        <input type="date" class="form-control" id="tanggalPelaksanaanMulai" name="tanggalPelaksanaanMulai" value="{{ $poreimburst->tanggalPelaksanaanMulai }}">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="tanggalPelaksanaanSelesai" class="form-label">Tanggal Pelaksanaan Selesai</label>
-                                                        <input type="date" class="form-control" id="tanggalPelaksanaanSelesai" name="tanggalPelaksanaanSelesai" value="{{ $poreimburst->tanggalPelaksanaanSelesai }}">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="tempat" class="form-label">Tempat</label>
-                                                        <input type="text" class="form-control" id="tempat" name="tempat" value="{{ $poreimburst->tempat }}">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="days" class="form-label">Jumlah Hari</label>
-                                                        <input type="text" class="form-control" id="days" name="days" value="{{ $poreimburst->days }}">
-                                                    </div>
-
-                                                    <div class="mb-3">
-                                                        <label for="namaPenyelenggara" class="form-label">Nama Penyelenggara</label>
-                                                        <input type="text" class="form-control" id="namaPenyelenggara" name="namaPenyelenggara" value="{{ $poreimburst->namaPenyelenggara }}">
-                                                    </div>
                                                     <!-- Tambahkan input lainnya sesuai kebutuhan -->
                                                 </form>
                                             </div>
@@ -245,6 +199,19 @@
                         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
                         <script>
+                            document.getElementById('myForm').addEventListener('change', function(event) {
+                                event.preventDefault(); // Mencegah formulir untuk melakukan submit
+
+                                var selectedValue = document.getElementById('pilihan').value;
+
+                                if (selectedValue === 'reimburst') {
+                                    window.location.href = "{{ route('sesreimburst') }}";
+                                } else if (selectedValue === 'service') {
+                                    window.location.href = "{{ route('sesservice') }}";
+                                } else if (selectedValue === 'nonada') {
+                                    window.location.href = "{{ route('sesnonada') }}";
+                                }
+                            });
                             //Konfirmasi untuk hapus data
                             document.addEventListener('DOMContentLoaded', function() {
                                 const deleteButtons = document.querySelectorAll('.deleteButton');

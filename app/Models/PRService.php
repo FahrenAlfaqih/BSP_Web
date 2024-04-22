@@ -9,6 +9,7 @@ class PRService extends Model
 {
     use HasFactory;
     protected $table = 'pr_service';
+    protected $primaryKey = 'idServicePR';
     protected $fillable = [
         'idServicePR', 'judulPekerjaan'
     ];

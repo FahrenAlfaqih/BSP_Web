@@ -13,8 +13,8 @@ class SESReimburst extends Model
         'idSReimburstSES', 'idReimburstPO', 'judulPekerjaan'
     ];
 
-   // public function poReimburst()
-    //{
-       // return $this->hasOne(POReimburst::class, 'foreign_key', 'local_key');
-    //}
+    public function poReimburst()
+    {
+        return $this->hasOne(POReimburst::class, 'foreign_key', 'local_key');
+    }
 }

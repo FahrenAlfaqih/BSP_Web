@@ -76,7 +76,7 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body" style="max-height: 450px; overflow-y: auto;">
-                                        <img src="../assets/img/contohExcel.png" class="img-fluid" alt="Contoh Isi Excel">
+                                        <img src="../assets/img/contohExcelTransaksi.png" class="img-fluid" alt="Contoh Isi Excel">
                                     </div>
 
                                     <div class="modal-footer">
@@ -86,14 +86,16 @@
                             </div>
                         </div>
                         <!-- Reload Data Terbaru-->
-                        <a href="{{ route('magang') }}" class="btn btn-light btn-2x me-2">
+                        <a href="{{ route('prreimburst') }}" class="btn btn-light btn-2x me-2">
                             <i class="fas fa-sync fa-sm"></i> Reload
                         </a>
+                        
                         <form id="myForm" class="ms-3">
                             <select name="pilihan" id="pilihan" class="form-select" style="min-width: 130px;">
-                                <option value="reimburst">PR Reimburst</option>
-                                <option value="service">PR Service</option>
-                                <option value="nonada">PR Non Ada</option>
+                                <!-- Di dalam tag select -->
+                                <option value="reimburst" {{ session('selected_option') == 'prreimburst' ? 'selected' : '' }}>PR Reimburst</option>
+                                <option value="service" {{ session('selected_option') == 'prservice' ? 'selected' : '' }}>PR Service</option>
+                                <option value="nonada" {{ session('selected_option') == 'prnonada' ? 'selected' : '' }}>PR Non Ada</option>
                             </select>
                         </form>
 
@@ -109,7 +111,7 @@
                     <h6>Data Purchase Request Reimburst</h6>
                 </div>
                 <form id="filterNamaProgramForm" class="ms-3" action="{{ route('prreimburst.filterData') }}" method="GET">
-                    <input type="text" name="search" id="search" class="form-control" placeholder="Cari Berdasarkan Nama, Institusi, atau Departemen">
+                    <input type="text" name="search" id="search" class="form-control" placeholder="Cari Berdasarkan Nomor PR , atau Judul Pekerjaan">
                 </form>
 
                 <div class="card-body px-0 pt-0 pb-2">
@@ -120,7 +122,7 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ">
                                         No</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
-                                        Nomor PR </th>
+                                        Nomor Purchase Request Reimburst</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
                                         Judul Pekerjaan</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
@@ -151,7 +153,7 @@
                                     <div class="modal-dialog modal-dialog-centered modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                
+
                                                 <h5 class="modal-title" id="modalEditLabel">Edit prreimburst</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
