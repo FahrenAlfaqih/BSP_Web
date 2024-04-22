@@ -140,7 +140,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @php $index = 1 @endphp
+                                @php $index = ($poservices->currentPage() - 1) * $poservices->perPage() + 1 @endphp
                                 @foreach ($poservices as $poservices)
                                 <tr>
                                     <td style="font-size: 14px;">{{ $index }}</td>

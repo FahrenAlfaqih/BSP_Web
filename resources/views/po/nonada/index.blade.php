@@ -145,7 +145,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @php $index = 1 @endphp
+                                @php $index = ($pononadas->currentPage() - 1) * $pononadas->perPage() + 1 @endphp
                                 @foreach ($pononadas as $pononadas)
                                 <tr>
                                     <td style="font-size: 14px;">{{ $index }}</td>

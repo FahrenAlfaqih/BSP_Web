@@ -28,7 +28,7 @@
                             <div class="modal-dialog modal-dialog-centered modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Tambah  SES Non Ada</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Tambah SES Non Ada</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
 
@@ -143,7 +143,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @php $index = 1 @endphp
+                                @php $index = ($sesnonadas->currentPage() - 1) * $sesnonadas->perPage() + 1 @endphp
                                 @foreach ($sesnonadas as $sesnonada)
                                 <tr>
                                     <td style="font-size: 14px;">{{ $index }}</td>

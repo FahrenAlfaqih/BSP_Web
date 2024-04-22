@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Imports\MagangImport;
+use App\Imports\SpdImport;
 use App\Models\Magang;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -165,7 +166,7 @@ class MagangController extends Controller
             ]);
 
             foreach ($request->file('file') as $file) {
-                Excel::import(new MagangImport, $file);
+                Excel::import(new SpdImport, $file);
             }
 
             return redirect()->back()->with('success_message', 'Data dari Excel berhasil diunggah!');

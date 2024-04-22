@@ -342,7 +342,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @php $index = 1 @endphp
+                            @php $index = ($dpdList->currentPage() - 1) * $dpdList->perPage() + 1 @endphp
                             @foreach ($dpdList as $dpd)
                             <tr>
                                 <td style="font-size: 14px;">{{ $index }}</td>

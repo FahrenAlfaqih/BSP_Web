@@ -128,9 +128,9 @@
                                         Aksi
                                     </th>
                                 </tr>
-                            </thead>    
+                            </thead>
                             <tbody>
-                                @php $index = 1 @endphp
+                                @php $index = ($prnonadas->currentPage() - 1) * $prnonadas->perPage() + 1 @endphp
                                 @foreach ($prnonadas as $prnonada)
                                 <tr>
                                     <td style="font-size: 14px;">{{ $index }}</td>

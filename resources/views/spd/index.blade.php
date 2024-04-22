@@ -244,7 +244,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @php $index = 1 @endphp
+                            @php $index = ($spds->currentPage() - 1) * $spds->perPage() + 1 @endphp
                                 @foreach ($spds as $spd)
                                 <tr>
                                     <td style="font-size: 14px;">{{ $index }}</td>
@@ -281,15 +281,44 @@
                             </tbody>
                         </table>
 
-                        <div class="d-flex">
-                            {{ $spds->links() }}
-                        </div>
-
+                        <!-- Pagination -->
                         <div class="float-start">
                             <p class="text-muted">
                                 Showing {{ $spds->firstItem() }} to {{ $spds->lastItem() }} of {{ $spds->total() }} entries
                             </p>
                         </div>
+
+                        <div class="clearfix"></div>
+
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item {{ ($spds->onFirstPage()) ? 'disabled' : '' }}">
+                                    <a class="page-link" href="{{ $spds->url(1) }}" aria-label="First">
+                                        <span aria-hidden="true">&laquo;&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="page-item {{ ($spds->onFirstPage()) ? 'disabled' : '' }}">
+                                    <a class="page-link" href="{{ $spds->previousPageUrl() }}" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                @for ($i = max(1, $spds->currentPage() - 2); $i <= min($spds->lastPage(), $spds->currentPage() + 2); $i++)
+                                    <li class="page-item {{ ($spds->currentPage() == $i) ? 'active' : '' }}">
+                                        <a class="page-link" href="{{ $spds->url($i) }}">{{ $i }}</a>
+                                    </li>
+                                    @endfor
+                                    <li class="page-item {{ ($spds->hasMorePages()) ? '' : 'disabled' }}">
+                                        <a class="page-link" href="{{ $spds->nextPageUrl() }}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item {{ ($spds->currentPage() == $spds->lastPage()) ? 'disabled' : '' }}">
+                                        <a class="page-link" href="{{ $spds->url($spds->lastPage()) }}" aria-label="Last">
+                                            <span aria-hidden="true">&raquo;&raquo;</span>
+                                        </a>
+                                    </li>
+                            </ul>
+                        </nav>
 
                         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 

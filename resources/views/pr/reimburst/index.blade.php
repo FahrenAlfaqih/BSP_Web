@@ -126,7 +126,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @php $index = 1 @endphp
+                                @@php $index = ($prreimbursts->currentPage() - 1) * $prreimbursts->perPage() + 1 @endphp
                                 @foreach ($prreimbursts as $prreimburst)
                                 <tr>
                                     <td style="font-size: 14px;">{{ $index }}</td>

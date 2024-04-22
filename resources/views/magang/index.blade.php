@@ -261,7 +261,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @php $index = 1 @endphp
+                                @php $index = ($magangs->currentPage() - 1) * $magangs->perPage() + 1 @endphp
                                 @foreach ($magangs as $magang)
                                 <tr>
                                     <td style="font-size: 14px;">{{ $index }}</td>
@@ -418,15 +418,44 @@
                             </tbody>
                         </table>
 
-                        <div class="d-flex">
-                            {{ $magangs->links() }}
-                        </div>
-
+                        <!-- Pagination -->
                         <div class="float-start">
                             <p class="text-muted">
                                 Showing {{ $magangs->firstItem() }} to {{ $magangs->lastItem() }} of {{ $magangs->total() }} entries
                             </p>
                         </div>
+
+                        <div class="clearfix"></div>
+
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item {{ ($magangs->onFirstPage()) ? 'disabled' : '' }}">
+                                    <a class="page-link" href="{{ $magangs->url(1) }}" aria-label="First">
+                                        <span aria-hidden="true">&laquo;&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="page-item {{ ($magangs->onFirstPage()) ? 'disabled' : '' }}">
+                                    <a class="page-link" href="{{ $magangs->previousPageUrl() }}" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                @for ($i = max(1, $magangs->currentPage() - 2); $i <= min($magangs->lastPage(), $magangs->currentPage() + 2); $i++)
+                                    <li class="page-item {{ ($magangs->currentPage() == $i) ? 'active' : '' }}">
+                                        <a class="page-link" href="{{ $magangs->url($i) }}">{{ $i }}</a>
+                                    </li>
+                                    @endfor
+                                    <li class="page-item {{ ($magangs->hasMorePages()) ? '' : 'disabled' }}">
+                                        <a class="page-link" href="{{ $magangs->nextPageUrl() }}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item {{ ($magangs->currentPage() == $magangs->lastPage()) ? 'disabled' : '' }}">
+                                        <a class="page-link" href="{{ $magangs->url($magangs->lastPage()) }}" aria-label="Last">
+                                            <span aria-hidden="true">&raquo;&raquo;</span>
+                                        </a>
+                                    </li>
+                            </ul>
+                        </nav>
 
                         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 

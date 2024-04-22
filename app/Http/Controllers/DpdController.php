@@ -128,6 +128,7 @@ class DpdController extends Controller
             ->get();
 
         // Hitung Persentase
+        $topDepartments = $totalDPDFunds->take(5);
         $departmentProgress = [];
         foreach ($totalDPDFunds as $dpdFund) {
             $initialFund = $departmentInitialFunds[$dpdFund->dept] ?? 0; // Gunakan nilai default jika nilai dana awal tidak tersedia
@@ -144,8 +145,9 @@ class DpdController extends Controller
 
         // Ambil semua data DPD
         $departments = Department::paginate(10);
+        $depts = Department::pluck('name', 'id');
 
-        return compact('highestBiayaDPDList', 'departments', 'departmentProgress');
+        return compact('highestBiayaDPDList', 'departments', 'departmentProgress','topDepartments','depts');
     }
 
 

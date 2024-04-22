@@ -182,33 +182,33 @@
                         <table class="table align-items-center mb-0">
                             <thead>
                                 <tr>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         No</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         NoPek</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Nama Pekerja</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Dept</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Nama Program</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Tanggal Mulai</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Tanggal Selesai</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Days</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Tempat</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Nama Penyelenggara</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Aksi
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @php $index = 1 @endphp
+                                @php $index = ($sertifikasis->currentPage() - 1) * $sertifikasis->perPage() + 1 @endphp
                                 @foreach ($sertifikasis as $sertifikasi)
                                 <tr>
                                     <td style="font-size: 14px;">{{ $index }}</td>
@@ -316,6 +316,7 @@
                             </tbody>
                         </table>
 
+                        <!-- Pagination -->
                         <div class="float-start">
                             <p class="text-muted">
                                 Showing {{ $sertifikasis->firstItem() }} to {{ $sertifikasis->lastItem() }} of {{ $sertifikasis->total() }} entries
@@ -326,25 +327,34 @@
 
                         <nav aria-label="Page navigation example">
                             <ul class="pagination">
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Previous">
-                                        <i class="fa fa-angle-left"></i>
-                                        <span class="sr-only">Previous</span>
+                                <li class="page-item {{ ($sertifikasis->onFirstPage()) ? 'disabled' : '' }}">
+                                    <a class="page-link" href="{{ $sertifikasis->url(1) }}" aria-label="First">
+                                        <span aria-hidden="true">&laquo;&laquo;</span>
                                     </a>
                                 </li>
-                                @for ($i = 1; $i <= $sertifikasis->lastPage(); $i++)
+                                <li class="page-item {{ ($sertifikasis->onFirstPage()) ? 'disabled' : '' }}">
+                                    <a class="page-link" href="{{ $sertifikasis->previousPageUrl() }}" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                @for ($i = max(1, $sertifikasis->currentPage() - 2); $i <= min($sertifikasis->lastPage(), $sertifikasis->currentPage() + 2); $i++)
                                     <li class="page-item {{ ($sertifikasis->currentPage() == $i) ? 'active' : '' }}">
                                         <a class="page-link" href="{{ $sertifikasis->url($i) }}">{{ $i }}</a>
                                     </li>
                                     @endfor
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Next">
-                                            <i class="fa fa-angle-right"></i>
-                                            <span class="sr-only">Next</span>
+                                    <li class="page-item {{ ($sertifikasis->hasMorePages()) ? '' : 'disabled' }}">
+                                        <a class="page-link" href="{{ $sertifikasis->nextPageUrl() }}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item {{ ($sertifikasis->currentPage() == $sertifikasis->lastPage()) ? 'disabled' : '' }}">
+                                        <a class="page-link" href="{{ $sertifikasis->url($sertifikasis->lastPage()) }}" aria-label="Last">
+                                            <span aria-hidden="true">&raquo;&raquo;</span>
                                         </a>
                                     </li>
                             </ul>
                         </nav>
+
 
 
                         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
