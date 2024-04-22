@@ -69,12 +69,13 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
 
-    
+
     Route::prefix('spd')->group(function () {
         // Menampilkan dan memfilter data spd
         Route::get('/', [SpdController::class, 'index'])->name('spd');
         Route::get('/filterByDate', [SpdController::class, 'filterByDate'])->name('spd.filterByDate');
         Route::get('/filterData', [SpdController::class, 'filterData'])->name('spd.filterData');
+        Route::get('/filterByDept', [SpdController::class, 'filterByDept'])->name('spd.filterByDept');
         // Download file PDF
         Route::get('/download-pdf', [SpdController::class, 'downloadPDF'])->name('spd.download-pdf');
         // Download file Excel
@@ -82,7 +83,7 @@ Route::group(['middleware' => 'auth'], function () {
         // Upload file Excel 
         Route::post('/uploadExcel', [SpdController::class, 'uploadExcel'])->name('spd.uploadExcel');
         // CRUD data spd
-        Route::post('/store', [SpdController::class, 'store'])->name('magang.store');
+        Route::post('/store', [SpdController::class, 'store'])->name('spd.store');
         Route::put('/{id}/edit', [SpdController::class, 'editMagang'])->name('magang.edit');
         Route::delete('/{id}', [SpdController::class, 'deleteSpd'])->name('spd.destroy');
     });
@@ -96,7 +97,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/filterData', [PurchaseReqController::class, 'filterData'])->name('prreimburst.filterData');
         Route::get('/filterDataService', [PurchaseReqController::class, 'filterDataService'])->name('prservice.filterData');
         Route::get('/filterDataNonada', [PurchaseReqController::class, 'filterDataNonada'])->name('prnonada.filterData');
-        
+
         Route::get('/download-excel', [PurchaseReqController::class, 'downloadExcel'])->name('prreimburst.download-excel');
         Route::get('/download-excel-prservice', [PurchaseReqController::class, 'downloadExcelPrService'])->name('prservice.download-excel');
         Route::get('/download-excel-prnonada', [PurchaseReqController::class, 'downloadExcelPrNonada'])->name('prnonada.download-excel');
@@ -104,7 +105,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/uploadExcel', [PurchaseReqController::class, 'uploadExcel'])->name('prreimburst.uploadExcel');
         Route::post('/uploadExcel-prservice', [PurchaseReqController::class, 'uploadExcelService'])->name('prservice.uploadExcel');
         Route::post('/uploadExcel-prnonada', [PurchaseReqController::class, 'uploadExcelNonada'])->name('prnonada.uploadExcel');
-        
+
         Route::post('/store', [PurchaseReqController::class, 'store'])->name('prreimburst.store');
         Route::post('/store-poservice', [PurchaseReqController::class, 'storeService'])->name('pr.storePrService');
         Route::post('/store-pononada', [PurchaseReqController::class, 'storeNonada'])->name('pr.storePrNonada');
@@ -149,7 +150,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::delete('/poreimburst/{id}', [PreOrderController::class, 'deletePoreimburst'])->name('poreimburst.destroy');
         Route::delete('/pononada/{id}', [PreOrderController::class, 'deletePoNonada'])->name('pononada.destroy');
-       
+
         Route::delete('/poservice/{id}', [PreOrderController::class, 'deletePoService'])->name('poservice.destroy');
     });
 
@@ -184,7 +185,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('static-sign-up', function () {
         return view('static-sign-up');
     })->name('sign-up');
-
     Route::get('/logout', [SessionsController::class, 'destroy']);
     Route::get('/user-profile', [InfoUserController::class, 'create']);
     Route::post('/user-profile', [InfoUserController::class, 'store']);

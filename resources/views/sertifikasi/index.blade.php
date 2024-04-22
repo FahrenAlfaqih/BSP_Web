@@ -152,12 +152,14 @@
                                             @endfor
                                     </select>
                                 </div>
+
                             </div>
                         </form>
 
 
                     </div>
                 </div>
+                
 
 
             </div>
@@ -165,14 +167,14 @@
             <div class="card mb-4">
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <h6>Data Sertifikasi</h6>
-                        <form action="{{ route('sertifikasi.filterByNamaProgram') }}" method="GET" class="ms-3">
-                            <select name="namaProgram" onchange="this.form.submit()" class="form-select">
-                                <option value="">Pilih Nama Program</option>
-                                @foreach($namaPrograms as $program)
-                                <option value="{{ $program }}" {{ request('namaProgram') == $program ? 'selected' : '' }}>{{ $program }}</option>
-                                @endforeach
-                            </select>
-                        </form>
+                    <form action="{{ route('sertifikasi.filterByNamaProgram') }}" method="GET" class="ms-3">
+                        <select name="namaProgram" onchange="this.form.submit()" class="form-select">
+                            <option value="">Pilih Nama Program</option>
+                            @foreach($namaPrograms as $program)
+                            <option value="{{ $program }}" {{ request('namaProgram') == $program ? 'selected' : '' }}>{{ $program }}</option>
+                            @endforeach
+                        </select>
+                    </form>
                 </div>
                 <form id="filterNamaProgramForm" class="ms-3 mt-3" action="{{ route('sertifikasi.filterData') }}" method="GET">
                     <input type="text" name="search" id="search" class="form-select" placeholder="Cari Berdasarkan Nama Program, Nama Pekerja, atau Departemen">

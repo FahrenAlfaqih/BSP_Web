@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Sertifikasi;
 use App\Imports\SertifikasiImport;
+use App\Imports\SpdImport;
 use RealRashid\SweetAlert\Facades\Alert;
 use Maatwebsite\Excel\Facades\Excel;
 use Dompdf\Dompdf;
@@ -60,15 +61,14 @@ class SertifikasiController extends Controller
             ->paginate(10);
         return view('sertifikasi.index', compact('sertifikasis'));
     }
+
+    
     public function filterByNamaProgram(Request $request)
     {
         $namaProgram = $request->namaProgram;
         $sertifikasis = Sertifikasi::where('namaProgram', $namaProgram)->paginate(10);
         return view('sertifikasi.index', compact('sertifikasis'));
     }
-
-
-
 
     //function untuk menyimpan data ke database
     public function store(Request $request)

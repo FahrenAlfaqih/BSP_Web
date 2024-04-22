@@ -79,6 +79,7 @@ class MagangController extends Controller
         } catch (Throwable $e) {
             return redirect()->back()->with('error_add', 'Terjadi kesalahan saat input data: ' . $e->getMessage());
         }
+
     }
 
     //function untuk mengedit data Magang
@@ -172,4 +173,6 @@ class MagangController extends Controller
             return redirect()->back()->with('error_message', 'Terjadi kesalahan saat mengimpor data: ' . $e->getMessage());
         }
     }
+
+    
 }

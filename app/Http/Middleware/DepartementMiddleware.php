@@ -3,10 +3,11 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Models\Sertifikasi;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+use App\Models\Spd;
 
-
-class NamaProgramMiddleware
+class DepartementMiddleware
 {
     /**
      * Handle an incoming request.
@@ -15,8 +16,8 @@ class NamaProgramMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $namaPrograms = Sertifikasi::distinct()->pluck('namaProgram');
-        view()->share('namaPrograms', $namaPrograms);
+        $departements = Spd::distinct()->pluck('dept');
+        view()->share('departements', $departements);
 
         return $next($request);
     }
