@@ -182,6 +182,44 @@
                                     </div>
                                 </div>
                                 @endforeach
+                                                        <!-- Pagination -->
+                        <div class="float-start">
+                            <p class="text-muted">
+                                Showing {{ $prservices->firstItem() }} to {{ $prservices->lastItem() }} of {{ $prservices->total() }} entries
+                            </p>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item {{ ($prservices->onFirstPage()) ? 'disabled' : '' }}">
+                                    <a class="page-link" href="{{ $prservices->url(1) }}" aria-label="First">
+                                        <span aria-hidden="true">&laquo;&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="page-item {{ ($prservices->onFirstPage()) ? 'disabled' : '' }}">
+                                    <a class="page-link" href="{{ $prservices->previousPageUrl() }}" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                @for ($i = max(1, $prservices->currentPage() - 2); $i <= min($prservices->lastPage(), $prservices->currentPage() + 2); $i++)
+                                    <li class="page-item {{ ($prservices->currentPage() == $i) ? 'active' : '' }}">
+                                        <a class="page-link" href="{{ $prservices->url($i) }}">{{ $i }}</a>
+                                    </li>
+                                    @endfor
+                                    <li class="page-item {{ ($prservices->hasMorePages()) ? '' : 'disabled' }}">
+                                        <a class="page-link" href="{{ $prservices->nextPageUrl() }}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item {{ ($prservices->currentPage() == $prservices->lastPage()) ? 'disabled' : '' }}">
+                                        <a class="page-link" href="{{ $prservices->url($prservices->lastPage()) }}" aria-label="Last">
+                                            <span aria-hidden="true">&raquo;&raquo;</span>
+                                        </a>
+                                    </li>
+                            </ul>
+                        </nav>
                             </tbody>
                             </tbody>
                         </table>

@@ -18,17 +18,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application.
-| These routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/', [HomeController::class, 'home'])->name('dashboard');
@@ -76,7 +65,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/filterByDate', [DpdController::class, 'filterByDate'])->name('dpd.filterByDate');
         Route::get('/filterByDept', [DpdController::class, 'filterByDept'])->name('dpd.filterByDept');
         Route::get('/filterData', [DpdController::class, 'filterData'])->name('dpd.filterData');
-
         // Download file PDFs
         Route::get('/download-pdf', [DpdController::class, 'downloadPDF'])->name('dpd.download-pdf');
         // Upload file Excel untuk input data
@@ -84,14 +72,10 @@ Route::group(['middleware' => 'auth'], function () {
         // CRUD data DPD
         Route::post('/store', [DpdController::class, 'store'])->name('dpd.store');
         Route::post('/storeDanaAwal', [DepartmentController::class, 'updateInitialFunds'])->name('updateInitialFunds');
-
         Route::put('/{id}/edit', [DpdController::class, 'editDpd'])->name('dpd.edit');
-
         Route::delete('/{id}', [DpdController::class, 'deleteDpd'])->name('dpd.destroy');
     });
     
-
-
 
     Route::prefix('spd')->group(function () {
         // Menampilkan dan memfilter data spd
@@ -110,7 +94,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('/{id}/edit', [SpdController::class, 'editMagang'])->name('magang.edit');
         Route::delete('/{id}', [SpdController::class, 'deleteSpd'])->name('spd.destroy');
     });
-
 
     Route::prefix('pr')->group(function () {
         Route::get('/', [PurchaseReqController::class, 'index'])->name('prreimburst');
@@ -203,7 +186,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('/sesservice/{id}', [ServiceEntryController::class, 'deleteSesService'])->name('sesservice.destroy');
         Route::delete('/sesnonada/{id}', [ServiceEntryController::class, 'deleteSesNonada'])->name('sesnonada.destroy');
     });
-
 
     Route::get('static-sign-up', function () {
         return view('static-sign-up');
