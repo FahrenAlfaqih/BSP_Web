@@ -78,14 +78,14 @@
   <div class="col-lg-6 mb-lg-0 mb-4">
   <div class="card mb-3" style="width: 100%;">
     <div class="card-header pb-0 d-flex justify-content-between align-items-center">
-      <h6>Progress Anggaran Dana DPD</h6>
+    <p class="font-weight-bolder">Progress Anggaran Dana DPD</p>
     </div>
     <div class="card-body px-0 pt-0 pb-2">
       @foreach ($departmentProgress as $dept => $percentage)
       <div class="m-3">
         <p>{{ $dept }}</p>
-        <div class="progress" style="height: 20px;">
-          <div class="progress-bar" style="height: 20px; width: {{ number_format($percentage, 2) }}%;" role="progressbar" aria-valuenow="{{ $percentage }}" aria-valuemin="0" aria-valuemax="100">{{ number_format($percentage, 2) }}%</div>
+        <div class="progress" style="height: 15px;">
+          <div class="progress-bar" style="height: 15px; width: {{ number_format($percentage, 2) }}%;" role="progressbar" aria-valuenow="{{ $percentage }}" aria-valuemin="0" aria-valuemax="100">{{ number_format($percentage, 2) }}%</div>
         </div>
       </div>
       @endforeach
