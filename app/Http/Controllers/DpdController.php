@@ -19,18 +19,16 @@ class DpdController extends Controller
     {
         $this->middleware('dept');
     }
+    
     public function index()
     {
-        // Hitung Total Biaya DPD per Departemen
         // Hitung Total Biaya DPD per Departemen
         $totalDPDFunds = Dpd::selectRaw('dept, SUM(biayadpd) as total')
             ->groupBy('dept')
             ->get()
             ->sortByDesc('total'); // Urutkan berdasarkan total biaya DPD dari yang tertinggi
-
         // Ambil lima departemen dengan total biaya DPD tertinggi
         $topDepartments = $totalDPDFunds->take(5);
-
         // Hitung Persentase
         $departmentProgress = [];
         foreach ($totalDPDFunds as $dpd) {
@@ -41,14 +39,11 @@ class DpdController extends Controller
             }
             $departmentProgress[$dpd->dept] = $percentage;
         }
-
         // Memformat biaya DPD ke format mata uang rupiah
         $totalDPDFunds->transform(function ($department) {
             $department->total = 'Rp. ' . number_format($department->total, 0, ',', '.');
             return $department;
         });
-
-        // Ambil daftar DPD dengan biayadpd tertinggi
         // Ambil daftar DPD dengan biayadpd tertinggi dan memformat biaya DPD
         $highestBiayaDPDList = Dpd::orderBy('biayadpd', 'desc')
             ->paginate(10)
@@ -56,34 +51,23 @@ class DpdController extends Controller
                 $item->biayadpd = 'Rp. ' . number_format($item->biayadpd, 0, ',', '.');
                 return $item;
             });
-
-
         // Ambil departemen dengan total biaya DPD tertinggi
         $departemenTertinggi = $totalDPDFunds->sortByDesc('total')->first();
-
         $dpdList = Dpd::paginate(10);
         $dpdList->getCollection()->transform(function ($item, $key) {
             $item->biayadpd = 'Rp. ' . number_format($item->biayadpd, 0, ',', '.');
             return $item;
         });
-
         $departments = Department::paginate(10);
         $depts = Department::pluck('name', 'id');
-
         return view('dpd.index', compact('highestBiayaDPDList', 'dpdList', 'departments', 'departmentProgress', 'departemenTertinggi', 'topDepartments', 'depts'));
     }
-
-
-
-
 
     public function filterByDate(Request $request)
     {
         $tahun = $request->tahun;
         $bulan = $request->bulan;
-
         $dpdQuery = Dpd::query();
-
         if ($tahun && $bulan) {
             // Filter berdasarkan tahun dan bulan
             $dpdQuery->whereMonth('submitfinec', $bulan)
@@ -95,7 +79,6 @@ class DpdController extends Controller
             // Filter hanya berdasarkan bulan
             $dpdQuery->whereMonth('submitfinec', $bulan);
         }
-
         $dpdList = $dpdQuery->paginate(10);
         return view('dpd.index')->with(compact('dpdList'))->with($this->loadData());
     }
@@ -121,12 +104,10 @@ class DpdController extends Controller
     {
         // Ambil nilai dana awal untuk setiap departemen dari tabel departments
         $departmentInitialFunds = Department::pluck('initial_fund', 'id');
-
         // Hitung Total Biaya DPD per Departemen
         $totalDPDFunds = Dpd::selectRaw('dept, SUM(biayadpd) as total')
             ->groupBy('dept')
             ->get();
-
         // Hitung Persentase
         $topDepartments = $totalDPDFunds->take(5);
         $departmentProgress = [];
@@ -139,17 +120,13 @@ class DpdController extends Controller
             }
             $departmentProgress[$dpdFund->dept] = $percentage;
         }
-
         // Ambil daftar DPD dengan biayadpd tertinggi
         $highestBiayaDPDList = Dpd::orderBy('biayadpd', 'desc')->paginate(10);
-
         // Ambil semua data DPD
         $departments = Department::paginate(10);
         $depts = Department::pluck('name', 'id');
-
         return compact('highestBiayaDPDList', 'departments', 'departmentProgress','topDepartments','depts');
     }
-
 
     // Function untuk menyimpan data ke database
     public function store(Request $request)
@@ -218,30 +195,23 @@ class DpdController extends Controller
         $tahun = $request->query('tahun');
         $bulan = $request->query('bulan');
         $dept = $request->query('dept');
-
         $dpdQuery = Dpd::query();
-
         if ($searchQuery) {
             $dpdQuery->where(function ($query) use ($searchQuery) {
                 $query->where('nama', 'like', '%' . $searchQuery . '%')
                     ->orWhere('nomorspd', 'like', '%' . $searchQuery . '%');
             });
         }
-
         if ($dept) {
             $dpdQuery->where('dept', $dept);
         }
-
         if ($tahun) {
             $dpdQuery->whereYear('submitfinec', $tahun);
         }
-
         if ($bulan) {
             $dpdQuery->whereMonth('submitfinec', $bulan);
         }
-
         $dpdList = $dpdQuery->get();
-
         if ($dpdList->isNotEmpty()) {
             $dompdf = new Dompdf();
             $html = view('dpd.pdf', compact('dpdList'))->render();
@@ -254,7 +224,6 @@ class DpdController extends Controller
         }
     }
 
-
     //function untuk fitur tambah data dengan metode upload file excel
     public function uploadExcel(Request $request)
     {
@@ -262,11 +231,9 @@ class DpdController extends Controller
             $request->validate([
                 'file.*' => 'required|mimes:xlsx,xls',
             ]);
-
             foreach ($request->file('file') as $file) {
                 Excel::import(new DpdImport, $file);
             }
-
             return redirect()->back()->with('success_message', 'Data dari Excel berhasil diunggah!');
         } catch (Throwable $e) {
             return redirect()->back()->with('error_message', 'Terjadi kesalahan saat mengimpor data: ' . $e->getMessage());
