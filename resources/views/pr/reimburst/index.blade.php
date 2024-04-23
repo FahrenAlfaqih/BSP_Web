@@ -126,7 +126,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @@php $index = ($prreimbursts->currentPage() - 1) * $prreimbursts->perPage() + 1 @endphp
+                                @php $index = ($prreimbursts->currentPage() - 1) * $prreimbursts->perPage() + 1 @endphp
                                 @foreach ($prreimbursts as $prreimburst)
                                 <tr>
                                     <td style="font-size: 14px;">{{ $index }}</td>
@@ -181,11 +181,44 @@
                         </div>
                         @endforeach
 
+                        <!-- Pagination -->
                         <div class="float-start">
                             <p class="text-muted">
                                 Showing {{ $prreimbursts->firstItem() }} to {{ $prreimbursts->lastItem() }} of {{ $prreimbursts->total() }} entries
                             </p>
                         </div>
+
+                        <div class="clearfix"></div>
+
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item {{ ($prreimbursts->onFirstPage()) ? 'disabled' : '' }}">
+                                    <a class="page-link" href="{{ $prreimbursts->url(1) }}" aria-label="First">
+                                        <span aria-hidden="true">&laquo;&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="page-item {{ ($prreimbursts->onFirstPage()) ? 'disabled' : '' }}">
+                                    <a class="page-link" href="{{ $prreimbursts->previousPageUrl() }}" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                @for ($i = max(1, $prreimbursts->currentPage() - 2); $i <= min($prreimbursts->lastPage(), $prreimbursts->currentPage() + 2); $i++)
+                                    <li class="page-item {{ ($prreimbursts->currentPage() == $i) ? 'active' : '' }}">
+                                        <a class="page-link" href="{{ $prreimbursts->url($i) }}">{{ $i }}</a>
+                                    </li>
+                                    @endfor
+                                    <li class="page-item {{ ($prreimbursts->hasMorePages()) ? '' : 'disabled' }}">
+                                        <a class="page-link" href="{{ $prreimbursts->nextPageUrl() }}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item {{ ($prreimbursts->currentPage() == $prreimbursts->lastPage()) ? 'disabled' : '' }}">
+                                        <a class="page-link" href="{{ $prreimbursts->url($prreimbursts->lastPage()) }}" aria-label="Last">
+                                            <span aria-hidden="true">&raquo;&raquo;</span>
+                                        </a>
+                                    </li>
+                            </ul>
+                        </nav>
 
                         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 

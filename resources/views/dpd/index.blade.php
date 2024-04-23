@@ -101,92 +101,60 @@
                                             <input type="text" class="form-control" id="nama" name="nama">
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="institusi" class="form-label">Institusi</label>
-                                            <input type="text" class="form-control" id="institusi" name="institusi">
+                                            <label for="nomorspd" class="form-label">Nomor SPD</label>
+                                            <input type="text" class="form-control" id="nomorspd" name="nomorspd">
                                         </div>
                                         <div class="col-md-6">
                                             <label for="dept" class="form-label">Departemen</label>
                                             <select class="form-select" id="dept" name="dept">
                                                 <!-- Tambahkan opsi nilai departemen di sini -->
                                                 <option value="">Pilih Departemen</option> <!-- Opsi default kosong -->
+                                                <option value="GM">GM</option>
+                                                <option value="PRODUCTION OPERATION">PRODUCTION OPERATION</option>
+                                                <option value="OPERATION SUPPORT">OPERATION SUPPORT</option>
+                                                <option value="DRILLING & WORK OVER">DRILLING & WORK OVER</option>
+                                                <option value="EXPLOITATION">EXPLOITATION</option>
+                                                <option value="EXPLORATION">EXPLORATION</option>
                                                 <option value="QHSE">QHSE</option>
-                                                <option value="PROD. OPERATION">PROD. OPERATION</option>
-                                                <option value="EA">EA</option>
-                                                <option value="EPT">EPT</option>
-                                                <option value="HR">HR</option>
-                                                <option value="FINEC">FINEC</option>
-                                                <option value="DWO">DWO</option>
-                                                <option value="IT Pekanbaru">IT Pekanbaru</option>
-                                                <option value="Production Operation Dept">Production Operation Dept</option>
-                                                <option value="OS Dept (Pedada)">OS Dept (Pedada)</option>
-                                                <option value="IT Zamrud">IT Zamrud</option>
-                                                <option value="HCM Dept (OPC)">HCM Dept (OPC)</option>
-                                                <option value="HCM Dept">HCM Dept</option>
-                                                <option value="QHSE Dept">QHSE Dept</option>
-                                                <option value="Corporate Secretary">Corporate Secretary</option>
-                                                <option value="EA Dept">EA Dept</option>
+                                                <option value="SCM">SCM</option>
+                                                <option value="EXTERNAL AFFAIR">EXTERNAL AFFAIR</option>
+                                                <option value="INTERNAL AUDIT">INTERNAL AUDIT</option>
+                                                <option value="FINEC & ICT">FINEC & ICT</option>
+                                                <option value="HCM">HCM</option>
                                                 <!-- Tambahkan opsi nilai departemen di sini -->
                                             </select>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="kategori" class="form-label">Jenjang Pendidikan</label>
-                                            <input type="text" class="form-control" id="kategori" name="kategori">
+                                            <label for="bsno" class="form-label">NO BS</label>
+                                            <input type="text" class="form-control" id="bsno" name="bsno">
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="jurusan_fakultas" class="form-label">Jurusan / Fakultas</label>
-                                            <input type="text" class="form-control" id="jurusan_fakultas" name="jurusan_fakultas">
+                                            <label for="pr" class="form-label">PR</label>
+                                            <input type="text" class="form-control" id="pr" name="pr">
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="tanggalMulai" class="form-label">Tanggal Pelaksanaan Mulai</label>
-                                            <input type="date" class="form-control" id="tanggalMulai" name="tanggalMulai">
+                                            <label for="po" class="form-label">PO</label>
+                                            <input type="text" class="form-control" id="po" name="po">
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="tanggalSelesai" class="form-label">Tanggal Pelaksanaan Selesai</label>
-                                            <input type="date" class="form-control" id="tanggalSelesai" name="tanggalSelesai">
+                                            <label for="ses" class="form-label">SES</label>
+                                            <input type="text" class="form-control" id="ses" name="ses">
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="kegiatan" class="form-label">Kegiatan</label>
-                                            <select class="form-select" id="kegiatan" name="kegiatan">
-                                                <!-- Tambahkan opsi-opsi kegiatan di sini -->
-                                                <option value="PKL">PKL</option>
-                                                <option value="KP">KP</option>
-                                                <option value="dpd">DPD</option>
-                                                <option value="Izin Penelitian">Izin Penelitian</option>
-                                                <option value="RISET PENELITIAN">RISET PENELITIAN</option>
-                                                <option value="JOB TRAINING">JOB TRAINING</option>
-                                                <option value="dpd GURU">DPD GURU</option>
-                                                <option value="TA">TA</option>
-                                                <option value="On Job Training">On Job Training</option>
-                                                <option value="dpd/KP">DPD/KP</option>
-                                                <option value="Tugas Akhir">Tugas Akhir</option>
-                                                <option value="Kerja Praktek">Kerja Praktek</option>
-                                                <option value="pra Riset">pra Riset</option>
-                                                <option value="Penelitian Master">Penelitian Master</option>
-                                                <!-- Tambahkan opsi-opsi kegiatan di sini -->
-                                            </select>
+                                            <label for="biayadpd" class="form-label">Biaya DPD</label>
+                                            <input type="number" class="form-control" id="biayadpd" name="biayadpd">
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="daring_luring" class="form-label">Jenis Pelaksanaan</label>
-                                            <select class="form-select" id="daring_luring" name="daring_luring">
-                                                <option value="OFFLINE">OFFLINE</option>
-                                                <option value="ONLINE">ONLINE</option>
-                                                <option value="HYBRID">HYBRID</option>
-                                            </select>
+                                            <label for="submitfinec" class="form-label">Submit Finec</label>
+                                            <input type="date" class="form-control" id="submitfinec" name="submitfinec">
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="lokasi" class="form-label">Lokasi</label>
-                                            <input type="text" class="form-control" id="lokasi" name="lokasi">
+                                            <label for="status" class="form-label">Status</label>
+                                            <input type="text" class="form-control" id="status" name="status">
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="mentor" class="form-label">Nama Mentor</label>
-                                            <input type="text" class="form-control" id="mentor" name="mentor">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="statusSurat" class="form-label">Status Surat</label>
-                                            <select class="form-select" id="statusSurat" name="statusSurat">
-                                                <option value="OK">OK</option>
-                                                <option value="TIDAK OK">TIDAK OK</option>
-                                            </select>
+                                            <label for="paymentbyfinec" class="form-label">Payment By Finec</label>
+                                            <input type="text" class="form-control" id="paymentbyfinec" name="paymentbyfinec">
                                         </div>
                                         <div class="col-md-6">
                                             <label for="keterangan" class="form-label">Keterangan</label>
@@ -236,7 +204,7 @@
                     <!-- Filter data berdasarkan tahun dpd-->
                     <form action="{{ route('dpd.filterByDate') }}" method="GET" class="ms-3" id="filterForm">
                         <div class="d-flex">
-                            <!-- Filter data berdasarkan tahun sertifikasi -->
+                            <!-- Filter data berdasarkan tahun -->
                             <div class="me-3">
                                 <select name="tahun" id="tahun" onchange="this.form.submit()" class="form-select" style="min-width: 90px;">
                                     <option value="">Tahun</option>
@@ -244,7 +212,7 @@
                                         @endfor
                                 </select>
                             </div>
-                            <!-- Filter data berdasarkan bulan sertifikasi -->
+                            <!-- Filter data berdasarkan bulan -->
                             <div>
                                 <select name="bulan" id="bulan" onchange="this.form.submit()" class="form-select" style="min-width: 90px;">
                                     <option value="">Bulan</option>
@@ -273,7 +241,7 @@
                 </form>
             </div>
             <form id="filterNamaProgramForm" class="ms-3" action="{{ route('dpd.filterData') }}" method="GET">
-                <input type="text" name="search" id="search" class="form-control" placeholder="Cari Berdasarkan Nama, Nomor DPD">
+                <input type="text" name="search" id="search" class="form-control" placeholder="Cari Berdasarkan Nama, Nomor SPD, atau Departemen">
             </form>
             <div class="card-body px-3 pt-0 pb-2">
                 <div class="table-responsive p-0">
@@ -356,96 +324,64 @@
                                                     <input type="text" class="form-control" id="nama" name="nama" value="{{ $dpd->nama }}">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="institusi" class="form-label">Institusi</label>
-                                                    <input type="text" class="form-control" id="institusi" name="institusi" value="{{ $dpd->institusi }}">
+                                                    <label for="nomorspd" class="form-label">Nomor SPD</label>
+                                                    <input type="text" class="form-control" id="nomorspd" name="nomorspd" value="{{ $dpd->nomorspd }}">
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="dept" class="form-label">Departemen</label>
-                                                    <select class="form-select" id="dept" name="dept" value="{{ $dpd->dept }}">
+                                                    <select class="form-select" id="dept" name="dept" >
                                                         <!-- Tambahkan opsi nilai departemen di sini -->
                                                         <option value="">Pilih Departemen</option> <!-- Opsi default kosong -->
+                                                        <option value="GM">GM</option>
+                                                        <option value="PRODUCTION OPERATION">PRODUCTION OPERATION</option>
+                                                        <option value="OPERATION SUPPORT">OPERATION SUPPORT</option>
+                                                        <option value="DRILLING & WORK OVER">DRILLING & WORK OVER</option>
+                                                        <option value="EXPLOITATION">EXPLOITATION</option>
+                                                        <option value="EXPLORATION">EXPLORATION</option>
                                                         <option value="QHSE">QHSE</option>
-                                                        <option value="PROD. OPERATION">PROD. OPERATION</option>
-                                                        <option value="EA">EA</option>
-                                                        <option value="EPT">EPT</option>
-                                                        <option value="HR">HR</option>
-                                                        <option value="FINEC">FINEC</option>
-                                                        <option value="DWO">DWO</option>
-                                                        <option value="IT Pekanbaru">IT Pekanbaru</option>
-                                                        <option value="Production Operation Dept">Production Operation Dept</option>
-                                                        <option value="OS Dept (Pedada)">OS Dept (Pedada)</option>
-                                                        <option value="IT Zamrud">IT Zamrud</option>
-                                                        <option value="HCM Dept (OPC)">HCM Dept (OPC)</option>
-                                                        <option value="HCM Dept">HCM Dept</option>
-                                                        <option value="QHSE Dept">QHSE Dept</option>
-                                                        <option value="Corporate Secretary">Corporate Secretary</option>
-                                                        <option value="EA Dept">EA Dept</option>
+                                                        <option value="SCM">SCM</option>
+                                                        <option value="EXTERNAL AFFAIR">EXTERNAL AFFAIR</option>
+                                                        <option value="INTERNAL AUDIT">INTERNAL AUDIT</option>
+                                                        <option value="FINEC & ICT">FINEC & ICT</option>
+                                                        <option value="HCM">HCM</option>
                                                         <!-- Tambahkan opsi nilai departemen di sini -->
                                                     </select>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="kategori" class="form-label">Jenjang Pendidikan</label>
-                                                    <input type="text" class="form-control" id="kategori" name="kategori" value="{{ $dpd->kategori }}">
+                                                    <label for="bsno" class="form-label">NO BS</label>
+                                                    <input type="text" class="form-control" id="bsno" name="bsno" value="{{ $dpd->bsno }}">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="jurusan_fakultas" class="form-label">Jurusan / Fakultas</label>
-                                                    <input type="text" class="form-control" id="jurusan_fakultas" name="jurusan_fakultas" value="{{ $dpd->jurusan_fakultas }}">
+                                                    <label for="pr" class="form-label">PR</label>
+                                                    <input type="text" class="form-control" id="pr" name="pr" value="{{ $dpd->pr }}">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="tanggalMulai" class="form-label">Tanggal Pelaksanaan Mulai</label>
-                                                    <input type="date" class="form-control" id="tanggalMulai" name="tanggalMulai" value="{{ $dpd->tanggalMulai }}">
+                                                    <label for="po" class="form-label">PO</label>
+                                                    <input type="text" class="form-control" id="po" name="po" value="{{ $dpd->po }}">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="tanggalSelesai" class="form-label">Tanggal Pelaksanaan Selesai</label>
-                                                    <input type="date" class="form-control" id="tanggalSelesai" name="tanggalSelesai" value="{{ $dpd->tanggalSelesai}}">
+                                                    <label for="ses" class="form-label">SES</label>
+                                                    <input type="text" class="form-control" id="ses" name="ses" value="{{ $dpd->ses }}">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="kegiatan" class="form-label">Kegiatan</label>
-                                                    <select class="form-select" id="kegiatan" name="kegiatan" value="{{ $dpd->kegiatan}}">
-                                                        <!-- Tambahkan opsi-opsi kegiatan di sini -->
-                                                        <option value="PKL">PKL</option>
-                                                        <option value="KP">KP</option>
-                                                        <option value="dpd">DPD</option>
-                                                        <option value="Izin Penelitian">Izin Penelitian</option>
-                                                        <option value="RISET PENELITIAN">RISET PENELITIAN</option>
-                                                        <option value="JOB TRAINING">JOB TRAINING</option>
-                                                        <option value="dpd GURU">DPD GURU</option>
-                                                        <option value="TA">TA</option>
-                                                        <option value="On Job Training">On Job Training</option>
-                                                        <option value="dpd/KP">DPD/KP</option>
-                                                        <option value="Tugas Akhir">Tugas Akhir</option>
-                                                        <option value="Kerja Praktek">Kerja Praktek</option>
-                                                        <option value="pra Riset">pra Riset</option>
-                                                        <option value="Penelitian Master">Penelitian Master</option>
-                                                        <!-- Tambahkan opsi-opsi kegiatan di sini -->
-                                                    </select>
+                                                    <label for="biayadpd" class="form-label">Biaya DPD</label>
+                                                    <input type="number" class="form-control" id="biayadpd" name="biayadpd" value="{{ $dpd->biayadpd }}">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="daring_luring" class="form-label">Jenis Pelaksanaan</label>
-                                                    <select class="form-select" id="daring_luring" name="daring_luring" value="{{ $dpd->daring_luring}}">
-                                                        <option value="OFFLINE">OFFLINE</option>
-                                                        <option value="ONLINE">ONLINE</option>
-                                                        <option value="HYBRID">HYBRID</option>
-                                                    </select>
+                                                    <label for="submitfinec" class="form-label">Submit Finec</label>
+                                                    <input type="date" class="form-control" id="submitfinec" name="submitfinec" value="{{ $dpd->submitfinec }}">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="lokasi" class="form-label">Lokasi</label>
-                                                    <input type="text" class="form-control" id="lokasi" name="lokasi" value="{{ $dpd->lokasi}}">
+                                                    <label for="status" class="form-label">Status</label>
+                                                    <input type="text" class="form-control" id="status" name="status" value="{{ $dpd->status }}">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="mentor" class="form-label">Nama Mentor</label>
-                                                    <input type="text" class="form-control" id="mentor" name="mentor" value="{{ $dpd->mentor}}">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="statusSurat" class="form-label">Status Surat</label>
-                                                    <select class="form-select" id="statusSurat" name="statusSurat" value="{{ $dpd->statusSurat}}">
-                                                        <option value="OK">OK</option>
-                                                        <option value="TIDAK OK">TIDAK OK</option>
-                                                    </select>
+                                                    <label for="paymentbyfinec" class="form-label">Payment By Finec</label>
+                                                    <input type="text" class="form-control" id="paymentbyfinec" name="paymentbyfinec" value="{{ $dpd->paymentbyfinec }}">
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="keterangan" class="form-label">Keterangan</label>
-                                                    <input type="text" class="form-control" id="keterangan" name="keterangan" value="{{ $dpd->keterangan}}">
+                                                    <input type="text" class="form-control" id="keterangan" name="keterangan" value="{{ $dpd->keterangan }}">
                                                 </div>
                                                 <!-- Tambahkan input lainnya sesuai kebutuhan -->
                                             </form>
@@ -461,42 +397,42 @@
                         </tbody>
                         </tbody>
                     </table>
-                        <!-- Pagination -->
-                        <div class="float-start mx-2">
-                            <p class="text-muted">
-                                Showing {{ $dpdList->firstItem() }} to {{ $dpdList->lastItem() }} of {{ $dpdList->total() }} entries
-                            </p>
-                        </div>
-                        <div class="clearfix"></div>
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination">
-                                <li class="page-item {{ ($dpdList->onFirstPage()) ? 'disabled' : '' }}">
-                                    <a class="page-link" href="{{ $dpdList->url(1) }}" aria-label="First">
-                                        <span aria-hidden="true">&laquo;&laquo;</span>
+                    <!-- Pagination -->
+                    <div class="float-start mx-2">
+                        <p class="text-muted">
+                            Showing {{ $dpdList->firstItem() }} to {{ $dpdList->lastItem() }} of {{ $dpdList->total() }} entries
+                        </p>
+                    </div>
+                    <div class="clearfix"></div>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item {{ ($dpdList->onFirstPage()) ? 'disabled' : '' }}">
+                                <a class="page-link" href="{{ $dpdList->url(1) }}" aria-label="First">
+                                    <span aria-hidden="true">&laquo;&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item {{ ($dpdList->onFirstPage()) ? 'disabled' : '' }}">
+                                <a class="page-link" href="{{ $dpdList->previousPageUrl() }}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            @for ($i = max(1, $dpdList->currentPage() - 2); $i <= min($dpdList->lastPage(), $dpdList->currentPage() + 2); $i++)
+                                <li class="page-item {{ ($dpdList->currentPage() == $i) ? 'active' : '' }}">
+                                    <a class="page-link" href="{{ $dpdList->url($i) }}">{{ $i }}</a>
+                                </li>
+                                @endfor
+                                <li class="page-item {{ ($dpdList->hasMorePages()) ? '' : 'disabled' }}">
+                                    <a class="page-link" href="{{ $dpdList->nextPageUrl() }}" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>
-                                <li class="page-item {{ ($dpdList->onFirstPage()) ? 'disabled' : '' }}">
-                                    <a class="page-link" href="{{ $dpdList->previousPageUrl() }}" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
+                                <li class="page-item {{ ($dpdList->currentPage() == $dpdList->lastPage()) ? 'disabled' : '' }}">
+                                    <a class="page-link" href="{{ $dpdList->url($dpdList->lastPage()) }}" aria-label="Last">
+                                        <span aria-hidden="true">&raquo;&raquo;</span>
                                     </a>
                                 </li>
-                                @for ($i = max(1, $dpdList->currentPage() - 2); $i <= min($dpdList->lastPage(), $dpdList->currentPage() + 2); $i++)
-                                    <li class="page-item {{ ($dpdList->currentPage() == $i) ? 'active' : '' }}">
-                                        <a class="page-link" href="{{ $dpdList->url($i) }}">{{ $i }}</a>
-                                    </li>
-                                    @endfor
-                                    <li class="page-item {{ ($dpdList->hasMorePages()) ? '' : 'disabled' }}">
-                                        <a class="page-link" href="{{ $dpdList->nextPageUrl() }}" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                    </li>
-                                    <li class="page-item {{ ($dpdList->currentPage() == $dpdList->lastPage()) ? 'disabled' : '' }}">
-                                        <a class="page-link" href="{{ $dpdList->url($dpdList->lastPage()) }}" aria-label="Last">
-                                            <span aria-hidden="true">&raquo;&raquo;</span>
-                                        </a>
-                                    </li>
-                            </ul>
-                        </nav>
+                        </ul>
+                    </nav>
 
                     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
@@ -559,7 +495,7 @@
                                 }
                             });
                         });
-                        //unutk menampilkan notif jika file excel belum diinputkan tetapi sudah pencet unggah
+                        //untuk menampilkan notif jika file excel belum diinputkan tetapi sudah pencet unggah
                         document.addEventListener('DOMContentLoaded', function() {
                             const uploadForm = document.querySelector('#uploadForm');
                             const submitButton = document.querySelector('#submitBtn');
@@ -669,7 +605,7 @@
                         <div class="m-3">
                             <p>{{ $dept }}</p>
                             <div class="progress" style="height: 20px;">
-                                <div class="progress-bar" style="height: 20px;" role="progressbar" style="width: {{ $percentage }}%;" aria-valuenow="{{ $percentage }}" aria-valuemin="0" aria-valuemax="100">{{ $percentage }}%</div>
+                                <div class="progress-bar" style="height: 20px; width: {{ number_format($percentage, 2) }}%;" role="progressbar" aria-valuenow="{{ $percentage }}" aria-valuemin="0" aria-valuemax="100">{{ number_format($percentage, 2) }}%</div>
                             </div>
                         </div>
                         @endforeach

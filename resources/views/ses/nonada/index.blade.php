@@ -186,6 +186,35 @@
                                     </div>
                                 </div>
                                 @endforeach
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination">
+                                        <li class="page-item {{ ($sesnonadas->onFirstPage()) ? 'disabled' : '' }}">
+                                            <a class="page-link" href="{{ $sesnonadas->url(1) }}" aria-label="First">
+                                                <span aria-hidden="true">&laquo;&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <li class="page-item {{ ($sesnonadas->onFirstPage()) ? 'disabled' : '' }}">
+                                            <a class="page-link" href="{{ $sesnonadas->previousPageUrl() }}" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        @for ($i = max(1, $sesnonadas->currentPage() - 2); $i <= min($sesnonadas->lastPage(), $sesnonadas->currentPage() + 2); $i++)
+                                            <li class="page-item {{ ($sesnonadas->currentPage() == $i) ? 'active' : '' }}">
+                                                <a class="page-link" href="{{ $sesnonadas->url($i) }}">{{ $i }}</a>
+                                            </li>
+                                            @endfor
+                                            <li class="page-item {{ ($sesnonadas->hasMorePages()) ? '' : 'disabled' }}">
+                                                <a class="page-link" href="{{ $sesnonadas->nextPageUrl() }}" aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </li>
+                                            <li class="page-item {{ ($sesnonadas->currentPage() == $sesnonadas->lastPage()) ? 'disabled' : '' }}">
+                                                <a class="page-link" href="{{ $sesnonadas->url($sesnonadas->lastPage()) }}" aria-label="Last">
+                                                    <span aria-hidden="true">&raquo;&raquo;</span>
+                                                </a>
+                                            </li>
+                                    </ul>
+                                </nav>
                             </tbody>
                             </tbody>
                         </table>

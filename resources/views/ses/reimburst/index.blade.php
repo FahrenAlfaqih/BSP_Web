@@ -44,7 +44,7 @@
                                             <div class="mb-3">
                                                 <label for="pr_reimburst_id" class="form-label">Pilih PO Reimburst</label>
                                                 <select class="form-select" id="idReimburstPO" name="idReimburstPO">
-                                                    @foreach($poreimbursts as $poreimburst)
+                                                    @foreach($sesreimbursts as $poreimburst)
                                                     <option value="{{ $poreimburst->idReimburstPO }}">
                                                         {{ $poreimburst->idReimburstPO }} - {{ $poreimburst->judulPekerjaan }}
                                                     </option>
@@ -186,13 +186,42 @@
                                     </div>
                                 </div>
                                 @endforeach
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination">
+                                        <li class="page-item {{ ($sesreimbursts->onFirstPage()) ? 'disabled' : '' }}">
+                                            <a class="page-link" href="{{ $sesreimbursts->url(1) }}" aria-label="First">
+                                                <span aria-hidden="true">&laquo;&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <li class="page-item {{ ($sesreimbursts->onFirstPage()) ? 'disabled' : '' }}">
+                                            <a class="page-link" href="{{ $sesreimbursts->previousPageUrl() }}" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        @for ($i = max(1, $sesreimbursts->currentPage() - 2); $i <= min($sesreimbursts->lastPage(), $sesreimbursts->currentPage() + 2); $i++)
+                                            <li class="page-item {{ ($sesreimbursts->currentPage() == $i) ? 'active' : '' }}">
+                                                <a class="page-link" href="{{ $sesreimbursts->url($i) }}">{{ $i }}</a>
+                                            </li>
+                                            @endfor
+                                            <li class="page-item {{ ($sesreimbursts->hasMorePages()) ? '' : 'disabled' }}">
+                                                <a class="page-link" href="{{ $sesreimbursts->nextPageUrl() }}" aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </li>
+                                            <li class="page-item {{ ($sesreimbursts->currentPage() == $sesreimbursts->lastPage()) ? 'disabled' : '' }}">
+                                                <a class="page-link" href="{{ $sesreimbursts->url($sesreimbursts->lastPage()) }}" aria-label="Last">
+                                                    <span aria-hidden="true">&raquo;&raquo;</span>
+                                                </a>
+                                            </li>
+                                    </ul>
+                                </nav>
                             </tbody>
                             </tbody>
                         </table>
 
                         <div class="float-start">
                             <p class="text-muted">
-                                Showing {{ $poreimbursts->firstItem() }} to {{ $poreimbursts->lastItem() }} of {{ $poreimbursts->total() }} entries
+                                Showing {{ $sesreimbursts->firstItem() }} to {{ $sesreimbursts->lastItem() }} of {{ $sesreimbursts->total() }} entries
                             </p>
                         </div>
 

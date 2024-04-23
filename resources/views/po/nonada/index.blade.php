@@ -43,9 +43,9 @@
                                             <div class="mb-3">
                                                 <label for="pr_reimburst_id" class="form-label">Pilih PR Non ada</label>
                                                 <select class="form-select" id="idNonadaP" name="idNonadaPR">
-                                                    @foreach($prnonadas as $prnonada)
-                                                    <option value="{{ $prnonada->idNonadaPR}}">
-                                                        {{ $prnonada->idNonadaPR }} - {{ $prnonada->judulPekerjaan }}
+                                                    @foreach($pononadas as $pononada)
+                                                    <option value="{{ $pononada->idNonadaPR}}">
+                                                        {{ $pononada->idNonadaPR }} - {{ $pononada->judulPekerjaan }}
                                                     </option>
                                                     @endforeach
                                                 </select>
@@ -99,7 +99,6 @@
                         <a href="{{ route('pononada') }}" class="btn btn-light btn-2x me-2">
                             <i class="fas fa-sync fa-sm"></i> Reload
                         </a>
-
                         <form id="myForm" class="ms-3">
                             <select name="pilihan" id="pilihan" class="form-select" style="min-width: 130px;">
                                 <!-- Di dalam tag select -->
@@ -108,14 +107,8 @@
                                 <option value="nonada" {{ session('selected_option') == 'pononada' ? 'selected' : '' }}>PO Non Ada</option>
                             </select>
                         </form>
-
-
                     </div>
-
-
                 </div>
-
-
             </div>
             <!-- Table Sertifkasi -->
             <div class="card mb-4">
@@ -187,11 +180,39 @@
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                                                 <button type="button" class="btn btn-primary" id="saveChangesBtn">Simpan Perubahan</button>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
                                 @endforeach
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination">
+                                        <li class="page-item {{ ($pononadas->onFirstPage()) ? 'disabled' : '' }}">
+                                            <a class="page-link" href="{{ $pononadas->url(1) }}" aria-label="First">
+                                                <span aria-hidden="true">&laquo;&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <li class="page-item {{ ($pononadas->onFirstPage()) ? 'disabled' : '' }}">
+                                            <a class="page-link" href="{{ $pononadas->previousPageUrl() }}" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        @for ($i = max(1, $pononadas->currentPage() - 2); $i <= min($pononadas->lastPage(), $pononadas->currentPage() + 2); $i++)
+                                            <li class="page-item {{ ($pononadas->currentPage() == $i) ? 'active' : '' }}">
+                                                <a class="page-link" href="{{ $pononadas->url($i) }}">{{ $i }}</a>
+                                            </li>
+                                            @endfor
+                                            <li class="page-item {{ ($pononadas->hasMorePages()) ? '' : 'disabled' }}">
+                                                <a class="page-link" href="{{ $pononadas->nextPageUrl() }}" aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </li>
+                                            <li class="page-item {{ ($pononadas->currentPage() == $pononadas->lastPage()) ? 'disabled' : '' }}">
+                                                <a class="page-link" href="{{ $pononadas->url($pononadas->lastPage()) }}" aria-label="Last">
+                                                    <span aria-hidden="true">&raquo;&raquo;</span>
+                                                </a>
+                                            </li>
+                                    </ul>
+                                </nav>
                             </tbody>
                             </tbody>
                         </table>

@@ -186,15 +186,38 @@
                                     </div>
                                 </div>
                                 @endforeach
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination">
+                                        <li class="page-item {{ ($sesservices->onFirstPage()) ? 'disabled' : '' }}">
+                                            <a class="page-link" href="{{ $sesservices->url(1) }}" aria-label="First">
+                                                <span aria-hidden="true">&laquo;&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <li class="page-item {{ ($sesservices->onFirstPage()) ? 'disabled' : '' }}">
+                                            <a class="page-link" href="{{ $sesservices->previousPageUrl() }}" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        @for ($i = max(1, $sesservices->currentPage() - 2); $i <= min($sesservices->lastPage(), $sesservices->currentPage() + 2); $i++)
+                                            <li class="page-item {{ ($sesservices->currentPage() == $i) ? 'active' : '' }}">
+                                                <a class="page-link" href="{{ $sesservices->url($i) }}">{{ $i }}</a>
+                                            </li>
+                                            @endfor
+                                            <li class="page-item {{ ($sesservices->hasMorePages()) ? '' : 'disabled' }}">
+                                                <a class="page-link" href="{{ $sesservices->nextPageUrl() }}" aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </li>
+                                            <li class="page-item {{ ($sesservices->currentPage() == $sesservices->lastPage()) ? 'disabled' : '' }}">
+                                                <a class="page-link" href="{{ $sesservices->url($sesservices->lastPage()) }}" aria-label="Last">
+                                                    <span aria-hidden="true">&raquo;&raquo;</span>
+                                                </a>
+                                            </li>
+                                    </ul>
+                                </nav>
                             </tbody>
                             </tbody>
                         </table>
-
-                        <div class="float-start">
-                            <p class="text-muted">
-                                Showing {{ $sesservices->firstItem() }} to {{ $sesservices->lastItem() }} of {{ $sesservices->total() }} entries
-                            </p>
-                        </div>
 
                         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
