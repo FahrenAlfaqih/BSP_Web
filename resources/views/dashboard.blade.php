@@ -4,11 +4,11 @@
 
 <div class="row">
 </div>
-<div class="row mt-4">
+<!-- <div class="row mt-4">
   <div class="col-lg-7 mb-lg-0 mb-4">
     <div class="card">
       <div class="card-body p-3">
-        <div class="row"> 
+        <div class="row">
           <div class="col-lg-6">
             <div class="d-flex flex-column h-100">
               <p class="mb-1 pt-2 text-bold">Kelola dengan mudah</p>
@@ -39,7 +39,7 @@
         <div class="card-body position-relative z-index-1 d-flex flex-column h-100 p-3">
           <h5 class="text-white font-weight-bolder mb-4 pt-2">Merekrut pegawai/mahasiswa intern</h5>
           <p class="text-white">Kelola data terkait riwayat mahasiswa intern dan pegawai paid internship maupun freshgraduate!</p>
-          <a class="text-white text-sm font-weight-bold mb-0 icon-move-right mt-auto"href="{{ url('magang') }}">
+          <a class="text-white text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="{{ url('magang') }}">
             Read More
             <i class="fas fa-arrow-right text-sm ms-1" aria-hidden="true"></i>
           </a>
@@ -47,9 +47,10 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
+
 <div class="row mt-4">
-  <div class="col-lg-5 mb-lg-0 mb-4">
+  <div class="col-lg-6 mb-lg-0 mb-4">
     <div class="card z-index-2">
       <div class="card-body p-3">
         <p class="font-weight-bolder">Grafik Sertifikasi Per Tahun</p>
@@ -61,15 +62,35 @@
       </div>
     </div>
   </div>
-  <div class="col-lg-7">
+  <div class="col-lg-6 mb-lg-0 mb-4">
     <div class="card z-index-2">
       <div class="card-body p-3">
-      <p class="font-weight-bolder">Grafik Magang Per Tahun</p>
+        <p class="font-weight-bolder">Grafik Magang Per Tahun</p>
         <div class="chart">
           <canvas id="chart-line" class="chart-canvas" height="300"></canvas>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="col-mt-4">
+  <div class="col-lg-6 mb-lg-0 mb-4">
+  <div class="card mb-3" style="width: 100%;">
+    <div class="card-header pb-0 d-flex justify-content-between align-items-center">
+      <h6>Progress Anggaran Dana DPD</h6>
+    </div>
+    <div class="card-body px-0 pt-0 pb-2">
+      @foreach ($departmentProgress as $dept => $percentage)
+      <div class="m-3">
+        <p>{{ $dept }}</p>
+        <div class="progress" style="height: 20px;">
+          <div class="progress-bar" style="height: 20px; width: {{ number_format($percentage, 2) }}%;" role="progressbar" aria-valuenow="{{ $percentage }}" aria-valuemin="0" aria-valuemax="100">{{ number_format($percentage, 2) }}%</div>
+        </div>
+      </div>
+      @endforeach
+    </div>
+  </div>
   </div>
 </div>
 
@@ -180,18 +201,17 @@
       data: {
         labels: _ydata2,
         datasets: [{
-            label: "Jumlah",
-            tension: 0.4,
-            borderWidth: 0,
-            pointRadius: 0,
-            borderColor: "#cb0c9f",
-            borderWidth: 3,
-            backgroundColor: gradientStroke1,
-            fill: true,
-            data: _xdata2,
-            maxBarThickness: 6
-          },
-        ],
+          label: "Jumlah",
+          tension: 0.4,
+          borderWidth: 0,
+          pointRadius: 0,
+          borderColor: "#cb0c9f",
+          borderWidth: 3,
+          backgroundColor: gradientStroke1,
+          fill: true,
+          data: _xdata2,
+          maxBarThickness: 6
+        }, ],
       },
       options: {
         responsive: true,
