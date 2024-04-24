@@ -41,7 +41,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- Card 5 Departemen dengan Total Biaya DPD Tertinggi -->
             <div class="col-md-6">
                 <div class="card mb-4" style="width: 48%;">
@@ -73,7 +72,6 @@
                 </div>
             </div>
         </div>
-
         <div class="card mb-3">
             <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                 <div class="d-flex">
@@ -227,7 +225,6 @@
                 </div>
             </div>
         </div>
-
         <div class="card mb-4">
             <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                 <h6>Data Dana Perjalanan Dinas</h6>
@@ -248,33 +245,33 @@
                     <table class="table align-items-center">
                         <thead>
                             <tr>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                     No</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                     Nama</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                     Nomor SPD</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                     Department</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                     BS NO</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                     PR</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                     PO</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                     SES</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                     Biaya DPD</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                     Submit Finec</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                     Status</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                     Payment By Finec</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                     Keterangan</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                     Aksi
                                 </th>
                             </tr>
@@ -331,7 +328,7 @@
                                                     <label for="dept" class="form-label">Departemen</label>
                                                     <select class="form-select" id="dept" name="dept" >
                                                         <!-- Tambahkan opsi nilai departemen di sini -->
-                                                        <option value="">Pilih Departemen</option> <!-- Opsi default kosong -->
+                                                        <option>{{ $dpd->dept }}</option>
                                                         <option value="GM">GM</option>
                                                         <option value="PRODUCTION OPERATION">PRODUCTION OPERATION</option>
                                                         <option value="OPERATION SUPPORT">OPERATION SUPPORT</option>
@@ -394,7 +391,6 @@
                                 </div>
                             </div>
                             @endforeach
-                        </tbody>
                         </tbody>
                     </table>
                     <!-- Pagination -->
@@ -592,7 +588,6 @@
                 </div>
             </div>
         </div>
-
         <div class="row">
             <!-- Card untuk progress anggaran -->
             <div class="col-md-6">
