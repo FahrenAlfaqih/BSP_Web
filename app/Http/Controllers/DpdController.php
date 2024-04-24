@@ -58,7 +58,8 @@ class DpdController extends Controller
             $item->biayadpd = 'Rp. ' . number_format($item->biayadpd, 0, ',', '.');
             return $item;
         });
-        $departments = Department::paginate(10);
+        $departments = Department::paginate(20);
+
         $depts = Department::pluck('name', 'id');
         return view('dpd.index', compact('highestBiayaDPDList', 'dpdList', 'departments', 'departmentProgress', 'departemenTertinggi', 'topDepartments', 'depts'));
     }

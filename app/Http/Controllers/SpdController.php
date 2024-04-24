@@ -113,6 +113,7 @@ class SpdController extends Controller
         $searchQuery = $request->query('search');
         $tahun = $request->query('tahun');
         $bulan = $request->query('bulan');
+        $dept = $request->query('dept');
 
         $SpdQuery = Spd::query();
 
@@ -122,6 +123,9 @@ class SpdController extends Controller
                     ->orWhere('nama', 'like', '%' . $searchQuery . '%')
                     ->orWhere('dept', 'like', '%' . $searchQuery . '%');
             });
+        }
+        if ($dept) {
+            $SpdQuery->where('dept', $dept);
         }
 
         if ($tahun) {
