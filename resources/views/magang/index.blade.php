@@ -227,35 +227,35 @@
                         <table class="table align-items-center mb-0">
                             <thead>
                                 <tr>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         No</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Nama</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Institusi</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Kategori</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Jurusan/Fakultas</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Tanggal Mulai</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Tanggal Selesai</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Kegiatan</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Dept</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Daring/Luring</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Lokasi</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Mentor</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Status Surat</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Keterangan</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Aksi
                                     </th>
                                 </tr>
@@ -311,9 +311,9 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label for="dept" class="form-label">Departemen</label>
-                                                        <select class="form-select" id="dept" name="dept" value="{{ $magang->dept }}">
+                                                        <select class="form-select" id="dept" name="dept">
                                                             <!-- Tambahkan opsi nilai departemen di sini -->
-                                                            <option value="">Pilih Departemen</option> <!-- Opsi default kosong -->
+                                                            <option>{{ $magang->dept }}</option>
                                                             <option value="QHSE">QHSE</option>
                                                             <option value="PROD. OPERATION">PROD. OPERATION</option>
                                                             <option value="EA">EA</option>
@@ -354,6 +354,7 @@
                                                         <label for="kegiatan" class="form-label">Kegiatan</label>
                                                         <select class="form-select" id="kegiatan" name="kegiatan" value="{{ $magang->kegiatan}}">
                                                             <!-- Tambahkan opsi-opsi kegiatan di sini -->
+                                                            <option>{{ $magang->kegiatan }}</option>
                                                             <option value="PKL">PKL</option>
                                                             <option value="KP">KP</option>
                                                             <option value="MAGANG">MAGANG</option>
@@ -371,8 +372,6 @@
                                                             <!-- Tambahkan opsi-opsi kegiatan di sini -->
                                                         </select>
                                                     </div>
-
-
                                                     <div class="col-md-6">
                                                         <label for="daring_luring" class="form-label">Jenis Pelaksanaan</label>
                                                         <select class="form-select" id="daring_luring" name="daring_luring" value="{{ $magang->daring_luring}}">
@@ -381,7 +380,6 @@
                                                             <option value="HYBRID">HYBRID</option>
                                                         </select>
                                                     </div>
-
                                                     <div class="col-md-6">
                                                         <label for="lokasi" class="form-label">Lokasi</label>
                                                         <input type="text" class="form-control" id="lokasi" name="lokasi" value="{{ $magang->lokasi}}">
@@ -397,7 +395,6 @@
                                                             <option value="TIDAK OK">TIDAK OK</option>
                                                         </select>
                                                     </div>
-
                                                     <div class="col-md-6">
                                                         <label for="keterangan" class="form-label">Keterangan</label>
                                                         <input type="text" class="form-control" id="keterangan" name="keterangan" value="{{ $magang->keterangan}}">
@@ -409,7 +406,6 @@
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                                                 <button type="button" class="btn btn-primary" id="saveChangesBtn">Simpan Perubahan</button>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -417,14 +413,12 @@
                             </tbody>
                             </tbody>
                         </table>
-
                         <!-- Pagination -->
-                        <div class="float-start">
+                        <div class="float-start mx-2">
                             <p class="text-muted">
                                 Showing {{ $magangs->firstItem() }} to {{ $magangs->lastItem() }} of {{ $magangs->total() }} entries
                             </p>
                         </div>
-
                         <div class="clearfix"></div>
 
                         <nav aria-label="Page navigation example">

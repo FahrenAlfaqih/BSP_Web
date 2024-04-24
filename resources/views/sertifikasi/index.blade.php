@@ -8,17 +8,13 @@
             <div class="card mb-3">
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <div class="d-flex">
-
                         <a href="{{ route('sertifikasi.download-pdf', ['search' => request()->input('search'), 'namaProgram' => request()->input('namaProgram'),'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-danger btn-2x me-2">
                             <i class="fas fa-file-pdf"></i> Cetak PDF
                         </a>
-
-
                         <!-- Button trigger modal input -->
                         <button type="button" class="btn btn-dark btn-2x me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <i class="fas fa-plus"></i> Tambah Sertifikasi
                         </button>
-
                         <!-- Modal input data -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -27,7 +23,6 @@
                                         <h5 class="modal-title" id="exampleModalLabel">Tambah Sertifikasi</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-
                                     <div class="modal-body" style="max-height: 450px; overflow-y: auto;">
                                         <!-- Isi formulir di sini -->
                                         <form action="{{ route('sertifikasi.store') }}" method="POST">
@@ -57,7 +52,6 @@
                                                     <option value="External Affair">External Affair</option>
                                                 </select>
                                             </div>
-
                                             <div class="mb-3">
                                                 <label for="namaProgram" class="form-label">Nama Program</label>
                                                 <input type="text" class="form-control" id="namaProgram" name="namaProgram">
@@ -90,11 +84,9 @@
                                             <button type="submit" class="btn btn-primary">Simpan</button>
                                         </form>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
-
                         <!-- upload file excel -->
                         <form id="uploadForm" action="{{ route('sertifikasi.upload-excel') }}" method="POST" enctype="multipart/form-data" class="btn btn-light btn-2x me-2">
                             @csrf
@@ -102,13 +94,10 @@
                             <input type="file" name="file[]" class="rounded" multiple>
                             <button type="submit" class="btn-outline-dark rounded">Unggah Excel</button>
                         </form>
-
-
                         <!-- Icon informasi -->
                         <a href="#" class="btn btn-light btn-2x me-2" data-bs-toggle="modal" data-bs-target="#modalInformasi">
                             <i class="fas fa-info-circle fa-2x"></i>
                         </a>
-
                         <!-- Modal Informasi-->
                         <div class="modal fade" id="modalInformasi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-xl">
@@ -120,7 +109,6 @@
                                     <div class="modal-body" style="max-height: 450px; overflow-y: auto;">
                                         <img src="../assets/img/contohExcel.png" class="img-fluid" alt="Contoh Isi Excel">
                                     </div>
-
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                                     </div>
@@ -141,7 +129,6 @@
                                             @endfor
                                     </select>
                                 </div>
-
                                 <!-- Filter data berdasarkan bulan sertifikasi -->
                                 <div>
                                     <select name="bulan" id="bulan" onchange="this.form.submit()" class="form-select" style="min-width: 90px;">
@@ -152,11 +139,8 @@
                                             @endfor
                                     </select>
                                 </div>
-
                             </div>
                         </form>
-
-
                     </div>
                 </div>
             </div>
@@ -176,7 +160,6 @@
                 <form id="filterNamaProgramForm" class="ms-3 mt-3" action="{{ route('sertifikasi.filterData') }}" method="GET">
                     <input type="text" name="search" id="search" class="form-select" placeholder="Cari Berdasarkan Nama Program, Nama Pekerja, atau Departemen">
                 </form>
-
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive p-0">
                         <table class="table align-items-center mb-0">
@@ -256,7 +239,7 @@
                                                     <div class="mb-3">
                                                         <label for="dept" class="form-label">Nama Departemen</label>
                                                         <select class="form-select" id="dept" name="dept">
-                                                            <option>{{ $sertifikasi->dept}}</option>
+                                                            <option>{{ $sertifikasi->dept }}</option>
                                                             <option value="SPRM">SPRM</option>
                                                             <option value="Corporate Secretary">Corporate Secretary</option>
                                                             <option value="Exploration">Exploration</option>
@@ -270,7 +253,6 @@
                                                             <option value="External Affair">External Affair</option>
                                                         </select>
                                                     </div>
-
                                                     <div class="mb-3">
                                                         <label for="namaProgram" class="form-label">Nama Program</label>
                                                         <input type="text" class="form-control" id="namaProgram" name="namaProgram" value="{{ $sertifikasi->namaProgram }}">
@@ -295,7 +277,6 @@
                                                         <label for="days" class="form-label">Jumlah Hari</label>
                                                         <input type="text" class="form-control" id="days" name="days" value="{{ $sertifikasi->days }}">
                                                     </div>
-
                                                     <div class="mb-3">
                                                         <label for="namaPenyelenggara" class="form-label">Nama Penyelenggara</label>
                                                         <input type="text" class="form-control" id="namaPenyelenggara" name="namaPenyelenggara" value="{{ $sertifikasi->namaPenyelenggara }}">
@@ -307,7 +288,6 @@
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                                                 <button type="button" class="btn btn-primary" id="saveChangesBtn">Simpan Perubahan</button>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -315,16 +295,13 @@
                             </tbody>
                             </tbody>
                         </table>
-
                         <!-- Pagination -->
-                        <div class="float-start">
+                        <div class="float-start mx-2">
                             <p class="text-muted">
                                 Showing {{ $sertifikasis->firstItem() }} to {{ $sertifikasis->lastItem() }} of {{ $sertifikasis->total() }} entries
                             </p>
                         </div>
-
                         <div class="clearfix"></div>
-
                         <nav aria-label="Page navigation example">
                             <ul class="pagination">
                                 <li class="page-item {{ ($sertifikasis->onFirstPage()) ? 'disabled' : '' }}">
@@ -354,8 +331,6 @@
                                     </li>
                             </ul>
                         </nav>
-
-
 
                         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
@@ -401,16 +376,13 @@
                             document.addEventListener('DOMContentLoaded', function() {
                                 // Ambil elemen input tahunSertifikasi
                                 var tahunSertifikasiInput = document.getElementById('tahunSertifikasi');
-
                                 // Ambil elemen input tanggalPelaksanaanMulai dan tanggalPelaksanaanSelesai
                                 var tanggalPelaksanaanMulaiInput = document.getElementById('tanggalPelaksanaanMulai');
                                 var tanggalPelaksanaanSelesaiInput = document.getElementById('tanggalPelaksanaanSelesai');
-
                                 // Tambahkan event listener ketika nilai tahunSertifikasi berubah
                                 tahunSertifikasiInput.addEventListener('change', function() {
                                     // Ambil nilai tahunSertifikasi
                                     var tahunSertifikasi = tahunSertifikasiInput.value;
-
                                     // Periksa apakah tahunSertifikasi memiliki nilai
                                     if (tahunSertifikasi) {
                                         // Set nilai tahun pada tanggalPelaksanaanMulai dan tanggalPelaksanaanSelesai
@@ -423,12 +395,10 @@
                                     }
                                 });
                             });
-
                             //unutk menampilkan notif jika file excel belum diinputkan tetapi sudah pencet unggah
                             document.addEventListener('DOMContentLoaded', function() {
                                 const uploadForm = document.querySelector('#uploadForm');
                                 const submitButton = document.querySelector('#submitBtn');
-
                                 uploadForm.addEventListener('submit', function(event) {
                                     // Periksa apakah file sudah dipilih
                                     if (!document.querySelector('input[name="file"]').files[0]) {
@@ -441,12 +411,10 @@
                                     }
                                 });
                             });
-
                             //notif untuk berhasil atau error saat input data
                             document.addEventListener('DOMContentLoaded', function() {
                                 const successMessage = "{{ session('success_add') }}";
                                 const errorMessage = "{{ session('error_add') }}";
-
                                 if (successMessage) {
                                     swal({
                                         title: "Sukses",
@@ -454,7 +422,6 @@
                                         icon: "success",
                                     });
                                 }
-
                                 if (errorMessage) {
                                     swal({
                                         title: "Error",
@@ -463,17 +430,13 @@
                                     });
                                 }
                             });
-
-
                             document.getElementById('saveChangesBtn').addEventListener('click', function() {
                                 document.getElementById('editForm').submit();
                             });
-
                             //notif untuk berhasil atau error saat update data
                             document.addEventListener('DOMContentLoaded', function() {
                                 const successMessage = "{{ session('success_update') }}";
                                 const errorMessage = "{{ session('error_update') }}";
-
                                 if (successMessage) {
                                     swal({
                                         title: "Sukses",
@@ -481,7 +444,6 @@
                                         icon: "success",
                                     });
                                 }
-
                                 if (errorMessage) {
                                     swal({
                                         title: "Error",
@@ -490,13 +452,10 @@
                                     });
                                 }
                             });
-
-
                             //notifikasi untuk menampilkan pesan sukses atau eror saat upload file excel
                             document.addEventListener('DOMContentLoaded', function() {
                                 const successMessage = "{{ session('success_message') }}";
                                 const errorMessage = "{{ session('error_message') }}";
-
                                 if (successMessage) {
                                     swal({
                                         title: "Sukses",
@@ -504,7 +463,6 @@
                                         icon: "success",
                                     });
                                 }
-
                                 if (errorMessage) {
                                     swal({
                                         title: "Error",
@@ -513,37 +471,28 @@
                                     });
                                 }
                             });
-
-
                             // Ambil elemen input untuk tanggal mulai dan selesai
                             const inputMulai = document.getElementById('tanggalPelaksanaanMulai');
                             const inputSelesai = document.getElementById('tanggalPelaksanaanSelesai');
                             const inputDays = document.getElementById('days');
-
                             // Tambahkan event listener untuk perubahan nilai tanggal
                             inputMulai.addEventListener('change', hitungJumlahHari);
                             inputSelesai.addEventListener('change', hitungJumlahHari);
-
                             // Fungsi untuk menghitung jumlah hari
                             function hitungJumlahHari() {
                                 // Ambil nilai dari kedua input tanggal
                                 const tanggalMulai = new Date(inputMulai.value);
                                 const tanggalSelesai = new Date(inputSelesai.value);
-
                                 // Hitung selisih hari antara kedua tanggal
                                 const selisihHari = Math.ceil((tanggalSelesai - tanggalMulai) / (1000 * 3600 * 24));
-
                                 // Masukkan nilai selisih hari ke dalam input days
                                 inputDays.value = selisihHari;
                             }
                         </script>
-
                     </div>
-
                 </div>
             </div>
         </div>
-
     </div>
     </div>
 </main>

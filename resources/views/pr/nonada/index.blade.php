@@ -14,12 +14,10 @@
                         <a href="{{ route('poreimburst.download-pdf', ['search' => request()->input('search'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-danger btn-2x me-2">
                             <i class="fas fa-file-pdf"></i> Cetak PDF
                         </a>
-
                         <!-- Button trigger modal input -->
                         <button type="button" class="btn btn-dark btn-2x me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <i class="fas fa-plus"></i> Tambah PR Non ada
                         </button>
-
                         <!-- Modal input data -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -48,7 +46,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <!-- upload file excel -->
                         <form id="uploadForm" action="{{ route('prnonada.uploadExcel') }}" method="POST" enctype="multipart/form-data" class="btn btn-light btn-2x me-2">
                             @csrf
@@ -56,12 +53,10 @@
                             <input type="file" name="file" class="rounded">
                             <button type="submit" class="btn-outline-dark rounded">Unggah Excel</button>
                         </form>
-
                         <!-- Icon informasi -->
                         <a href="#" class="btn btn-light btn-2x me-2" data-bs-toggle="modal" data-bs-target="#modalInformasi">
                             <i class="fas fa-info-circle fa-2x"></i>
                         </a>
-
                         <!-- Modal Informasi-->
                         <div class="modal fade" id="modalInformasi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-xl">
@@ -79,7 +74,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <!-- Reload Data Terbaru-->
                         <a href="{{ route('prnonada') }}" class="btn btn-light btn-2x me-2">
                             <i class="fas fa-sync fa-sm"></i> Reload
@@ -95,7 +89,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- Table Sertifkasi -->
             <div class="card mb-4">
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
@@ -104,7 +97,6 @@
                 <form id="filterNamaProgramForm" class="ms-3" action="{{ route('prnonada.filterData') }}" method="GET">
                     <input type="text" name="search" id="search" class="form-control" placeholder="Cari Berdasarkan Nomor PR atau Judul Pekerjaan">
                 </form>
-
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive p-0">
                         <table class="table align-items-center mb-0">
@@ -207,7 +199,6 @@
                                             </li>
                                     </ul>
                                 </nav>
-                            </tbody>
                             </tbody>
                         </table>
 
@@ -381,7 +372,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </main>
 

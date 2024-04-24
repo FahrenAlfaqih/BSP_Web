@@ -12,7 +12,7 @@
                             <i class="fas fa-file-excel"></i> Cetak Excel
                         </a>
 
-                        <a href="{{ route('spd.download-pdf', ['search' => request()->input('search'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-danger btn-2x me-2">
+                        <a href="{{ route('spd.download-pdf', ['search' => request()->input('search'),'dept' => request()->input('dept'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-danger btn-2x me-2">
                             <i class="fas fa-file-pdf"></i> Cetak PDF
                         </a>
                         <!-- Button trigger modal input -->
