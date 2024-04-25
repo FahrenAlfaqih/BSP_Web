@@ -11,7 +11,6 @@
                         <a href="{{ route('spd.download-excel', ['search' => request()->input('search'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-success btn-2x me-2">
                             <i class="fas fa-file-excel"></i> Cetak Excel
                         </a>
-
                         <a href="{{ route('spd.download-pdf', ['search' => request()->input('search'),'dept' => request()->input('dept'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-danger btn-2x me-2">
                             <i class="fas fa-file-pdf"></i> Cetak PDF
                         </a>
@@ -19,7 +18,6 @@
                         <button type="button" class="btn btn-dark btn-2x me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <i class="fas fa-plus"></i> Tambah SPD
                         </button>
-
                         <!-- Modal input data SPD -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 60%;">
@@ -110,8 +108,6 @@
                                 </div>
                             </div>
                         </div>
-
-
                         <!-- upload file excel -->
                         <form id="uploadForm" action="{{ route('prreimburst.uploadExcel') }}" method="POST" enctype="multipart/form-data" class="btn btn-light btn-2x me-2">
                             @csrf
@@ -119,14 +115,10 @@
                             <input type="file" name="file" class="rounded">
                             <button type="submit" class="btn-outline-dark rounded">Unggah Excel</button>
                         </form>
-
-
-
                         <!-- Icon informasi -->
                         <a href="#" class="btn btn-light btn-2x me-2" data-bs-toggle="modal" data-bs-target="#modalInformasi">
                             <i class="fas fa-info-circle fa-2x"></i>
                         </a>
-
                         <!-- Modal Informasi-->
                         <div class="modal fade" id="modalInformasi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-xl">
@@ -138,7 +130,6 @@
                                     <div class="modal-body" style="max-height: 450px; overflow-y: auto;">
                                         <img src="../assets/img/contohExcel.png" class="img-fluid" alt="Contoh Isi Excel">
                                     </div>
-
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                                     </div>
@@ -160,7 +151,6 @@
                                             @endfor
                                     </select>
                                 </div>
-
                                 <!-- Filter data berdasarkan bulan sertifikasi -->
                                 <div>
                                     <select name="bulan" id="bulan" onchange="this.form.submit()" class="form-select" style="min-width: 90px;">
@@ -173,18 +163,13 @@
                                 </div>
                             </div>
                         </form>
-
-
                     </div>
                 </div>
-
-
             </div>
             <!-- Table Sertifkasi -->
             <div class="card mb-4">
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <h6>Data Surat Perjalanan Dinas</h6>
-
                     <form action="{{ route('spd.filterByDept') }}" method="GET" class="ms-3">
                         <select name="dept" onchange="this.form.submit()" class="form-select">
                             <option value="">Filter Dept</option>
@@ -193,58 +178,56 @@
                             @endforeach
                         </select>
                     </form>
-
                 </div>
-                <form id="filterNamaProgramForm" class="ms-3" action="{{ route('spd.filterData') }}" method="GET">
+                <form id="filterNamaProgramForm" class="mx-3" action="{{ route('spd.filterData') }}" method="GET">
                     <input type="text" name="search" id="search" class="form-control" placeholder="Cari Berdasarkan Nama, Nomor SPD, atau Departemen">
                 </form>
-
-                <div class="card-body px-0 pt-0 pb-2">
+                <div class="card-body px-3 pt-0 pb-2">
                     <div class="table-responsive p-0">
                         <table class="table align-items-center mb-0">
                             <thead>
                                 <tr>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         No</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Nomor SPD</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Nama</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Dept</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         WBS</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         PR</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         PO </th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         SES</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         MIR7</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Dari</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Tujuan</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Tanggal Dinas</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Keterangan Dinas</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Biaya DPD</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         RKAP</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         ACCRUAL</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Submit Tanggal</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Aksi
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                            @php $index = ($spds->currentPage() - 1) * $spds->perPage() + 1 @endphp
+                                @php $index = ($spds->currentPage() - 1) * $spds->perPage() + 1 @endphp
                                 @foreach ($spds as $spd)
                                 <tr>
                                     <td style="font-size: 14px;">{{ $index }}</td>
@@ -275,21 +258,16 @@
                                 </tr>
                                 @php $index++ @endphp
                                 <!-- Modal edit data -->
-
                                 @endforeach
                             </tbody>
-                            </tbody>
                         </table>
-
                         <!-- Pagination -->
-                        <div class="float-start">
+                        <div class="float-start mx-2">
                             <p class="text-muted">
                                 Showing {{ $spds->firstItem() }} to {{ $spds->lastItem() }} of {{ $spds->total() }} entries
                             </p>
                         </div>
-
                         <div class="clearfix"></div>
-
                         <nav aria-label="Page navigation example">
                             <ul class="pagination">
                                 <li class="page-item {{ ($spds->onFirstPage()) ? 'disabled' : '' }}">
@@ -331,7 +309,6 @@
                                         e.preventDefault();
                                         const deleteForm = this.parentElement;
                                         const id = deleteForm.getAttribute('data-id');
-
                                         swal({
                                             title: "Apakah Anda yakin?",
                                             text: "Data akan dihapus permanen.",
@@ -358,11 +335,9 @@
                                     });
                                 });
                             });
-
                             //unutk menampilkan notif jika file excel belum diinputkan tetapi sudah pencet unggah
                             document.addEventListener('DOMContentLoaded', function() {
                                 const uploadForm = document.querySelector('#uploadForm');
-
                                 uploadForm.addEventListener('submit', function(event) {
                                     // Periksa apakah file sudah dipilih
                                     if (!document.querySelector('input[name="file"]').files[0]) {
@@ -375,13 +350,10 @@
                                     }
                                 });
                             });
-
-
                             //notif untuk berhasil atau error saat input data
                             document.addEventListener('DOMContentLoaded', function() {
                                 const successMessage = "{{ session('success_add') }}";
                                 const errorMessage = "{{ session('error_add') }}";
-
                                 if (successMessage) {
                                     swal({
                                         title: "Sukses",
@@ -389,7 +361,6 @@
                                         icon: "success",
                                     });
                                 }
-
                                 if (errorMessage) {
                                     swal({
                                         title: "Error",
@@ -398,17 +369,13 @@
                                     });
                                 }
                             });
-
-
                             document.getElementById('saveChangesBtn').addEventListener('click', function() {
                                 document.getElementById('editForm').submit();
                             });
-
                             //notif untuk berhasil atau error saat update data
                             document.addEventListener('DOMContentLoaded', function() {
                                 const successMessage = "{{ session('success_update') }}";
                                 const errorMessage = "{{ session('error_update') }}";
-
                                 if (successMessage) {
                                     swal({
                                         title: "Sukses",
@@ -416,7 +383,6 @@
                                         icon: "success",
                                     });
                                 }
-
                                 if (errorMessage) {
                                     swal({
                                         title: "Error",
@@ -425,13 +391,10 @@
                                     });
                                 }
                             });
-
-
                             //notifikasi untuk menampilkan pesan sukses atau eror saat upload file excel
                             document.addEventListener('DOMContentLoaded', function() {
                                 const successMessage = "{{ session('success_message') }}";
                                 const errorMessage = "{{ session('error_message') }}";
-
                                 if (successMessage) {
                                     swal({
                                         title: "Sukses",
@@ -439,7 +402,6 @@
                                         icon: "success",
                                     });
                                 }
-
                                 if (errorMessage) {
                                     swal({
                                         title: "Error",
@@ -449,14 +411,10 @@
                                 }
                             });
                         </script>
-
                     </div>
-
                 </div>
             </div>
         </div>
-
-    </div>
     </div>
 </main>
 

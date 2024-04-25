@@ -237,7 +237,7 @@
                     </select>
                 </form>
             </div>
-            <form id="filterNamaProgramForm" class="ms-3" action="{{ route('dpd.filterData') }}" method="GET">
+            <form id="filterNamaProgramForm" class="mx-3" action="{{ route('dpd.filterData') }}" method="GET">
                 <input type="text" name="search" id="search" class="form-control" placeholder="Cari Berdasarkan Nama, Nomor SPD, atau Departemen">
             </form>
             <div class="card-body px-3 pt-0 pb-2">

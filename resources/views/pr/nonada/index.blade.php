@@ -94,21 +94,21 @@
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <h6>Data Purchase Request Non Ada</h6>
                 </div>
-                <form id="filterNamaProgramForm" class="ms-3" action="{{ route('prnonada.filterData') }}" method="GET">
+                <form id="filterNamaProgramForm" class="mx-3" action="{{ route('prnonada.filterData') }}" method="GET">
                     <input type="text" name="search" id="search" class="form-control" placeholder="Cari Berdasarkan Nomor PR atau Judul Pekerjaan">
                 </form>
-                <div class="card-body px-0 pt-0 pb-2">
+                <div class="card-body px-3 pt-0 pb-2">
                     <div class="table-responsive p-0">
                         <table class="table align-items-center mb-0">
                             <thead>
                                 <tr>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         No</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Nomor Purchase Request Non Ada </th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Judul Pekerjaan</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Aksi
                                     </th>
                                 </tr>
@@ -163,44 +163,44 @@
                                     </div>
                                 </div>
                                 @endforeach
-                                <!-- Pagination -->
-                                <div class="float-start">
-                                    <p class="text-muted">
-                                        Showing {{ $prnonadas->firstItem() }} to {{ $prnonadas->lastItem() }} of {{ $prnonadas->total() }} entries
-                                    </p>
-                                </div>
-                                <div class="clearfix"></div>
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination">
-                                        <li class="page-item {{ ($prnonadas->onFirstPage()) ? 'disabled' : '' }}">
-                                            <a class="page-link" href="{{ $prnonadas->url(1) }}" aria-label="First">
-                                                <span aria-hidden="true">&laquo;&laquo;</span>
-                                            </a>
-                                        </li>
-                                        <li class="page-item {{ ($prnonadas->onFirstPage()) ? 'disabled' : '' }}">
-                                            <a class="page-link" href="{{ $prnonadas->previousPageUrl() }}" aria-label="Previous">
-                                                <span aria-hidden="true">&laquo;</span>
-                                            </a>
-                                        </li>
-                                        @for ($i = max(1, $prnonadas->currentPage() - 2); $i <= min($prnonadas->lastPage(), $prnonadas->currentPage() + 2); $i++)
-                                            <li class="page-item {{ ($prnonadas->currentPage() == $i) ? 'active' : '' }}">
-                                                <a class="page-link" href="{{ $prnonadas->url($i) }}">{{ $i }}</a>
-                                            </li>
-                                            @endfor
-                                            <li class="page-item {{ ($prnonadas->hasMorePages()) ? '' : 'disabled' }}">
-                                                <a class="page-link" href="{{ $prnonadas->nextPageUrl() }}" aria-label="Next">
-                                                    <span aria-hidden="true">&raquo;</span>
-                                                </a>
-                                            </li>
-                                            <li class="page-item {{ ($prnonadas->currentPage() == $prnonadas->lastPage()) ? 'disabled' : '' }}">
-                                                <a class="page-link" href="{{ $prnonadas->url($prnonadas->lastPage()) }}" aria-label="Last">
-                                                    <span aria-hidden="true">&raquo;&raquo;</span>
-                                                </a>
-                                            </li>
-                                    </ul>
-                                </nav>
                             </tbody>
                         </table>
+                        <!-- Pagination -->
+                        <div class="float-start mx-2">
+                            <p class="text-muted">
+                                Showing {{ $prnonadas->firstItem() }} to {{ $prnonadas->lastItem() }} of {{ $prnonadas->total() }} entries
+                            </p>
+                        </div>
+                        <div class="clearfix"></div>
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item {{ ($prnonadas->onFirstPage()) ? 'disabled' : '' }}">
+                                    <a class="page-link" href="{{ $prnonadas->url(1) }}" aria-label="First">
+                                        <span aria-hidden="true">&laquo;&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="page-item {{ ($prnonadas->onFirstPage()) ? 'disabled' : '' }}">
+                                    <a class="page-link" href="{{ $prnonadas->previousPageUrl() }}" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                @for ($i = max(1, $prnonadas->currentPage() - 2); $i <= min($prnonadas->lastPage(), $prnonadas->currentPage() + 2); $i++)
+                                    <li class="page-item {{ ($prnonadas->currentPage() == $i) ? 'active' : '' }}">
+                                        <a class="page-link" href="{{ $prnonadas->url($i) }}">{{ $i }}</a>
+                                    </li>
+                                    @endfor
+                                    <li class="page-item {{ ($prnonadas->hasMorePages()) ? '' : 'disabled' }}">
+                                        <a class="page-link" href="{{ $prnonadas->nextPageUrl() }}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item {{ ($prnonadas->currentPage() == $prnonadas->lastPage()) ? 'disabled' : '' }}">
+                                        <a class="page-link" href="{{ $prnonadas->url($prnonadas->lastPage()) }}" aria-label="Last">
+                                            <span aria-hidden="true">&raquo;&raquo;</span>
+                                        </a>
+                                    </li>
+                            </ul>
+                        </nav>
 
                         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 

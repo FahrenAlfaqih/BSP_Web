@@ -157,10 +157,10 @@
                         </select>
                     </form>
                 </div>
-                <form id="filterNamaProgramForm" class="ms-3 mt-3" action="{{ route('sertifikasi.filterData') }}" method="GET">
+                <form id="filterNamaProgramForm" class="mx-3 mt-3" action="{{ route('sertifikasi.filterData') }}" method="GET">
                     <input type="text" name="search" id="search" class="form-select" placeholder="Cari Berdasarkan Nama Program, Nama Pekerja, atau Departemen">
                 </form>
-                <div class="card-body px-0 pt-0 pb-2">
+                <div class="card-body px-3 pt-0 pb-2">
                     <div class="table-responsive p-0">
                         <table class="table align-items-center mb-0">
                             <thead>
@@ -293,7 +293,6 @@
                                 </div>
                                 @endforeach
                             </tbody>
-                            </tbody>
                         </table>
                         <!-- Pagination -->
                         <div class="float-start mx-2">
@@ -343,7 +342,6 @@
                                         e.preventDefault();
                                         const deleteForm = this.parentElement;
                                         const id = deleteForm.getAttribute('data-id');
-
                                         swal({
                                             title: "Apakah Anda yakin?",
                                             text: "Data akan dihapus permanen.",
@@ -370,7 +368,6 @@
                                     });
                                 });
                             });
-
                             //script agar tahun pada tanggalPelaksanaanMulai dan Selesai otomatis terubah sesuai dengan
                             //Tahun sertifikasi yang diinputkan sebelumnya
                             document.addEventListener('DOMContentLoaded', function() {
@@ -493,7 +490,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </main>
 

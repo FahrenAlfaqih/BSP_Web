@@ -8,21 +8,16 @@
             <div class="card mb-3">
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <div class="d-flex">
-
                         <a href="{{ route('prreimburst.download-excel', ['search' => request()->input('search'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-success btn-2x me-2">
                             <i class="fas fa-file-excel"></i> Cetak Excel
                         </a>
-
                         <a href="{{ route('poreimburst.download-pdf', ['search' => request()->input('search'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-danger btn-2x me-2">
                             <i class="fas fa-file-pdf"></i> Cetak PDF
                         </a>
-
-
                         <!-- Button trigger modal input -->
                         <button type="button" class="btn btn-dark btn-2x me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <i class="fas fa-plus"></i> Tambah prreimburst
                         </button>
-
                         <!-- Modal input data -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -31,7 +26,6 @@
                                         <h5 class="modal-title" id="exampleModalLabel">Tambah prreimburst</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-
                                     <div class="modal-body" style="max-height: 450px; overflow-y: auto;">
                                         <!-- Isi formulir di sini -->
                                         <form action="{{ route('prreimburst.store') }}" method="POST">
@@ -49,11 +43,9 @@
                                             <button type="submit" class="btn btn-primary">Simpan</button>
                                         </form>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
-
                         <!-- upload file excel -->
                         <form id="uploadForm" action="{{ route('prreimburst.uploadExcel') }}" method="POST" enctype="multipart/form-data" class="btn btn-light btn-2x me-2">
                             @csrf
@@ -61,12 +53,10 @@
                             <input type="file" name="file" class="rounded">
                             <button type="submit" class="btn-outline-dark rounded">Unggah Excel</button>
                         </form>
-
                         <!-- Icon informasi -->
                         <a href="#" class="btn btn-light btn-2x me-2" data-bs-toggle="modal" data-bs-target="#modalInformasi">
                             <i class="fas fa-info-circle fa-2x"></i>
                         </a>
-
                         <!-- Modal Informasi-->
                         <div class="modal fade" id="modalInformasi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-xl">
@@ -78,7 +68,6 @@
                                     <div class="modal-body" style="max-height: 450px; overflow-y: auto;">
                                         <img src="../assets/img/contohExcelTransaksi.png" class="img-fluid" alt="Contoh Isi Excel">
                                     </div>
-
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                                     </div>
@@ -89,7 +78,6 @@
                         <a href="{{ route('prreimburst') }}" class="btn btn-light btn-2x me-2">
                             <i class="fas fa-sync fa-sm"></i> Reload
                         </a>
-
                         <form id="myForm" class="ms-3">
                             <select name="pilihan" id="pilihan" class="form-select" style="min-width: 130px;">
                                 <!-- Di dalam tag select -->
@@ -98,28 +86,23 @@
                                 <option value="nonada" {{ session('selected_option') == 'prnonada' ? 'selected' : '' }}>PR Non Ada</option>
                             </select>
                         </form>
-
-
                     </div>
                 </div>
-
-
             </div>
             <!-- Table Sertifkasi -->
             <div class="card mb-4">
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <h6>Data Purchase Request Reimburst</h6>
                 </div>
-                <form id="filterNamaProgramForm" class="ms-3" action="{{ route('prreimburst.filterData') }}" method="GET">
-                    <input type="text" name="search" id="search" class="form-control" placeholder="Cari Berdasarkan Nomor PR , atau Judul Pekerjaan">
+                <form id="filterNamaProgramForm" class="mx-3" action="{{ route('prreimburst.filterData') }}" method="GET">
+                    <input type="text" name="search" id="search" class="form-control" placeholder="Cari Berdasarkan Nomor PR atau Judul Pekerjaan">
                 </form>
-
-                <div class="card-body px-0 pt-0 pb-2">
+                <div class="card-body px-3 pt-0 pb-2">
                     <div class="table-responsive p-0">
                         <table class="table align-items-center mb-0">
                             <thead>
                                 <tr>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder">No</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">No</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">Nomor Purchase Request Reimburst</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">Judul Pekerjaan</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">Aksi</th>
@@ -145,7 +128,6 @@
                                 @endforeach
                             </tbody>
                         </table>
-
                         @foreach ($prreimbursts as $prreimburst)
                         <!-- Modal edit data -->
                         <div class="modal fade" id="modalEdit{{ $prreimburst->idReimburstPR }}" tabindex="-1" aria-labelledby="modalEditLabel{{ $prreimburst->idReimburstPR }}" aria-hidden="true">
@@ -180,16 +162,13 @@
                             </div>
                         </div>
                         @endforeach
-
                         <!-- Pagination -->
-                        <div class="float-start">
+                        <div class="float-start mx-2">
                             <p class="text-muted">
                                 Showing {{ $prreimbursts->firstItem() }} to {{ $prreimbursts->lastItem() }} of {{ $prreimbursts->total() }} entries
                             </p>
                         </div>
-
                         <div class="clearfix"></div>
-
                         <nav aria-label="Page navigation example">
                             <ul class="pagination">
                                 <li class="page-item {{ ($prreimbursts->onFirstPage()) ? 'disabled' : '' }}">
@@ -225,9 +204,7 @@
                         <script>
                             document.getElementById('myForm').addEventListener('change', function(event) {
                                 event.preventDefault(); // Mencegah formulir untuk melakukan submit
-
                                 var selectedValue = document.getElementById('pilihan').value;
-
                                 if (selectedValue === 'reimburst') {
                                     window.location.href = "{{ route('prreimburst') }}";
                                 } else if (selectedValue === 'service') {
@@ -244,7 +221,6 @@
                                         e.preventDefault();
                                         const deleteForm = this.parentElement;
                                         const id = deleteForm.getAttribute('data-id');
-
                                         swal({
                                             title: "Apakah Anda yakin?",
                                             text: "Data akan dihapus permanen.",
@@ -271,12 +247,10 @@
                                     });
                                 });
                             });
-
                             //unutk menampilkan notif jika file excel belum diinputkan tetapi sudah pencet unggah
                             document.addEventListener('DOMContentLoaded', function() {
                                 const uploadForm = document.querySelector('#uploadForm');
                                 const submitButton = document.querySelector('#submitBtn');
-
                                 uploadForm.addEventListener('submit', function(event) {
                                     // Periksa apakah file sudah dipilih
                                     if (!document.querySelector('input[name="file"]').files[0]) {
@@ -289,12 +263,10 @@
                                     }
                                 });
                             });
-
                             //notif untuk berhasil atau error saat input data
                             document.addEventListener('DOMContentLoaded', function() {
                                 const successMessage = "{{ session('success_add') }}";
                                 const errorMessage = "{{ session('error_add') }}";
-
                                 if (successMessage) {
                                     swal({
                                         title: "Sukses",
@@ -302,7 +274,6 @@
                                         icon: "success",
                                     });
                                 }
-
                                 if (errorMessage) {
                                     swal({
                                         title: "Error",
@@ -311,17 +282,13 @@
                                     });
                                 }
                             });
-
-
                             document.getElementById('saveChangesBtn').addEventListener('click', function() {
                                 document.getElementById('editForm').submit();
                             });
-
                             //notif untuk berhasil atau error saat update data
                             document.addEventListener('DOMContentLoaded', function() {
                                 const successMessage = "{{ session('success_update') }}";
                                 const errorMessage = "{{ session('error_update') }}";
-
                                 if (successMessage) {
                                     swal({
                                         title: "Sukses",
@@ -329,7 +296,6 @@
                                         icon: "success",
                                     });
                                 }
-
                                 if (errorMessage) {
                                     swal({
                                         title: "Error",
@@ -338,13 +304,10 @@
                                     });
                                 }
                             });
-
-
                             //notifikasi untuk menampilkan pesan sukses atau eror saat upload file excel
                             document.addEventListener('DOMContentLoaded', function() {
                                 const successMessage = "{{ session('success_message') }}";
                                 const errorMessage = "{{ session('error_message') }}";
-
                                 if (successMessage) {
                                     swal({
                                         title: "Sukses",
@@ -352,7 +315,6 @@
                                         icon: "success",
                                     });
                                 }
-
                                 if (errorMessage) {
                                     swal({
                                         title: "Error",
@@ -361,38 +323,28 @@
                                     });
                                 }
                             });
-
-
                             // Ambil elemen input untuk tanggal mulai dan selesai
                             const inputMulai = document.getElementById('tanggalPelaksanaanMulai');
                             const inputSelesai = document.getElementById('tanggalPelaksanaanSelesai');
                             const inputDays = document.getElementById('days');
-
                             // Tambahkan event listener untuk perubahan nilai tanggal
                             inputMulai.addEventListener('change', hitungJumlahHari);
                             inputSelesai.addEventListener('change', hitungJumlahHari);
-
                             // Fungsi untuk menghitung jumlah hari
                             function hitungJumlahHari() {
                                 // Ambil nilai dari kedua input tanggal
                                 const tanggalMulai = new Date(inputMulai.value);
                                 const tanggalSelesai = new Date(inputSelesai.value);
-
                                 // Hitung selisih hari antara kedua tanggal
                                 const selisihHari = Math.ceil((tanggalSelesai - tanggalMulai) / (1000 * 3600 * 24));
-
                                 // Masukkan nilai selisih hari ke dalam input days
                                 inputDays.value = selisihHari;
                             }
                         </script>
-
                     </div>
-
                 </div>
             </div>
         </div>
-
-    </div>
     </div>
 </main>
 

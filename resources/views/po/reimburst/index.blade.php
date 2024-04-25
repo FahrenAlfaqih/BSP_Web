@@ -104,10 +104,10 @@
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <h6>Data Pre Order Reimburst</h6>
                 </div>
-                <form id="filterNamaProgramForm" class="ms-3" action="{{ route('poreimburst.filterData') }}" method="GET">
-                    <input type="text" name="search" id="search" class="form-control" placeholder="Cari Berdasarkan Nama, Institusi, atau Departemen">
+                <form id="filterNamaProgramForm" class="mx-3" action="{{ route('poreimburst.filterData') }}" method="GET">
+                    <input type="text" name="search" id="search" class="form-control" placeholder="Cari Berdasarkan Nomor PO, Nomor PR atau Judul Pekerjaan">
                 </form>
-                <div class="card-body px-0 pt-0 pb-2">
+                <div class="card-body px-3 pt-0 pb-2">
                     <div class="table-responsive p-0">
                         <table class="table align-items-center mb-0">
                             <thead>
@@ -115,9 +115,9 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         No</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
-                                        Nomor Pre Order </th>
+                                        Nomor PO Reimburst </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
-                                        Nomor Purchase Request </th>
+                                        Nomor PR Reimburst </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Judul Pekerjaan</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
