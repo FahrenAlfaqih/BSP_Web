@@ -148,7 +148,7 @@
             <div class="card mb-4">
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <h6>Data Sertifikasi</h6>
-                    <form action="{{ route('sertifikasi.filterByNamaProgram') }}" method="GET" class="ms-3">
+                    <form action="{{ route('sertifikasi.filterByNamaProgram') }}" method="GET" class="ms-2">
                         <select name="namaProgram" onchange="this.form.submit()" class="form-select">
                             <option value="">Pilih Nama Program</option>
                             @foreach($namaPrograms as $program)
@@ -215,7 +215,7 @@
                                 </tr>
                                 @php $index++ @endphp
                                 <!-- Modal edit data -->
-                                <div class="modal fade modalEdit" tabindex="-1" aria-labelledby="modalEditLabel" aria-hidden="true">
+                                <div class="modal fade modalEdit"  tabindex="-1" aria-labelledby="modalEditLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">

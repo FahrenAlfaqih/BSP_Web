@@ -11,9 +11,6 @@
                         <a href="{{ route('sesnonada.download-excel', ['search' => request()->input('search'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-success btn-2x me-2">
                             <i class="fas fa-file-excel"></i> Cetak Excel
                         </a>
-                        <a href="{{ route('poreimburst.download-pdf', ['search' => request()->input('search'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-danger btn-2x me-2">
-                            <i class="fas fa-file-pdf"></i> Cetak PDF
-                        </a>
                         <!-- Button trigger modal input -->
                         <button type="button" class="btn btn-dark btn-2x me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <i class="fas fa-plus"></i> Tambah SES Non Ada
@@ -148,7 +145,7 @@
                                     <div class="modal-dialog modal-dialog-centered modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="modalEditLabel">Edit poreimburst</h5>
+                                                <h5 class="modal-title" id="modalEditLabel">Edit SES Non Ada</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body " style="max-height: 450px; overflow-y: auto;">

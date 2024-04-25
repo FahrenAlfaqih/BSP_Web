@@ -11,19 +11,16 @@
                         <a href="{{ route('prreimburst.download-excel', ['search' => request()->input('search'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-success btn-2x me-2">
                             <i class="fas fa-file-excel"></i> Cetak Excel
                         </a>
-                        <a href="{{ route('poreimburst.download-pdf', ['search' => request()->input('search'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-danger btn-2x me-2">
-                            <i class="fas fa-file-pdf"></i> Cetak PDF
-                        </a>
                         <!-- Button trigger modal input -->
                         <button type="button" class="btn btn-dark btn-2x me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            <i class="fas fa-plus"></i> Tambah prreimburst
+                            <i class="fas fa-plus"></i> Tambah PR Reimburst
                         </button>
                         <!-- Modal input data -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Tambah prreimburst</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Tambah PR Reimburst</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body" style="max-height: 450px; overflow-y: auto;">
@@ -130,11 +127,11 @@
                         </table>
                         @foreach ($prreimbursts as $prreimburst)
                         <!-- Modal edit data -->
-                        <div class="modal fade" id="modalEdit{{ $prreimburst->idReimburstPR }}" tabindex="-1" aria-labelledby="modalEditLabel{{ $prreimburst->idReimburstPR }}" aria-hidden="true">
+                        <div class="modal fade modalEdit" id="modalEdit{{ $prreimburst->idReimburstPR }}" tabindex="-1" aria-labelledby="modalEditLabel{{ $prreimburst->idReimburstPR }}" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="modalEditLabel{{ $prreimburst->idReimburstPR }}">Edit prreimburst</h5>
+                                        <h5 class="modal-title" id="modalEditLabel{{ $prreimburst->idReimburstPR }}">Edit PR Reimburst</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body" style="max-height: 450px; overflow-y: auto;">

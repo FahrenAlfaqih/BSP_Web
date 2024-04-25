@@ -11,9 +11,6 @@
                         <a href="{{ route('pononada.download-excel', ['search' => request()->input('search'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-success btn-2x me-2">
                             <i class="fas fa-file-excel"></i> Cetak Excel
                         </a>
-                        <a href="{{ route('pononada.download-pdf', ['search' => request()->input('search'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-danger btn-2x me-2">
-                            <i class="fas fa-file-pdf"></i> Cetak PDF
-                        </a>
                         <!-- Button trigger modal input -->
                         <button type="button" class="btn btn-dark btn-2x me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <i class="fas fa-plus"></i> Tambah PO Non Ada
@@ -23,7 +20,7 @@
                             <div class="modal-dialog modal-dialog-centered modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Tambah PO Nonada</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Tambah PO Non Ada</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body" style="max-height: 450px; overflow-y: auto;">
@@ -32,11 +29,11 @@
                                             @csrf
                                             <!-- Isi formulir dengan input yang sesuai -->
                                             <div class="mb-3">
-                                                <label for="idNonadaPO" class="form-label">Nomor PO Non ada</label>
+                                                <label for="idNonadaPO" class="form-label">Nomor PO Non Ada</label>
                                                 <input type="text" class="form-control" id="idNonadaPO" name="idNonadaPO">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="pr_reimburst_id" class="form-label">Pilih PR Non ada</label>
+                                                <label for="pr_reimburst_id" class="form-label">Pilih PR Non Ada</label>
                                                 <select class="form-select" id="idNonadaP" name="idNonadaPR">
                                                     @foreach($pononadas as $pononada)
                                                     <option value="{{ $pononada->idNonadaPR}}">

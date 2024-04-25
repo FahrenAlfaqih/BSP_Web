@@ -166,7 +166,7 @@ class MagangController extends Controller
             ]);
 
             foreach ($request->file('file') as $file) {
-                Excel::import(new SpdImport, $file);
+                Excel::import(new MagangImport, $file);
             }
 
             return redirect()->back()->with('success_message', 'Data dari Excel berhasil diunggah!');
