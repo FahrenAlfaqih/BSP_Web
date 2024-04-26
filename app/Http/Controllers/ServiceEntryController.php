@@ -150,7 +150,7 @@ class ServiceEntryController extends Controller
         return redirect()->back();
     }
 
-    public function downloadExcel()
+    public function downlroadExcel()
     {
         return Excel::download(new SesReimburstExport, 'Data SES Reimburst.xlsx');
     }

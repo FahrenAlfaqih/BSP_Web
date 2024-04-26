@@ -82,7 +82,7 @@
                             </div>
                         </div>
                         <!-- Reload Data Terbaru-->
-                        <a href="{{ route('magang') }}" class="btn btn-light btn-2x me-2">
+                        <a href="{{ route('sesnonada') }}" class="btn btn-light btn-2x me-2">
                             <i class="fas fa-sync fa-sm"></i> Reload
                         </a>
                         <form id="myForm" class="ms-3">

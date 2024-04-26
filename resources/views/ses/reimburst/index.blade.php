@@ -35,7 +35,7 @@
                                             <div class="mb-3">
                                                 <label for="pr_reimburst_id" class="form-label">Pilih PO Reimburst</label>
                                                 <select class="form-select" id="idReimburstPO" name="idReimburstPO">
-                                                    @foreach($sesreimbursts as $poreimburst)
+                                                    @foreach($poreimbursts as $poreimburst)
                                                     <option value="{{ $poreimburst->idReimburstPO }}">
                                                         {{ $poreimburst->idReimburstPO }} - {{ $poreimburst->judulPekerjaan }}
                                                     </option>
@@ -82,7 +82,7 @@
                             </div>
                         </div>
                         <!-- Reload Data Terbaru-->
-                        <a href="{{ route('magang') }}" class="btn btn-light btn-2x me-2">
+                        <a href="{{ route('sesreimburst') }}" class="btn btn-light btn-2x me-2">
                             <i class="fas fa-sync fa-sm"></i> Reload
                         </a>
                         <form id="myForm" class="ms-3">
