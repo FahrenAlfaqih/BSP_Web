@@ -13,7 +13,7 @@ class SesReimburstExport implements FromCollection, WithHeadings
      */
     public function collection()
     {
-        $data = SESReimburst::select('idSReimburstSES', 'judulPekerjaan')->get()->toArray();
+        $data = SESReimburst::select('idSReimburstSES', 'idReimburstPO','judulPekerjaan')->get()->toArray();
 
         $data = array_map(function ($item, $key) {
             return array_merge([$key + 1], $item);
@@ -27,6 +27,7 @@ class SesReimburstExport implements FromCollection, WithHeadings
         return [
             'No',
             'Nomor SES Reimburst',
+            'Nomor PO Reimburst',
             'Judul Pekerjaan',
         ];
     }

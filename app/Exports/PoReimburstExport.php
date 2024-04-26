@@ -13,7 +13,7 @@ class PoReimburstExport implements FromCollection, WithHeadings
      */
     public function collection()
     {
-        $data = POReimburst::select('idReimburstPO', 'judulPekerjaan')->get()->toArray();
+        $data = POReimburst::select('idReimburstPO','idReimburstPR', 'judulPekerjaan')->get()->toArray();
 
         $data = array_map(function ($item, $key) {
             return array_merge([$key + 1], $item);
@@ -27,6 +27,7 @@ class PoReimburstExport implements FromCollection, WithHeadings
         return [
             'No',
             'Nomor PO Reimburst',
+            'Nomor PR Reimburst',
             'Judul Pekerjaan',
         ];
     }
