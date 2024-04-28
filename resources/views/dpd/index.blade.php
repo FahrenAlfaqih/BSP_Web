@@ -75,6 +75,10 @@
         <div class="card mb-3">
             <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                 <div class="d-flex">
+
+                    <a href="{{ route('dpd.download-excel', ['search' => request()->input('search'), 'hari' => request()->input('hari'),'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-success btn-2x me-2">
+                        <i class="fas fa-file-excel"></i> Cetak Excel
+                    </a>
                     <a href="{{ route('dpd.download-pdf', ['search' => request()->input('search'),'dept' => request()->input('dept'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-danger btn-2x me-2">
                         <i class="fas fa-file-pdf"></i> Cetak PDF
                     </a>
@@ -199,7 +203,7 @@
                     <a href="{{ route('dpd') }}" class="btn btn-light btn-2x me-2">
                         <i class="fas fa-sync fa-sm"></i> Reload
                     </a>
-                    <!-- Filter data berdasarkan tahun dpd-->
+                    <!-- Filter data berdasarkan tahun, bulan, dan hari -->
                     <form action="{{ route('dpd.filterByDate') }}" method="GET" class="ms-3" id="filterForm">
                         <div class="d-flex">
                             <!-- Filter data berdasarkan tahun -->
@@ -211,7 +215,7 @@
                                 </select>
                             </div>
                             <!-- Filter data berdasarkan bulan -->
-                            <div>
+                            <div class="me-3">
                                 <select name="bulan" id="bulan" onchange="this.form.submit()" class="form-select" style="min-width: 90px;">
                                     <option value="">Bulan</option>
                                     @for ($i = 1; $i <= 12; $i++) <option value="{{ str_pad($i, 2, '0', STR_PAD_LEFT) }}" {{ request('bulan') == str_pad($i, 2, '0', STR_PAD_LEFT) ? 'selected' : '' }}>
@@ -220,8 +224,19 @@
                                         @endfor
                                 </select>
                             </div>
+                            <!-- Filter data berdasarkan hari -->
+                            <div>
+                                <select name="hari" id="hari" onchange="this.form.submit()" class="form-select" style="min-width: 90px;">
+                                    <option value="">Hari</option>
+                                    @for ($j = 1; $j <= 31; $j++) <option value="{{ str_pad($j, 2, '0', STR_PAD_LEFT) }}" {{ request('hari') == str_pad($j, 2, '0', STR_PAD_LEFT) ? 'selected' : '' }}>
+                                        {{ str_pad($j, 2, '0', STR_PAD_LEFT) }}
+                                        </option>
+                                        @endfor
+                                </select>
+                            </div>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>
@@ -326,7 +341,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="dept" class="form-label">Departemen</label>
-                                                    <select class="form-select" id="dept" name="dept" >
+                                                    <select class="form-select" id="dept" name="dept">
                                                         <!-- Tambahkan opsi nilai departemen di sini -->
                                                         <option>{{ $dpd->dept }}</option>
                                                         <option value="GM">GM</option>
@@ -433,6 +448,43 @@
                     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
                     <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const deptSelect = document.getElementById('dept');
+                            const wbsInput = document.getElementById('bsno');
+
+                            // Tambahkan event listener untuk memantau perubahan pada select departemen
+                            deptSelect.addEventListener('change', function() {
+                                const selectedDept = deptSelect.value;
+                                let wbsValue = '';
+
+                                switch (selectedDept) {
+                                    case 'EXPLOITATION':
+                                    case 'EXPLORATION':
+                                        wbsValue = '4';
+                                        break;
+                                    case 'OPERATION SUPPORT':
+                                    case 'PRODUCTION OPERATION':
+                                    case 'DRILLING & WORK OVER':
+                                    case 'QHSE':
+                                    case 'EXTERNAL AFFAIR':
+                                        wbsValue = '8';
+                                        break;
+                                    case 'HCM':
+                                    case 'SCM':
+                                    case 'GM':
+                                    case 'INTERNAL AUDIT':
+                                    case 'FINEC & ICT':
+                                        wbsValue = '11';
+                                        break;
+                                    default:
+                                        wbsValue = ''; // Jika tidak ada departemen yang cocok
+                                        break;
+                                }
+
+                                // Set nilai WBS ke dalam input WBS
+                                wbsInput.value = wbsValue;
+                            });
+                        });
                         //Konfirmasi untuk hapus data
                         document.addEventListener('DOMContentLoaded', function() {
                             const deleteButtons = document.querySelectorAll('.deleteButton');

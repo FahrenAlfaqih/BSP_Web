@@ -67,15 +67,17 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/filterData', [DpdController::class, 'filterData'])->name('dpd.filterData');
         // Download file PDFs
         Route::get('/download-pdf', [DpdController::class, 'downloadPDF'])->name('dpd.download-pdf');
+        Route::get('/download-excel', [DpdController::class, 'downloadExcel'])->name('dpd.download-excel');
         // Upload file Excel untuk input data
         Route::post('/uploadExcel', [DpdController::class, 'uploadExcel'])->name('dpd.uploadExcel');
+
         // CRUD data DPD
         Route::post('/store', [DpdController::class, 'store'])->name('dpd.store');
         Route::post('/storeDanaAwal', [DepartmentController::class, 'updateInitialFunds'])->name('updateInitialFunds');
         Route::put('/{id}/edit', [DpdController::class, 'editDpd'])->name('dpd.edit');
         Route::delete('/{id}', [DpdController::class, 'deleteDpd'])->name('dpd.destroy');
     });
-    
+
 
     Route::prefix('spd')->group(function () {
         // Menampilkan dan memfilter data spd

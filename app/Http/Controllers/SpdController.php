@@ -44,10 +44,10 @@ class SpdController extends Controller
                 'pr' => 'nullable',
                 'po' => 'nullable',
                 'ses' => 'nullable',
-                'mir7' => 'nullable',
                 'dari' => 'required',
                 'tujuan' => 'required',
-                'tanggal_dinas' => 'required',
+                'tanggal_mulai' => 'required',
+                'tanggal_selesai' => 'required',
                 'keterangan_dinas' => 'nullable',
                 'biaya_dpd' => 'nullable',
                 'rkap' => 'nullable',
@@ -91,14 +91,14 @@ class SpdController extends Controller
 
         if ($tahun && $bulan) {
             // Filter berdasarkan tahun dan bulan
-            $SpdQuery->whereMonth('tanggal_dinas', $bulan)
-                ->whereYear('tanggal_dinas', $tahun);
+            $SpdQuery->whereMonth('tanggal_mulai', $bulan)
+                ->whereYear('tanggal_mulai', $tahun);
         } elseif ($tahun) {
             // Filter hanya berdasarkan tahun
-            $SpdQuery->whereYear('tanggal_dinas', $tahun);
+            $SpdQuery->whereYear('tanggal_mulai', $tahun);
         } elseif ($bulan) {
             // Filter hanya berdasarkan bulan
-            $SpdQuery->whereMonth('tanggal_dinas', $bulan);
+            $SpdQuery->whereMonth('tanggal_mulai', $bulan);
         }
 
         $spds = $SpdQuery->paginate(10);
@@ -129,11 +129,11 @@ class SpdController extends Controller
         }
 
         if ($tahun) {
-            $SpdQuery->whereYear('tanggal_dinas', $tahun);
+            $SpdQuery->whereYear('tanggal_mulai', $tahun);
         }
 
         if ($bulan) {
-            $SpdQuery->whereMonth('tanggal_dinas', $bulan);
+            $SpdQuery->whereMonth('tanggal_mulai', $bulan);
         }
 
         $spds = $SpdQuery->get();

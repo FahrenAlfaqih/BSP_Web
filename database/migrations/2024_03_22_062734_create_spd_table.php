@@ -20,10 +20,10 @@ return new class extends Migration
             $table->string('pr')->nullable();
             $table->string('po')->nullable();
             $table->string('ses')->nullable();
-            $table->string('mir7')->nullable();
             $table->string('dari');
             $table->string('tujuan');
-            $table->date('tanggal_dinas');
+            $table->date('tanggal_mulai');
+            $table->date('tanggal_selesai');
             $table->text('keterangan_dinas')->nullable();
             $table->decimal('biaya_dpd', 10, 2)->nullable();
             $table->decimal('rkap', 10, 2)->nullable();

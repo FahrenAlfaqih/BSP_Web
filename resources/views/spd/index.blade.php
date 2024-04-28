@@ -42,9 +42,19 @@
                                                 <label for="dept" class="form-label">Departemen</label>
                                                 <select class="form-select" id="dept" name="dept">
                                                     <option value="">Pilih Departemen</option> <!-- Opsi default kosong -->
+                                                    <option value="GM">GM</option>
+                                                    <option value="PRODUCTION OPERATION">PRODUCTION OPERATION</option>
+                                                    <option value="OPERATION SUPPORT">OPERATION SUPPORT</option>
+                                                    <option value="DRILLING & WORK OVER">DRILLING & WORK OVER</option>
+                                                    <option value="EXPLOITATION">EXPLOITATION</option>
+                                                    <option value="EXPLORATION">EXPLORATION</option>
                                                     <option value="QHSE">QHSE</option>
-                                                    <option value="PROD. OPERATION">PROD. OPERATION</option>
-                                                    <!-- Tambahkan opsi departemen lainnya di sini -->
+                                                    <option value="SCM">SCM</option>
+                                                    <option value="EXTERNAL AFFAIR">EXTERNAL AFFAIR</option>
+                                                    <option value="INTERNAL AUDIT">INTERNAL AUDIT</option>
+                                                    <option value="FINEC & ICT">FINEC & ICT</option>
+                                                    <option value="HCM">HCM</option>
+
                                                 </select>
                                             </div>
                                             <div class="col-md-6">
@@ -64,10 +74,6 @@
                                                 <input type="text" class="form-control" id="ses" name="ses">
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="mir7" class="form-label">MIR7</label>
-                                                <input type="text" class="form-control" id="mir7" name="mir7">
-                                            </div>
-                                            <div class="col-md-6">
                                                 <label for="dari" class="form-label">Dari</label>
                                                 <input type="text" class="form-control" id="dari" name="dari">
                                             </div>
@@ -76,8 +82,12 @@
                                                 <input type="text" class="form-control" id="tujuan" name="tujuan">
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="tanggal_dinas" class="form-label">Tanggal Dinas</label>
-                                                <input type="date" class="form-control" id="tanggal_dinas" name="tanggal_dinas">
+                                                <label for="tanggal_mulai" class="form-label">Tanggal Mulai Dinas</label>
+                                                <input type="date" class="form-control" id="tanggal_mulai" name="tanggal_mulai">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="tanggal_selesai" class="form-label">Tanggal Selesai Dinas</label>
+                                                <input type="date" class="form-control" id="tanggal_selesai" name="tanggal_selesai">
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="keterangan_dinas" class="form-label">Keterangan Dinas</label>
@@ -204,13 +214,13 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         SES</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
-                                        MIR7</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Dari</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Tujuan</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
-                                        Tanggal Dinas</th>
+                                        Tanggal Mulai Dinas</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
+                                        Tanggal Selesai Dinas</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Keterangan Dinas</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
@@ -238,10 +248,10 @@
                                     <td style="font-size: 14px;">{{ $spd->pr }}</td>
                                     <td style="font-size: 14px;">{{ $spd->po }}</td>
                                     <td style="font-size: 14px;">{{ $spd->ses }}</td>
-                                    <td style="font-size: 14px;">{{ $spd->mir7 }}</td>
                                     <td style="font-size: 14px;">{{ $spd->dari }}</td>
                                     <td style="font-size: 14px;">{{ $spd->tujuan }}</td>
-                                    <td style="font-size: 14px;">{{ $spd->tanggal_dinas  }}</td>
+                                    <td style="font-size: 14px;">{{ $spd->tanggal_mulai  }}</td>
+                                    <td style="font-size: 14px;">{{ $spd->tanggal_selesai  }}</td>
                                     <td style="font-size: 14px;">{{ $spd->keterangan_dinas }}</td>
                                     <td style="font-size: 14px;">{{ $spd->biaya_dpd }}</td>
                                     <td style="font-size: 14px;">{{ $spd->rkap }}</td>
@@ -301,6 +311,43 @@
                         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
                         <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                const deptSelect = document.getElementById('dept');
+                                const wbsInput = document.getElementById('wbs');
+
+                                // Tambahkan event listener untuk memantau perubahan pada select departemen
+                                deptSelect.addEventListener('change', function() {
+                                    const selectedDept = deptSelect.value;
+                                    let wbsValue = '';
+
+                                    switch (selectedDept) {
+                                        case 'EXPLOITATION':
+                                        case 'EXPLORATION':
+                                            wbsValue = '4';
+                                            break;
+                                        case 'OPERATION SUPPORT':
+                                        case 'PRODUCTION OPERATION':
+                                        case 'DRILLING & WORK OVER':
+                                        case 'QHSE':
+                                        case 'EXTERNAL AFFAIR':
+                                            wbsValue = '8';
+                                            break;
+                                        case 'HCM':
+                                        case 'SCM':
+                                        case 'GM':
+                                        case 'INTERNAL AUDIT':
+                                        case 'FINEC & ICT':
+                                            wbsValue = '11';
+                                            break;
+                                        default:
+                                            wbsValue = ''; // Jika tidak ada departemen yang cocok
+                                            break;
+                                    }
+
+                                    // Set nilai WBS ke dalam input WBS
+                                    wbsInput.value = wbsValue;
+                                });
+                            });
                             //Konfirmasi untuk hapus data
                             document.addEventListener('DOMContentLoaded', function() {
                                 const deleteButtons = document.querySelectorAll('.deleteButton');

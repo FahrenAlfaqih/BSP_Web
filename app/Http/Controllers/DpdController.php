@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\DpdExport;
 use App\Imports\DpdImport;
 use App\Models\Department;
 use App\Models\Dpd;
@@ -19,7 +20,7 @@ class DpdController extends Controller
     {
         $this->middleware('dept');
     }
-    
+
     public function index()
     {
         // Hitung Total Biaya DPD per Departemen
@@ -68,21 +69,35 @@ class DpdController extends Controller
     {
         $tahun = $request->tahun;
         $bulan = $request->bulan;
+        $hari = $request->hari;
+
         $dpdQuery = Dpd::query();
-        if ($tahun && $bulan) {
+
+        if ($tahun && $bulan && $hari) {
+            // Filter berdasarkan tahun, bulan, dan hari
+            $dpdQuery->whereYear('submitfinec', $tahun)
+                ->whereMonth('submitfinec', $bulan)
+                ->whereDay('submitfinec', $hari);
+        } elseif ($tahun && $bulan) {
             // Filter berdasarkan tahun dan bulan
-            $dpdQuery->whereMonth('submitfinec', $bulan)
-                ->whereYear('submitfinec', $tahun);
+            $dpdQuery->whereYear('submitfinec', $tahun)
+                ->whereMonth('submitfinec', $bulan);
         } elseif ($tahun) {
             // Filter hanya berdasarkan tahun
             $dpdQuery->whereYear('submitfinec', $tahun);
         } elseif ($bulan) {
             // Filter hanya berdasarkan bulan
             $dpdQuery->whereMonth('submitfinec', $bulan);
+        } elseif ($hari) {
+            // Filter hanya berdasarkan hari
+            $dpdQuery->whereDay('submitfinec', $hari);
         }
+
         $dpdList = $dpdQuery->paginate(10);
+
         return view('dpd.index')->with(compact('dpdList'))->with($this->loadData());
     }
+
 
     public function filterByDept(Request $request)
     {
@@ -126,7 +141,7 @@ class DpdController extends Controller
         // Ambil semua data DPD
         $departments = Department::paginate(10);
         $depts = Department::pluck('name', 'id');
-        return compact('highestBiayaDPDList', 'departments', 'departmentProgress','topDepartments','depts');
+        return compact('highestBiayaDPDList', 'departments', 'departmentProgress', 'topDepartments', 'depts');
     }
 
     // Function untuk menyimpan data ke database
@@ -224,6 +239,56 @@ class DpdController extends Controller
             return redirect()->back()->with('error', 'Tidak ada data yang ditemukan.');
         }
     }
+
+    public function downloadExcel(Request $request)
+    {
+        $tahun = $request->query('tahun');
+        $bulan = $request->query('bulan');
+        $hari = $request->query('hari');
+        $searchQuery = $request->query('search');
+        $dept = $request->query('dept');
+
+        $dpdQuery = Dpd::query();
+
+        // Terapkan filter berdasarkan pencarian, tahun, bulan, dan hari
+        if ($searchQuery) {
+            $dpdQuery->where(function ($query) use ($searchQuery) {
+                $query->where('nama', 'like', '%' . $searchQuery . '%')
+                    ->orWhere('nomorspd', 'like', '%' . $searchQuery . '%');
+            });
+        }
+
+        if ($dept) {
+            $dpdQuery->where('dept', $dept);
+        }
+
+        if ($tahun) {
+            $dpdQuery->whereYear('submitfinec', $tahun);
+        }
+
+        if ($bulan) {
+            $dpdQuery->whereMonth('submitfinec', $bulan);
+        }
+
+        if ($hari) {
+            $dpdQuery->whereDay('submitfinec', $hari);
+        }
+
+        // Ambil data berdasarkan query yang difilter
+        $dpdList = $dpdQuery->get();
+
+        // Periksa apakah ada data yang ditemukan
+        if ($dpdList->isNotEmpty()) {
+            // Jika ada data, lakukan download Excel dengan menggunakan DpdExport
+            return Excel::download(new DpdExport($dpdList), 'Rekap DPD.xlsx');
+        } else {
+            // Jika tidak ada data, kembalikan pengguna dengan pesan error
+            return redirect()->back()->with('error', 'Tidak ada data yang ditemukan.');
+        }
+    }
+
+
+
 
     //function untuk fitur tambah data dengan metode upload file excel
     public function uploadExcel(Request $request)

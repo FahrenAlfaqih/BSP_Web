@@ -13,7 +13,7 @@ class SpdExport implements FromCollection, WithHeadings
     public function collection()
     {
         $data = Spd::select('nomor_spd', 'nama'
-        ,'dept','wbs','pr','po','ses','mir7','dari','tujuan','tanggal_dinas','keterangan_dinas','biaya_dpd','rkap'
+        ,'dept','wbs','pr','po','ses','dari','tujuan','tanggal_mulai','tanggal_selesai','keterangan_dinas','biaya_dpd','rkap'
         ,'accrual','submit_tgl')->get()->toArray();
 
         $data = array_map(function ($item, $key) {
@@ -34,10 +34,10 @@ class SpdExport implements FromCollection, WithHeadings
             'PR',
             'PO',
             'SES',
-            'MIR7',
             'Dari',
             'Tujuan',
-            'Tanggal Dinas',
+            'Tanggal Mulai',
+            'Tanggal Selesai',
             'Ket Dinas',
             'Biaya DPD',
             'RKAP',

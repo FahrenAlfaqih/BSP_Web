@@ -10,7 +10,8 @@ class SpdImport implements ToModel
     public function model(array $row)
     {
         // Mengonversi format tanggal "01-Mar-24" ke "YYYY-MM-DD"
-        $tanggalDinas = date('Y-m-d', strtotime('1899-12-30 +' . $row[10] . ' days'));
+        $tanggalMulai = date('Y-m-d', strtotime('1899-12-30 +' . $row[9] . ' days'));
+        $tanggalSelesai = date('Y-m-d', strtotime('1899-12-30 +' . $row[10] . ' days'));
         $submitTanggal = date('Y-m-d', strtotime('1899-12-30 +' . $row[15] . ' days'));
 
         // Validasi dan konversi nilai biaya_dpd dan rkap
@@ -24,10 +25,10 @@ class SpdImport implements ToModel
             ->where('pr', $row[4])
             ->where('po', $row[5])
             ->where('ses', $row[6])
-            ->where('mir7', $row[7])
-            ->where('dari', $row[8])
-            ->where('tujuan', $row[9])
-            ->where('tanggal_dinas', $tanggalDinas)
+            ->where('dari', $row[7])
+            ->where('tujuan', $row[8])
+            ->where('tanggal_mulai', $tanggalMulai)
+            ->where('tanggal_selesai', $tanggalSelesai)
             ->where('keterangan_dinas', $row[11])
             ->where('biaya_dpd', $biaya_dpd)
             ->where('rkap', $rkap)
@@ -46,10 +47,10 @@ class SpdImport implements ToModel
                 'pr' => $row[4],
                 'po' => $row[5],
                 'ses' => $row[6],
-                'mir7' => $row[7],
-                'dari' => $row[8],
-                'tujuan' => $row[9],
-                'tanggal_dinas' => $tanggalDinas,
+                'dari' => $row[7],
+                'tujuan' => $row[8],
+                'tanggal_mulai' => $tanggalMulai,
+                'tanggal_selesai' => $tanggalSelesai,
                 'keterangan_dinas' => $row[11],
                 'biaya_dpd' => $biaya_dpd,
                 'rkap' => $rkap,
