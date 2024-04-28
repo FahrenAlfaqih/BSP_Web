@@ -125,6 +125,11 @@ class DpdController extends Controller
             ->groupBy('dept')
             ->get();
         // Hitung Persentase
+        // Memformat biaya DPD ke format mata uang rupiah
+        $totalDPDFunds->transform(function ($department) {
+            $department->total = 'Rp. ' . number_format($department->total, 0, ',', '.');
+            return $department;
+        });
         $topDepartments = $totalDPDFunds->take(5);
         $departmentProgress = [];
         foreach ($totalDPDFunds as $dpdFund) {
@@ -136,9 +141,13 @@ class DpdController extends Controller
             }
             $departmentProgress[$dpdFund->dept] = $percentage;
         }
-        // Ambil daftar DPD dengan biayadpd tertinggi
-        $highestBiayaDPDList = Dpd::orderBy('biayadpd', 'desc')->paginate(10);
-        // Ambil semua data DPD
+        // Ambil daftar DPD dengan biayadpd tertinggi dan memformat biaya DPD
+        $highestBiayaDPDList = Dpd::orderBy('biayadpd', 'desc')
+            ->paginate(10)
+            ->map(function ($item, $key) {
+                $item->biayadpd = 'Rp. ' . number_format($item->biayadpd, 0, ',', '.');
+                return $item;
+            });        // Ambil semua data DPD
         $departments = Department::paginate(10);
         $depts = Department::pluck('name', 'id');
         return compact('highestBiayaDPDList', 'departments', 'departmentProgress', 'topDepartments', 'depts');
@@ -242,10 +251,10 @@ class DpdController extends Controller
 
     public function downloadExcel(Request $request)
     {
+        $searchQuery = $request->query('search');
         $tahun = $request->query('tahun');
         $bulan = $request->query('bulan');
         $hari = $request->query('hari');
-        $searchQuery = $request->query('search');
         $dept = $request->query('dept');
 
         $dpdQuery = Dpd::query();
@@ -275,17 +284,18 @@ class DpdController extends Controller
         }
 
         // Ambil data berdasarkan query yang difilter
-        $dpdList = $dpdQuery->get();
+        $dataDpd = $dpdQuery->get();
 
         // Periksa apakah ada data yang ditemukan
-        if ($dpdList->isNotEmpty()) {
+        if ($dataDpd->isNotEmpty()) {
             // Jika ada data, lakukan download Excel dengan menggunakan DpdExport
-            return Excel::download(new DpdExport($dpdList), 'Rekap DPD.xlsx');
+            return Excel::download(new DpdExport($dataDpd), 'Rekap DPD.xlsx');
         } else {
             // Jika tidak ada data, kembalikan pengguna dengan pesan error
             return redirect()->back()->with('error', 'Tidak ada data yang ditemukan.');
         }
     }
+
 
 
 

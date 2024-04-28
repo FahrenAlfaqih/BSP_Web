@@ -76,7 +76,7 @@
             <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                 <div class="d-flex">
 
-                    <a href="{{ route('dpd.download-excel', ['search' => request()->input('search'), 'hari' => request()->input('hari'),'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-success btn-2x me-2">
+                    <a href="{{ route('dpd.download-excel', ['dept' => request()->input('dept'),'search' => request()->input('search'), 'hari' => request()->input('hari'),'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-success btn-2x me-2">
                         <i class="fas fa-file-excel"></i> Cetak Excel
                     </a>
                     <a href="{{ route('dpd.download-pdf', ['search' => request()->input('search'),'dept' => request()->input('dept'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-danger btn-2x me-2">
@@ -345,15 +345,15 @@
                                                         <!-- Tambahkan opsi nilai departemen di sini -->
                                                         <option>{{ $dpd->dept }}</option>
                                                         <option value="GM">GM</option>
-                                                        <option value="PRODUCTION OPERATION">PRODUCTION OPERATION</option>
-                                                        <option value="OPERATION SUPPORT">OPERATION SUPPORT</option>
-                                                        <option value="DRILLING & WORK OVER">DRILLING & WORK OVER</option>
-                                                        <option value="EXPLOITATION">EXPLOITATION</option>
-                                                        <option value="EXPLORATION">EXPLORATION</option>
+                                                        <option value="OPS">OPS</option>
+                                                        <option value="OS">OS</option>
+                                                        <option value="DWO">DWO</option>
+                                                        <option value="EPT">EPT</option>
+                                                        <option value="EKS">EKS</option>
                                                         <option value="QHSE">QHSE</option>
                                                         <option value="SCM">SCM</option>
-                                                        <option value="EXTERNAL AFFAIR">EXTERNAL AFFAIR</option>
-                                                        <option value="INTERNAL AUDIT">INTERNAL AUDIT</option>
+                                                        <option value="EA">EA</option>
+                                                        <option value="IA">IA</option>
                                                         <option value="FINEC & ICT">FINEC & ICT</option>
                                                         <option value="HCM">HCM</option>
                                                         <!-- Tambahkan opsi nilai departemen di sini -->
@@ -458,21 +458,21 @@
                                 let wbsValue = '';
 
                                 switch (selectedDept) {
-                                    case 'EXPLOITATION':
-                                    case 'EXPLORATION':
+                                    case 'EPT':
+                                    case 'EKS':
                                         wbsValue = '4';
                                         break;
-                                    case 'OPERATION SUPPORT':
-                                    case 'PRODUCTION OPERATION':
-                                    case 'DRILLING & WORK OVER':
+                                    case 'OS':
+                                    case 'OPS':
+                                    case 'DWO':
                                     case 'QHSE':
-                                    case 'EXTERNAL AFFAIR':
+                                    case 'EA':
                                         wbsValue = '8';
                                         break;
                                     case 'HCM':
                                     case 'SCM':
                                     case 'GM':
-                                    case 'INTERNAL AUDIT':
+                                    case 'IA':
                                     case 'FINEC & ICT':
                                         wbsValue = '11';
                                         break;
