@@ -13,6 +13,8 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 use Throwable;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+
 
 class DpdController extends Controller
 {
@@ -23,47 +25,78 @@ class DpdController extends Controller
 
     public function index()
     {
-        // Hitung Total Biaya DPD per Departemen
+        // Retrieve total DPD funds per department
         $totalDPDFunds = Dpd::selectRaw('dept, SUM(biayadpd) as total')
             ->groupBy('dept')
             ->get()
-            ->sortByDesc('total'); // Urutkan berdasarkan total biaya DPD dari yang tertinggi
-        // Ambil lima departemen dengan total biaya DPD tertinggi
-        $topDepartments = $totalDPDFunds->take(5);
-        // Hitung Persentase
+            ->sortByDesc('total');
+
+        // Calculate department progress
         $departmentProgress = [];
+        $totalDPDFundsSum = $totalDPDFunds->sum('total');
         foreach ($totalDPDFunds as $dpd) {
-            $percentage = 0;
-            // Jika total biaya DPD tidak nol, hitung persentase
-            if ($dpd->total != 0) {
-                $percentage = ($dpd->total / $totalDPDFunds->sum('total')) * 100;
-            }
+            $percentage = ($dpd->total != 0) ? ($dpd->total / $totalDPDFundsSum) * 100 : 0;
             $departmentProgress[$dpd->dept] = $percentage;
         }
-        // Memformat biaya DPD ke format mata uang rupiah
-        $totalDPDFunds->transform(function ($department) {
+
+        // Get top departments with highest DPD costs
+        $topDepartments = $totalDPDFunds->take(10);
+        $topDepartments->transform(function ($department) {
             $department->total = 'Rp. ' . number_format($department->total, 0, ',', '.');
             return $department;
         });
-        // Ambil daftar DPD dengan biayadpd tertinggi dan memformat biaya DPD
-        $highestBiayaDPDList = Dpd::orderBy('biayadpd', 'desc')
+
+        // Retrieve top employees who use the most budget (assuming $topKaryawan logic is correct)
+        $topKaryawan = Dpd::orderBy('biayadpd', 'desc')
             ->paginate(10)
             ->map(function ($item, $key) {
                 $item->biayadpd = 'Rp. ' . number_format($item->biayadpd, 0, ',', '.');
                 return $item;
             });
-        // Ambil departemen dengan total biaya DPD tertinggi
-        $departemenTertinggi = $totalDPDFunds->sortByDesc('total')->first();
+
+        // Retrieve all DPD data and format biayadpd in rupiah
         $dpdList = Dpd::paginate(10);
         $dpdList->getCollection()->transform(function ($item, $key) {
             $item->biayadpd = 'Rp. ' . number_format($item->biayadpd, 0, ',', '.');
             return $item;
         });
+
+
         $departments = Department::paginate(20);
 
-        $depts = Department::pluck('name', 'id');
-        return view('dpd.index', compact('highestBiayaDPDList', 'dpdList', 'departments', 'departmentProgress', 'departemenTertinggi', 'topDepartments', 'depts'));
+        // Prepare remaining funds data (static) for display
+        $remainingFunds = [
+            'EPT' => 860660000.00,
+            'GM' => 305880000.00,
+            'OPS' => 611760000.00,
+            'OS' => 815680000.00,
+            'DWO' => 509800000.00,
+            'EKS' => 662740000.00,
+            'QHSE' => 305880000.00,
+            'SCM' => 407840000.00,
+            'EA' => 407840000.00,
+            'IA' => 212790000.00,
+            'FINEC & ICT' => 611760000.00,
+            'HCM' => 458820000.00
+        ];
+
+        // Prepare remaining funds data for display
+        $remainingFundsData = [];
+        foreach ($remainingFunds as $dept => $initialFunds) {
+            // Menghitung total biaya DPD untuk departemen tersebut
+            $totalBiayaDPD = $totalDPDFunds->where('dept', $dept)->sum('biayadpd');
+            // Menghitung dana tersisa (initial funds - total biaya DPD)
+            $remainingFundsAmount = $initialFunds - $totalBiayaDPD;
+            // Memformat hasil ke dalam format mata uang Rupiah
+            $formattedRemainingFunds = 'Rp. ' . number_format($remainingFundsAmount, 0, ',', '.');
+            // Menyimpan hasil perhitungan dana tersisa ke dalam array $remainingFundsData
+            $remainingFundsData[$dept] = $formattedRemainingFunds;
+        }
+        
+        // Pass data to the view
+        return view('dpd.index', compact('topDepartments', 'departmentProgress', 'remainingFundsData', 'topKaryawan', 'dpdList','departments'));
     }
+
 
     public function filterByDate(Request $request)
     {
@@ -118,19 +151,20 @@ class DpdController extends Controller
     // Function untuk memuat data yang diperlukan untuk setiap view
     private function loadData()
     {
-        // Ambil nilai dana awal untuk setiap departemen dari tabel departments
         $departmentInitialFunds = Department::pluck('initial_fund', 'id');
-        // Hitung Total Biaya DPD per Departemen
         $totalDPDFunds = Dpd::selectRaw('dept, SUM(biayadpd) as total')
             ->groupBy('dept')
-            ->get();
-        // Hitung Persentase
+            ->get()
+            ->sortByDesc('total');
         // Memformat biaya DPD ke format mata uang rupiah
         $totalDPDFunds->transform(function ($department) {
             $department->total = 'Rp. ' . number_format($department->total, 0, ',', '.');
             return $department;
         });
-        $topDepartments = $totalDPDFunds->take(5);
+
+        $topDepartments = $totalDPDFunds->take(10);
+
+        //menghitung progres
         $departmentProgress = [];
         foreach ($totalDPDFunds as $dpdFund) {
             $initialFund = $departmentInitialFunds[$dpdFund->dept] ?? 0; // Gunakan nilai default jika nilai dana awal tidak tersedia
@@ -141,16 +175,17 @@ class DpdController extends Controller
             }
             $departmentProgress[$dpdFund->dept] = $percentage;
         }
+
         // Ambil daftar DPD dengan biayadpd tertinggi dan memformat biaya DPD
-        $highestBiayaDPDList = Dpd::orderBy('biayadpd', 'desc')
+        $topKaryawan = Dpd::orderBy('biayadpd', 'desc')
             ->paginate(10)
             ->map(function ($item, $key) {
                 $item->biayadpd = 'Rp. ' . number_format($item->biayadpd, 0, ',', '.');
                 return $item;
-            });        // Ambil semua data DPD
+            });
+
         $departments = Department::paginate(10);
-        $depts = Department::pluck('name', 'id');
-        return compact('highestBiayaDPDList', 'departments', 'departmentProgress', 'topDepartments', 'depts');
+        return compact('topKaryawan', 'departments', 'departmentProgress', 'topDepartments');
     }
 
     // Function untuk menyimpan data ke database

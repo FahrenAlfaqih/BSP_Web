@@ -11,5 +11,5 @@ class Department extends Model
 
     protected $table = 'departments'; // Nama tabel dalam basis data
 
-    protected $fillable = ['name', 'initial_fund']; // Kolom-kolom yang dapat diisi
+    protected $fillable = ['name', 'initial_fund','remaining_funds']; // Kolom-kolom yang dapat diisi
 }

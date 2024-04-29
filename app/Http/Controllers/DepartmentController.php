@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Department;
+use App\Models\Dpd;
 
 class DepartmentController extends Controller
 {
@@ -28,4 +29,5 @@ class DepartmentController extends Controller
         // Redirect kembali ke halaman sebelumnya atau ke halaman yang sesuai
         return redirect()->back()->with('success', 'Dana awal departemen berhasil diperbarui.');
     }
+
 }

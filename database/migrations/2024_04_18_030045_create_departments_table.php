@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('departments', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->decimal('initial_fund', 10, 2)->default(0.00);
+            $table->decimal('initial_fund', 20, 2)->default(0.00);
             $table->timestamps();
         });
     }
