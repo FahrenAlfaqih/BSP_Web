@@ -86,17 +86,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($remainingFundsData as $dept => $remainingFunds)
+                                    @foreach($departments as $department)
                                     <tr>
-                                        <td style="font-size: 14px;">{{ $dept }}</td>
-                                        <td style="font-size: 14px;">
-                                            @if($remainingFunds !== null)
-                                            {{ $remainingFunds }}
-                                            @else
-                                            Belum Dihitung
-                                            @endif
-                                        </td>
+                                        <td style="font-size: 14px;">{{ $department->name }}</td>
+                                        <td style="font-size: 14px;">{{ 'Rp ' . number_format($department->remaining_funds, 0, ',', '.') }}</td>
                                     </tr>
+
                                     @endforeach
                                 </tbody>
                             </table>
@@ -104,7 +99,6 @@
                     </div>
                 </div>
             </div>
-
 
 
 

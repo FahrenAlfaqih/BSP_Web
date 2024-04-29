@@ -13,8 +13,6 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 use Throwable;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-
 
 class DpdController extends Controller
 {
@@ -25,28 +23,31 @@ class DpdController extends Controller
 
     public function index()
     {
-        // Retrieve total DPD funds per department
+        // menghitung total biayadpd berdasarkan departement
         $totalDPDFunds = Dpd::selectRaw('dept, SUM(biayadpd) as total')
             ->groupBy('dept')
             ->get()
-            ->sortByDesc('total');
+            ->sortByDesc('total'); // Urutkan berdasarkan total biaya DPD dari yang tertinggi
 
-        // Calculate department progress
+
+        //menghitung progress departement
         $departmentProgress = [];
-        $totalDPDFundsSum = $totalDPDFunds->sum('total');
         foreach ($totalDPDFunds as $dpd) {
-            $percentage = ($dpd->total != 0) ? ($dpd->total / $totalDPDFundsSum) * 100 : 0;
+            $percentage = 0;
+            if ($dpd->total != 0) {
+                $percentage = ($dpd->total / $totalDPDFunds->sum('total')) * 100;
+            }
             $departmentProgress[$dpd->dept] = $percentage;
         }
 
-        // Get top departments with highest DPD costs
+        //menghitung top departemens
         $topDepartments = $totalDPDFunds->take(10);
         $topDepartments->transform(function ($department) {
             $department->total = 'Rp. ' . number_format($department->total, 0, ',', '.');
             return $department;
         });
 
-        // Retrieve top employees who use the most budget (assuming $topKaryawan logic is correct)
+        //menghitung top karyawan yang menggunakan anggaran 
         $topKaryawan = Dpd::orderBy('biayadpd', 'desc')
             ->paginate(10)
             ->map(function ($item, $key) {
@@ -54,47 +55,22 @@ class DpdController extends Controller
                 return $item;
             });
 
-        // Retrieve all DPD data and format biayadpd in rupiah
+        //mengirim semua data dpd dan format rupiah
         $dpdList = Dpd::paginate(10);
         $dpdList->getCollection()->transform(function ($item, $key) {
             $item->biayadpd = 'Rp. ' . number_format($item->biayadpd, 0, ',', '.');
             return $item;
         });
 
-
         $departments = Department::paginate(20);
+        return view('dpd.index', compact('topKaryawan', 'dpdList', 'departments', 'departmentProgress', 'topDepartments'));
+    }
 
-        // Prepare remaining funds data (static) for display
-        $remainingFunds = [
-            'EPT' => 860660000.00,
-            'GM' => 305880000.00,
-            'OPS' => 611760000.00,
-            'OS' => 815680000.00,
-            'DWO' => 509800000.00,
-            'EKS' => 662740000.00,
-            'QHSE' => 305880000.00,
-            'SCM' => 407840000.00,
-            'EA' => 407840000.00,
-            'IA' => 212790000.00,
-            'FINEC & ICT' => 611760000.00,
-            'HCM' => 458820000.00
-        ];
-
-        // Prepare remaining funds data for display
-        $remainingFundsData = [];
-        foreach ($remainingFunds as $dept => $initialFunds) {
-            // Menghitung total biaya DPD untuk departemen tersebut
-            $totalBiayaDPD = $totalDPDFunds->where('dept', $dept)->sum('biayadpd');
-            // Menghitung dana tersisa (initial funds - total biaya DPD)
-            $remainingFundsAmount = $initialFunds - $totalBiayaDPD;
-            // Memformat hasil ke dalam format mata uang Rupiah
-            $formattedRemainingFunds = 'Rp. ' . number_format($remainingFundsAmount, 0, ',', '.');
-            // Menyimpan hasil perhitungan dana tersisa ke dalam array $remainingFundsData
-            $remainingFundsData[$dept] = $formattedRemainingFunds;
-        }
-        
-        // Pass data to the view
-        return view('dpd.index', compact('topDepartments', 'departmentProgress', 'remainingFundsData', 'topKaryawan', 'dpdList','departments'));
+    public function updateDepartmentFunds()
+    {
+        // Panggil function untuk update remaining_funds
+        Department::updateRemainingFunds();
+        return response()->json(['message' => 'Updated remaining funds successfully']);
     }
 
 
@@ -208,6 +184,8 @@ class DpdController extends Controller
                 'keterangan' => 'nullable',
             ]);
             Dpd::create($validatedData);
+            Department::updateRemainingFunds();
+
             return redirect()->back()->with('success_add', 'Data berhasil ditambahkan!');
         } catch (Throwable $e) {
             return redirect()->back()->with('error_add', 'Terjadi kesalahan saat input data: ' . $e->getMessage());
@@ -345,6 +323,8 @@ class DpdController extends Controller
             foreach ($request->file('file') as $file) {
                 Excel::import(new DpdImport, $file);
             }
+
+            Department::updateRemainingFunds();
             return redirect()->back()->with('success_message', 'Data dari Excel berhasil diunggah!');
         } catch (Throwable $e) {
             return redirect()->back()->with('error_message', 'Terjadi kesalahan saat mengimpor data: ' . $e->getMessage());
