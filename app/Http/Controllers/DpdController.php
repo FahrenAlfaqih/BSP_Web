@@ -324,7 +324,7 @@ class DpdController extends Controller
                 Excel::import(new DpdImport, $file);
             }
 
-            Department::updateRemainingFunds();
+            
             return redirect()->back()->with('success_message', 'Data dari Excel berhasil diunggah!');
         } catch (Throwable $e) {
             return redirect()->back()->with('error_message', 'Terjadi kesalahan saat mengimpor data: ' . $e->getMessage());
