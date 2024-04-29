@@ -11,13 +11,10 @@
                         <a href="{{ route('pononada.download-excel', ['search' => request()->input('search'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-success btn-2x me-2">
                             <i class="fas fa-file-excel"></i> Cetak Excel
                         </a>
-
-
                         <!-- Button trigger modal input -->
                         <button type="button" class="btn btn-dark btn-2x me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <i class="fas fa-plus"></i> Tambah PO Non Ada
                         </button>
-
                         <!-- Modal input data -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -26,7 +23,6 @@
                                         <h5 class="modal-title" id="exampleModalLabel">Tambah PO Nonada</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-
                                     <div class="modal-body" style="max-height: 450px; overflow-y: auto;">
                                         <!-- Isi formulir di sini -->
                                         <form action="{{ route('pononada.store') }}" method="POST">
@@ -50,16 +46,13 @@
                                                 <label for="judulPekerjaan" class="form-label">Judul Pekerjaan</label>
                                                 <input type="text" class="form-control" id="judulPekerjaan" name="judulPekerjaan">
                                             </div>
-
                                             <!-- Tambahkan input lain sesuai kebutuhan -->
                                             <button type="submit" class="btn btn-primary">Simpan</button>
                                         </form>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
-
                         <!-- upload file excel -->
                         <form id="uploadForm" action="{{ route('pononada.uploadExcel') }}" method="POST" enctype="multipart/form-data" class="btn btn-light btn-2x me-2">
                             @csrf
@@ -67,12 +60,10 @@
                             <input type="file" name="file" class="rounded">
                             <button type="submit" class="btn-outline-dark rounded">Unggah Excel</button>
                         </form>
-
                         <!-- Icon informasi -->
                         <a href="#" class="btn btn-light btn-2x me-2" data-bs-toggle="modal" data-bs-target="#modalInformasi">
                             <i class="fas fa-info-circle fa-2x"></i>
                         </a>
-
                         <!-- Modal Informasi-->
                         <div class="modal fade" id="modalInformasi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-xl">
@@ -84,7 +75,6 @@
                                     <div class="modal-body" style="max-height: 450px; overflow-y: auto;">
                                         <img src="../assets/img/contohExcel.png" class="img-fluid" alt="Contoh Isi Excel">
                                     </div>
-
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                                     </div>
@@ -95,7 +85,6 @@
                         <a href="{{ route('pononada') }}" class="btn btn-light btn-2x me-2">
                             <i class="fas fa-sync fa-sm"></i> Reload
                         </a>
-
                         <form id="myForm" class="ms-3">
                             <select name="pilihan" id="pilihan" class="form-select" style="min-width: 130px;">
                                 <!-- Di dalam tag select -->
@@ -104,25 +93,18 @@
                                 <option value="nonada" {{ session('selected_option') == 'pononada' ? 'selected' : '' }}>PO Non Ada</option>
                             </select>
                         </form>
-
-
                     </div>
-
-
                 </div>
-
-
             </div>
             <!-- Table Sertifkasi -->
             <div class="card mb-4">
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <h6>Data Pre Order Non Ada</h6>
                 </div>
-                <form id="filterNamaProgramForm" class="ms-3" action="{{ route('pononada.filterData') }}" method="GET">
+                <form id="filterNamaProgramForm" class="mx-3" action="{{ route('pononada.filterData') }}" method="GET">
                     <input type="text" name="search" id="search" class="form-control" placeholder="Cari Berdasarkan Nama, Institusi, atau Departemen">
                 </form>
-
-                <div class="card-body px-0 pt-0 pb-2">
+                <div class="card-body px-3 pt-0 pb-2">
                     <div class="table-responsive p-0">
                         <table class="table align-items-center mb-0">
                             <thead>
@@ -141,16 +123,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @php $index = 1 @endphp
-                                @foreach ($pononadas as $pononadas)
+                                @php $index = ($pononadas->currentPage() - 1) * $pononadas->perPage() + 1 @endphp
+                                @foreach ($pononadas as $pononada)
                                 <tr>
                                     <td style="font-size: 14px;">{{ $index }}</td>
-                                    <td style="font-size: 14px;">{{ $pononadas->idNonadaPO}}</td>
-                                    <td style="font-size: 14px;">{{ $pononadas->idNonadaPR}}</td>
-                                    <td style="font-size: 14px;">{{ $pononadas->judulPekerjaan }}</td>
+                                    <td style="font-size: 14px;">{{ $pononada->idNonadaPO}}</td>
+                                    <td style="font-size: 14px;">{{ $pononada->idNonadaPR}}</td>
+                                    <td style="font-size: 14px;">{{ $pononada->judulPekerjaan }}</td>
                                     <td style="font-size: 14px;">
-                                        <a href="#" class="btn btn-sm btn-outline-warning editButton" data-bs-toggle="modal" data-bs-target=".modalEdit" data-id="{{ $pononadas->idNonadaPO }}">Edit</a>
-                                        <form action="{{ route('pononada.destroy', $pononadas->idNonadaPO ) }}" method="POST" class="d-inline deleteForm" data-id="{{ $pononadas->idNonadaPO }}">
+                                        <a href="#" class="btn btn-sm btn-outline-warning editButton" data-bs-toggle="modal" data-bs-target=".modalEdit" data-id="{{ $pononada->idNonadaPO }}">Edit</a>
+                                        <form action="{{ route('pononada.destroy', $pononada->idNonadaPO ) }}" method="POST" class="d-inline deleteForm" data-id="{{ $pononada->idNonadaPO }}">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-outline-danger deleteButton">Hapus</button>
@@ -168,13 +150,13 @@
                                             </div>
                                             <div class="modal-body " style="max-height: 450px; overflow-y: auto;">
                                                 <!-- Form untuk mengedit pononada -->
-                                                <form action="{{ route('pononada.edit', $pononadas->idNonadaPO ) }}" method="POST" id="editForm">
+                                                <form action="{{ route('pononada.edit', $pononada->idNonadaPO ) }}" method="POST" id="editForm">
                                                     @csrf
                                                     @method('PUT')
                                                     <!-- Isi form sesuai kebutuhan -->
                                                     <div class="mb-3">
                                                         <label for="noPek" class="form-label">Nomor Pekerja</label>
-                                                        <input type="number" class="form-control" id="noPek" name="noPek" value="{{ $pononadas->noPek }}">
+                                                        <input type="number" class="form-control" id="noPek" name="noPek" value="{{ $pononada->noPek }}">
                                                     </div>
                                                     <!-- Tambahkan input lainnya sesuai kebutuhan -->
                                                 </form>
@@ -183,23 +165,55 @@
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                                                 <button type="button" class="btn btn-primary" id="saveChangesBtn">Simpan Perubahan</button>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
                                 @endforeach
                             </tbody>
-                            </tbody>
                         </table>
+                        <!-- Pagination -->
+                        <div class="float-start mx-2">
+                            <p class="text-muted">
+                                Showing {{ $pononadas->firstItem() }} to {{ $pononadas->lastItem() }} of {{ $pononadas->total() }} entries
+                            </p>
+                        </div>
+                        <div class="clearfix"></div>
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item {{ ($pononadas->onFirstPage()) ? 'disabled' : '' }}">
+                                    <a class="page-link" href="{{ $pononadas->url(1) }}" aria-label="First">
+                                        <span aria-hidden="true">&laquo;&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="page-item {{ ($pononadas->onFirstPage()) ? 'disabled' : '' }}">
+                                    <a class="page-link" href="{{ $pononadas->previousPageUrl() }}" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                @for ($i = max(1, $pononadas->currentPage() - 2); $i <= min($pononadas->lastPage(), $pononadas->currentPage() + 2); $i++)
+                                    <li class="page-item {{ ($pononadas->currentPage() == $i) ? 'active' : '' }}">
+                                        <a class="page-link" href="{{ $pononadas->url($i) }}">{{ $i }}</a>
+                                    </li>
+                                    @endfor
+                                    <li class="page-item {{ ($pononadas->hasMorePages()) ? '' : 'disabled' }}">
+                                        <a class="page-link" href="{{ $pononadas->nextPageUrl() }}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item {{ ($pononadas->currentPage() == $pononadas->lastPage()) ? 'disabled' : '' }}">
+                                        <a class="page-link" href="{{ $pononadas->url($pononadas->lastPage()) }}" aria-label="Last">
+                                            <span aria-hidden="true">&raquo;&raquo;</span>
+                                        </a>
+                                    </li>
+                            </ul>
+                        </nav>
 
                         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
                         <script>
                             document.getElementById('myForm').addEventListener('change', function(event) {
                                 event.preventDefault(); // Mencegah formulir untuk melakukan submit
-
                                 var selectedValue = document.getElementById('pilihan').value;
-
                                 if (selectedValue === 'reimburst') {
                                     window.location.href = "{{ route('poreimburst') }}";
                                 } else if (selectedValue === 'service') {
@@ -208,7 +222,6 @@
                                     window.location.href = "{{ route('pononada') }}";
                                 }
                             });
-
                             //Konfirmasi untuk hapus data
                             document.addEventListener('DOMContentLoaded', function() {
                                 const deleteButtons = document.querySelectorAll('.deleteButton');
@@ -217,7 +230,6 @@
                                         e.preventDefault();
                                         const deleteForm = this.parentElement;
                                         const id = deleteForm.getAttribute('data-id');
-
                                         swal({
                                             title: "Apakah Anda yakin?",
                                             text: "Data akan dihapus permanen.",
@@ -244,22 +256,18 @@
                                     });
                                 });
                             });
-
                             //script agar tahun pada tanggalPelaksanaanMulai dan Selesai otomatis terubah sesuai dengan
                             //Tahun pononada yang diinputkan sebelumnya
                             document.addEventListener('DOMContentLoaded', function() {
                                 // Ambil elemen input tahunpononada
                                 var tahunpononadaInput = document.getElementById('tahunpononada');
-
                                 // Ambil elemen input tanggalPelaksanaanMulai dan tanggalPelaksanaanSelesai
                                 var tanggalPelaksanaanMulaiInput = document.getElementById('tanggalPelaksanaanMulai');
                                 var tanggalPelaksanaanSelesaiInput = document.getElementById('tanggalPelaksanaanSelesai');
-
                                 // Tambahkan event listener ketika nilai tahunpononada berubah
                                 tahunpononadaInput.addEventListener('change', function() {
                                     // Ambil nilai tahunpononada
                                     var tahunpononada = tahunpononadaInput.value;
-
                                     // Periksa apakah tahunpononada memiliki nilai
                                     if (tahunpononada) {
                                         // Set nilai tahun pada tanggalPelaksanaanMulai dan tanggalPelaksanaanSelesai
@@ -272,12 +280,10 @@
                                     }
                                 });
                             });
-
                             //unutk menampilkan notif jika file excel belum diinputkan tetapi sudah pencet unggah
                             document.addEventListener('DOMContentLoaded', function() {
                                 const uploadForm = document.querySelector('#uploadForm');
                                 const submitButton = document.querySelector('#submitBtn');
-
                                 uploadForm.addEventListener('submit', function(event) {
                                     // Periksa apakah file sudah dipilih
                                     if (!document.querySelector('input[name="file"]').files[0]) {
@@ -290,12 +296,10 @@
                                     }
                                 });
                             });
-
                             //notif untuk berhasil atau error saat input data
                             document.addEventListener('DOMContentLoaded', function() {
                                 const successMessage = "{{ session('success_add') }}";
                                 const errorMessage = "{{ session('error_add') }}";
-
                                 if (successMessage) {
                                     swal({
                                         title: "Sukses",
@@ -303,7 +307,6 @@
                                         icon: "success",
                                     });
                                 }
-
                                 if (errorMessage) {
                                     swal({
                                         title: "Error",
@@ -312,17 +315,13 @@
                                     });
                                 }
                             });
-
-
                             document.getElementById('saveChangesBtn').addEventListener('click', function() {
                                 document.getElementById('editForm').submit();
                             });
-
                             //notif untuk berhasil atau error saat update data
                             document.addEventListener('DOMContentLoaded', function() {
                                 const successMessage = "{{ session('success_update') }}";
                                 const errorMessage = "{{ session('error_update') }}";
-
                                 if (successMessage) {
                                     swal({
                                         title: "Sukses",
@@ -330,7 +329,6 @@
                                         icon: "success",
                                     });
                                 }
-
                                 if (errorMessage) {
                                     swal({
                                         title: "Error",
@@ -339,13 +337,10 @@
                                     });
                                 }
                             });
-
-
                             //notifikasi untuk menampilkan pesan sukses atau eror saat upload file excel
                             document.addEventListener('DOMContentLoaded', function() {
                                 const successMessage = "{{ session('success_message') }}";
                                 const errorMessage = "{{ session('error_message') }}";
-
                                 if (successMessage) {
                                     swal({
                                         title: "Sukses",
@@ -353,7 +348,6 @@
                                         icon: "success",
                                     });
                                 }
-
                                 if (errorMessage) {
                                     swal({
                                         title: "Error",
@@ -362,38 +356,28 @@
                                     });
                                 }
                             });
-
-
                             // Ambil elemen input untuk tanggal mulai dan selesai
                             const inputMulai = document.getElementById('tanggalPelaksanaanMulai');
                             const inputSelesai = document.getElementById('tanggalPelaksanaanSelesai');
                             const inputDays = document.getElementById('days');
-
                             // Tambahkan event listener untuk perubahan nilai tanggal
                             inputMulai.addEventListener('change', hitungJumlahHari);
                             inputSelesai.addEventListener('change', hitungJumlahHari);
-
                             // Fungsi untuk menghitung jumlah hari
                             function hitungJumlahHari() {
                                 // Ambil nilai dari kedua input tanggal
                                 const tanggalMulai = new Date(inputMulai.value);
                                 const tanggalSelesai = new Date(inputSelesai.value);
-
                                 // Hitung selisih hari antara kedua tanggal
                                 const selisihHari = Math.ceil((tanggalSelesai - tanggalMulai) / (1000 * 3600 * 24));
-
                                 // Masukkan nilai selisih hari ke dalam input days
                                 inputDays.value = selisihHari;
                             }
                         </script>
-
                     </div>
-
                 </div>
             </div>
         </div>
-
-    </div>
     </div>
 </main>
 

@@ -112,14 +112,14 @@
                             </thead>
                             <tbody>
                                 @php $index = ($prservices->currentPage() - 1) * $prservices->perPage() + 1 @endphp
-                                @foreach ($prservices as $prservices)
+                                @foreach ($prservices as $prservice)
                                 <tr>
                                     <td style="font-size: 14px;">{{ $index }}</td>
-                                    <td style="font-size: 14px;">{{ $prservices->idServicePR }}</td>
-                                    <td style="font-size: 14px;">{{ $prservices->judulPekerjaan }}</td>
+                                    <td style="font-size: 14px;">{{ $prservice->idServicePR }}</td>
+                                    <td style="font-size: 14px;">{{ $prservice->judulPekerjaan }}</td>
                                     <td style="font-size: 14px;">
-                                        <a href="#" class="btn btn-sm btn-outline-warning editButton" data-bs-toggle="modal" data-bs-target=".modalEdit" data-id="{{ $prservices->idServicePR }}">Edit</a>
-                                        <form action="{{ route('prservice.destroy', $prservices ->idServicePR) }}" method="POST" class="d-inline deleteForm" data-id="{{ $prservices->idServicePR }}">
+                                        <a href="#" class="btn btn-sm btn-outline-warning editButton" data-bs-toggle="modal" data-bs-target=".modalEdit" data-id="{{ $prservice->idServicePR }}">Edit</a>
+                                        <form action="{{ route('prservice.destroy', $prservice ->idServicePR) }}" method="POST" class="d-inline deleteForm" data-id="{{ $prservice->idServicePR }}">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-outline-danger deleteButton">Hapus</button>
@@ -137,17 +137,17 @@
                                             </div>
                                             <div class="modal-body " style="max-height: 450px; overflow-y: auto;">
                                                 <!-- Form untuk mengedit prservice -->
-                                                <form action="{{ route('prservice.edit', $prservices->idServicePR ) }}" method="POST" id="editForm">
+                                                <form action="{{ route('prservice.edit', $prservice->idServicePR ) }}" method="POST" id="editForm">
                                                     @csrf
                                                     @method('PUT')
                                                     <!-- Isi form sesuai kebutuhan -->
                                                     <div class="mb-3">
                                                         <label for="idServicePR " class="form-label">Nomor PR Service</label>
-                                                        <input type="number" class="form-control" id="idServicePR" name="idServicePR" value="{{ $prservices->idServicePR  }}">
+                                                        <input type="number" class="form-control" id="idServicePR" name="idServicePR" value="{{ $prservice->idServicePR  }}">
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="judulPekerjaan" class="form-label">Nama Pekerja</label>
-                                                        <input type="text" class="form-control" id="judulPekerjaan" name="judulPekerjaan" value="{{ $prservices->judulPekerjaan }}">
+                                                        <input type="text" class="form-control" id="judulPekerjaan" name="judulPekerjaan" value="{{ $prservice->judulPekerjaan }}">
                                                     </div>
                                                     <!-- Tambahkan input lainnya sesuai kebutuhan -->
                                                 </form>
@@ -162,6 +162,42 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <!-- Pagination -->
+                        <div class="float-start mx-2">
+                            <p class="text-muted">
+                                Showing {{ $prservices->firstItem() }} to {{ $prservices->lastItem() }} of {{ $prservices->total() }} entries
+                            </p>
+                        </div>
+                        <div class="clearfix"></div>
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item {{ ($prservices->onFirstPage()) ? 'disabled' : '' }}">
+                                    <a class="page-link" href="{{ $prservices->url(1) }}" aria-label="First">
+                                        <span aria-hidden="true">&laquo;&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="page-item {{ ($prservices->onFirstPage()) ? 'disabled' : '' }}">
+                                    <a class="page-link" href="{{ $prservices->previousPageUrl() }}" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                @for ($i = max(1, $prservices->currentPage() - 2); $i <= min($prservices->lastPage(), $prservices->currentPage() + 2); $i++)
+                                    <li class="page-item {{ ($prservices->currentPage() == $i) ? 'active' : '' }}">
+                                        <a class="page-link" href="{{ $prservices->url($i) }}">{{ $i }}</a>
+                                    </li>
+                                    @endfor
+                                    <li class="page-item {{ ($prservices->hasMorePages()) ? '' : 'disabled' }}">
+                                        <a class="page-link" href="{{ $prservices->nextPageUrl() }}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item {{ ($prservices->currentPage() == $prservices->lastPage()) ? 'disabled' : '' }}">
+                                        <a class="page-link" href="{{ $prservices->url($prservices->lastPage()) }}" aria-label="Last">
+                                            <span aria-hidden="true">&raquo;&raquo;</span>
+                                        </a>
+                                    </li>
+                            </ul>
+                        </nav>
 
                         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
