@@ -32,7 +32,7 @@
       </li>
       <!-- Kelola Data -->
       <li class="nav-item mt-2">
-        <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Kelola Data</h6>
+        <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Kelola Data </h6>
       </li>
       <!-- Sertifikasi Training -->
       <li class="nav-item">
@@ -75,6 +75,10 @@
           </div>
           <span class="nav-link-text ms-1">Magang</span>
         </a>
+      </li>
+      <!-- Kelola Perjalanan Dinas -->
+      <li class="nav-item mt-2">
+        <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Kelola Perjalanan Dinas </h6>
       </li>
       <!-- SPD -->
       <li class="nav-item">
