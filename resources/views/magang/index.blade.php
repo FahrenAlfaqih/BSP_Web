@@ -194,6 +194,23 @@
             <div class="card mb-4">
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <h6>Data magang</h6>
+                    <form action="{{ route('magang.filterByDept') }}" method="GET" class="ms-3" style="margin-bottom: 10px;">
+                        <select name="dept" onchange="this.form.submit()" class="form-select">
+                            <option value=""> Pilih Departement</option>
+                            <option value="GM">GM</option>
+                            <option value="PROD. OPERATION">OPS</option>
+                            <option value="OS">OS</option>
+                            <option value="DWO">DWO</option>
+                            <option value="EPT">EPT</option>
+                            <option value="EKS Dept">EKS</option>
+                            <option value="QHSE Dept">QHSE</option>
+                            <option value="SCM">SCM</option>
+                            <option value="EA">EA</option>
+                            <option value="IA">IA</option>
+                            <option value="FINEC">FINEC & ICT</option>
+                            <option value="HCM Dept">HCM</option>
+                        </select>
+                    </form>
                 </div>
                 <form id="filterNamaProgramForm" class="mx-3" action="{{ route('magang.filterData') }}" method="GET">
                     <input type="text" name="search" id="search" class="form-control" placeholder="Cari Berdasarkan Nama, Institusi, atau Departemen">

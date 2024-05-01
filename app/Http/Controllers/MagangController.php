@@ -54,6 +54,12 @@ class MagangController extends Controller
         return view('magang.index', compact('magangs'));
     }
 
+    public function filterByDept(Request $request)
+    {
+        $dept = $request->dept;
+        $magangs = Magang::where('dept', $dept)->paginate(10);
+        return view('magang.index', compact('magangs'));    }
+
     //function untuk menyimpan data ke database
     public function store(Request $request)
     {

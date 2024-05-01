@@ -75,7 +75,7 @@
                 <th>Dept</th>
                 <th>BS Nomor</th>
                 <th>PR</th>
-                <th>PO </th>
+                <th>PO</th>
                 <th>SES</th>
                 <th>Biaya DPD</th>
                 <th>Submit Finec</th>
@@ -85,28 +85,42 @@
             </tr>
         </thead>
         <tbody>
-            @php $index = 1 @endphp
+            @php $index = 1; $totalBiayaDPD = 0; @endphp
             @foreach($dpdList as $dpd)
             <tr>
                 <td>{{ $index }}</td>
                 <td>{{ $dpd->nama }}</td>
                 <td>{{ $dpd->nomorspd }}</td>
                 <td>{{ $dpd->dept }}</td>
-                <td>{{ $dpd->bsno}}</td>
+                <td>{{ $dpd->bsno }}</td>
                 <td>{{ $dpd->pr }}</td>
                 <td>{{ $dpd->po }}</td>
                 <td>{{ $dpd->ses }}</td>
                 <td>Rp.{{ $dpd->biayadpd }}</td>
-                <td>{{ $dpd->submitfinec}}</td>
-                <td>{{ $dpd->status}}</td>
-                <td>{{ $dpd->paymentbyfinec}}</td>
-                <td>{{ $dpd->keterangan}}</td>
+                <td>{{ $dpd->submitfinec }}</td>
+                <td>{{ $dpd->status }}</td>
+                <td>{{ $dpd->paymentbyfinec }}</td>
+                <td>{{ $dpd->keterangan }}</td>
                 <!-- Tambahkan kolom lainnya sesuai kebutuhan -->
             </tr>
-            @php $index++ @endphp
+            @php
+            // Mengambil nilai biayadpd dari baris saat ini dan mengonversi ke numerik
+            $numericBiayaDPD = (float) str_replace(['Rp.', '.', ','], '', $dpd->biayadpd);
+            // Menambahkan nilai biayadpd saat ini ke totalBiayaDPD
+            $totalBiayaDPD += $numericBiayaDPD;
+            $index++;
+            @endphp
             @endforeach
+            <!-- Baris untuk menampilkan total biaya DPD di luar loop -->
+            <tr>
+                <td colspan="8"><strong>Total Biaya DPD</strong></td>
+                <td><strong>Rp.{{ number_format($totalBiayaDPD, 0, ',', '.') }}</strong></td>
+                <td colspan="4"></td> <!-- Kolom lainnya tetap kosong untuk menyelaraskan dengan jumlah kolom -->
+            </tr>
         </tbody>
     </table>
+
+
 </body>
 
 </html>

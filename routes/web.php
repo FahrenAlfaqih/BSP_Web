@@ -49,6 +49,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/', [MagangController::class, 'index'])->name('magang');
         Route::get('/filterByDate', [MagangController::class, 'filterByDate'])->name('magang.filterByDate');
         Route::get('/filterData', [MagangController::class, 'filterData'])->name('magang.filterData');
+        Route::get('/filterByDept', [MagangController::class, 'filterByDept'])->name('magang.filterByDept');
+
         // Download file PDF
         Route::get('/download-pdf', [MagangController::class, 'downloadPDF'])->name('magang.download-pdf');
         // Upload file Excel untuk inputan data

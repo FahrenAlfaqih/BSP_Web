@@ -23,6 +23,12 @@ class DpdController extends Controller
 
     public function index()
     {
+
+        // Panggil function untuk memastikan remaining_funds terisi jika masih 0.00
+        $departments = Department::all();
+        foreach ($departments as $department) {
+            $department->ensureRemainingFunds();
+        }
         // menghitung total biayadpd berdasarkan departement
         $totalDPDFunds = Dpd::selectRaw('dept, SUM(biayadpd) as total')
             ->groupBy('dept')
@@ -49,7 +55,7 @@ class DpdController extends Controller
 
         //menghitung top karyawan yang menggunakan anggaran 
         $topKaryawan = Dpd::orderBy('biayadpd', 'desc')
-            ->paginate(10)
+            ->paginate(12)
             ->map(function ($item, $key) {
                 $item->biayadpd = 'Rp. ' . number_format($item->biayadpd, 0, ',', '.');
                 return $item;
@@ -212,6 +218,7 @@ class DpdController extends Controller
                 'keterangan' => 'nullable',
             ]);
             $dpd->update($validatedData);
+            Department::updateRemainingFunds();
             return redirect()->back()->with('success_update', 'Data berhasil diperbarui!');
         } catch (Throwable $e) {
             return redirect()->back()->with('error_update', 'Terjadi kesalahan saat mengupdate data: ' . $e->getMessage());
@@ -267,47 +274,33 @@ class DpdController extends Controller
         $searchQuery = $request->query('search');
         $tahun = $request->query('tahun');
         $bulan = $request->query('bulan');
-        $hari = $request->query('hari');
         $dept = $request->query('dept');
-
         $dpdQuery = Dpd::query();
-
-        // Terapkan filter berdasarkan pencarian, tahun, bulan, dan hari
         if ($searchQuery) {
             $dpdQuery->where(function ($query) use ($searchQuery) {
                 $query->where('nama', 'like', '%' . $searchQuery . '%')
                     ->orWhere('nomorspd', 'like', '%' . $searchQuery . '%');
             });
         }
-
         if ($dept) {
             $dpdQuery->where('dept', $dept);
         }
-
         if ($tahun) {
             $dpdQuery->whereYear('submitfinec', $tahun);
         }
-
         if ($bulan) {
             $dpdQuery->whereMonth('submitfinec', $bulan);
         }
-
-        if ($hari) {
-            $dpdQuery->whereDay('submitfinec', $hari);
-        }
-
-        // Ambil data berdasarkan query yang difilter
-        $dataDpd = $dpdQuery->get();
-
-        // Periksa apakah ada data yang ditemukan
-        if ($dataDpd->isNotEmpty()) {
+        $dpdList = $dpdQuery->get();
+        if ($dpdList->isNotEmpty()) {
             // Jika ada data, lakukan download Excel dengan menggunakan DpdExport
-            return Excel::download(new DpdExport($dataDpd), 'Rekap DPD.xlsx');
+            return Excel::download(new DpdExport($dpdList), 'Rekap DPD.xlsx');
         } else {
             // Jika tidak ada data, kembalikan pengguna dengan pesan error
             return redirect()->back()->with('error', 'Tidak ada data yang ditemukan.');
         }
     }
+
 
 
 
@@ -324,7 +317,7 @@ class DpdController extends Controller
                 Excel::import(new DpdImport, $file);
             }
 
-            
+
             return redirect()->back()->with('success_message', 'Data dari Excel berhasil diunggah!');
         } catch (Throwable $e) {
             return redirect()->back()->with('error_message', 'Terjadi kesalahan saat mengimpor data: ' . $e->getMessage());

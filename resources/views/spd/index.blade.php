@@ -180,9 +180,9 @@
             <div class="card mb-4">
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <h6>Data Surat Perjalanan Dinas</h6>
-                    <form action="{{ route('spd.filterByDept') }}" method="GET" class="ms-3">
+                    <form action="{{ route('spd.filterByDept') }}" method="GET" class="ms-3" style="margin-bottom: 10px;">
                         <select name="dept" onchange="this.form.submit()" class="form-select">
-                            <option value="">Filter Dept</option>
+                            <option value="">Pilih Departemen</option>
                             @foreach($departements as $dept)
                             <option value="{{ $dept }}" {{ request('dept') == $dept ? 'selected' : '' }}>{{ $dept }}</option>
                             @endforeach

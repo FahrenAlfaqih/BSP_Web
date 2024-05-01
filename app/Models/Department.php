@@ -27,4 +27,13 @@ class Department extends Model
             }
         }
     }
+
+    // Function untuk memastikan remaining_funds diisi dengan initial_funds jika masih 0
+    public function ensureRemainingFunds()
+    {
+        if ($this->remaining_funds == 0.00) {
+            $this->remaining_funds = $this->initial_fund;
+            $this->save();
+        }
+    }   
 }

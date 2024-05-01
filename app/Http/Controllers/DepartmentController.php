@@ -25,7 +25,7 @@ class DepartmentController extends Controller
                 }
             }
         }
-
+        Department::updateRemainingFunds();
         // Redirect kembali ke halaman sebelumnya atau ke halaman yang sesuai
         return redirect()->back()->with('success', 'Dana awal departemen berhasil diperbarui.');
     }
