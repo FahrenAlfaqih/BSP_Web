@@ -112,7 +112,9 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ">
                                         No</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
-                                        Nomor Purchase Request Service </th>
+                                        Nomor PO Service </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
+                                        Nomor PR Service </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
                                         Judul Pekerjaan</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
@@ -143,7 +145,7 @@
                                     <div class="modal-dialog modal-dialog-centered modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="modalEditLabel">Edit prreimburst</h5>
+                                                <h5 class="modal-title" id="modalEditLabel">Edit PO Service</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body " style="max-height: 450px; overflow-y: auto;">
@@ -153,8 +155,8 @@
                                                     @method('PUT')
                                                     <!-- Isi form sesuai kebutuhan -->
                                                     <div class="mb-3">
-                                                        <label for="idServicePR " class="form-label">Nomor PR Reimburst</label>
-                                                        <input type="number" class="form-control" id="idServicePR" name="idServicePR" value="{{ $poservice->idServicePR  }}">
+                                                        <label for="idServicePR " class="form-label">Nomor PO Service</label>
+                                                        <input type="number" class="form-control" id="idServicePR" name="idServicePR" value="{{ $poservice->idServicePO  }}">
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="judulPekerjaan" class="form-label">Nama Pekerja</label>

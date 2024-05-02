@@ -11,7 +11,6 @@
                         <a href="{{ route('prnonada.download-excel', ['search' => request()->input('search'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-success btn-2x me-2">
                             <i class="fas fa-file-excel"></i> Cetak Excel
                         </a>
-
                         <!-- Button trigger modal input -->
                         <button type="button" class="btn btn-dark btn-2x me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <i class="fas fa-plus"></i> Tambah PR Non ada
@@ -103,12 +102,11 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         No</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
-                                        Nomor Purchase Request Non Ada </th>
+                                        Nomor PR Non Ada </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Judul Pekerjaan</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
-                                        Aksi
-                                    </th>
+                                        Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -119,8 +117,8 @@
                                     <td style="font-size: 14px;">{{ $prnonada->idNonadaPR }}</td>
                                     <td style="font-size: 14px;">{{ $prnonada->judulPekerjaan }}</td>
                                     <td style="font-size: 14px;">
-                                        <a href="#" class="btn btn-sm btn-outline-warning editButton" data-bs-toggle="modal" data-bs-target=".modalEdit" data-id="{{ $prnonada->idNonadaPR}}">Edit</a>
-                                        <form action="{{ route('prnonada.destroy', $prnonada->idNonadaPR) }}" method="POST" class="d-inline deleteForm" data-id="{{ $prnonada->idNonadaPR}}">
+                                        <a href="#" class="btn btn-sm btn-outline-warning editButton" data-bs-toggle="modal" data-bs-target="#modalEdit{{ $prnonada->idNonadaPR }}">Edit</a>
+                                        <form action="{{ route('prnonada.destroy', $prnonada->idNonadaPR) }}" method="POST" class="d-inline deleteForm" data-id="{{ $prnonada->idNonadaPR }}">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-outline-danger deleteButton">Hapus</button>
@@ -129,33 +127,30 @@
                                 </tr>
                                 @php $index++ @endphp
                                 <!-- Modal edit data -->
-                                <div class="modal fade modalEdit" tabindex="-1" aria-labelledby="modalEditLabel" aria-hidden="true">
+                                <div class="modal fade" id="modalEdit{{ $prnonada->idNonadaPR }}" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="modalEditLabel">Edit PR Non Ada</h5>
+                                                <h5 class="modal-title">Edit PR Non Ada</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
-                                            <div class="modal-body " style="max-height: 450px; overflow-y: auto;">
-                                                <!-- Form untuk mengedit prservice -->
-                                                <form action="{{ route('prnonada.edit', $prnonada->idNonadaPR) }}" method="POST" id="editForm">
+                                            <div class="modal-body" style="max-height: 450px; overflow-y: auto;">
+                                                <form action="{{ route('prnonada.edit', $prnonada->idNonadaPR) }}" method="POST" class="editForm">
                                                     @csrf
                                                     @method('PUT')
-                                                    <!-- Isi form sesuai kebutuhan -->
                                                     <div class="mb-3">
-                                                        <label for="idNonadaPR" class="form-label">Nomor PR Non Ada</label>
-                                                        <input type="number" class="form-control" id="idNonadaPR" name="idNonadaPR" value="{{ $prnonada->idNonadaPR}}">
+                                                        <label for="idNonadaPR{{ $prnonada->idNonadaPR }}" class="form-label">Nomor PR Non Ada</label>
+                                                        <input type="number" class="form-control" id="idNonadaPR{{ $prnonada->idNonadaPR }}" name="idNonadaPR" value="{{ $prnonada->idNonadaPR }}">
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="judulPekerjaan" class="form-label">Nama Pekerja</label>
-                                                        <input type="text" class="form-control" id="judulPekerjaan" name="judulPekerjaan" value="{{ $prnonada->judulPekerjaan }}">
+                                                        <label for="judulPekerjaan{{ $prnonada->idNonadaPR }}" class="form-label">Judul Pekerjaan</label>
+                                                        <input type="text" class="form-control" id="judulPekerjaan{{ $prnonada->idNonadaPR }}" name="judulPekerjaan" value="{{ $prnonada->judulPekerjaan }}">
                                                     </div>
-                                                    <!-- Tambahkan input lainnya sesuai kebutuhan -->
                                                 </form>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                                <button type="button" class="btn btn-primary" id="saveChangesBtn">Simpan Perubahan</button>
+                                                <button type="button" class="btn btn-primary saveChangesBtn">Simpan Perubahan</button>
                                             </div>
                                         </div>
                                     </div>
@@ -307,8 +302,14 @@
                                     });
                                 }
                             });
-                            document.getElementById('saveChangesBtn').addEventListener('click', function() {
-                                document.getElementById('editForm').submit();
+                            document.addEventListener('DOMContentLoaded', function() {
+                                const saveButtons = document.querySelectorAll('.saveChangesBtn');
+                                saveButtons.forEach(button => {
+                                    button.addEventListener('click', function() {
+                                        const form = this.closest('.modal-content').querySelector('.editForm');
+                                        form.submit();
+                                    });
+                                });
                             });
                             //notif untuk berhasil atau error saat update data
                             document.addEventListener('DOMContentLoaded', function() {

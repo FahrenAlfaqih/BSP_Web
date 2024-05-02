@@ -144,7 +144,7 @@
               </g>
             </svg>
           </div>
-          <span class="nav-link-text ms-1">Purchase Request</span>
+          <span class="nav-link-text ms-1">Purchase Requisition</span>
         </a>
       </li>
       <!-- PO -->
@@ -165,7 +165,7 @@
               </g>
             </svg>
           </div>
-          <span class="nav-link-text ms-1">Pre Order</span>
+          <span class="nav-link-text ms-1">Purchase Order</span>
         </a>
       </li>
       <!-- SES -->

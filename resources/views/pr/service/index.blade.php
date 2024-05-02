@@ -102,7 +102,7 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         No</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
-                                        Nomor Purchase Request Service </th>
+                                        Nomor PR Service </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Judul Pekerjaan</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
@@ -118,7 +118,7 @@
                                     <td style="font-size: 14px;">{{ $prservice->idServicePR }}</td>
                                     <td style="font-size: 14px;">{{ $prservice->judulPekerjaan }}</td>
                                     <td style="font-size: 14px;">
-                                        <a href="#" class="btn btn-sm btn-outline-warning editButton" data-bs-toggle="modal" data-bs-target=".modalEdit" data-id="{{ $prservice->idServicePR }}">Edit</a>
+                                        <a href="#" class="btn btn-sm btn-outline-warning editButton" data-bs-toggle="modal" data-bs-target="#modalEdit{{ $prservice->idServicePR }}">Edit</a>
                                         <form action="{{ route('prservice.destroy', $prservice ->idServicePR) }}" method="POST" class="d-inline deleteForm" data-id="{{ $prservice->idServicePR }}">
                                             @csrf
                                             @method('DELETE')
@@ -128,35 +128,31 @@
                                 </tr>
                                 @php $index++ @endphp
                                 <!-- Modal edit data -->
-                                <div class="modal fade modalEdit" tabindex="-1" aria-labelledby="modalEditLabel" aria-hidden="true">
+                                <div class="modal fade" id="modalEdit{{ $prservice->idServicePR }}" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="modalEditLabel">Edit PR Service</h5>
+                                                <h5 class="modal-title">Edit PR Service</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
-                                            <div class="modal-body " style="max-height: 450px; overflow-y: auto;">
-                                                <!-- Form untuk mengedit prservice -->
-                                                <form action="{{ route('prservice.edit', $prservice->idServicePR ) }}" method="POST" id="editForm">
+                                            <div class="modal-body" style="max-height: 450px; overflow-y: auto;">
+                                                <form action="{{ route('prservice.edit', $prservice->idServicePR) }}" method="POST" class="editForm">
                                                     @csrf
                                                     @method('PUT')
-                                                    <!-- Isi form sesuai kebutuhan -->
                                                     <div class="mb-3">
-                                                        <label for="idServicePR " class="form-label">Nomor PR Service</label>
-                                                        <input type="number" class="form-control" id="idServicePR" name="idServicePR" value="{{ $prservice->idServicePR  }}">
+                                                        <label for="idServicePR{{ $prservice->idServicePR }}" class="form-label">Nomor Service PR</label>
+                                                        <input type="number" class="form-control" id="idServicePR{{ $prservice->idServicePR }}" name="idServicePR" value="{{ $prservice->idServicePR }}">
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="judulPekerjaan" class="form-label">Nama Pekerja</label>
-                                                        <input type="text" class="form-control" id="judulPekerjaan" name="judulPekerjaan" value="{{ $prservice->judulPekerjaan }}">
+                                                        <label for="judulPekerjaan{{ $prservice->idServicePR }}" class="form-label">Judul Pekerjaan</label>
+                                                        <input type="text" class="form-control" id="judulPekerjaan{{ $prservice->idServicePR }}" name="judulPekerjaan" value="{{ $prservice->judulPekerjaan }}">
                                                     </div>
-                                                    <!-- Tambahkan input lainnya sesuai kebutuhan -->
                                                 </form>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                                <button type="button" class="btn btn-primary" id="saveChangesBtn">Simpan Perubahan</button>
+                                                <button type="button" class="btn btn-primary saveChangesBtn">Simpan Perubahan</button>
                                             </div>
-                                            
                                         </div>
                                     </div>
                                 </div>
@@ -307,8 +303,14 @@
                                     });
                                 }
                             });
-                            document.getElementById('saveChangesBtn').addEventListener('click', function() {
-                                document.getElementById('editForm').submit();
+                            document.addEventListener('DOMContentLoaded', function() {
+                                const saveButtons = document.querySelectorAll('.saveChangesBtn');
+                                saveButtons.forEach(button => {
+                                    button.addEventListener('click', function() {
+                                        const form = this.closest('.modal-content').querySelector('.editForm');
+                                        form.submit();
+                                    });
+                                });
                             });
                             //notif untuk berhasil atau error saat update data
                             document.addEventListener('DOMContentLoaded', function() {
