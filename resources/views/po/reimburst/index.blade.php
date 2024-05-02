@@ -99,7 +99,7 @@
             <!-- Table Sertifkasi -->
             <div class="card mb-4">
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
-                    <h6>Data Pre Order Reimburst</h6>
+                    <h6>Data Purhcase Order Reimburst</h6>
                 </div>
                 <form id="filterNamaProgramForm" class="mx-3" action="{{ route('poreimburst.filterData') }}" method="GET">
                     <input type="text" name="search" id="search" class="form-control" placeholder="Cari Berdasarkan Nomor PO, Nomor PR atau Judul Pekerjaan">
@@ -111,7 +111,7 @@
                                 <tr>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         No</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2"> 
                                         Nomor PO Reimburst </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Nomor PR Reimburst </th>
@@ -155,57 +155,12 @@
                                                     @method('PUT')
                                                     <!-- Isi form sesuai kebutuhan -->
                                                     <div class="mb-3">
-                                                        <label for="noPek" class="form-label">Nomor Pekerja</label>
-                                                        <input type="number" class="form-control" id="noPek" name="noPek" value="{{ $poreimburst->noPek }}">
+                                                        <label for="idReimburstPO" class="form-label">Nomor PO Reimburst</label>
+                                                        <input type="number" class="form-control" id="idReimburstPO" name="idReimburstPO" value="{{ $poreimburst->idReimburstPO }}">
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="namaPekerja" class="form-label">Nama Pekerja</label>
-                                                        <input type="text" class="form-control" id="namaPekerja" name="namaPekerja" value="{{ $poreimburst->namaPekerja }}">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="dept" class="form-label">Nama Departemen</label>
-                                                        <select class="form-select" id="dept" name="dept">
-                                                            <option>{{ $poreimburst->dept}}</option>
-                                                            <option value="SPRM">SPRM</option>
-                                                            <option value="Corporate Secretary">Corporate Secretary</option>
-                                                            <option value="Exploration">Exploration</option>
-                                                            <option value="Exploitation">Exploitation</option>
-                                                            <option value="Production Operation">Production Operation</option>
-                                                            <option value="Drilling & Worker">Drilling & Worker</option>
-                                                            <option value="Operation Support">Operation Support</option>
-                                                            <option value="HCM">HCM</option>
-                                                            <option value="SCM">SCM</option>
-                                                            <option value="Internal Audit">Internal Audit</option>
-                                                            <option value="External Affair">External Affair</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="namaProgram" class="form-label">Nama Program</label>
-                                                        <input type="text" class="form-control" id="namaProgram" name="namaProgram" value="{{ $poreimburst->namaProgram }}">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="tahunporeimburst" class="form-label">Tahun poreimburst</label>
-                                                        <input type="number" class="form-control" id="tahunporeimburst" name="tahunporeimburst" value="{{ $poreimburst->tahunporeimburst }}">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="tanggalPelaksanaanMulai" class="form-label">Tanggal Pelaksanaan Mulai</label>
-                                                        <input type="date" class="form-control" id="tanggalPelaksanaanMulai" name="tanggalPelaksanaanMulai" value="{{ $poreimburst->tanggalPelaksanaanMulai }}">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="tanggalPelaksanaanSelesai" class="form-label">Tanggal Pelaksanaan Selesai</label>
-                                                        <input type="date" class="form-control" id="tanggalPelaksanaanSelesai" name="tanggalPelaksanaanSelesai" value="{{ $poreimburst->tanggalPelaksanaanSelesai }}">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="tempat" class="form-label">Tempat</label>
-                                                        <input type="text" class="form-control" id="tempat" name="tempat" value="{{ $poreimburst->tempat }}">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="days" class="form-label">Jumlah Hari</label>
-                                                        <input type="text" class="form-control" id="days" name="days" value="{{ $poreimburst->days }}">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="namaPenyelenggara" class="form-label">Nama Penyelenggara</label>
-                                                        <input type="text" class="form-control" id="namaPenyelenggara" name="namaPenyelenggara" value="{{ $poreimburst->namaPenyelenggara }}">
+                                                        <label for="judulPekerjaan" class="form-label">Judul Pekerjaan</label>
+                                                        <input type="text" class="form-control" id="judulPekerjaan" name="judulPekerjaan" value="{{ $poreimburst->judulPekerjaan }}">
                                                     </div>
                                                     <!-- Tambahkan input lainnya sesuai kebutuhan -->
                                                 </form>

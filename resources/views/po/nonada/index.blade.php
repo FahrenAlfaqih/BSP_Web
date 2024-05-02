@@ -20,7 +20,7 @@
                             <div class="modal-dialog modal-dialog-centered modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Tambah PO Nonada</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Tambah PO Non Ada</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body" style="max-height: 450px; overflow-y: auto;">
@@ -99,7 +99,7 @@
             <!-- Table Sertifkasi -->
             <div class="card mb-4">
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
-                    <h6>Data Pre Order Non Ada</h6>
+                    <h6>Data Purchase Order Non Ada</h6>
                 </div>
                 <form id="filterNamaProgramForm" class="mx-3" action="{{ route('pononada.filterData') }}" method="GET">
                     <input type="text" name="search" id="search" class="form-control" placeholder="Cari Berdasarkan Nama, Institusi, atau Departemen">
@@ -112,9 +112,9 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ">
                                         No</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
-                                        Nomor Pre Order Non Ada</th>
+                                        Nomor Purchase Order Non Ada</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
-                                        Nomor Purchase Request Non Ada</th>
+                                        Nomor Purchase Requisition Non Ada</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
                                         Judul Pekerjaan</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
@@ -155,8 +155,12 @@
                                                     @method('PUT')
                                                     <!-- Isi form sesuai kebutuhan -->
                                                     <div class="mb-3">
-                                                        <label for="noPek" class="form-label">Nomor Pekerja</label>
-                                                        <input type="number" class="form-control" id="noPek" name="noPek" value="{{ $pononada->noPek }}">
+                                                        <label for="idNonadaPO" class="form-label">Nomor PO Non Ada</label>
+                                                        <input type="number" class="form-control" id="idNonadaPO" name="idNonadaPO" value="{{ $pononada->idNonadaPO }}">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="judulPekerjaan" class="form-label">Judul Pekerjaan</label>
+                                                        <input type="number" class="form-control" id="judulPekerjaan" name="judulPekerjaan" value="{{ $pononada->judulPekerjaan }}">
                                                     </div>
                                                     <!-- Tambahkan input lainnya sesuai kebutuhan -->
                                                 </form>

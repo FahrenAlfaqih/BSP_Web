@@ -186,8 +186,7 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Nama Penyelenggara</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
-                                        Aksi
-                                    </th>
+                                        Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -205,7 +204,7 @@
                                     <td style="font-size: 14px;">{{ $sertifikasi->tempat }}</td>
                                     <td style="font-size: 14px;">{{ $sertifikasi->namaPenyelenggara }}</td>
                                     <td style="font-size: 14px;">
-                                        <a href="#" class="btn btn-sm btn-outline-warning editButton" data-bs-toggle="modal" data-bs-target=".modalEdit" data-id="{{ $sertifikasi->id }}">Edit</a>
+                                        <a href="#" class="btn btn-sm btn-outline-warning editButton" data-bs-toggle="modal" data-bs-target="#modalEdit{{ $sertifikasi->id }}" data-id="{{ $sertifikasi->id }}">Edit</a>
                                         <form action="{{ route('sertifikasi.destroy', $sertifikasi->id) }}" method="POST" class="d-inline deleteForm" data-id="{{ $sertifikasi->id }}">
                                             @csrf
                                             @method('DELETE')
@@ -215,16 +214,15 @@
                                 </tr>
                                 @php $index++ @endphp
                                 <!-- Modal edit data -->
-                                <div class="modal fade modalEdit"  tabindex="-1" aria-labelledby="modalEditLabel" aria-hidden="true">
+                                <div class="modal fade" id="modalEdit{{ $sertifikasi->id }}" tabindex="-1" aria-labelledby="modalEditLabel{{ $sertifikasi->id }}" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="modalEditLabel">Edit Sertifikasi</h5>
+                                                <h5 class="modal-title" id="modalEditLabel{{ $sertifikasi->id }}">Edit Sertifikasi</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body " style="max-height: 450px; overflow-y: auto;">
-                                                <!-- Form untuk mengedit sertifikasi -->
-                                                <form action="{{ route('sertifikasi.edit', $sertifikasi->id) }}" method="POST" id="editForm">
+                                                <form action="{{ route('sertifikasi.edit', $sertifikasi->id) }}" method="POST" class="editForm">
                                                     @csrf
                                                     @method('PUT')
                                                     <!-- Isi form sesuai kebutuhan -->
@@ -263,30 +261,29 @@
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="tanggalPelaksanaanMulai" class="form-label">Tanggal Pelaksanaan Mulai</label>
-                                                        <input type="date" class="form-control" id="tanggalPelaksanaanMulai" name="tanggalPelaksanaanMulai" value="{{ $sertifikasi->tanggalPelaksanaanMulai }}">
+                                                        <input type="date" class="form-control tanggal" id="tanggalPelaksanaanMulai" name="tanggalPelaksanaanMulai" value="{{ $sertifikasi->tanggalPelaksanaanMulai }}">
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="tanggalPelaksanaanSelesai" class="form-label">Tanggal Pelaksanaan Selesai</label>
-                                                        <input type="date" class="form-control" id="tanggalPelaksanaanSelesai" name="tanggalPelaksanaanSelesai" value="{{ $sertifikasi->tanggalPelaksanaanSelesai }}">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="tempat" class="form-label">Tempat</label>
-                                                        <input type="text" class="form-control" id="tempat" name="tempat" value="{{ $sertifikasi->tempat }}">
+                                                        <input type="date" class="form-control tanggal" id="tanggalPelaksanaanSelesai" name="tanggalPelaksanaanSelesai" value="{{ $sertifikasi->tanggalPelaksanaanSelesai }}">
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="days" class="form-label">Jumlah Hari</label>
                                                         <input type="text" class="form-control" id="days" name="days" value="{{ $sertifikasi->days }}">
                                                     </div>
                                                     <div class="mb-3">
+                                                        <label for="tempat" class="form-label">Tempat</label>
+                                                        <input type="text" class="form-control" id="tempat" name="tempat" value="{{ $sertifikasi->tempat }}">
+                                                    </div>
+                                                    <div class="mb-3">
                                                         <label for="namaPenyelenggara" class="form-label">Nama Penyelenggara</label>
                                                         <input type="text" class="form-control" id="namaPenyelenggara" name="namaPenyelenggara" value="{{ $sertifikasi->namaPenyelenggara }}">
                                                     </div>
-                                                    <!-- Tambahkan input lainnya sesuai kebutuhan -->
                                                 </form>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                                <button type="button" class="btn btn-primary" id="saveChangesBtn">Simpan Perubahan</button>
+                                                <button type="button" class="btn btn-primary saveChangesBtn">Simpan Perubahan</button>
                                             </div>
                                         </div>
                                     </div>
@@ -427,8 +424,28 @@
                                     });
                                 }
                             });
-                            document.getElementById('saveChangesBtn').addEventListener('click', function() {
-                                document.getElementById('editForm').submit();
+                            // Agar data dapat tersimpan
+                            document.addEventListener('DOMContentLoaded', function() {
+                                const saveButtons = document.querySelectorAll('.saveChangesBtn');
+                                saveButtons.forEach(button => {
+                                    button.addEventListener('click', function() {
+                                        const form = this.closest('.modal-content').querySelector('form');
+                                        form.submit();
+                                    });
+                                });
+                                // Hitung selisih hari saat tanggalPelaksanaanMulai atau tanggalPelaksanaanSelesai diubah
+                                const tanggalMulai = document.getElementById('tanggalPelaksanaanMulai');
+                                const tanggalSelesai = document.getElementById('tanggalPelaksanaanSelesai');
+                                const daysInput = document.getElementById('days');
+                                const hitungSelisihHari = () => {
+                                    if (tanggalMulai.value && tanggalSelesai.value) {
+                                        const diffTime = Math.abs(new Date(tanggalSelesai.value) - new Date(tanggalMulai.value));
+                                        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                                        daysInput.value = diffDays;
+                                    }
+                                };
+                                tanggalMulai.addEventListener('change', hitungSelisihHari);
+                                tanggalSelesai.addEventListener('change', hitungSelisihHari);
                             });
                             //notif untuk berhasil atau error saat update data
                             document.addEventListener('DOMContentLoaded', function() {

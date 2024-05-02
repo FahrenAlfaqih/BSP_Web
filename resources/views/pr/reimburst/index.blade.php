@@ -99,10 +99,14 @@
                         <table class="table align-items-center mb-0">
                             <thead>
                                 <tr>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">No</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">Nomor Purchase Request Reimburst</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">Judul Pekerjaan</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">Aksi</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
+                                        No</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
+                                        Nomor PR Reimburst</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
+                                        Judul Pekerjaan</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
+                                        Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -113,7 +117,7 @@
                                     <td style="font-size: 14px;">{{ $prreimburst->idReimburstPR }}</td>
                                     <td style="font-size: 14px;">{{ $prreimburst->judulPekerjaan }}</td>
                                     <td style="font-size: 14px;">
-                                        <a href="#" class="btn btn-sm btn-outline-warning editButton" data-bs-toggle="modal" data-bs-target="#modalEdit{{ $prreimburst->idReimburstPR }}" data-id="{{ $prreimburst->idReimburstPR }}">Edit</a>
+                                        <a href="#" class="btn btn-sm btn-outline-warning editButton" data-bs-toggle="modal" data-bs-target="#modalEdit{{ $prreimburst->idReimburstPR }}">Edit</a>
                                         <form action="{{ route('prreimburst.destroy', $prreimburst->idReimburstPR) }}" method="POST" class="d-inline deleteForm" data-id="{{ $prreimburst->idReimburstPR }}">
                                             @csrf
                                             @method('DELETE')
@@ -122,43 +126,38 @@
                                     </td>
                                 </tr>
                                 @php $index++ @endphp
+                                <!-- Modal edit data -->
+                                <div class="modal fade" id="modalEdit{{ $prreimburst->idReimburstPR }}" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Edit PR Reimburst</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body" style="max-height: 450px; overflow-y: auto;">
+                                                <form action="{{ route('prreimburst.edit', $prreimburst->idReimburstPR) }}" method="POST" class="editForm">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <div class="mb-3">
+                                                        <label for="idReimburstPR{{ $prreimburst->idReimburstPR }}" class="form-label">Nomor PR Reimburst</label>
+                                                        <input type="number" class="form-control" id="idReimburstPR{{ $prreimburst->idReimburstPR }}" name="idReimburstPR" value="{{ $prreimburst->idReimburstPR }}">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="judulPekerjaan{{ $prreimburst->idReimburstPR }}" class="form-label">Judul Pekerjaan</label>
+                                                        <input type="text" class="form-control" id="judulPekerjaan{{ $prreimburst->idReimburstPR }}" name="judulPekerjaan" value="{{ $prreimburst->judulPekerjaan }}">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                <button type="button" class="btn btn-primary saveChangesBtn">Simpan Perubahan</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 @endforeach
                             </tbody>
                         </table>
-                        @foreach ($prreimbursts as $prreimburst)
-                        <!-- Modal edit data -->
-                        <div class="modal fade modalEdit" id="modalEdit{{ $prreimburst->idReimburstPR }}" tabindex="-1" aria-labelledby="modalEditLabel{{ $prreimburst->idReimburstPR }}" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered modal-lg">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="modalEditLabel{{ $prreimburst->idReimburstPR }}">Edit PR Reimburst</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body" style="max-height: 450px; overflow-y: auto;">
-                                        <!-- Form untuk mengedit prreimburst -->
-                                        <form action="{{ route('prreimburst.edit', $prreimburst->idReimburstPR) }}" method="POST" id="editForm{{ $prreimburst->idReimburstPR }}">
-                                            @csrf
-                                            @method('PUT')
-                                            <!-- Isi form sesuai kebutuhan -->
-                                            <div class="mb-3">
-                                                <label for="idReimburstPR" class="form-label">Nomor PR Reimburst</label>
-                                                <input type="number" class="form-control" id="idReimburstPR" name="idReimburstPR" value="{{ $prreimburst->idReimburstPR }}">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="judulPekerjaan" class="form-label">Nama Pekerja</label>
-                                                <input type="text" class="form-control" id="judulPekerjaan" name="judulPekerjaan" value="{{ $prreimburst->judulPekerjaan }}">
-                                            </div>
-                                            <!-- Tambahkan input lainnya sesuai kebutuhan -->
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                        <button type="button" class="btn btn-primary" id="saveChangesBtn{{ $prreimburst->idReimburstPR }}">Simpan Perubahan</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @endforeach
                         <!-- Pagination -->
                         <div class="float-start mx-2">
                             <p class="text-muted">
@@ -279,8 +278,14 @@
                                     });
                                 }
                             });
-                            document.getElementById('saveChangesBtn').addEventListener('click', function() {
-                                document.getElementById('editForm').submit();
+                            document.addEventListener('DOMContentLoaded', function() {
+                                const saveButtons = document.querySelectorAll('.saveChangesBtn');
+                                saveButtons.forEach(button => {
+                                    button.addEventListener('click', function() {
+                                        const form = this.closest('.modal-content').querySelector('.editForm');
+                                        form.submit();
+                                    });
+                                });
                             });
                             //notif untuk berhasil atau error saat update data
                             document.addEventListener('DOMContentLoaded', function() {
