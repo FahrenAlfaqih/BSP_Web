@@ -54,18 +54,18 @@
                             </div>
                         </div>
                         <!-- upload file excel -->
-                        <form id="uploadForm" action="{{ route('poreimburst.uploadExcel') }}" method="POST" enctype="multipart/form-data" class="btn btn-light btn-2x me-2">
+                        <!-- <form id="uploadForm" action="{{ route('poreimburst.uploadExcel') }}" method="POST" enctype="multipart/form-data" class="btn btn-light btn-2x me-2">
                             @csrf
                             <i class="fas fa-file-excel  fa-sm"></i>
                             <input type="file" name="file" class="rounded">
                             <button type="submit" class="btn-outline-dark rounded">Unggah Excel</button>
-                        </form>
+                        </form> -->
                         <!-- Icon informasi -->
-                        <a href="#" class="btn btn-light btn-2x me-2" data-bs-toggle="modal" data-bs-target="#modalInformasi">
+                        <!-- <a href="#" class="btn btn-light btn-2x me-2" data-bs-toggle="modal" data-bs-target="#modalInformasi">
                             <i class="fas fa-info-circle fa-2x"></i>
-                        </a>
+                        </a> -->
                         <!-- Modal Informasi-->
-                        <div class="modal fade" id="modalInformasi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <!-- <div class="modal fade" id="modalInformasi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-xl">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -80,7 +80,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- Reload Data Terbaru-->
                         <a href="{{ route('sesreimburst') }}" class="btn btn-light btn-2x me-2">
                             <i class="fas fa-sync fa-sm"></i> Reload
