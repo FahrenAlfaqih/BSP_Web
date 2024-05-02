@@ -47,7 +47,7 @@ class DpdController extends Controller
         }
 
         //menghitung top departemens
-        $topDepartments = $totalDPDFunds->take(10);
+        $topDepartments = $totalDPDFunds->take(12);
         $topDepartments->transform(function ($department) {
             $department->total = 'Rp. ' . number_format($department->total, 0, ',', '.');
             return $department;
@@ -144,7 +144,7 @@ class DpdController extends Controller
             return $department;
         });
 
-        $topDepartments = $totalDPDFunds->take(10);
+        $topDepartments = $totalDPDFunds->take(12);
 
         //menghitung progres
         $departmentProgress = [];
@@ -160,13 +160,13 @@ class DpdController extends Controller
 
         // Ambil daftar DPD dengan biayadpd tertinggi dan memformat biaya DPD
         $topKaryawan = Dpd::orderBy('biayadpd', 'desc')
-            ->paginate(10)
+            ->paginate(12)
             ->map(function ($item, $key) {
                 $item->biayadpd = 'Rp. ' . number_format($item->biayadpd, 0, ',', '.');
                 return $item;
             });
 
-        $departments = Department::paginate(10);
+        $departments = Department::paginate(12);
         return compact('topKaryawan', 'departments', 'departmentProgress', 'topDepartments');
     }
 
@@ -239,6 +239,7 @@ class DpdController extends Controller
         $searchQuery = $request->query('search');
         $tahun = $request->query('tahun');
         $bulan = $request->query('bulan');
+        $hari = $request->query('hari');
         $dept = $request->query('dept');
         $dpdQuery = Dpd::query();
         if ($searchQuery) {
@@ -255,6 +256,9 @@ class DpdController extends Controller
         }
         if ($bulan) {
             $dpdQuery->whereMonth('submitfinec', $bulan);
+        }
+        if ($hari) {
+            $dpdQuery->whereDay('submitfinec', $hari);
         }
         $dpdList = $dpdQuery->get();
         if ($dpdList->isNotEmpty()) {
