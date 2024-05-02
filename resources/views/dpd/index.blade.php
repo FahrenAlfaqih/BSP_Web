@@ -43,7 +43,7 @@
             <div class="col-md-4">
                 <div class="card mb-3" style="width: 100%;">
                     <div class="card-header pb-0 d-flex justify-content-between align-items-center">
-                        <h6>10 Departemen dengan Total Biaya DPD Tertinggi</h6>
+                        <h6>Departemen dengan Total Biaya DPD Tertinggi</h6>
                     </div>
                     <div class="card-body px-4 pt-0 pb-2">
                         <div class="table-responsive p-0">

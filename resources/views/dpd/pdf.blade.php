@@ -96,7 +96,7 @@
                 <td>{{ $dpd->pr }}</td>
                 <td>{{ $dpd->po }}</td>
                 <td>{{ $dpd->ses }}</td>
-                <td>Rp.{{ $dpd->biayadpd }}</td>
+                <td>Rp.{{ number_format($dpd->biayadpd, 0, ',', '.') }}</td>
                 <td>{{ $dpd->submitfinec }}</td>
                 <td>{{ $dpd->status }}</td>
                 <td>{{ $dpd->paymentbyfinec }}</td>
@@ -118,6 +118,7 @@
                 <td colspan="4"></td> <!-- Kolom lainnya tetap kosong untuk menyelaraskan dengan jumlah kolom -->
             </tr>
         </tbody>
+
     </table>
 
 

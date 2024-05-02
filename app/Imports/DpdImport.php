@@ -5,12 +5,15 @@ namespace App\Imports;
 use App\Models\Dpd;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Concerns\ToModel;
-class DpdImport implements ToModel
+use Maatwebsite\Excel\Concerns\WithStartRow;
+
+class DpdImport implements ToModel, WithStartRow
 {
     public function model(array $row)
     {
-        // Jika Anda ingin melakukan validasi atau manipulasi data sebelum menyimpannya,
-        // Anda dapat melakukannya di sini.
+        // Lakukan validasi atau manipulasi data di sini
+
+        $submitFinec = date('Y-m-d', strtotime('1899-12-30 +' . $row[9] . ' days'));
 
         // Cek apakah data duplikat
         $existingDpd = Dpd::where('nama', $row[1])
@@ -21,7 +24,7 @@ class DpdImport implements ToModel
             ->where('po', $row[6])
             ->where('ses', $row[7])
             ->where('biayadpd', $row[8])
-            ->where('submitfinec', $row[9])
+            ->where('submitfinec', $submitFinec)
             ->where('status', $row[10])
             ->where('paymentbyfinec', $row[11])
             ->where('keterangan', $row[12])
@@ -38,7 +41,7 @@ class DpdImport implements ToModel
                 'po' => $row[6],
                 'ses' => $row[7],
                 'biayadpd' => $row[8],
-                'submitfinec' => $row[9],
+                'submitfinec' => $submitFinec,
                 'status' => $row[10],
                 'paymentbyfinec' => $row[11],
                 'keterangan' => $row[12],
@@ -48,5 +51,10 @@ class DpdImport implements ToModel
             Session::flash('warning', 'Duplikasi data ditemukan.');
             return null; // Return null jika ingin melewati data duplikat
         }
+    }
+
+    public function startRow(): int
+    {
+        return 2; // Mulai impor dari baris kedua (baris yang berisi data, bukan judul kolom)
     }
 }
