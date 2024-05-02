@@ -107,7 +107,7 @@ class DpdController extends Controller
             // Filter hanya berdasarkan hari
             $dpdQuery->whereDay('submitfinec', $hari);
         }
-
+        
         $dpdList = $dpdQuery->paginate(10);
 
         return view('dpd.index')->with(compact('dpdList'))->with($this->loadData());
@@ -118,6 +118,11 @@ class DpdController extends Controller
     {
         $dept = $request->dept;
         $dpdList = Dpd::where('dept', $dept)->paginate(10);
+        $dpdList->getCollection()->transform(function ($item, $key) {
+            $item->biayadpd = 'Rp. ' . number_format($item->biayadpd, 0, ',', '.');
+            return $item;
+        });
+
         return view('dpd.index')->with(compact('dpdList'))->with($this->loadData());
     }
 
@@ -127,6 +132,10 @@ class DpdController extends Controller
         $dpdList = Dpd::where('nama', 'like', '%' . $searchQuery . '%')
             ->orWhere('nomorspd', 'like', '%' . $searchQuery . '%')
             ->paginate(10);
+        $dpdList->getCollection()->transform(function ($item, $key) {
+            $item->biayadpd = 'Rp. ' . number_format($item->biayadpd, 0, ',', '.');
+            return $item;
+        });
         return view('dpd.index')->with(compact('dpdList'))->with($this->loadData());
     }
 
@@ -230,6 +239,7 @@ class DpdController extends Controller
     {
         $dpd = Dpd::findOrFail($id);
         $dpd->delete();
+        Department::updateRemainingFunds();
         return redirect()->back();
     }
 
