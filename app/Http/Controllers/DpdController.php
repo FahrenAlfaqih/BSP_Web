@@ -7,12 +7,9 @@ use App\Imports\DpdImport;
 use App\Models\Department;
 use App\Models\Dpd;
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
 use Maatwebsite\Excel\Facades\Excel;
 use Dompdf\Dompdf;
-use Dompdf\Options;
 use Throwable;
-use Illuminate\Support\Facades\DB;
 
 class DpdController extends Controller
 {
@@ -35,16 +32,6 @@ class DpdController extends Controller
             ->get()
             ->sortByDesc('total'); // Urutkan berdasarkan total biaya DPD dari yang tertinggi
 
-
-        //menghitung progress departement
-        $departmentProgress = [];
-        foreach ($totalDPDFunds as $dpd) {
-            $percentage = 0;
-            if ($dpd->total != 0) {
-                $percentage = ($dpd->total / $totalDPDFunds->sum('total')) * 100;
-            }
-            $departmentProgress[$dpd->dept] = $percentage;
-        }
 
         //menghitung top departemens
         $topDepartments = $totalDPDFunds->take(12);
@@ -69,7 +56,7 @@ class DpdController extends Controller
         });
 
         $departments = Department::paginate(20);
-        return view('dpd.index', compact('topKaryawan', 'dpdList', 'departments', 'departmentProgress', 'topDepartments'));
+        return view('dpd.index', compact('topKaryawan', 'dpdList', 'departments', 'topDepartments'));
     }
 
     public function updateDepartmentFunds()
@@ -78,7 +65,6 @@ class DpdController extends Controller
         Department::updateRemainingFunds();
         return response()->json(['message' => 'Updated remaining funds successfully']);
     }
-
 
     public function filterByDate(Request $request)
     {
@@ -107,7 +93,7 @@ class DpdController extends Controller
             // Filter hanya berdasarkan hari
             $dpdQuery->whereDay('submitfinec', $hari);
         }
-        
+
         $dpdList = $dpdQuery->paginate(10);
 
         return view('dpd.index')->with(compact('dpdList'))->with($this->loadData());
@@ -283,6 +269,7 @@ class DpdController extends Controller
         }
     }
 
+    //function untuk fitur download pdf berdasarkan hasil pencarian, bulan dan tahun
     public function downloadExcel(Request $request)
     {
         $searchQuery = $request->query('search');
@@ -315,12 +302,7 @@ class DpdController extends Controller
         }
     }
 
-
-
-
-
-
-    //function untuk fitur tambah data dengan metode upload file excel
+    //function untuk upload file excel
     public function uploadExcel(Request $request)
     {
         try {

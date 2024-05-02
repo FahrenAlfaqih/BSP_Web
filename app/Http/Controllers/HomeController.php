@@ -55,12 +55,13 @@ class HomeController extends Controller
         }
 
         return view('dashboard', [
-            'data' => $data, 
-            'data2' => $data2, 
-            'years' => $years, 
-            'yearCount' => $yearCount, 
-            'years2' => $years2, 
-            'yearCount2' => $yearCount2, 
-            'departmentProgress' => $departmentProgress]);
+            'data' => $data,
+            'data2' => $data2,
+            'years' => $years,
+            'yearCount' => $yearCount,
+            'years2' => $years2,
+            'yearCount2' => $yearCount2,
+            'departmentProgress' => $departmentProgress
+        ]);
     }
 }
