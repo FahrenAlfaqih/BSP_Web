@@ -167,7 +167,7 @@
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="judulPekerjaan" class="form-label">Judul Pekerjaan</label>
-                                                        <input type="text" class="form-control" id="judulPekerjaan" name="judulPekerjaan" value="{{ $sesnonada->idNonadaSES}}">
+                                                        <input type="text" class="form-control" id="judulPekerjaan" name="judulPekerjaan" value="{{ $sesnonada->judulPekerjaan}}">
                                                     </div>
                                                     <!-- Tambahkan input lainnya sesuai kebutuhan -->
                                                 </form>
