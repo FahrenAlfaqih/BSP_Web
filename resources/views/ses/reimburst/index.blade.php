@@ -33,11 +33,11 @@
                                                 <input type="text" class="form-control" id="idSReimburstSES" name="idSReimburstSES">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="pr_reimburst_id" class="form-label">Pilih PO Reimburst</label>
+                                                <label for="idReimburstPO" class="form-label">Pilih PO Reimburst</label>
                                                 <select class="form-select" id="idReimburstPO" name="idReimburstPO">
-                                                    @foreach($poreimbursts as $poreimburst)
-                                                    <option value="{{ $poreimburst->idReimburstPO }}">
-                                                        {{ $poreimburst->idReimburstPO }} - {{ $poreimburst->judulPekerjaan }}
+                                                    @foreach($sesreimbursts as $sesreimburst)
+                                                    <option value="{{ $sesreimburst->idReimburstPO }}">
+                                                        {{ $sesreimburst->idReimburstPO }} - {{ $sesreimburst->judulPekerjaan }}
                                                     </option>
                                                     @endforeach
                                                 </select>
@@ -54,7 +54,7 @@
                             </div>
                         </div>
                         <!-- upload file excel -->
-                        <!-- <form id="uploadForm" action="{{ route('poreimburst.uploadExcel') }}" method="POST" enctype="multipart/form-data" class="btn btn-light btn-2x me-2">
+                        <!-- <form id="uploadForm" action="{{ route('sesreimburst.uploadExcel') }}" method="POST" enctype="multipart/form-data" class="btn btn-light btn-2x me-2">
                             @csrf
                             <i class="fas fa-file-excel  fa-sm"></i>
                             <input type="file" name="file" class="rounded">
@@ -101,7 +101,7 @@
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <h6>Data SES Reimburst</h6>
                 </div>
-                <form id="filterNamaProgramForm" class="mx-3" action="{{ route('poreimburst.filterData') }}" method="GET">
+                <form id="filterNamaProgramForm" class="mx-3" action="{{ route('sesreimburst.filterData') }}" method="GET">
                     <input type="text" name="search" id="search" class="form-control" placeholder="Cari Berdasarkan Nomor SES, Nomor PO atau Judul Pekerjaan">
                 </form>
                 <div class="card-body px-3 pt-0 pb-2">
@@ -118,8 +118,7 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Judul Pekerjaan</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
-                                        Aksi
-                                    </th>
+                                        Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -131,8 +130,8 @@
                                     <td style="font-size: 14px;">{{ $sesreimburst->idReimburstPO  }}</td>
                                     <td style="font-size: 14px;">{{ $sesreimburst->judulPekerjaan }}</td>
                                     <td style="font-size: 14px;">
-                                        <a href="#" class="btn btn-sm btn-outline-warning editButton" data-bs-toggle="modal" data-bs-target=".modalEdit" data-id="{{ $poreimburst->idReimburstPR }}">Edit</a>
-                                        <form action="{{ route('poreimburst.destroy', $poreimburst->idReimburstPR) }}" method="POST" class="d-inline deleteForm" data-id="{{ $poreimburst->idReimburstPR }}">
+                                        <a href="#" class="btn btn-sm btn-outline-warning editButton" data-bs-toggle="modal" data-bs-target="#modalEdit{{ $sesreimburst->idSReimburstSES }}" data-id="">Edit</a>
+                                        <form action="{{ route('sesreimburst.destroy', $sesreimburst->idSReimburstSES) }}" method="POST" class="d-inline deleteForm" data-id="{{ $sesreimburst->idSReimburstSES }}">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-outline-danger deleteButton">Hapus</button>
@@ -141,24 +140,40 @@
                                 </tr>
                                 @php $index++ @endphp
                                 <!-- Modal edit data -->
-                                <div class="modal fade modalEdit" tabindex="-1" aria-labelledby="modalEditLabel" aria-hidden="true">
+                                <div class="modal fade" id="modalEdit{{ $sesreimburst->idSReimburstSES }}" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="modalEditLabel">Edit SES Reimburst</h5>
+                                                <h5 class="modal-title">Edit SES Reimburst</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body " style="max-height: 450px; overflow-y: auto;">
-                                                <!-- Form untuk mengedit poreimburst -->
-                                                <form action="{{ route('poreimburst.edit', $poreimburst->idReimburstPR) }}" method="POST" id="editForm">
+                                                <form action="{{ route('sesreimburst.edit', $sesreimburst->idSReimburstSES) }}" method="POST" id="editForm">
                                                     @csrf
                                                     @method('PUT')
-                                                    <!-- Tambahkan input lainnya sesuai kebutuhan -->
+                                                    <div class="mb-3">
+                                                        <label for="idSReimburstSES" class="form-label">Nomor SES Reimburst</label>
+                                                        <input type="text" class="form-control" id="idSReimburstSES" name="idSReimburstSES" value="{{ $sesreimburst->idSReimburstSES }}">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="idReimburstPO" class="form-label">Pilih PO Reimburst</label>
+                                                        <select class="form-select" id="idReimburstPO" name="idReimburstPO">
+                                                            @foreach($poreimbursts as $poreimburst)
+                                                            <option value="{{ $poreimburst->idReimburstPO }}" {{ $sesreimburst->idReimburstPO == $poreimburst->idReimburstPO ? 'selected' : '' }}>
+                                                                {{ $poreimburst->idReimburstPO }} - {{ $poreimburst->judulPekerjaan }}
+                                                            </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="judulPekerjaan{{ $sesreimburst->idSReimburstSES }}" class="form-label">Judul Pekerjaan</label>
+                                                        <input type="text" class="form-control" id="judulPekerjaan{{ $sesreimburst->idSReimburstSES }}" name="judulPekerjaan" value="{{ $sesreimburst->judulPekerjaan }}">
+                                                    </div>
                                                 </form>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                                <button type="button" class="btn btn-primary" id="saveChangesBtn">Simpan Perubahan</button>
+                                                <button type="button" class="btn btn-primary saveChangesBtn">Simpan Perubahan</button>
                                             </div>
                                         </div>
                                     </div>
@@ -252,24 +267,24 @@
                                 });
                             });
                             //script agar tahun pada tanggalPelaksanaanMulai dan Selesai otomatis terubah sesuai dengan
-                            //Tahun poreimburst yang diinputkan sebelumnya
+                            //Tahun sesreimburst yang diinputkan sebelumnya
                             document.addEventListener('DOMContentLoaded', function() {
-                                // Ambil elemen input tahunporeimburst
-                                var tahunporeimburstInput = document.getElementById('tahunporeimburst');
+                                // Ambil elemen input tahunsesreimburst
+                                var tahunsesreimburstInput = document.getElementById('tahunsesreimburst');
                                 // Ambil elemen input tanggalPelaksanaanMulai dan tanggalPelaksanaanSelesai
                                 var tanggalPelaksanaanMulaiInput = document.getElementById('tanggalPelaksanaanMulai');
                                 var tanggalPelaksanaanSelesaiInput = document.getElementById('tanggalPelaksanaanSelesai');
-                                // Tambahkan event listener ketika nilai tahunporeimburst berubah
-                                tahunporeimburstInput.addEventListener('change', function() {
-                                    // Ambil nilai tahunporeimburst
-                                    var tahunporeimburst = tahunporeimburstInput.value;
-                                    // Periksa apakah tahunporeimburst memiliki nilai
-                                    if (tahunporeimburst) {
+                                // Tambahkan event listener ketika nilai tahunsesreimburst berubah
+                                tahunsesreimburstInput.addEventListener('change', function() {
+                                    // Ambil nilai tahunsesreimburst
+                                    var tahunsesreimburst = tahunsesreimburstInput.value;
+                                    // Periksa apakah tahunsesreimburst memiliki nilai
+                                    if (tahunsesreimburst) {
                                         // Set nilai tahun pada tanggalPelaksanaanMulai dan tanggalPelaksanaanSelesai
-                                        tanggalPelaksanaanMulaiInput.value = tahunporeimburst + '-01-01'; // Tanggal mulai diatur menjadi 01 Januari tahunporeimburst
-                                        tanggalPelaksanaanSelesaiInput.value = tahunporeimburst + '-12-31'; // Tanggal selesai diatur menjadi 31 Desember tahunporeimburst
+                                        tanggalPelaksanaanMulaiInput.value = tahunsesreimburst + '-01-01'; // Tanggal mulai diatur menjadi 01 Januari tahunsesreimburst
+                                        tanggalPelaksanaanSelesaiInput.value = tahunsesreimburst + '-12-31'; // Tanggal selesai diatur menjadi 31 Desember tahunsesreimburst
                                     } else {
-                                        // Kosongkan nilai tanggalPelaksanaanMulai dan tanggalPelaksanaanSelesai jika tahunporeimburst tidak memiliki nilai
+                                        // Kosongkan nilai tanggalPelaksanaanMulai dan tanggalPelaksanaanSelesai jika tahunsesreimburst tidak memiliki nilai
                                         tanggalPelaksanaanMulaiInput.value = '';
                                         tanggalPelaksanaanSelesaiInput.value = '';
                                     }
@@ -310,8 +325,15 @@
                                     });
                                 }
                             });
-                            document.getElementById('saveChangesBtn').addEventListener('click', function() {
-                                document.getElementById('editForm').submit();
+                            //Agar data dapat tersimpan
+                            document.addEventListener('DOMContentLoaded', function() {
+                                const saveButtons = document.querySelectorAll('.saveChangesBtn');
+                                saveButtons.forEach(button => {
+                                    button.addEventListener('click', function() {
+                                        const form = this.closest('.modal-content').querySelector('.editForm');
+                                        form.submit();
+                                    });
+                                });
                             });
                             //notif untuk berhasil atau error saat update data
                             document.addEventListener('DOMContentLoaded', function() {

@@ -54,7 +54,6 @@
                                                     <option value="INTERNAL AUDIT">INTERNAL AUDIT</option>
                                                     <option value="FINEC & ICT">FINEC & ICT</option>
                                                     <option value="HCM">HCM</option>
-
                                                 </select>
                                             </div>
                                             <div class="col-md-6">
@@ -176,7 +175,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Table Sertifkasi -->
+            <!-- Table -->
             <div class="card mb-4">
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <h6>Data Surat Perjalanan Dinas</h6>
@@ -232,8 +231,7 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Submit Tanggal</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
-                                        Aksi
-                                    </th>
+                                        Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -258,7 +256,7 @@
                                     <td style="font-size: 14px;">{{ $spd->accrual }}</td>
                                     <td style="font-size: 14px;">{{ $spd->submit_tgl }}</td>
                                     <td style="font-size: 14px;">
-                                        <a href="#" class="btn btn-sm btn-outline-warning editButton" data-bs-toggle="modal" data-bs-target=".modalEdit" data-id="{{ $spd->id }}">Edit</a>
+                                        <a href="#" class="btn btn-sm btn-outline-warning editButton" data-bs-toggle="modal" data-bs-target="#modalEdit{{ $spd->id }}">Edit</a>
                                         <form action="{{ route('spd.destroy', $spd->id) }}" method="POST" class="d-inline deleteForm" data-id="{{ $spd->id }}">
                                             @csrf
                                             @method('DELETE')
@@ -268,6 +266,105 @@
                                 </tr>
                                 @php $index++ @endphp
                                 <!-- Modal edit data -->
+                                <div class="modal fade" id="modalEdit{{ $spd->id }}" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Edit SPD</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body " style="max-height: 450px; overflow-y: auto;">
+                                                <form action="{{ route('spd.edit', $spd->id) }}" method="POST" class="editForm">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <!-- Isi form sesuai kebutuhan -->
+                                                    <div class="col-md-6">
+                                                <label for="nomor_spd" class="form-label">Nomor SPD</label>
+                                                <input type="text" class="form-control" id="nomor_spd" name="nomor_spd" value="{{ $spd->id }}">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="nama" class="form-label">Nama</label>
+                                                <input type="text" class="form-control" id="nama" name="nama" value="{{ $spd->nama }}">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="dept" class="form-label">Departemen</label>
+                                                <select class="form-select" id="dept" name="dept">
+                                                    <option>{{ $spd->dept }}</option>
+                                                    <option value="GM">GM</option>
+                                                    <option value="PRODUCTION OPERATION">PRODUCTION OPERATION</option>
+                                                    <option value="OPERATION SUPPORT">OPERATION SUPPORT</option>
+                                                    <option value="DRILLING & WORK OVER">DRILLING & WORK OVER</option>
+                                                    <option value="EXPLOITATION">EXPLOITATION</option>
+                                                    <option value="EXPLORATION">EXPLORATION</option>
+                                                    <option value="QHSE">QHSE</option>
+                                                    <option value="SCM">SCM</option>
+                                                    <option value="EXTERNAL AFFAIR">EXTERNAL AFFAIR</option>
+                                                    <option value="INTERNAL AUDIT">INTERNAL AUDIT</option>
+                                                    <option value="FINEC & ICT">FINEC & ICT</option>
+                                                    <option value="HCM">HCM</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="wbs" class="form-label">WBS</label>
+                                                <input type="text" class="form-control" id="wbs" name="wbs" value="{{ $spd->wbs }}">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="pr" class="form-label">PR</label>
+                                                <input type="text" class="form-control" id="pr" name="pr" value="{{ $spd->pr }}">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="po" class="form-label">PO</label>
+                                                <input type="text" class="form-control" id="po" name="po" value="{{ $spd->po }}">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="ses" class="form-label">SES</label>
+                                                <input type="text" class="form-control" id="ses" name="ses" value="{{ $spd->ses }}">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="dari" class="form-label">Dari</label>
+                                                <input type="text" class="form-control" id="dari" name="dari" value="{{ $spd->dari }}">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="tujuan" class="form-label">Tujuan</label>
+                                                <input type="text" class="form-control" id="tujuan" name="tujuan" value="{{ $spd->tujuan }}">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="tanggal_mulai" class="form-label">Tanggal Mulai Dinas</label>
+                                                <input type="date" class="form-control" id="tanggal_mulai" name="tanggal_mulai" value="{{ $spd->tanggal_mulai }}">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="tanggal_selesai" class="form-label">Tanggal Selesai Dinas</label>
+                                                <input type="date" class="form-control" id="tanggal_selesai" name="tanggal_selesai" value="{{ $spd->tanggal_selesai }}">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="keterangan_dinas" class="form-label">Keterangan Dinas</label>
+                                                <input type="text" class="form-control" id="keterangan_dinas" name="keterangan_dinas" value="{{ $spd->keterangan_dinas }}">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="biaya_dpd" class="form-label">Biaya DPD</label>
+                                                <input type="text" class="form-control" id="biaya_dpd" name="biaya_dpd" value="{{ $spd->biaya_dpd }}">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="rkap" class="form-label">RKAP</label>
+                                                <input type="text" class="form-control" id="rkap" name="rkap" value="{{ $spd->rkap }}">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="accrual" class="form-label">Accrual</label>
+                                                <input type="text" class="form-control" id="accrual" name="accrual" value="{{ $spd->accrual }}">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="submit_tgl" class="form-label">Submit Tanggal</label>
+                                                <input type="date" class="form-control" id="submit_tgl" name="submit_tgl" value="{{ $spd->submit_tgl }}">
+                                            </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                <button type="button" class="btn btn-primary saveChangesBtn">Simpan Perubahan</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 @endforeach
                             </tbody>
                         </table>
@@ -416,8 +513,15 @@
                                     });
                                 }
                             });
-                            document.getElementById('saveChangesBtn').addEventListener('click', function() {
-                                document.getElementById('editForm').submit();
+                            // Agar data dapat tersimpan
+                            document.addEventListener('DOMContentLoaded', function() {
+                                const saveButtons = document.querySelectorAll('.saveChangesBtn');
+                                saveButtons.forEach(button => {
+                                    button.addEventListener('click', function() {
+                                        const form = this.closest('.modal-content').querySelector('form');
+                                        form.submit();
+                                    });
+                                });
                             });
                             //notif untuk berhasil atau error saat update data
                             document.addEventListener('DOMContentLoaded', function() {

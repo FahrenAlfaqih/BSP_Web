@@ -9,6 +9,7 @@ class SESReimburst extends Model
 {
     use HasFactory;
     protected $table = 'ses_reimburst';
+    protected $primaryKey = 'idSReimburstSES';
     protected $fillable = [
         'idSReimburstSES', 'idReimburstPO', 'judulPekerjaan'
     ];

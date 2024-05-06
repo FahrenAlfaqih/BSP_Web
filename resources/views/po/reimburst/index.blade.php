@@ -96,7 +96,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Table Sertifkasi -->
+            <!-- Table -->
             <div class="card mb-4">
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <h6>Data Purhcase Order Reimburst</h6>
@@ -111,15 +111,14 @@
                                 <tr>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         No</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2"> 
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Nomor PO Reimburst </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Nomor PR Reimburst </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Judul Pekerjaan</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
-                                        Aksi
-                                    </th>
+                                        Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -131,8 +130,8 @@
                                     <td style="font-size: 14px;">{{ $poreimburst->idReimburstPR }}</td>
                                     <td style="font-size: 14px;">{{ $poreimburst->judulPekerjaan }}</td>
                                     <td style="font-size: 14px;">
-                                        <a href="#" class="btn btn-sm btn-outline-warning editButton" data-bs-toggle="modal" data-bs-target=".modalEdit" data-id="{{ $poreimburst->idReimburstPR }}">Edit</a>
-                                        <form action="{{ route('poreimburst.destroy', $poreimburst->idReimburstPR) }}" method="POST" class="d-inline deleteForm" data-id="{{ $poreimburst->idReimburstPR }}">
+                                        <a href="#" class="btn btn-sm btn-outline-warning editButton" data-bs-toggle="modal" data-bs-target="#modalEdit{{ $poreimburst->idReimburstPO }}">Edit</a>
+                                        <form action="{{ route('poreimburst.destroy', $poreimburst->idReimburstPO) }}" method="POST" class="d-inline deleteForm" data-id="{{ $poreimburst->idReimburstPO }}">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-outline-danger deleteButton">Hapus</button>
@@ -141,33 +140,40 @@
                                 </tr>
                                 @php $index++ @endphp
                                 <!-- Modal edit data -->
-                                <div class="modal fade modalEdit" tabindex="-1" aria-labelledby="modalEditLabel" aria-hidden="true">
+                                <div class="modal fade" id="modalEdit{{ $poreimburst->idReimburstPO }}" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="modalEditLabel">Edit PO Reimburst</h5>
+                                                <h5 class="modal-title">Edit PO Reimburst</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body " style="max-height: 450px; overflow-y: auto;">
-                                                <!-- Form untuk mengedit poreimburst -->
-                                                <form action="{{ route('poreimburst.edit', $poreimburst->idReimburstPR) }}" method="POST" id="editForm">
+                                                <form action="{{ route('poreimburst.edit', $poreimburst->idReimburstPO) }}" method="POST" id="editForm">
                                                     @csrf
                                                     @method('PUT')
-                                                    <!-- Isi form sesuai kebutuhan -->
                                                     <div class="mb-3">
                                                         <label for="idReimburstPO" class="form-label">Nomor PO Reimburst</label>
                                                         <input type="number" class="form-control" id="idReimburstPO" name="idReimburstPO" value="{{ $poreimburst->idReimburstPO }}">
                                                     </div>
                                                     <div class="mb-3">
+                                                        <label for="idReimburstPR" class="form-label">Pilih PR Reimburst</label>
+                                                        <select class="form-select" id="idReimburstPR" name="idReimburstPR">
+                                                            @foreach($prReimbursts as $prReimburst)
+                                                            <option value="{{ $prReimburst->idReimburstPR }}" @if($prReimburst->idReimburstPR == $poreimburst->idReimburstPR) selected @endif>
+                                                                {{ $prReimburst->idReimburstPR }} - {{ $prReimburst->judulPekerjaan }}
+                                                            </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="mb-3">
                                                         <label for="judulPekerjaan" class="form-label">Judul Pekerjaan</label>
                                                         <input type="text" class="form-control" id="judulPekerjaan" name="judulPekerjaan" value="{{ $poreimburst->judulPekerjaan }}">
                                                     </div>
-                                                    <!-- Tambahkan input lainnya sesuai kebutuhan -->
                                                 </form>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                                <button type="button" class="btn btn-primary" id="saveChangesBtn">Simpan Perubahan</button>
+                                                <button type="button" class="btn btn-primary saveChangesBtn">Simpan Perubahan</button>
                                             </div>
                                         </div>
                                     </div>
@@ -211,7 +217,7 @@
                                     </li>
                             </ul>
                         </nav>
-                        
+
 
                         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
@@ -320,8 +326,15 @@
                                     });
                                 }
                             });
-                            document.getElementById('saveChangesBtn').addEventListener('click', function() {
-                                document.getElementById('editForm').submit();
+                            //Agar data dapat tersimpan
+                            document.addEventListener('DOMContentLoaded', function() {
+                                const saveButtons = document.querySelectorAll('.saveChangesBtn');
+                                saveButtons.forEach(button => {
+                                    button.addEventListener('click', function() {
+                                        const form = this.closest('.modal-content').querySelector('.editForm');
+                                        form.submit();
+                                    });
+                                });
                             });
                             //notif untuk berhasil atau error saat update data
                             document.addEventListener('DOMContentLoaded', function() {

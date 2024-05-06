@@ -33,8 +33,8 @@
                                                 <input type="text" class="form-control" id="idNonadaPO" name="idNonadaPO">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="pr_reimburst_id" class="form-label">Pilih PR Non ada</label>
-                                                <select class="form-select" id="idNonadaP" name="idNonadaPR">
+                                                <label for="idNonadaPR" class="form-label">Pilih PR Non ada</label>
+                                                <select class="form-select" id="idNonadaPR" name="idNonadaPR">
                                                     @foreach($prnonadas as $prnonada)
                                                     <option value="{{ $prnonada->idNonadaPR}}">
                                                         {{ $prnonada->idNonadaPR }} - {{ $prnonada->judulPekerjaan }}
@@ -96,7 +96,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Table Sertifkasi -->
+            <!-- Table -->
             <div class="card mb-4">
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <h6>Data Purchase Order Non Ada</h6>
@@ -112,14 +112,13 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ">
                                         No</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
-                                        Nomor Purchase Order Non Ada</th>
+                                        Nomor PO Non Ada</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
-                                        Nomor Purchase Requisition Non Ada</th>
+                                        Nomor PR Non Ada</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
                                         Judul Pekerjaan</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder  ps-2">
-                                        Aksi
-                                    </th>
+                                        Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -131,7 +130,7 @@
                                     <td style="font-size: 14px;">{{ $pononada->idNonadaPR}}</td>
                                     <td style="font-size: 14px;">{{ $pononada->judulPekerjaan }}</td>
                                     <td style="font-size: 14px;">
-                                        <a href="#" class="btn btn-sm btn-outline-warning editButton" data-bs-toggle="modal" data-bs-target=".modalEdit" data-id="{{ $pononada->idNonadaPO }}">Edit</a>
+                                        <a href="#" class="btn btn-sm btn-outline-warning editButton" data-bs-toggle="modal" data-bs-target="#modalEdit{{ $pononada->idNonadaPO }}">Edit</a>
                                         <form action="{{ route('pononada.destroy', $pononada->idNonadaPO ) }}" method="POST" class="d-inline deleteForm" data-id="{{ $pononada->idNonadaPO }}">
                                             @csrf
                                             @method('DELETE')
@@ -141,33 +140,40 @@
                                 </tr>
                                 @php $index++ @endphp
                                 <!-- Modal edit data -->
-                                <div class="modal fade modalEdit" tabindex="-1" aria-labelledby="modalEditLabel" aria-hidden="true">
+                                <div class="modal fade" id="modalEdit{{ $pononada->idNonadaPO }}" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="modalEditLabel">Edit PO Non Ada</h5>
+                                                <h5 class="modal-title">Edit PO Non Ada</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body " style="max-height: 450px; overflow-y: auto;">
-                                                <!-- Form untuk mengedit pononada -->
                                                 <form action="{{ route('pononada.edit', $pononada->idNonadaPO ) }}" method="POST" id="editForm">
                                                     @csrf
                                                     @method('PUT')
-                                                    <!-- Isi form sesuai kebutuhan -->
                                                     <div class="mb-3">
                                                         <label for="idNonadaPO" class="form-label">Nomor PO Non Ada</label>
                                                         <input type="number" class="form-control" id="idNonadaPO" name="idNonadaPO" value="{{ $pononada->idNonadaPO }}">
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="judulPekerjaan" class="form-label">Judul Pekerjaan</label>
-                                                        <input type="number" class="form-control" id="judulPekerjaan" name="judulPekerjaan" value="{{ $pononada->judulPekerjaan }}">
+                                                        <label for="idNonadaPR" class="form-label">Pilih PR Non ada</label>
+                                                        <select class="form-select" id="idNonadaPR" name="idNonadaPR">
+                                                            @foreach($prnonadas as $prnonada)
+                                                            <option value="{{ $prnonada->idNonadaPR }}" {{ $prnonada->idNonadaPR == $pononada->idNonadaPR ? 'selected' : '' }}>
+                                                                {{ $prnonada->idNonadaPR }} - {{ $prnonada->judulPekerjaan }}
+                                                            </option>
+                                                            @endforeach
+                                                        </select>
                                                     </div>
-                                                    <!-- Tambahkan input lainnya sesuai kebutuhan -->
+                                                    <div class="mb-3">
+                                                        <label for="judulPekerjaan" class="form-label">Judul Pekerjaan</label>
+                                                        <input type="text" class="form-control" id="judulPekerjaan" name="judulPekerjaan" value="{{ $pononada->judulPekerjaan }}">
+                                                    </div>
                                                 </form>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                                <button type="button" class="btn btn-primary" id="saveChangesBtn">Simpan Perubahan</button>
+                                                <button type="button" class="btn btn-primary saveChangesBtn">Simpan Perubahan</button>
                                             </div>
                                         </div>
                                     </div>
@@ -319,8 +325,15 @@
                                     });
                                 }
                             });
-                            document.getElementById('saveChangesBtn').addEventListener('click', function() {
-                                document.getElementById('editForm').submit();
+                            //Agar data dapat tersimpan
+                            document.addEventListener('DOMContentLoaded', function() {
+                                const saveButtons = document.querySelectorAll('.saveChangesBtn');
+                                saveButtons.forEach(button => {
+                                    button.addEventListener('click', function() {
+                                        const form = this.closest('.modal-content').querySelector('.editForm');
+                                        form.submit();
+                                    });
+                                });
                             });
                             //notif untuk berhasil atau error saat update data
                             document.addEventListener('DOMContentLoaded', function() {

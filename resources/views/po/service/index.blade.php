@@ -101,7 +101,7 @@
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <h6>Data Pre Order Service</h6>
                 </div>
-                <form id="filterNamaProgramForm" class="mx-3" action="{{ route('prreimburst.filterData') }}" method="GET">
+                <form id="filterNamaProgramForm" class="mx-3" action="{{ route('poservice.filterData') }}" method="GET">
                     <input type="text" name="search" id="search" class="form-control" placeholder="Cari Berdasarkan Nama, Institusi, atau Departemen">
                 </form>
                 <div class="card-body px-3 pt-0 pb-2">
@@ -131,7 +131,7 @@
                                     <td style="font-size: 14px;">{{ $poservice->idServicePR }}</td>
                                     <td style="font-size: 14px;">{{ $poservice->judulPekerjaan }}</td>
                                     <td style="font-size: 14px;">
-                                        <a href="#" class="btn btn-sm btn-outline-warning editButton" data-bs-toggle="modal" data-bs-target=".modalEdit" data-id="{{ $poservice->idServicePO }}">Edit</a>
+                                        <a href="#" class="btn btn-sm btn-outline-warning editButton" data-bs-toggle="modal" data-bs-target="#modalEdit{{ $poservice->idServicePO }}">Edit</a>
                                         <form action="{{ route('poservice.destroy', $poservice ->idServicePO) }}" method="POST" class="d-inline deleteForm" data-id="{{ $poservice->idServicePO }}">
                                             @csrf
                                             @method('DELETE')
@@ -141,33 +141,40 @@
                                 </tr>
                                 @php $index++ @endphp
                                 <!-- Modal edit data -->
-                                <div class="modal fade modalEdit" tabindex="-1" aria-labelledby="modalEditLabel" aria-hidden="true">
+                                <div class="modal fade" id="modalEdit{{ $poservice->idServicePO }}" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="modalEditLabel">Edit PO Service</h5>
+                                                <h5 class="modal-title">Edit PO Service</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body " style="max-height: 450px; overflow-y: auto;">
-                                                <!-- Form untuk mengedit prservice -->
                                                 <form action="{{ route('poservice.edit', $poservice->idServicePO ) }}" method="POST" id="editForm">
                                                     @csrf
                                                     @method('PUT')
-                                                    <!-- Isi form sesuai kebutuhan -->
                                                     <div class="mb-3">
-                                                        <label for="idServicePR " class="form-label">Nomor PO Service</label>
-                                                        <input type="number" class="form-control" id="idServicePR" name="idServicePR" value="{{ $poservice->idServicePO  }}">
+                                                        <label for="idServicePO{{ $poservice->idServicePO }}" class="form-label">Nomor PO Service</label>
+                                                        <input type="number" class="form-control" id="idServicePO" name="idServicePO" value="{{ $poservice->idServicePO  }}">
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="judulPekerjaan" class="form-label">Nama Pekerja</label>
-                                                        <input type="text" class="form-control" id="judulPekerjaan" name="judulPekerjaan" value="{{ $poservice->judulPekerjaan }}">
+                                                        <label for="idServicePR" class="form-label">Pilih PR Service</label>
+                                                        <select class="form-select" id="idServicePR" name="idServicePR">
+                                                            @foreach($prservices as $prservice)
+                                                            <option value="{{ $prservice->idServicePR }}" {{ $prservice->idServicePR == $poservice->idServicePR ? 'selected' : '' }}>
+                                                                {{ $prservice->idServicePR }} - {{ $prservice->judulPekerjaan }}
+                                                            </option>
+                                                            @endforeach
+                                                        </select>
                                                     </div>
-                                                    <!-- Tambahkan input lainnya sesuai kebutuhan -->
+                                                    <div class="mb-3">
+                                                        <label for="judulPekerjaan{{ $poservice->idServicePO }}" class="form-label">Judul Pekerjaan</label>
+                                                        <input type="text" class="form-control" id="judulPekerjaan{{ $poservice->idServicePO }}" name="judulPekerjaan" value="{{ $poservice->judulPekerjaan }}">
+                                                    </div>
                                                 </form>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                                <button type="button" class="btn btn-primary" id="saveChangesBtn">Simpan Perubahan</button>
+                                                <button type="button" class="btn btn-primary saveChangesBtn">Simpan Perubahan</button>
                                             </div>
                                         </div>
                                     </div>
@@ -319,8 +326,15 @@
                                     });
                                 }
                             });
-                            document.getElementById('saveChangesBtn').addEventListener('click', function() {
-                                document.getElementById('editForm').submit();
+                            //Agar data dapat tersimpan
+                            document.addEventListener('DOMContentLoaded', function() {
+                                const saveButtons = document.querySelectorAll('.saveChangesBtn');
+                                saveButtons.forEach(button => {
+                                    button.addEventListener('click', function() {
+                                        const form = this.closest('.modal-content').querySelector('.editForm');
+                                        form.submit();
+                                    });
+                                });
                             });
                             //notif untuk berhasil atau error saat update data
                             document.addEventListener('DOMContentLoaded', function() {

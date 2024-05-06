@@ -105,6 +105,35 @@ class SpdController extends Controller
         return view('spd.index', compact('spds'));
     }
 
+    // Function untuk mengedit data SPD
+    public function editSpd(Request $request, $id)
+    {
+        $spd = Spd::findOrFail($id);
+        try {
+            $validatedData = $request->validate([
+                'nomor_spd' => 'required',
+                'nama' => 'required',
+                'dept' => 'required',
+                'wbs' => 'nullable',
+                'pr' => 'nullable',
+                'po' => 'nullable',
+                'ses' => 'nullable',
+                'dari' => 'required',
+                'tujuan' => 'required',
+                'tanggal_mulai' => 'required',
+                'tanggal_selesai' => 'required',
+                'keterangan_dinas' => 'nullable',
+                'biaya_dpd' => 'nullable',
+                'rkap' => 'nullable',
+                'accrual' => 'nullable',
+                'submit_tgl' => 'nullable',
+            ]);
+            $spd->update($validatedData);
+            return redirect()->back()->with('success_update', 'Data berhasil diperbarui!');
+        } catch (Throwable $e) {
+            return redirect()->back()->with('error_update', 'Terjadi kesalahan saat mengupdate data: ' . $e->getMessage());
+        }
+    }
 
 
     //function untuk fitur download pdf berdasarkan hasil pencarian, bulan dan tahun

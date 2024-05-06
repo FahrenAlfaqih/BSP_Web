@@ -139,12 +139,12 @@
                                                     @csrf
                                                     @method('PUT')
                                                     <div class="mb-3">
-                                                        <label for="idNonadaPR{{ $prnonada->idNonadaPR }}" class="form-label">Nomor PR Non Ada</label>
-                                                        <input type="number" class="form-control" id="idNonadaPR{{ $prnonada->idNonadaPR }}" name="idNonadaPR" value="{{ $prnonada->idNonadaPR }}">
+                                                        <label for="idNonadaPR" class="form-label">Nomor PR Non Ada</label>
+                                                        <input type="number" class="form-control" id="idNonadaPR" name="idNonadaPR" value="{{ $prnonada->idNonadaPR }}">
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="judulPekerjaan{{ $prnonada->idNonadaPR }}" class="form-label">Judul Pekerjaan</label>
-                                                        <input type="text" class="form-control" id="judulPekerjaan{{ $prnonada->idNonadaPR }}" name="judulPekerjaan" value="{{ $prnonada->judulPekerjaan }}">
+                                                        <label for="judulPekerjaan" class="form-label">Judul Pekerjaan</label>
+                                                        <input type="text" class="form-control" id="judulPekerjaan" name="judulPekerjaan" value="{{ $prnonada->judulPekerjaan }}">
                                                     </div>
                                                 </form>
                                             </div>

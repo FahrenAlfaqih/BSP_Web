@@ -139,12 +139,12 @@
                                                     @csrf
                                                     @method('PUT')
                                                     <div class="mb-3">
-                                                        <label for="idReimburstPR{{ $prreimburst->idReimburstPR }}" class="form-label">Nomor PR Reimburst</label>
-                                                        <input type="number" class="form-control" id="idReimburstPR{{ $prreimburst->idReimburstPR }}" name="idReimburstPR" value="{{ $prreimburst->idReimburstPR }}">
+                                                        <label for="idReimburstPR" class="form-label">Nomor PR Reimburst</label>
+                                                        <input type="number" class="form-control" id="idReimburstPR" name="idReimburstPR" value="{{ $prreimburst->idReimburstPR }}">
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="judulPekerjaan{{ $prreimburst->idReimburstPR }}" class="form-label">Judul Pekerjaan</label>
-                                                        <input type="text" class="form-control" id="judulPekerjaan{{ $prreimburst->idReimburstPR }}" name="judulPekerjaan" value="{{ $prreimburst->judulPekerjaan }}">
+                                                        <label for="judulPekerjaan" class="form-label">Judul Pekerjaan</label>
+                                                        <input type="text" class="form-control" id="judulPekerjaan" name="judulPekerjaan" value="{{ $prreimburst->judulPekerjaan }}">
                                                     </div>
                                                 </form>
                                             </div>
@@ -278,6 +278,7 @@
                                     });
                                 }
                             });
+                            //Agar data dapat tersimpan
                             document.addEventListener('DOMContentLoaded', function() {
                                 const saveButtons = document.querySelectorAll('.saveChangesBtn');
                                 saveButtons.forEach(button => {

@@ -35,9 +35,9 @@
                                             <div class="mb-3">
                                                 <label for="idNonadaPO" class="form-label">Pilih PO Non Ada</label>
                                                 <select class="form-select" id="idNonadaPO" name="idNonadaPO">
-                                                    @foreach($pononadas as $poreimburst)
-                                                    <option value="{{ $poreimburst->idNonadaPO}}">
-                                                        {{ $poreimburst->idNonadaPO }} - {{ $poreimburst->judulPekerjaan }}
+                                                    @foreach($pononadas as $pononada)
+                                                    <option value="{{ $pononada->idNonadaPO}}">
+                                                        {{ $pononada->idNonadaPO }} - {{ $pononada->judulPekerjaan }}
                                                     </option>
                                                     @endforeach
                                                 </select>
@@ -96,7 +96,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Table Sertifkasi -->
+            <!-- Table -->
             <div class="card mb-4">
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <h6>Data SES Non Ada</h6>
@@ -118,8 +118,7 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Judul Pekerjaan</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
-                                        Aksi
-                                    </th>
+                                        Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -131,7 +130,7 @@
                                     <td style="font-size: 14px;">{{ $sesnonada->idNonadaPO}}</td>
                                     <td style="font-size: 14px;">{{ $sesnonada->judulPekerjaan }}</td>
                                     <td style="font-size: 14px;">
-                                        <a href="#" class="btn btn-sm btn-outline-warning editButton" data-bs-toggle="modal" data-bs-target=".modalEdit" data-id="{{ $sesnonada->idNonadaSES}}">Edit</a>
+                                        <a href="#" class="btn btn-sm btn-outline-warning editButton" data-bs-toggle="modal" data-bs-target="#modalEdit{{ $sesnonada->idNonadaSES}}">Edit</a>
                                         <form action="{{ route('sesnonada.destroy', $sesnonada->idNonadaSES) }}" method="POST" class="d-inline deleteForm" data-id="{{ $sesnonada->idNonadaSES}}">
                                             @csrf
                                             @method('DELETE')
@@ -141,24 +140,41 @@
                                 </tr>
                                 @php $index++ @endphp
                                 <!-- Modal edit data -->
-                                <div class="modal fade modalEdit" tabindex="-1" aria-labelledby="modalEditLabel" aria-hidden="true">
+                                <div class="modal fade" id="modalEdit{{ $sesnonada->idNonadaSES}}" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="modalEditLabel">Edit SES Non Ada</h5>
+                                                <h5 class="modal-title">Edit SES Non Ada</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body " style="max-height: 450px; overflow-y: auto;">
-                                                <!-- Form untuk mengedit poreimburst -->
                                                 <form action="{{ route('sesnonada.edit', $sesnonada->idNonadaSES) }}" method="POST" id="editForm">
                                                     @csrf
                                                     @method('PUT')
+                                                    <div class="mb-3">
+                                                        <label for="idNonadaSES" class="form-label">Nomor SES Non Ada</label>
+                                                        <input type="text" class="form-control" id="idNonadaSES" name="idNonadaSES" value="{{ $sesnonada->idNonadaSES}}">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="idNonadaPO" class="form-label">Pilih PO Non Ada</label>
+                                                        <select class="form-select" id="idNonadaPO" name="idNonadaPO">
+                                                            @foreach($pononadas as $pononada)
+                                                            <option value="{{ $pononada->idNonadaPO}}" {{ $pononada->idNonadaPR == $sesnonada->idNonadaPR ? 'selected' : '' }}>
+                                                                {{ $pononada->idNonadaPO }} - {{ $pononada->judulPekerjaan }}
+                                                            </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="judulPekerjaan" class="form-label">Judul Pekerjaan</label>
+                                                        <input type="text" class="form-control" id="judulPekerjaan" name="judulPekerjaan" value="{{ $sesnonada->idNonadaSES}}">
+                                                    </div>
                                                     <!-- Tambahkan input lainnya sesuai kebutuhan -->
                                                 </form>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                                <button type="button" class="btn btn-primary" id="saveChangesBtn">Simpan Perubahan</button>
+                                                <button type="button" class="btn btn-primary saveChangesBtn">Simpan Perubahan</button>
                                             </div>
                                         </div>
                                     </div>

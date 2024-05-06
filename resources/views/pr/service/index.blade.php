@@ -140,12 +140,12 @@
                                                     @csrf
                                                     @method('PUT')
                                                     <div class="mb-3">
-                                                        <label for="idServicePR{{ $prservice->idServicePR }}" class="form-label">Nomor Service PR</label>
-                                                        <input type="number" class="form-control" id="idServicePR{{ $prservice->idServicePR }}" name="idServicePR" value="{{ $prservice->idServicePR }}">
+                                                        <label for="idServicePR" class="form-label">Nomor Service PR</label>
+                                                        <input type="number" class="form-control" id="idServicePR" name="idServicePR" value="{{ $prservice->idServicePR }}">
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="judulPekerjaan{{ $prservice->idServicePR }}" class="form-label">Judul Pekerjaan</label>
-                                                        <input type="text" class="form-control" id="judulPekerjaan{{ $prservice->idServicePR }}" name="judulPekerjaan" value="{{ $prservice->judulPekerjaan }}">
+                                                        <label for="judulPekerjaan" class="form-label">Judul Pekerjaan</label>
+                                                        <input type="text" class="form-control" id="judulPekerjaan" name="judulPekerjaan" value="{{ $prservice->judulPekerjaan }}">
                                                     </div>
                                                 </form>
                                             </div>

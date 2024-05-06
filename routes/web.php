@@ -45,7 +45,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::prefix('magang')->group(function () {
-        // Menampilkan dan memfilter data sertifikasi
+        // Menampilkan dan memfilter data magang
         Route::get('/', [MagangController::class, 'index'])->name('magang');
         Route::get('/filterByDate', [MagangController::class, 'filterByDate'])->name('magang.filterByDate');
         Route::get('/filterData', [MagangController::class, 'filterData'])->name('magang.filterData');
@@ -55,7 +55,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/download-pdf', [MagangController::class, 'downloadPDF'])->name('magang.download-pdf');
         // Upload file Excel untuk inputan data
         Route::post('/uploadExcel', [MagangController::class, 'uploadExcel'])->name('magang.uploadExcel');
-        // CRUD data sertifikasi
+        // CRUD data Magang
         Route::post('/store', [MagangController::class, 'store'])->name('magang.store');
         Route::put('/{id}/edit', [MagangController::class, 'editMagang'])->name('magang.edit');
         Route::delete('/{id}', [MagangController::class, 'deleteMagang'])->name('magang.destroy');
@@ -95,7 +95,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/uploadExcel', [SpdController::class, 'uploadExcel'])->name('spd.uploadExcel');
         // CRUD data spd
         Route::post('/store', [SpdController::class, 'store'])->name('spd.store');
-        Route::put('/{id}/edit', [SpdController::class, 'editMagang'])->name('magang.edit');
+        Route::put('/{id}/edit', [SpdController::class, 'editSpd'])->name('spd.edit');
         Route::delete('/{id}', [SpdController::class, 'deleteSpd'])->name('spd.destroy');
     });
 
@@ -135,8 +135,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/pononada', [PreOrderController::class, 'indexNonAda'])->name('pononada');
 
         Route::get('/filterData', [PreOrderController::class, 'filterData'])->name('poreimburst.filterData');
-        Route::get('/filterData-pononada', [PreOrderController::class, 'filterData'])->name('pononada.filterData');
-        Route::get('/filterData-poservice', [PreOrderController::class, 'filterData'])->name('poservice.filterData');
+        Route::get('/filterDataNonada', [PreOrderController::class, 'filterDataNonada'])->name('pononada.filterData');
+        Route::get('/filterDataService', [PreOrderController::class, 'filterDataService'])->name('poservice.filterData');
 
         Route::get('/download-pdf', [PreOrderController::class, 'downloadPDF'])->name('poreimburst.download-pdf');
         Route::get('/download-pdf-pononada', [PreOrderController::class, 'downloadPDF'])->name('pononada.download-pdf');
@@ -154,9 +154,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/store-pononada', [PreOrderController::class, 'storePoNonAda'])->name('pononada.store');
         Route::post('/store-poservice', [PreOrderController::class, 'storePoService'])->name('poservice.store');
 
-        Route::put('/{id}/edit', [PreOrderController::class, 'editPrreimburst'])->name('poreimburst.edit');
-        Route::put('/pononada/{id}/edit', [PreOrderController::class, 'editPrreimburst'])->name('pononada.edit');
-        Route::put('/poservice/{id}/edit', [PreOrderController::class, 'editPrreimburst'])->name('poservice.edit');
+        Route::put('/{id}/edit', [PreOrderController::class, 'editPoReimburst'])->name('poreimburst.edit');
+        Route::put('/pononada/{id}/edit', [PreOrderController::class, 'editPoNonada'])->name('pononada.edit');
+        Route::put('/poservice/{id}/edit', [PreOrderController::class, 'editPoService'])->name('poservice.edit');
 
         Route::delete('/poreimburst/{id}', [PreOrderController::class, 'deletePoreimburst'])->name('poreimburst.destroy');
         Route::delete('/pononada/{id}', [PreOrderController::class, 'deletePoNonada'])->name('pononada.destroy');
@@ -170,6 +170,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/sesnonada', [ServiceEntryController::class, 'indexNonada'])->name('sesnonada');
 
         Route::get('/filterData', [ServiceEntryController::class, 'filterData'])->name('sesreimburst.filterData');
+        Route::get('/filterData-sesnonada', [ServiceEntryController::class, 'filterData'])->name('sesnonada.filterData');
+        Route::get('/filterData-sesservice', [ServiceEntryController::class, 'filterData'])->name('sesservice.filterData');
+
         Route::get('/download-pdf', [ServiceEntryController::class, 'downloadPDF'])->name('sesreimburst.download-pdf');
 
         Route::get('/download-excel', [ServiceEntryController::class, 'downloadExcel'])->name('sesreimburst.download-excel');

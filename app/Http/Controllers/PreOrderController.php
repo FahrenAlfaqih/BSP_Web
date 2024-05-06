@@ -91,6 +91,52 @@ class PreOrderController extends Controller
         }
     }
 
+    public function editPoReimburst(Request $request, $id)
+    {
+        $sesreimburst = POReimburst::findOrFail($id);
+        try {
+            $validatedData = $request->validate([
+                'idReimburstPO' => 'required',
+                'idReimburstPR' => 'required',
+                'judulPekerjaan' => 'required',
+            ]);
+            $sesreimburst->update($validatedData);
+            return redirect()->back()->with('success_update', 'Data berhasil diperbarui!');
+        } catch (Throwable $e) {
+            return redirect()->back()->with('error_update', 'Terjadi kesalahan saat mengupdate data: ' . $e->getMessage());
+        }
+    }
+    public function editPoService(Request $request, $id)
+    {
+        $sesservice = POService::findOrFail($id);
+        try {
+            $validatedData = $request->validate([
+                'idServicePO' => 'required',
+                'idServicePR' => 'required',
+                'judulPekerjaan' => 'required',
+            ]);
+            $sesservice->update($validatedData);
+            return redirect()->back()->with('success_update', 'Data berhasil diperbarui!');
+        } catch (Throwable $e) {
+            return redirect()->back()->with('error_update', 'Terjadi kesalahan saat mengupdate data: ' . $e->getMessage());
+        }
+    }
+    public function editPoNonada(Request $request, $id)
+    {
+        $sesnonada = PONonada::findOrFail($id);
+        try {
+            $validatedData = $request->validate([
+                'idNonadaPO' => 'required',
+                'idNonadaPR' => 'required',
+                'judulPekerjaan' => 'required',
+            ]);
+            $sesnonada->update($validatedData);
+            return redirect()->back()->with('success_update', 'Data berhasil diperbarui!');
+        } catch (Throwable $e) {
+            return redirect()->back()->with('error_update', 'Terjadi kesalahan saat mengupdate data: ' . $e->getMessage());
+        }
+    }
+
     public function deletePoreimburst($id)
     {
         $poreimburst = POReimburst::findOrFail($id);
@@ -121,5 +167,39 @@ class PreOrderController extends Controller
     public function downloadExcelPoNonada()
     {
         return Excel::download(new PoNonExport, 'Data PO Non ada.xlsx');
+    }
+
+    //function untuk memfilter data berdasarkan nama program, nama departemen dan nama pekerja
+    public function filterData(Request $request)
+    {
+        $searchQuery = $request->input('search');
+        $prReimbursts = PRReimburst::paginate(10); // Mengambil semua PRReimbursts
+        $poreimbursts = POReimburst::where('idReimburstPO', 'like', '%' . $searchQuery . '%')
+            ->orWhere('idReimburstPR', 'like', '%' . $searchQuery . '%')
+            ->orWhere('judulPekerjaan', 'like', '%' . $searchQuery . '%')
+            ->paginate(10);
+            return view('po.reimburst.index', compact('poreimbursts','prReimbursts'));
+        }
+
+    public function filterDataService(Request $request)
+    {
+        $searchQuery = $request->input('search');
+        $prservices = PRService::paginate(10); // Mengambil semua PRReimbursts
+        $poservices = POService::where('idServicePO', 'like', '%' . $searchQuery . '%')
+            ->orWhere('idServicePR', 'like', '%' . $searchQuery . '%')
+            ->orWhere('judulPekerjaan', 'like', '%' . $searchQuery . '%')
+            ->paginate(10);
+            return view('po.service.index', compact('poservices','prservices'));
+    }
+
+    public function filterDataNonada(Request $request)
+    {
+        $searchQuery = $request->input('search');
+        $prnonadas = PRNonada::paginate(10); // Mengambil semua PRReimbursts
+        $pononadas = PONonada::where('idNonadaPO', 'like', '%' . $searchQuery . '%')
+            ->orWhere('idNonadaPR', 'like', '%' . $searchQuery . '%')
+            ->orWhere('judulPekerjaan', 'like', '%' . $searchQuery . '%')
+            ->paginate(10);
+            return view('po.nonada.index', compact('prnonadas','pononadas'));
     }
 }

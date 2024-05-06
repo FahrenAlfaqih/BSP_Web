@@ -16,18 +16,17 @@
                             <i class="fas fa-plus"></i> Tambah Sertifikasi
                         </button>
                         <!-- Modal input data -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Tambah Sertifikasi</h5>
+                                        <h5 class="modal-title">Tambah Sertifikasi</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body" style="max-height: 450px; overflow-y: auto;">
-                                        <!-- Isi formulir di sini -->
                                         <form action="{{ route('sertifikasi.store') }}" method="POST">
                                             @csrf
-                                            <!-- Isi formulir dengan input yang sesuai -->
+                                            <!-- Form formulir -->
                                             <div class="mb-3">
                                                 <label for="noPek" class="form-label">Nomor Pekerja</label>
                                                 <input type="number" class="form-control" id="noPek" name="noPek">
@@ -80,14 +79,13 @@
                                                 <label for="namaPenyelenggara" class="form-label">Nama Penyelenggara</label>
                                                 <input type="text" class="form-control" id="namaPenyelenggara" name="namaPenyelenggara">
                                             </div>
-                                            <!-- Tambahkan input lain sesuai kebutuhan -->
                                             <button type="submit" class="btn btn-primary">Simpan</button>
                                         </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- upload file excel -->
+                        <!-- Upload file excel -->
                         <form id="uploadForm" action="{{ route('sertifikasi.upload-excel') }}" method="POST" enctype="multipart/form-data" class="btn btn-light btn-2x me-2">
                             @csrf
                             <i class="fas fa-file-excel fa-sm"></i>
@@ -98,12 +96,12 @@
                         <a href="#" class="btn btn-light btn-2x me-2" data-bs-toggle="modal" data-bs-target="#modalInformasi">
                             <i class="fas fa-info-circle fa-2x"></i>
                         </a>
-                        <!-- Modal Informasi-->
-                        <div class="modal fade" id="modalInformasi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <!-- Modal informasi-->
+                        <div class="modal fade" id="modalInformasi" tabindex="-1" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-xl">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Contoh format Excel yang diterima</h5>
+                                        <h5 class="modal-title">Contoh format Excel yang diterima</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body" style="max-height: 450px; overflow-y: auto;">
@@ -119,6 +117,7 @@
                         <a href="{{ route('sertifikasi') }}" class="btn btn-light btn-2x me-2">
                             <i class="fas fa-sync fa-sm"></i> Reload
                         </a>
+                        <!-- Filter data -->
                         <form action="{{ route('sertifikasi.filterByDate') }}" method="GET" class="ms-3" id="filterForm">
                             <div class="d-flex">
                                 <!-- Filter data berdasarkan tahun sertifikasi -->
@@ -144,7 +143,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Table Sertifkasi -->
+            <!-- Tabel Sertifikasi -->
             <div class="card mb-4">
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <h6>Data Sertifikasi</h6>
@@ -204,7 +203,7 @@
                                     <td style="font-size: 14px;">{{ $sertifikasi->tempat }}</td>
                                     <td style="font-size: 14px;">{{ $sertifikasi->namaPenyelenggara }}</td>
                                     <td style="font-size: 14px;">
-                                        <a href="#" class="btn btn-sm btn-outline-warning editButton" data-bs-toggle="modal" data-bs-target="#modalEdit{{ $sertifikasi->id }}" data-id="{{ $sertifikasi->id }}">Edit</a>
+                                        <a href="#" class="btn btn-sm btn-outline-warning editButton" data-bs-toggle="modal" data-bs-target="#modalEdit{{ $sertifikasi->id }}" >Edit</a>
                                         <form action="{{ route('sertifikasi.destroy', $sertifikasi->id) }}" method="POST" class="d-inline deleteForm" data-id="{{ $sertifikasi->id }}">
                                             @csrf
                                             @method('DELETE')
@@ -214,11 +213,11 @@
                                 </tr>
                                 @php $index++ @endphp
                                 <!-- Modal edit data -->
-                                <div class="modal fade" id="modalEdit{{ $sertifikasi->id }}" tabindex="-1" aria-labelledby="modalEditLabel{{ $sertifikasi->id }}" aria-hidden="true">
+                                <div class="modal fade" id="modalEdit{{ $sertifikasi->id }}" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="modalEditLabel{{ $sertifikasi->id }}">Edit Sertifikasi</h5>
+                                                <h5 class="modal-title">Edit Sertifikasi</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body " style="max-height: 450px; overflow-y: auto;">
@@ -433,19 +432,6 @@
                                         form.submit();
                                     });
                                 });
-                                // Hitung selisih hari saat tanggalPelaksanaanMulai atau tanggalPelaksanaanSelesai diubah
-                                const tanggalMulai = document.getElementById('tanggalPelaksanaanMulai');
-                                const tanggalSelesai = document.getElementById('tanggalPelaksanaanSelesai');
-                                const daysInput = document.getElementById('days');
-                                const hitungSelisihHari = () => {
-                                    if (tanggalMulai.value && tanggalSelesai.value) {
-                                        const diffTime = Math.abs(new Date(tanggalSelesai.value) - new Date(tanggalMulai.value));
-                                        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                                        daysInput.value = diffDays;
-                                    }
-                                };
-                                tanggalMulai.addEventListener('change', hitungSelisihHari);
-                                tanggalSelesai.addEventListener('change', hitungSelisihHari);
                             });
                             //notif untuk berhasil atau error saat update data
                             document.addEventListener('DOMContentLoaded', function() {
