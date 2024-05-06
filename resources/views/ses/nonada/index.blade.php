@@ -101,7 +101,7 @@
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <h6>Data SES Non Ada</h6>
                 </div>
-                <form id="filterNamaProgramForm" class="mx-3" action="{{ route('poreimburst.filterData') }}" method="GET">
+                <form id="filterNamaProgramForm" class="mx-3" action="{{ route('sesnonada.filterData') }}" method="GET">
                     <input type="text" name="search" id="search" class="form-control" placeholder="Cari Berdasarkan Nomor SES, Nomor PO atau Judul Pekerjaan">
                 </form>
                 <div class="card-body px-3 pt-0 pb-2">

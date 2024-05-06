@@ -162,4 +162,38 @@ class ServiceEntryController extends Controller
     {
         return Excel::download(new SesNonExport, 'Data SES NonAda.xlsx');
     }
+
+        //function untuk memfilter data berdasarkan nama program, nama departemen dan nama pekerja
+        public function filterData(Request $request)
+        {
+            $searchQuery = $request->input('search');
+            $poreimbursts = POReimburst::paginate(10); // Mengambil semua PRReimbursts
+            $sesreimbursts = SESReimburst::where('idSReimburstSES', 'like', '%' . $searchQuery . '%')
+                ->orWhere('idReimburstPO', 'like', '%' . $searchQuery . '%')
+                ->orWhere('judulPekerjaan', 'like', '%' . $searchQuery . '%')
+                ->paginate(10);
+                return view('ses.reimburst.index', compact('sesreimbursts','poreimbursts'));
+            }
+    
+        public function filterDataService(Request $request)
+        {
+            $searchQuery = $request->input('search');
+            $poservices = POService::paginate(10); // Mengambil semua PRReimbursts
+            $sesservices = SESService::where('idServiceSES', 'like', '%' . $searchQuery . '%')
+                ->orWhere('idServicePO', 'like', '%' . $searchQuery . '%')
+                ->orWhere('judulPekerjaan', 'like', '%' . $searchQuery . '%')
+                ->paginate(10);
+                return view('ses.service.index', compact('sesservices','poservices'));
+        }
+    
+        public function filterDataNonada(Request $request)
+        {
+            $searchQuery = $request->input('search');
+            $pononadas = PONonada::paginate(10); // Mengambil semua PRReimbursts
+            $sesnonadas = SESNonada::where('idNonadaSES', 'like', '%' . $searchQuery . '%')
+                ->orWhere('idNonadaPO', 'like', '%' . $searchQuery . '%')
+                ->orWhere('judulPekerjaan', 'like', '%' . $searchQuery . '%')
+                ->paginate(10);
+                return view('ses.nonada.index', compact('sesnonadas','pononadas'));
+        }
 }

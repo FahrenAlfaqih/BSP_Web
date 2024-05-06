@@ -170,8 +170,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/sesnonada', [ServiceEntryController::class, 'indexNonada'])->name('sesnonada');
 
         Route::get('/filterData', [ServiceEntryController::class, 'filterData'])->name('sesreimburst.filterData');
-        Route::get('/filterData-sesnonada', [ServiceEntryController::class, 'filterData'])->name('sesnonada.filterData');
-        Route::get('/filterData-sesservice', [ServiceEntryController::class, 'filterData'])->name('sesservice.filterData');
+        Route::get('/filterDataNonada', [ServiceEntryController::class, 'filterDataNonada'])->name('sesnonada.filterData');
+        Route::get('/filterDataService', [ServiceEntryController::class, 'filterDataService'])->name('sesservice.filterData');
 
         Route::get('/download-pdf', [ServiceEntryController::class, 'downloadPDF'])->name('sesreimburst.download-pdf');
 
