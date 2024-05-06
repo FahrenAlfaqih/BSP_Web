@@ -38,7 +38,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- Card 10 Departemen dengan Total Biaya DPD Tertinggi -->
             <div class="col-md-4">
                 <div class="card mb-3" style="width: 100%;">
@@ -69,7 +68,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- Card Dana Tersisa dari 10 Departemen -->
             <div class="col-md-4">
                 <div class="card mb-3" style="width: 100%;">
@@ -91,7 +89,6 @@
                                         <td style="font-size: 14px;">{{ $department->name }}</td>
                                         <td style="font-size: 14px;">{{ 'Rp ' . number_format($department->remaining_funds, 0, ',', '.') }}</td>
                                     </tr>
-
                                     @endforeach
                                 </tbody>
                             </table>
@@ -99,13 +96,9 @@
                     </div>
                 </div>
             </div>
-
-
-
             <div class="card mb-3">
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <div class="d-flex">
-
                         <a href="{{ route('dpd.download-excel', ['search' => request()->input('search'),'dept' => request()->input('dept'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-success btn-2x me-2">
                             <i class="fas fa-file-excel"></i> Cetak Excel
                             <a href="{{ route('dpd.download-pdf', ['search' => request()->input('search'),'dept' => request()->input('dept'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-danger btn-2x me-2">
@@ -116,17 +109,17 @@
                                 <i class="fas fa-plus"></i> Tambah DPD
                             </button>
                             <!-- Modal input data -->
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 60%;">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Tambah DPD</h5>
+                                            <h5 class="modal-title">Tambah DPD</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body" style="max-height: 500px; overflow-y: auto;">
+                                        <!-- Form untuk menambahkan data -->
                                             <form action="{{ route('dpd.store') }}" method="POST" class="row g-3">
                                                 @csrf
-                                                <!-- Isi formulir dengan input yang sesuai -->
                                                 <div class="col-md-6">
                                                     <label for="nama" class="form-label">Nama</label>
                                                     <input type="text" class="form-control" id="nama" name="nama">
@@ -138,8 +131,7 @@
                                                 <div class="col-md-6">
                                                     <label for="dept" class="form-label">Departemen</label>
                                                     <select class="form-select" id="dept" name="dept">
-                                                        <!-- Tambahkan opsi nilai departemen di sini -->
-                                                        <option value="">Pilih Departemen</option> <!-- Opsi default kosong -->
+                                                        <option value="">Pilih Departemen</option>
                                                         <option value="GM">GM</option>
                                                         <option value="OPS">OPS</option>
                                                         <option value="OS">OS</option>
@@ -152,7 +144,6 @@
                                                         <option value="IA">IA</option>
                                                         <option value="FINEC & ICT">FINEC & ICT</option>
                                                         <option value="HCM">HCM</option>
-                                                        <!-- Tambahkan opsi nilai departemen di sini -->
                                                     </select>
                                                 </div>
                                                 <div class="col-md-6">
@@ -191,7 +182,6 @@
                                                     <label for="keterangan" class="form-label">Keterangan</label>
                                                     <input type="text" class="form-control" id="keterangan" name="keterangan">
                                                 </div>
-                                                <!-- Tambahkan input lain sesuai kebutuhan -->
                                                 <div class="col-12">
                                                     <button type="submit" class="btn btn-primary">Simpan</button>
                                                 </div>
@@ -200,7 +190,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- upload file excel -->
+                            <!-- Upload file excel -->
                             <form id="uploadForm" action="{{ route('dpd.uploadExcel') }}" method="POST" enctype="multipart/form-data" class="btn btn-light btn-2x me-2">
                                 @csrf
                                 <i class="fas fa-file-excel fa-sm"></i>
@@ -211,16 +201,16 @@
                             <a href="#" class="btn btn-light btn-2x me-2" data-bs-toggle="modal" data-bs-target="#modalInformasi">
                                 <i class="fas fa-info-circle fa-2x"></i>
                             </a>
-                            <!-- Modal Informasi-->
-                            <div class="modal fade" id="modalInformasi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <!-- Modal informasi-->
+                            <div class="modal fade" id="modalInformasi" tabindex="-1" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-xl">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Contoh format Excel yang diterima</h5>
+                                            <h5 class="modal-title">Contoh format Excel yang diterima</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body" style="max-height: 450px; overflow-y: auto;">
-                                            <img src="../assets/img/contohExcel.png" class="img-fluid" alt="Contoh Isi Excel">
+                                            <img src="../assets/img/ContohExcel/DPD.png" class="img-fluid" alt="Contoh Isi Excel">
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
@@ -228,11 +218,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- Reload Data Terbaru-->
+                            <!-- Reload data terbaru-->
                             <a href="{{ route('dpd') }}" class="btn btn-light btn-2x me-2">
                                 <i class="fas fa-sync fa-sm"></i> Reload
                             </a>
-                            <!-- Filter data berdasarkan tahun, bulan, dan hari -->
+                            <!-- Filter data -->
                             <form action="{{ route('dpd.filterByDate') }}" method="GET" class="ms-3" id="filterForm">
                                 <div class="d-flex">
                                     <!-- Filter data berdasarkan tahun -->
@@ -265,7 +255,7 @@
                                     </div>
                                 </div>
                             </form>
-
+                            <!-- Filter data berdasarkan departemen -->
                             <form action="{{ route('dpd.filterByDept') }}" method="GET" class="ms-3" style="margin-bottom: 10px;">
                                 <select name="dept" onchange="this.form.submit()" class="form-select">
                                     <option value=""> Pilih Departement</option>
@@ -286,10 +276,10 @@
                     </div>
                 </div>
             </div>
+            <!-- Tabel DPD -->
             <div class="card mb-4">
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <h6>Data Dana Perjalanan Dinas</h6>
-
                 </div>
                 <form id="filterNamaProgramForm" class="mx-3" action="{{ route('dpd.filterData') }}" method="GET">
                     <input type="text" name="search" id="search" class="form-control" placeholder="Cari Berdasarkan Nama, Nomor SPD, atau Departemen">
@@ -326,8 +316,7 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Keterangan</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
-                                        Aksi
-                                    </th>
+                                        Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -366,7 +355,7 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body " style="max-height: 450px; overflow-y: auto;">
-                                                <!-- Form untuk mengedit dpd -->
+                                                <!-- Form untuk mengedit data -->
                                                 <form action="{{ route('dpd.edit', $dpd->id) }}" method="POST" id="editForm">
                                                     @csrf
                                                     @method('PUT')
@@ -381,7 +370,6 @@
                                                     <div class="col-md-6">
                                                         <label for="dept" class="form-label">Departemen</label>
                                                         <select class="form-select" id="dept" name="dept">
-                                                            <!-- Tambahkan opsi nilai departemen di sini -->
                                                             <option>{{ $dpd->dept }}</option>
                                                             <option value="GM">GM</option>
                                                             <option value="OPS">OPS</option>
@@ -395,7 +383,6 @@
                                                             <option value="IA">IA</option>
                                                             <option value="FINEC & ICT">FINEC & ICT</option>
                                                             <option value="HCM">HCM</option>
-                                                            <!-- Tambahkan opsi nilai departemen di sini -->
                                                         </select>
                                                     </div>
                                                     <div class="col-md-6">
@@ -434,7 +421,6 @@
                                                         <label for="keterangan" class="form-label">Keterangan</label>
                                                         <input type="text" class="form-control" id="keterangan" name="keterangan" value="{{ $dpd->keterangan }}">
                                                     </div>
-                                                    <!-- Tambahkan input lainnya sesuai kebutuhan -->
                                                 </form>
                                             </div>
                                             <div class="modal-footer">
@@ -490,12 +476,10 @@
                             document.addEventListener('DOMContentLoaded', function() {
                                 const deptSelect = document.getElementById('dept');
                                 const wbsInput = document.getElementById('bsno');
-
                                 // Tambahkan event listener untuk memantau perubahan pada select departemen
                                 deptSelect.addEventListener('change', function() {
                                     const selectedDept = deptSelect.value;
                                     let wbsValue = '';
-
                                     switch (selectedDept) {
                                         case 'EPT':
                                         case 'EKS':
@@ -519,7 +503,6 @@
                                             wbsValue = ''; // Jika tidak ada departemen yang cocok
                                             break;
                                     }
-
                                     // Set nilai WBS ke dalam input WBS
                                     wbsInput.value = wbsValue;
                                 });
@@ -582,7 +565,7 @@
                                     }
                                 });
                             });
-                            //untuk menampilkan notif jika file excel belum diinputkan tetapi sudah pencet unggah
+                            //Menampilkan notif jika file excel belum diinputkan tetapi sudah pencet unggah
                             document.addEventListener('DOMContentLoaded', function() {
                                 const uploadForm = document.querySelector('#uploadForm');
                                 const submitButton = document.querySelector('#submitBtn');
@@ -598,7 +581,7 @@
                                     }
                                 });
                             });
-                            //notif untuk berhasil atau error saat input data
+                            //Notif untuk berhasil atau error saat input data
                             document.addEventListener('DOMContentLoaded', function() {
                                 const successMessage = "{{ session('success_add') }}";
                                 const errorMessage = "{{ session('error_add') }}";
@@ -617,7 +600,7 @@
                                     });
                                 }
                             });
-                            // Agar data dapat tersimpan
+                            //Agar data dapat tersimpan
                             document.addEventListener('DOMContentLoaded', function() {
                                 const saveButtons = document.querySelectorAll('.saveChangesBtn');
                                 saveButtons.forEach(button => {
@@ -627,7 +610,7 @@
                                     });
                                 });
                             });
-                            //notif untuk berhasil atau error saat update data
+                            //Notif untuk berhasil atau error saat update data
                             document.addEventListener('DOMContentLoaded', function() {
                                 const successMessage = "{{ session('success_update') }}";
                                 const errorMessage = "{{ session('error_update') }}";
@@ -646,7 +629,7 @@
                                     });
                                 }
                             });
-                            //notifikasi untuk menampilkan pesan sukses atau eror saat upload file excel
+                            //Notifikasi untuk menampilkan pesan sukses atau eror saat upload file excel
                             document.addEventListener('DOMContentLoaded', function() {
                                 const successMessage = "{{ session('success_message') }}";
                                 const errorMessage = "{{ session('error_message') }}";
@@ -686,8 +669,6 @@
                     </div>
                 </div>
             </div>
-
-
             <div class="row">
                 <!-- Kolom Pertama (6 Departemen) -->
                 <div class="col-md-6">
@@ -709,7 +690,6 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- Kolom Kedua (6 Departemen) -->
                 <div class="col-md-6">
                     <div class="card mb-3" style="width: 100%;">
@@ -731,7 +711,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </main>

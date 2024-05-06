@@ -24,9 +24,9 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body" style="max-height: 450px; overflow-y: auto;">
+                                        <!-- Form untuk menambahkan data -->
                                         <form action="{{ route('sertifikasi.store') }}" method="POST">
                                             @csrf
-                                            <!-- Form formulir -->
                                             <div class="mb-3">
                                                 <label for="noPek" class="form-label">Nomor Pekerja</label>
                                                 <input type="number" class="form-control" id="noPek" name="noPek">
@@ -113,14 +113,14 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Reload Data Terbaru-->
+                        <!-- Reload data terbaru -->
                         <a href="{{ route('sertifikasi') }}" class="btn btn-light btn-2x me-2">
                             <i class="fas fa-sync fa-sm"></i> Reload
                         </a>
                         <!-- Filter data -->
                         <form action="{{ route('sertifikasi.filterByDate') }}" method="GET" class="ms-3" id="filterForm">
                             <div class="d-flex">
-                                <!-- Filter data berdasarkan tahun sertifikasi -->
+                                <!-- Filter data berdasarkan tahun -->
                                 <div class="me-3">
                                     <select name="tahun" id="tahun" onchange="this.form.submit()" class="form-select" style="min-width: 90px;">
                                         <option value="">Tahun</option>
@@ -128,7 +128,7 @@
                                             @endfor
                                     </select>
                                 </div>
-                                <!-- Filter data berdasarkan bulan sertifikasi -->
+                                <!-- Filter data berdasarkan bulan -->
                                 <div>
                                     <select name="bulan" id="bulan" onchange="this.form.submit()" class="form-select" style="min-width: 90px;">
                                         <option value="">Bulan</option>
@@ -140,7 +140,7 @@
                                 </div>
                             </div>
                         </form>
-
+                        <!-- Filter data berdasarkan departemen -->
                         <form action="{{ route('sertifikasi.filterByDept') }}" method="GET" class="ms-3" style="margin-bottom: 10px;">
                             <select name="dept" onchange="this.form.submit()" class="form-select">
                                 <option value=""> Pilih Departement</option>
@@ -243,10 +243,10 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body " style="max-height: 450px; overflow-y: auto;">
+                                                <!-- Form untuk mengedit data -->
                                                 <form action="{{ route('sertifikasi.edit', $sertifikasi->id) }}" method="POST" class="editForm">
                                                     @csrf
                                                     @method('PUT')
-                                                    <!-- Isi form sesuai kebutuhan -->
                                                     <div class="mb-3">
                                                         <label for="noPek" class="form-label">Nomor Pekerja</label>
                                                         <input type="number" class="form-control" id="noPek" name="noPek" value="{{ $sertifikasi->noPek }}">
@@ -410,7 +410,7 @@
                                     }
                                 });
                             });
-                            //unutk menampilkan notif jika file excel belum diinputkan tetapi sudah pencet unggah
+                            //Menampilkan notif jika file excel belum diinputkan tetapi sudah pencet unggah
                             document.addEventListener('DOMContentLoaded', function() {
                                 const uploadForm = document.querySelector('#uploadForm');
                                 const submitButton = document.querySelector('#submitBtn');
@@ -426,7 +426,7 @@
                                     }
                                 });
                             });
-                            //notif untuk berhasil atau error saat input data
+                            //Notif untuk berhasil atau error saat input data
                             document.addEventListener('DOMContentLoaded', function() {
                                 const successMessage = "{{ session('success_add') }}";
                                 const errorMessage = "{{ session('error_add') }}";
@@ -445,7 +445,7 @@
                                     });
                                 }
                             });
-                            // Agar data dapat tersimpan
+                            //Agar data dapat tersimpan
                             document.addEventListener('DOMContentLoaded', function() {
                                 const saveButtons = document.querySelectorAll('.saveChangesBtn');
                                 saveButtons.forEach(button => {
@@ -455,7 +455,7 @@
                                     });
                                 });
                             });
-                            //notif untuk berhasil atau error saat update data
+                            //Notif untuk berhasil atau error saat update data
                             document.addEventListener('DOMContentLoaded', function() {
                                 const successMessage = "{{ session('success_update') }}";
                                 const errorMessage = "{{ session('error_update') }}";
@@ -474,7 +474,7 @@
                                     });
                                 }
                             });
-                            //notifikasi untuk menampilkan pesan sukses atau eror saat upload file excel
+                            //Notifikasi untuk menampilkan pesan sukses atau eror saat upload file excel
                             document.addEventListener('DOMContentLoaded', function() {
                                 const successMessage = "{{ session('success_message') }}";
                                 const errorMessage = "{{ session('error_message') }}";

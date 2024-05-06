@@ -10,42 +10,39 @@
                     <div class="d-flex">
                         <div class="d-flex">
                             <a href="{{ route('spd.download-excel', [
-        'search' => request()->input('search'),
-        'tahun' => request()->input('tahun'),
-        'bulan' => request()->input('bulan'),
-        'dept' => request()->input('dept')
-    ]) }}" class="btn btn-success btn-2x me-2">
+                                'search' => request()->input('search'),
+                                'tahun' => request()->input('tahun'),
+                                'bulan' => request()->input('bulan'),
+                                'dept' => request()->input('dept')
+                                ]) }}" class="btn btn-success btn-2x me-2">
                                 <i class="fas fa-file-excel"></i> Cetak Excel
                             </a>
-
                             <button type="button" class="btn btn-primary me-2" onclick="handleExportToExcel()">Cetak yang dipilih</button>
-
                             <a href="{{ route('spd.download-pdf', [
-        'search' => request()->input('search'),
-        'dept' => request()->input('dept'),
-        'tahun' => request()->input('tahun'),
-        'bulan' => request()->input('bulan')
-    ]) }}" class="btn btn-danger btn-2x me-2">
+                                'search' => request()->input('search'),
+                                'dept' => request()->input('dept'),
+                                'tahun' => request()->input('tahun'),
+                                'bulan' => request()->input('bulan')
+                                ]) }}" class="btn btn-danger btn-2x me-2">
                                 <i class="fas fa-file-pdf"></i> Cetak PDF
                             </a>
                         </div>
-
                         <!-- Button trigger modal input -->
                         <button type="button" class="btn btn-dark btn-2x me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <i class="fas fa-plus"></i> Tambah SPD
                         </button>
-                        <!-- Modal input data SPD -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <!-- Modal input data -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 60%;">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Tambah SPD</h5>
+                                        <h5 class="modal-title">Tambah SPD</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body" style="max-height: 500px; overflow-y: auto;">
+                                        <!-- Form untuk menambahkan data -->
                                         <form action="{{ route('spd.store') }}" method="POST" class="row g-3">
                                             @csrf
-                                            <!-- Isi formulir dengan input yang sesuai -->
                                             <div class="col-md-6">
                                                 <label for="nomor_spd" class="form-label">Nomor SPD</label>
                                                 <input type="text" class="form-control" id="nomor_spd" name="nomor_spd">
@@ -57,7 +54,7 @@
                                             <div class="col-md-6">
                                                 <label for="dept" class="form-label">Departemen</label>
                                                 <select class="form-select" id="dept" name="dept">
-                                                    <option value="">Pilih Departemen</option> <!-- Opsi default kosong -->
+                                                    <option value="">Pilih Departemen</option>
                                                     <option value="GM">GM</option>
                                                     <option value="PRODUCTION OPERATION">PRODUCTION OPERATION</option>
                                                     <option value="OPERATION SUPPORT">OPERATION SUPPORT</option>
@@ -124,7 +121,6 @@
                                                 <label for="submit_tgl" class="form-label">Submit Tanggal</label>
                                                 <input type="date" class="form-control" id="submit_tgl" name="submit_tgl">
                                             </div>
-                                            <!-- Tambahkan input lain sesuai kebutuhan -->
                                             <div class="col-12">
                                                 <button type="submit" class="btn btn-primary">Simpan</button>
                                             </div>
@@ -133,7 +129,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- upload file excel -->
+                        <!-- Upload file excel -->
                         <form id="uploadForm" action="{{ route('spd.uploadExcel') }}" method="POST" enctype="multipart/form-data" class="btn btn-light btn-2x me-2">
                             @csrf
                             <i class="fas fa-file-excel  fa-sm"></i>
@@ -144,12 +140,12 @@
                         <a href="#" class="btn btn-light btn-2x me-2" data-bs-toggle="modal" data-bs-target="#modalInformasi">
                             <i class="fas fa-info-circle fa-2x"></i>
                         </a>
-                        <!-- Modal Informasi-->
-                        <div class="modal fade" id="modalInformasi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <!-- Modal informasi-->
+                        <div class="modal fade" id="modalInformasi" tabindex="-1" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-xl">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Contoh format Excel yang diterima</h5>
+                                        <h5 class="modal-title">Contoh format Excel yang diterima</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body" style="max-height: 450px; overflow-y: auto;">
@@ -161,14 +157,14 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Reload Data Terbaru-->
+                        <!-- Reload data terbaru-->
                         <a href="{{ route('spd') }}" class="btn btn-light btn-2x me-2">
                             <i class="fas fa-sync fa-sm"></i> Reload
                         </a>
-                        <!-- Filter data berdasarkan tahun magang-->
+                        <!-- Filter data -->
                         <form action="{{ route('spd.filterByDate') }}" method="GET" class="ms-3" id="filterForm">
                             <div class="d-flex">
-                                <!-- Filter data berdasarkan tahun sertifikasi -->
+                                <!-- Filter data berdasarkan tahun -->
                                 <div class="me-3">
                                     <select name="tahun" id="tahun" onchange="this.form.submit()" class="form-select" style="min-width: 90px;">
                                         <option value="">Tahun</option>
@@ -176,7 +172,7 @@
                                             @endfor
                                     </select>
                                 </div>
-                                <!-- Filter data berdasarkan bulan sertifikasi -->
+                                <!-- Filter data berdasarkan bulan -->
                                 <div>
                                     <select name="bulan" id="bulan" onchange="this.form.submit()" class="form-select" style="min-width: 90px;">
                                         <option value="">Bulan</option>
@@ -188,7 +184,7 @@
                                 </div>
                             </div>
                         </form>
-
+                        <!-- Filter data berdasarkan departemen -->
                         <form action="{{ route('spd.filterByDept') }}" method="GET" class="ms-3" style="margin-bottom: 10px;">
                             <select name="dept" onchange="this.form.submit()" class="form-select">
                                 <option value=""> Pilih Departement</option>
@@ -209,11 +205,10 @@
                     </div>
                 </div>
             </div>
-            <!-- Table -->
+            <!-- Tabel SPD-->
             <div class="card mb-4">
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <h6>Data Surat Perjalanan Dinas</h6>
-
                 </div>
                 <form id="filterNamaProgramForm" class="mx-3" action="{{ route('spd.filterData') }}" method="GET">
                     <input type="text" name="search" id="search" class="form-control" placeholder="Cari Berdasarkan Nama, Nomor SPD, atau Departemen">
@@ -307,10 +302,10 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body " style="max-height: 450px; overflow-y: auto;">
+                                                <!-- Form untuk mengedit data -->
                                                 <form action="{{ route('spd.edit', $spd->id) }}" method="POST" class="editForm">
                                                     @csrf
                                                     @method('PUT')
-                                                    <!-- Isi form sesuai kebutuhan -->
                                                     <div class="col-md-6">
                                                         <label for="nomor_spd" class="form-label">Nomor SPD</label>
                                                         <input type="text" class="form-control" id="nomor_spd" name="nomor_spd" value="{{ $spd->id }}">
@@ -442,7 +437,6 @@
 
                         <script>
                             let selectedItems = [];
-
                             // Handle checkbox change event
                             function handleCheckboxChange(event) {
                                 const spdId = event.target.value;
@@ -457,7 +451,6 @@
                                     }
                                 }
                             }
-
                             // Handle export button click event
                             function handleExportToExcel() {
                                 // Send selected item IDs to server for export
@@ -489,12 +482,10 @@
                             document.addEventListener('DOMContentLoaded', function() {
                                 const deptSelect = document.getElementById('dept');
                                 const wbsInput = document.getElementById('wbs');
-
                                 // Tambahkan event listener untuk memantau perubahan pada select departemen
                                 deptSelect.addEventListener('change', function() {
                                     const selectedDept = deptSelect.value;
                                     let wbsValue = '';
-
                                     switch (selectedDept) {
                                         case 'EXPLOITATION':
                                         case 'EXPLORATION':
@@ -518,7 +509,6 @@
                                             wbsValue = ''; // Jika tidak ada departemen yang cocok
                                             break;
                                     }
-
                                     // Set nilai WBS ke dalam input WBS
                                     wbsInput.value = wbsValue;
                                 });
@@ -557,7 +547,7 @@
                                     });
                                 });
                             });
-                            //unutk menampilkan notif jika file excel belum diinputkan tetapi sudah pencet unggah
+                            //Menampilkan notif jika file excel belum diinputkan tetapi sudah pencet unggah
                             document.addEventListener('DOMContentLoaded', function() {
                                 const uploadForm = document.querySelector('#uploadForm');
                                 uploadForm.addEventListener('submit', function(event) {
@@ -572,7 +562,7 @@
                                     }
                                 });
                             });
-                            //notif untuk berhasil atau error saat input data
+                            //Notif untuk berhasil atau error saat input data
                             document.addEventListener('DOMContentLoaded', function() {
                                 const successMessage = "{{ session('success_add') }}";
                                 const errorMessage = "{{ session('error_add') }}";
@@ -591,7 +581,7 @@
                                     });
                                 }
                             });
-                            // Agar data dapat tersimpan
+                            //Agar data dapat tersimpan
                             document.addEventListener('DOMContentLoaded', function() {
                                 const saveButtons = document.querySelectorAll('.saveChangesBtn');
                                 saveButtons.forEach(button => {
@@ -601,7 +591,7 @@
                                     });
                                 });
                             });
-                            //notif untuk berhasil atau error saat update data
+                            //Notif untuk berhasil atau error saat update data
                             document.addEventListener('DOMContentLoaded', function() {
                                 const successMessage = "{{ session('success_update') }}";
                                 const errorMessage = "{{ session('error_update') }}";
@@ -620,7 +610,7 @@
                                     });
                                 }
                             });
-                            //notifikasi untuk menampilkan pesan sukses atau eror saat upload file excel
+                            //Notifikasi untuk menampilkan pesan sukses atau eror saat upload file excel
                             document.addEventListener('DOMContentLoaded', function() {
                                 const successMessage = "{{ session('success_message') }}";
                                 const errorMessage = "{{ session('error_message') }}";

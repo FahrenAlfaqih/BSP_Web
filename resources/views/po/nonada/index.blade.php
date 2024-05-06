@@ -16,18 +16,17 @@
                             <i class="fas fa-plus"></i> Tambah PO Non Ada
                         </button>
                         <!-- Modal input data -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Tambah PO Non Ada</h5>
+                                        <h5 class="modal-title">Tambah PO Non Ada</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body" style="max-height: 450px; overflow-y: auto;">
-                                        <!-- Isi formulir di sini -->
+                                        <!-- Form untuk menambahkan data -->
                                         <form action="{{ route('pononada.store') }}" method="POST">
                                             @csrf
-                                            <!-- Isi formulir dengan input yang sesuai -->
                                             <div class="mb-3">
                                                 <label for="idNonadaPO" class="form-label">Nomor PO Non ada</label>
                                                 <input type="text" class="form-control" id="idNonadaPO" name="idNonadaPO">
@@ -46,14 +45,13 @@
                                                 <label for="judulPekerjaan" class="form-label">Judul Pekerjaan</label>
                                                 <input type="text" class="form-control" id="judulPekerjaan" name="judulPekerjaan">
                                             </div>
-                                            <!-- Tambahkan input lain sesuai kebutuhan -->
                                             <button type="submit" class="btn btn-primary">Simpan</button>
                                         </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- upload file excel -->
+                        <!-- Upload file excel -->
                         <!-- <form id="uploadForm" action="{{ route('pononada.uploadExcel') }}" method="POST" enctype="multipart/form-data" class="btn btn-light btn-2x me-2">
                             @csrf
                             <i class="fas fa-file-excel  fa-sm"></i>
@@ -64,12 +62,12 @@
                         <!-- <a href="#" class="btn btn-light btn-2x me-2" data-bs-toggle="modal" data-bs-target="#modalInformasi">
                             <i class="fas fa-info-circle fa-2x"></i>
                         </a> -->
-                        <!-- Modal Informasi-->
-                        <!-- <div class="modal fade" id="modalInformasi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <!-- Modal informasi-->
+                        <!-- <div class="modal fade" id="modalInformasi" tabindex="-1" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-xl">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Contoh format Excel yang diterima</h5>
+                                        <h5 class="modal-title">Contoh format Excel yang diterima</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body" style="max-height: 450px; overflow-y: auto;">
@@ -81,7 +79,7 @@
                                 </div>
                             </div>
                         </div> -->
-                        <!-- Reload Data Terbaru-->
+                        <!-- Reload data terbaru-->
                         <a href="{{ route('pononada') }}" class="btn btn-light btn-2x me-2">
                             <i class="fas fa-sync fa-sm"></i> Reload
                         </a>
@@ -96,7 +94,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Table -->
+            <!-- Table PO-->
             <div class="card mb-4">
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <h6>Data Purchase Order Non Ada</h6>
@@ -148,6 +146,7 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body " style="max-height: 450px; overflow-y: auto;">
+                                            <!-- Form untuk mengedit data -->
                                                 <form action="{{ route('pononada.edit', $pononada->idNonadaPO ) }}" method="POST" id="editForm" class="editForm">
                                                     @csrf
                                                     @method('PUT')
@@ -290,7 +289,7 @@
                                     }
                                 });
                             });
-                            //unutk menampilkan notif jika file excel belum diinputkan tetapi sudah pencet unggah
+                            //Menampilkan notif jika file excel belum diinputkan tetapi sudah pencet unggah
                             document.addEventListener('DOMContentLoaded', function() {
                                 const uploadForm = document.querySelector('#uploadForm');
                                 const submitButton = document.querySelector('#submitBtn');
@@ -306,7 +305,7 @@
                                     }
                                 });
                             });
-                            //notif untuk berhasil atau error saat input data
+                            //Notif untuk berhasil atau error saat input data
                             document.addEventListener('DOMContentLoaded', function() {
                                 const successMessage = "{{ session('success_add') }}";
                                 const errorMessage = "{{ session('error_add') }}";
@@ -335,7 +334,7 @@
                                     });
                                 });
                             });
-                            //notif untuk berhasil atau error saat update data
+                            //Notif untuk berhasil atau error saat update data
                             document.addEventListener('DOMContentLoaded', function() {
                                 const successMessage = "{{ session('success_update') }}";
                                 const errorMessage = "{{ session('error_update') }}";
@@ -354,7 +353,7 @@
                                     });
                                 }
                             });
-                            //notifikasi untuk menampilkan pesan sukses atau eror saat upload file excel
+                            //Notifikasi untuk menampilkan pesan sukses atau eror saat upload file excel
                             document.addEventListener('DOMContentLoaded', function() {
                                 const successMessage = "{{ session('success_message') }}";
                                 const errorMessage = "{{ session('error_message') }}";
