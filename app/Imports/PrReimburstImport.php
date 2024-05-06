@@ -15,7 +15,7 @@ class PrReimburstImport implements ToModel
             ->where('judulPekerjaan', $row[1])
             ->first();
 
-        // Jika data tidak ditemukan (tidak ada duplikasi)
+        // Jika data tidak ditemukan (tidak ada duplikasi)  
         if (!$prreimburst) {
             // Buat objek Magang baru
             return new PRReimburst([

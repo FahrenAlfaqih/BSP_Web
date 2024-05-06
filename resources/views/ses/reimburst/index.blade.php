@@ -35,9 +35,9 @@
                                             <div class="mb-3">
                                                 <label for="idReimburstPO" class="form-label">Pilih PO Reimburst</label>
                                                 <select class="form-select" id="idReimburstPO" name="idReimburstPO">
-                                                    @foreach($sesreimbursts as $sesreimburst)
-                                                    <option value="{{ $sesreimburst->idReimburstPO }}">
-                                                        {{ $sesreimburst->idReimburstPO }} - {{ $sesreimburst->judulPekerjaan }}
+                                                    @foreach($poreimbursts as $poreimburst)
+                                                    <option value="{{ $poreimburst->idReimburstPO }}">
+                                                        {{ $poreimburst->idReimburstPO }} - {{ $poreimburst->judulPekerjaan }}
                                                     </option>
                                                     @endforeach
                                                 </select>
