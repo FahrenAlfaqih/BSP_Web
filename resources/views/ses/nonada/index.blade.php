@@ -25,7 +25,7 @@
                                     </div>
                                     <div class="modal-body" style="max-height: 450px; overflow-y: auto;">
                                         <!-- Isi formulir di sini -->
-                                        <form action="{{ route('sesnonada.store') }}" method="POST">
+                                        <form action="{{ route('sesnonada.store') }}" method="POST" class="editForm">
                                             @csrf
                                             <!-- Isi formulir dengan input yang sesuai -->
                                             <div class="mb-3">
@@ -148,7 +148,7 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body " style="max-height: 450px; overflow-y: auto;">
-                                                <form action="{{ route('sesnonada.edit', $sesnonada->idNonadaSES) }}" method="POST" id="editForm">
+                                                <form action="{{ route('sesnonada.edit', $sesnonada->idNonadaSES) }}" method="POST" id="editForm" class="editForm">
                                                     @csrf
                                                     @method('PUT')
                                                     <div class="mb-3">
@@ -267,30 +267,7 @@
                                     });
                                 });
                             });
-                            //script agar tahun pada tanggalPelaksanaanMulai dan Selesai otomatis terubah sesuai dengan
-                            //Tahun poreimburst yang diinputkan sebelumnya
-                            document.addEventListener('DOMContentLoaded', function() {
-                                // Ambil elemen input tahunporeimburst
-                                var tahunporeimburstInput = document.getElementById('tahunporeimburst');
-                                // Ambil elemen input tanggalPelaksanaanMulai dan tanggalPelaksanaanSelesai
-                                var tanggalPelaksanaanMulaiInput = document.getElementById('tanggalPelaksanaanMulai');
-                                var tanggalPelaksanaanSelesaiInput = document.getElementById('tanggalPelaksanaanSelesai');
-                                // Tambahkan event listener ketika nilai tahunporeimburst berubah
-                                tahunporeimburstInput.addEventListener('change', function() {
-                                    // Ambil nilai tahunporeimburst
-                                    var tahunporeimburst = tahunporeimburstInput.value;
-                                    // Periksa apakah tahunporeimburst memiliki nilai
-                                    if (tahunporeimburst) {
-                                        // Set nilai tahun pada tanggalPelaksanaanMulai dan tanggalPelaksanaanSelesai
-                                        tanggalPelaksanaanMulaiInput.value = tahunporeimburst + '-01-01'; // Tanggal mulai diatur menjadi 01 Januari tahunporeimburst
-                                        tanggalPelaksanaanSelesaiInput.value = tahunporeimburst + '-12-31'; // Tanggal selesai diatur menjadi 31 Desember tahunporeimburst
-                                    } else {
-                                        // Kosongkan nilai tanggalPelaksanaanMulai dan tanggalPelaksanaanSelesai jika tahunporeimburst tidak memiliki nilai
-                                        tanggalPelaksanaanMulaiInput.value = '';
-                                        tanggalPelaksanaanSelesaiInput.value = '';
-                                    }
-                                });
-                            });
+                        
                             //unutk menampilkan notif jika file excel belum diinputkan tetapi sudah pencet unggah
                             document.addEventListener('DOMContentLoaded', function() {
                                 const uploadForm = document.querySelector('#uploadForm');
@@ -326,8 +303,15 @@
                                     });
                                 }
                             });
-                            document.getElementById('saveChangesBtn').addEventListener('click', function() {
-                                document.getElementById('editForm').submit();
+                            //Agar data dapat tersimpan
+                            document.addEventListener('DOMContentLoaded', function() {
+                                const saveButtons = document.querySelectorAll('.saveChangesBtn');
+                                saveButtons.forEach(button => {
+                                    button.addEventListener('click', function() {
+                                        const form = this.closest('.modal-content').querySelector('.editForm');
+                                        form.submit();
+                                    });
+                                });
                             });
                             //notif untuk berhasil atau error saat update data
                             document.addEventListener('DOMContentLoaded', function() {

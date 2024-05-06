@@ -93,14 +93,14 @@ class PreOrderController extends Controller
 
     public function editPoReimburst(Request $request, $id)
     {
-        $sesreimburst = POReimburst::findOrFail($id);
+        $poreimburst = POReimburst::findOrFail($id);
         try {
             $validatedData = $request->validate([
                 'idReimburstPO' => 'required',
                 'idReimburstPR' => 'required',
                 'judulPekerjaan' => 'required',
             ]);
-            $sesreimburst->update($validatedData);
+            $poreimburst->update($validatedData);
             return redirect()->back()->with('success_update', 'Data berhasil diperbarui!');
         } catch (Throwable $e) {
             return redirect()->back()->with('error_update', 'Terjadi kesalahan saat mengupdate data: ' . $e->getMessage());
@@ -108,14 +108,14 @@ class PreOrderController extends Controller
     }
     public function editPoService(Request $request, $id)
     {
-        $sesservice = POService::findOrFail($id);
+        $poservice = POService::findOrFail($id);
         try {
             $validatedData = $request->validate([
                 'idServicePO' => 'required',
                 'idServicePR' => 'required',
                 'judulPekerjaan' => 'required',
             ]);
-            $sesservice->update($validatedData);
+            $poservice->update($validatedData);
             return redirect()->back()->with('success_update', 'Data berhasil diperbarui!');
         } catch (Throwable $e) {
             return redirect()->back()->with('error_update', 'Terjadi kesalahan saat mengupdate data: ' . $e->getMessage());
@@ -123,14 +123,14 @@ class PreOrderController extends Controller
     }
     public function editPoNonada(Request $request, $id)
     {
-        $sesnonada = PONonada::findOrFail($id);
+        $pononada = PONonada::findOrFail($id);
         try {
             $validatedData = $request->validate([
                 'idNonadaPO' => 'required',
                 'idNonadaPR' => 'required',
                 'judulPekerjaan' => 'required',
             ]);
-            $sesnonada->update($validatedData);
+            $pononada->update($validatedData);
             return redirect()->back()->with('success_update', 'Data berhasil diperbarui!');
         } catch (Throwable $e) {
             return redirect()->back()->with('error_update', 'Terjadi kesalahan saat mengupdate data: ' . $e->getMessage());

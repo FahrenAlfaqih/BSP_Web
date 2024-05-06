@@ -149,7 +149,7 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body " style="max-height: 450px; overflow-y: auto;">
-                                                <form action="{{ route('poservice.edit', $poservice->idServicePO ) }}" method="POST" id="editForm">
+                                                <form action="{{ route('poservice.edit', $poservice->idServicePO ) }}" method="POST" id="editForm" class="editForm">
                                                     @csrf
                                                     @method('PUT')
                                                     <div class="mb-3">
