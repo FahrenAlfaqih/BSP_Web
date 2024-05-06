@@ -102,7 +102,7 @@
                     <h6>Data Pre Order Service</h6>
                 </div>
                 <form id="filterNamaProgramForm" class="mx-3" action="{{ route('poservice.filterData') }}" method="GET">
-                    <input type="text" name="search" id="search" class="form-control" placeholder="Cari Berdasarkan Nama, Institusi, atau Departemen">
+                    <input type="text" name="search" id="search" class="form-control" placeholder="Cari Berdasarkan Nomor PO, Nomor PR atau Judul Pekerjaan">
                 </form>
                 <div class="card-body px-3 pt-0 pb-2">
                     <div class="table-responsive p-0">
