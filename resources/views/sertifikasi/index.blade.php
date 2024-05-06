@@ -140,6 +140,28 @@
                                 </div>
                             </div>
                         </form>
+
+                        <form action="{{ route('sertifikasi.filterByDept') }}" method="GET" class="ms-3" style="margin-bottom: 10px;">
+                            <select name="dept" onchange="this.form.submit()" class="form-select">
+                                <option value=""> Pilih Departement</option>
+                                <option value="HSE">HSE</option>
+                                <option value="FM">FM</option>
+                                <option value="IT">IT</option>
+                                <option value="Prod Opts">PROD OPERATION</option>
+                                <option value="SPRM">SPRM</option>
+                                <option value="CPS">CPS</option>
+                                <option value="OS">OS</option>
+                                <option value="DWO">DWO</option>
+                                <option value="EPT">EPT</option>
+                                <option value="EKS">EKS</option>
+                                <option value="QHSE Dept">QHSE</option>
+                                <option value="SCM">SCM</option>
+                                <option value="EA">EA</option>
+                                <option value="IA">IA</option>
+                                <option value="FINEC">FINEC & ICT</option>
+                                <option value="HRM">HRM</option>
+                            </select>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -203,7 +225,7 @@
                                     <td style="font-size: 14px;">{{ $sertifikasi->tempat }}</td>
                                     <td style="font-size: 14px;">{{ $sertifikasi->namaPenyelenggara }}</td>
                                     <td style="font-size: 14px;">
-                                        <a href="#" class="btn btn-sm btn-outline-warning editButton" data-bs-toggle="modal" data-bs-target="#modalEdit{{ $sertifikasi->id }}" >Edit</a>
+                                        <a href="#" class="btn btn-sm btn-outline-warning editButton" data-bs-toggle="modal" data-bs-target="#modalEdit{{ $sertifikasi->id }}">Edit</a>
                                         <form action="{{ route('sertifikasi.destroy', $sertifikasi->id) }}" method="POST" class="d-inline deleteForm" data-id="{{ $sertifikasi->id }}">
                                             @csrf
                                             @method('DELETE')

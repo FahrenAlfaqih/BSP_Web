@@ -265,29 +265,31 @@
                                     </div>
                                 </div>
                             </form>
+
+                            <form action="{{ route('dpd.filterByDept') }}" method="GET" class="ms-3" style="margin-bottom: 10px;">
+                                <select name="dept" onchange="this.form.submit()" class="form-select">
+                                    <option value=""> Pilih Departement</option>
+                                    <option value="GM">GM</option>
+                                    <option value="OPS">OPS</option>
+                                    <option value="OS">OS</option>
+                                    <option value="DWO">DWO</option>
+                                    <option value="EPT">EPT</option>
+                                    <option value="EKS">EKS</option>
+                                    <option value="QHSE">QHSE</option>
+                                    <option value="SCM">SCM</option>
+                                    <option value="EA">EA</option>
+                                    <option value="IA">IA</option>
+                                    <option value="FINEC & ICT">FINEC & ICT</option>
+                                    <option value="HCM">HCM</option>
+                                </select>
+                            </form>
                     </div>
                 </div>
             </div>
             <div class="card mb-4">
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <h6>Data Dana Perjalanan Dinas</h6>
-                    <form action="{{ route('dpd.filterByDept') }}" method="GET" class="ms-3" style="margin-bottom: 10px;">
-                        <select name="dept" onchange="this.form.submit()" class="form-select">
-                            <option value=""> Pilih Departement</option>
-                            <option value="GM">GM</option>
-                            <option value="OPS">OPS</option>
-                            <option value="OS">OS</option>
-                            <option value="DWO">DWO</option>
-                            <option value="EPT">EPT</option>
-                            <option value="EKS">EKS</option>
-                            <option value="QHSE">QHSE</option>
-                            <option value="SCM">SCM</option>
-                            <option value="EA">EA</option>
-                            <option value="IA">IA</option>
-                            <option value="FINEC & ICT">FINEC & ICT</option>
-                            <option value="HCM">HCM</option>
-                        </select>
-                    </form>
+
                 </div>
                 <form id="filterNamaProgramForm" class="mx-3" action="{{ route('dpd.filterData') }}" method="GET">
                     <input type="text" name="search" id="search" class="form-control" placeholder="Cari Berdasarkan Nama, Nomor SPD, atau Departemen">
@@ -356,7 +358,7 @@
                                 </tr>
                                 @php $index++ @endphp
                                 <!-- Modal edit data -->
-                                <div class="modal fade"  id="modalEdit{{ $dpd->id }}" tabindex="-1" aria-hidden="true">
+                                <div class="modal fade" id="modalEdit{{ $dpd->id }}" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -684,54 +686,54 @@
                     </div>
                 </div>
             </div>
-            
 
-                <div class="row">
-                    <!-- Kolom Pertama (6 Departemen) -->
-                    <div class="col-md-6">
-                        <div class="card mb-3" style="width: 100%;">
-                            <div class="card-header pb-0 d-flex justify-content-between align-items-center">
-                                <h6>Set Anggaran Awal Departemen</h6>
-                            </div>
-                            <div class="card-body px-4 pt-2 pb-2">
-                                <form action="{{ route('updateInitialFunds') }}" method="POST">
-                                    @csrf
-                                    @foreach($departments->take(6) as $department)
-                                    <div class="form-group">
-                                        <label for="initial_fund_{{ $department->id }}">{{ $department->name }}</label>
-                                        <input type="number" class="form-control" id="initial_fund_{{ $department->id }}" name="initial_fund_{{ $department->id }}" value="{{ $department->initial_fund }}">
-                                    </div>
-                                    @endforeach
-                                    <button type="submit" class="btn btn-primary">Simpan</button>
-                                </form>
-                            </div>
+
+            <div class="row">
+                <!-- Kolom Pertama (6 Departemen) -->
+                <div class="col-md-6">
+                    <div class="card mb-3" style="width: 100%;">
+                        <div class="card-header pb-0 d-flex justify-content-between align-items-center">
+                            <h6>Set Anggaran Awal Departemen</h6>
                         </div>
-                    </div>
-
-                    <!-- Kolom Kedua (6 Departemen) -->
-                    <div class="col-md-6">
-                        <div class="card mb-3" style="width: 100%;">
-                            <div class="card-header pb-0 d-flex justify-content-between align-items-center">
-                                <h6>Set Anggaran Awal Departemen</h6>
-                            </div>
-                            <div class="card-body px-4 pt-2 pb-2">
-                                <form action="{{ route('updateInitialFunds') }}" method="POST">
-                                    @csrf
-                                    @foreach($departments->skip(6)->take(6) as $department)
-                                    <div class="form-group">
-                                        <label for="initial_fund_{{ $department->id }}">{{ $department->name }}</label>
-                                        <input type="number" class="form-control" id="initial_fund_{{ $department->id }}" name="initial_fund_{{ $department->id }}" value="{{ $department->initial_fund }}">
-                                    </div>
-                                    @endforeach
-                                    <button type="submit" class="btn btn-primary">Simpan</button>
-                                </form>
-                            </div>
+                        <div class="card-body px-4 pt-2 pb-2">
+                            <form action="{{ route('updateInitialFunds') }}" method="POST">
+                                @csrf
+                                @foreach($departments->take(6) as $department)
+                                <div class="form-group">
+                                    <label for="initial_fund_{{ $department->id }}">{{ $department->name }}</label>
+                                    <input type="number" class="form-control" id="initial_fund_{{ $department->id }}" name="initial_fund_{{ $department->id }}" value="{{ $department->initial_fund }}">
+                                </div>
+                                @endforeach
+                                <button type="submit" class="btn btn-primary">Simpan</button>
+                            </form>
                         </div>
                     </div>
                 </div>
 
+                <!-- Kolom Kedua (6 Departemen) -->
+                <div class="col-md-6">
+                    <div class="card mb-3" style="width: 100%;">
+                        <div class="card-header pb-0 d-flex justify-content-between align-items-center">
+                            <h6>Set Anggaran Awal Departemen</h6>
+                        </div>
+                        <div class="card-body px-4 pt-2 pb-2">
+                            <form action="{{ route('updateInitialFunds') }}" method="POST">
+                                @csrf
+                                @foreach($departments->skip(6)->take(6) as $department)
+                                <div class="form-group">
+                                    <label for="initial_fund_{{ $department->id }}">{{ $department->name }}</label>
+                                    <input type="number" class="form-control" id="initial_fund_{{ $department->id }}" name="initial_fund_{{ $department->id }}" value="{{ $department->initial_fund }}">
+                                </div>
+                                @endforeach
+                                <button type="submit" class="btn btn-primary">Simpan</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
+
         </div>
+    </div>
 </main>
 
 @endsection

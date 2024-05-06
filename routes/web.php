@@ -33,6 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/filterByDate', [SertifikasiController::class, 'filterByDate'])->name('sertifikasi.filterByDate');
         Route::get('/filterData', [SertifikasiController::class, 'filterData'])->name('sertifikasi.filterData');
         Route::get('/filterByNamaProgram', [SertifikasiController::class, 'filterByNamaProgram'])->name('sertifikasi.filterByNamaProgram');
+        Route::get('/filterByDept', [SertifikasiController::class, 'filterByDept'])->name('sertifikasi.filterByDept');
 
         // Download file PDF
         Route::get('/download-pdf', [SertifikasiController::class, 'downloadPDF'])->name('sertifikasi.download-pdf');

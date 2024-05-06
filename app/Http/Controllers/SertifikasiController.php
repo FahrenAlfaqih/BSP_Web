@@ -70,6 +70,12 @@ class SertifikasiController extends Controller
         return view('sertifikasi.index', compact('sertifikasis'));
     }
 
+    public function filterByDept(Request $request)
+    {
+        $dept = $request->dept;
+        $sertifikasis = Sertifikasi::where('dept', $dept)->paginate(10);
+        return view('sertifikasi.index', compact('sertifikasis'));    }
+
     //function untuk menyimpan data ke database
     public function store(Request $request)
     {
