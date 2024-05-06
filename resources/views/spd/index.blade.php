@@ -118,7 +118,7 @@
                             </div>
                         </div>
                         <!-- upload file excel -->
-                        <form id="uploadForm" action="{{ route('prreimburst.uploadExcel') }}" method="POST" enctype="multipart/form-data" class="btn btn-light btn-2x me-2">
+                        <form id="uploadForm" action="{{ route('spd.uploadExcel') }}" method="POST" enctype="multipart/form-data" class="btn btn-light btn-2x me-2">
                             @csrf
                             <i class="fas fa-file-excel  fa-sm"></i>
                             <input type="file" name="file" class="rounded">
@@ -175,10 +175,19 @@
 
                         <form action="{{ route('spd.filterByDept') }}" method="GET" class="ms-3" style="margin-bottom: 10px;">
                             <select name="dept" onchange="this.form.submit()" class="form-select">
-                                <option value="">Pilih Departemen</option>
-                                @foreach($departements as $dept)
-                                <option value="{{ $dept }}" {{ request('dept') == $dept ? 'selected' : '' }}>{{ $dept }}</option>
-                                @endforeach
+                                <option value=""> Pilih Departement</option>
+                                <option value="GM">GM</option>
+                                <option value="OPS">OPS</option>
+                                <option value="OS">OS</option>
+                                <option value="DWO">DWO</option>
+                                <option value="EPT">EPT</option>
+                                <option value="EKS">EKS</option>
+                                <option value="QHSE">QHSE</option>
+                                <option value="SCM">SCM</option>
+                                <option value="EA">EA</option>
+                                <option value="IA">IA</option>
+                                <option value="FINEC & ICT">FINEC & ICT</option>
+                                <option value="HCM">HCM</option>
                             </select>
                         </form>
                     </div>
