@@ -92,6 +92,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/download-pdf', [SpdController::class, 'downloadPDF'])->name('spd.download-pdf');
         // Download file Excel
         Route::get('/download-excel', [SpdController::class, 'downloadExcel'])->name('spd.download-excel');
+        Route::post('/export-selected-spds', [SpdController::class, 'exportSelectedSpds'])->name('export-selected-spds');
         // Upload file Excel 
         Route::post('/uploadExcel', [SpdController::class, 'uploadExcel'])->name('spd.uploadExcel');
         // CRUD data spd

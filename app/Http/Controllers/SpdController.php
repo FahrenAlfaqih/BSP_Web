@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\SelectedSpdExport;
 use App\Exports\SpdExport;
 use App\Imports\SpdImport;
 use App\Models\Spd;
@@ -181,9 +182,55 @@ class SpdController extends Controller
 
 
 
-    public function downloadExcel()
+    public function downloadExcel(Request $request)
     {
-        return Excel::download(new SpdExport, 'Data Rekap SPD.xlsx');
+        // Retrieve filtering parameters from the request
+        $searchQuery = $request->input('search');
+        $tahun = $request->input('tahun');
+        $bulan = $request->input('bulan');
+        $dept = $request->input('dept');
+    
+        // Retrieve SPD data based on filters
+        $query = Spd::query();
+    
+        if ($searchQuery) {
+            $query->where(function ($query) use ($searchQuery) {
+                $query->where('nomor_spd', 'like', '%' . $searchQuery . '%')
+                    ->orWhere('nama', 'like', '%' . $searchQuery . '%')
+                    ->orWhere('dept', 'like', '%' . $searchQuery . '%');
+            });
+        }
+    
+        if ($dept) {
+            $query->where('dept', $dept);
+        }
+    
+        if ($tahun) {
+            $query->whereYear('tanggal_mulai', $tahun);
+        }
+    
+        if ($bulan) {
+            $query->whereMonth('tanggal_mulai', $bulan);
+        }
+    
+        $spds = $query->get(); // Retrieve filtered SPD data
+    
+        // Initialize SpdExport with the request object
+        $spdExport = new SpdExport($request);
+    
+        // Download Excel file using SpdExport and filtered SPD data
+        return Excel::download($spdExport, 'Data Rekap SPD.xlsx');
+    }
+
+    public function exportSelectedSpds(Request $request)
+    {
+        $selectedItems = $request->input('selectedItems', []);
+
+        // Fetch selected SPD records
+        $spds = Spd::whereIn('id', $selectedItems)->get();
+
+        // Export selected SPDs to Excel
+        return Excel::download(new SelectedSpdExport($spds), 'selected_spds.xlsx');
     }
 
     //function untuk fitur tambah data dengan metode upload file excel

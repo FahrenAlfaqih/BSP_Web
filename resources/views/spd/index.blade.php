@@ -8,12 +8,28 @@
             <div class="card mb-3">
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <div class="d-flex">
-                        <a href="{{ route('spd.download-excel', ['search' => request()->input('search'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-success btn-2x me-2">
-                            <i class="fas fa-file-excel"></i> Cetak Excel
-                        </a>
-                        <a href="{{ route('spd.download-pdf', ['search' => request()->input('search'),'dept' => request()->input('dept'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-danger btn-2x me-2">
-                            <i class="fas fa-file-pdf"></i> Cetak PDF
-                        </a>
+                        <div class="d-flex">
+                            <a href="{{ route('spd.download-excel', [
+        'search' => request()->input('search'),
+        'tahun' => request()->input('tahun'),
+        'bulan' => request()->input('bulan'),
+        'dept' => request()->input('dept')
+    ]) }}" class="btn btn-success btn-2x me-2">
+                                <i class="fas fa-file-excel"></i> Cetak Excel
+                            </a>
+
+                            <button type="button" class="btn btn-primary me-2" onclick="handleExportToExcel()">Cetak yang dipilih</button>
+
+                            <a href="{{ route('spd.download-pdf', [
+        'search' => request()->input('search'),
+        'dept' => request()->input('dept'),
+        'tahun' => request()->input('tahun'),
+        'bulan' => request()->input('bulan')
+    ]) }}" class="btn btn-danger btn-2x me-2">
+                                <i class="fas fa-file-pdf"></i> Cetak PDF
+                            </a>
+                        </div>
+
                         <!-- Button trigger modal input -->
                         <button type="button" class="btn btn-dark btn-2x me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <i class="fas fa-plus"></i> Tambah SPD
@@ -207,6 +223,9 @@
                         <table class="table align-items-center mb-0">
                             <thead>
                                 <tr>
+                                    <th>
+                                        <input type="checkbox" onclick="selectAll(this)">
+                                    </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         No</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
@@ -249,6 +268,9 @@
                                 @php $index = ($spds->currentPage() - 1) * $spds->perPage() + 1 @endphp
                                 @foreach ($spds as $spd)
                                 <tr>
+                                    <td>
+                                        <input type="checkbox" value="{{ $spd->id }}" onchange="handleCheckboxChange(event)">
+                                    </td>
                                     <td style="font-size: 14px;">{{ $index }}</td>
                                     <td style="font-size: 14px;">{{ $spd->nomor_spd }}</td>
                                     <td style="font-size: 14px;">{{ $spd->nama }}</td>
@@ -419,6 +441,51 @@
                         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
                         <script>
+                            let selectedItems = [];
+
+                            // Handle checkbox change event
+                            function handleCheckboxChange(event) {
+                                const spdId = event.target.value;
+                                if (event.target.checked) {
+                                    // Add to selected items
+                                    selectedItems.push(spdId);
+                                } else {
+                                    // Remove from selected items
+                                    const index = selectedItems.indexOf(spdId);
+                                    if (index !== -1) {
+                                        selectedItems.splice(index, 1);
+                                    }
+                                }
+                            }
+
+                            // Handle export button click event
+                            function handleExportToExcel() {
+                                // Send selected item IDs to server for export
+                                const url = '{{ route("export-selected-spds") }}';
+                                fetch(url, {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                        },
+                                        body: JSON.stringify({
+                                            selectedItems: selectedItems
+                                        })
+                                    })
+                                    .then(response => response.blob())
+                                    .then(blob => {
+                                        const url = window.URL.createObjectURL(new Blob([blob]));
+                                        const a = document.createElement('a');
+                                        a.href = url;
+                                        a.download = 'selected_spds.xlsx';
+                                        document.body.appendChild(a);
+                                        a.click();
+                                        document.body.removeChild(a);
+                                    })
+                                    .catch(error => {
+                                        console.error('Error exporting to Excel:', error);
+                                    });
+                            }
                             document.addEventListener('DOMContentLoaded', function() {
                                 const deptSelect = document.getElementById('dept');
                                 const wbsInput = document.getElementById('wbs');
