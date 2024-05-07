@@ -20,6 +20,7 @@ class DpdController extends Controller
 
     public function index()
     {
+        Department::updateRemainingFunds();
 
         // Panggil function untuk memastikan remaining_funds terisi jika masih 0.00
         $departments = Department::all();
@@ -46,7 +47,7 @@ class DpdController extends Controller
             ->map(function ($item, $key) {
                 $item->biayadpd = 'Rp. ' . number_format($item->biayadpd, 0, ',', '.');
                 return $item;
-            });
+            }); 
 
         //mengirim semua data dpd dan format rupiah
         $dpdList = Dpd::paginate(10);

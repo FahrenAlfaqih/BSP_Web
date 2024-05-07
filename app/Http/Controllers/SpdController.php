@@ -230,7 +230,7 @@ class SpdController extends Controller
         $spds = Spd::whereIn('id', $selectedItems)->get();
 
         // Export selected SPDs to Excel
-        return Excel::download(new SelectedSpdExport($spds), 'selected_spds.xlsx');
+        return Excel::download(new SelectedSpdExport($spds), 'Data DPD .xlsx');
     }
 
     //function untuk fitur tambah data dengan metode upload file excel
