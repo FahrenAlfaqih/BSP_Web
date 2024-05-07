@@ -10,6 +10,7 @@ use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Color;
+use PhpOffice\PhpSpreadsheet\Style\Font;
 
 class SpdExport implements FromCollection, WithHeadings, WithStyles
 {
@@ -105,9 +106,10 @@ class SpdExport implements FromCollection, WithHeadings, WithStyles
         $sheet->getStyle('A1:L1')->applyFromArray([
             'fill' => [
                 'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
-                'startColor' => ['rgb' => 'b7e1cd'], // Warna hijau muda (RGB: 183, 225, 205)
+                'startColor' => ['rgb' => 'a9d08e'], // Warna hijau muda (RGB: 169, 208, 142)
             ],
         ]);
+
 
         $sheet->getStyle('A1:L' . $sheet->getHighestRow())
             ->applyFromArray([
