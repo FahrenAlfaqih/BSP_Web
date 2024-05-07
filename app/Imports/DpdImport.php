@@ -14,7 +14,7 @@ class DpdImport implements ToModel, WithStartRow
         // Lakukan validasi atau manipulasi data di sini
 
         // Periksa apakah baris adalah "Total Biaya DPD"
-        if (isset($row[0]) && strtolower(trim($row[0])) === 'total biaya dpd') {
+        if (isset($row[1]) && strtolower(trim($row[1])) === 'total biaya dpd') {
             return null; // Abaikan baris "Total Biaya DPD"
         }
 
