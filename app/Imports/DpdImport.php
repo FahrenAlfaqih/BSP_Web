@@ -13,7 +13,18 @@ class DpdImport implements ToModel, WithStartRow
     {
         // Lakukan validasi atau manipulasi data di sini
 
+        // Periksa apakah baris adalah "Total Biaya DPD"
+        if (isset($row[0]) && strtolower(trim($row[0])) === 'total biaya dpd') {
+            return null; // Abaikan baris "Total Biaya DPD"
+        }
+
         $submitFinec = date('Y-m-d', strtotime('1899-12-30 +' . $row[9] . ' days'));
+
+        // Bersihkan nilai biayadpd dari format mata uang dan koma
+        $biayaDpdCleaned = str_replace(['Rp ', ',', '.'], '', $row[8]);
+
+        // Konversi nilai biayadpd ke tipe data desimal
+        $biayadpdDecimal = (float) $biayaDpdCleaned;
 
         // Cek apakah data duplikat
         $existingDpd = Dpd::where('nama', $row[1])
@@ -23,7 +34,7 @@ class DpdImport implements ToModel, WithStartRow
             ->where('pr', $row[5])
             ->where('po', $row[6])
             ->where('ses', $row[7])
-            ->where('biayadpd', $row[8])
+            ->where('biayadpd', $biayadpdDecimal) // Gunakan nilai biayadpd yang sudah dibersihkan dan dikonversi
             ->where('submitfinec', $submitFinec)
             ->where('status', $row[10])
             ->where('paymentbyfinec', $row[11])
@@ -40,7 +51,7 @@ class DpdImport implements ToModel, WithStartRow
                 'pr' => $row[5],
                 'po' => $row[6],
                 'ses' => $row[7],
-                'biayadpd' => $row[8],
+                'biayadpd' => $biayadpdDecimal, // Gunakan nilai biayadpd yang sudah dibersihkan dan dikonversi
                 'submitfinec' => $submitFinec,
                 'status' => $row[10],
                 'paymentbyfinec' => $row[11],
@@ -52,6 +63,7 @@ class DpdImport implements ToModel, WithStartRow
             return null; // Return null jika ingin melewati data duplikat
         }
     }
+
 
     public function startRow(): int
     {

@@ -26,7 +26,7 @@ class DpdController extends Controller
         $departments = Department::all();
         foreach ($departments as $department) {
             $department->ensureRemainingFunds();
-        }
+        } 
         // menghitung total biayadpd berdasarkan departement
         $totalDPDFunds = Dpd::selectRaw('dept, SUM(biayadpd) as total')
             ->groupBy('dept')

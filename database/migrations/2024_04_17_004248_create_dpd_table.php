@@ -16,11 +16,11 @@ return new class extends Migration
             $table->string('nama');
             $table->string('nomorspd');
             $table->string('dept');
-            $table->string('bsno');
-            $table->string('pr');
-            $table->string('po');
-            $table->string('ses');
-            $table->decimal('biayadpd', 10, 2);
+            $table->string('bsno')->nullable();
+            $table->string('pr')->nullable();
+            $table->string('po')->nullable();
+            $table->string('ses')->nullable();
+            $table->decimal('biayadpd', 10, 2)->nullable();
             $table->date('submitfinec')->nullable();
             $table->string('status')->nullable();
             $table->string('paymentbyfinec')->nullable();
