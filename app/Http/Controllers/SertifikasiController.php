@@ -31,24 +31,50 @@ class SertifikasiController extends Controller
     {
         $tahun = $request->tahun;
         $bulan = $request->bulan;
+        $dept = $request->dept;
 
         $sertifikasisQuery = Sertifikasi::query();
 
-        if ($tahun && $bulan) {
+        if ($tahun && $bulan && $dept) {
+            // Filter berdasarkan tahun, bulan, dan departemen
+            $sertifikasisQuery->whereYear('tanggalPelaksanaanMulai', $tahun)
+                ->whereMonth('tanggalPelaksanaanMulai', $bulan)
+                ->where('dept', $dept);
+        } elseif ($tahun && $bulan) {
             // Filter berdasarkan tahun dan bulan
+            $sertifikasisQuery->whereYear('tanggalPelaksanaanMulai', $tahun)
+                ->whereMonth('tanggalPelaksanaanMulai', $bulan);
+        } elseif ($tahun && $dept) {
+            // Filter berdasarkan tahun dan departemen
+            $sertifikasisQuery->whereYear('tanggalPelaksanaanMulai', $tahun)
+                ->where('dept', $dept);
+        } elseif ($bulan && $dept) {
+            // Filter berdasarkan bulan dan departemen
             $sertifikasisQuery->whereMonth('tanggalPelaksanaanMulai', $bulan)
-                ->whereYear('tanggalPelaksanaanMulai', $tahun);
+                ->where('dept', $dept);
         } elseif ($tahun) {
             // Filter hanya berdasarkan tahun
             $sertifikasisQuery->whereYear('tanggalPelaksanaanMulai', $tahun);
         } elseif ($bulan) {
             // Filter hanya berdasarkan bulan
             $sertifikasisQuery->whereMonth('tanggalPelaksanaanMulai', $bulan);
+        } elseif ($dept) {
+            // Filter hanya berdasarkan departemen
+            $sertifikasisQuery->where('dept', $dept);
         }
 
         $sertifikasis = $sertifikasisQuery->paginate(10);
+
         return view('sertifikasi.index', compact('sertifikasis'));
     }
+
+    public function filterByDept(Request $request)
+    {
+        $dept = $request->dept;
+        $sertifikasis = Sertifikasi::where('dept', $dept)->paginate(10);
+        return view('sertifikasi.index', compact('sertifikasis'));
+    }
+
 
 
     //function untuk memfilter data berdasarkan nama program, nama departemen dan nama pekerja
@@ -62,19 +88,13 @@ class SertifikasiController extends Controller
         return view('sertifikasi.index', compact('sertifikasis'));
     }
 
-    
+
     public function filterByNamaProgram(Request $request)
     {
         $namaProgram = $request->namaProgram;
         $sertifikasis = Sertifikasi::where('namaProgram', $namaProgram)->paginate(10);
         return view('sertifikasi.index', compact('sertifikasis'));
     }
-
-    public function filterByDept(Request $request)
-    {
-        $dept = $request->dept;
-        $sertifikasis = Sertifikasi::where('dept', $dept)->paginate(10);
-        return view('sertifikasi.index', compact('sertifikasis'));    }
 
     //function untuk menyimpan data ke database
     public function store(Request $request)

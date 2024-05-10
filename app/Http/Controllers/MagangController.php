@@ -20,29 +20,48 @@ class MagangController extends Controller
         return view('magang.index', compact('magangs'));
     }
 
-    //function untuk memfilter data berdasarkan tahun sertifikai
+    // Function untuk memfilter data magang berdasarkan tahun, bulan, dan departemen
     public function filterByDate(Request $request)
     {
         $tahun = $request->tahun;
         $bulan = $request->bulan;
+        $dept = $request->dept;
 
-        $MagangQuery = Magang::query();
+        $magangQuery = Magang::query();
 
-        if ($tahun && $bulan) {
+        if ($tahun && $bulan && $dept) {
+            // Filter berdasarkan tahun, bulan, dan departemen
+            $magangQuery->whereYear('tanggalMulai', $tahun)
+                ->whereMonth('tanggalMulai', $bulan)
+                ->where('dept', $dept);
+        } elseif ($tahun && $bulan) {
             // Filter berdasarkan tahun dan bulan
-            $MagangQuery->whereMonth('tanggalMulai', $bulan)
-                ->whereYear('tanggalMulai', $tahun);
+            $magangQuery->whereYear('tanggalMulai', $tahun)
+                ->whereMonth('tanggalMulai', $bulan);
+        } elseif ($tahun && $dept) {
+            // Filter berdasarkan tahun dan departemen
+            $magangQuery->whereYear('tanggalMulai', $tahun)
+                ->where('dept', $dept);
+        } elseif ($bulan && $dept) {
+            // Filter berdasarkan bulan dan departemen
+            $magangQuery->whereMonth('tanggalMulai', $bulan)
+                ->where('dept', $dept);
         } elseif ($tahun) {
             // Filter hanya berdasarkan tahun
-            $MagangQuery->whereYear('tanggalMulai', $tahun);
+            $magangQuery->whereYear('tanggalMulai', $tahun);
         } elseif ($bulan) {
             // Filter hanya berdasarkan bulan
-            $MagangQuery->whereMonth('tanggalMulai', $bulan);
+            $magangQuery->whereMonth('tanggalMulai', $bulan);
+        } elseif ($dept) {
+            // Filter hanya berdasarkan departemen
+            $magangQuery->where('dept', $dept);
         }
 
-        $magangs = $MagangQuery->paginate(10);
+        $magangs = $magangQuery->paginate(10);
+
         return view('magang.index', compact('magangs'));
     }
+
     //function untuk memfilter data berdasarkan nama program, nama departemen dan nama pekerja
     public function filterData(Request $request)
     {
@@ -58,7 +77,8 @@ class MagangController extends Controller
     {
         $dept = $request->dept;
         $magangs = Magang::where('dept', $dept)->paginate(10);
-        return view('magang.index', compact('magangs'));    }
+        return view('magang.index', compact('magangs'));
+    }
 
     //function untuk menyimpan data ke database
     public function store(Request $request)
@@ -86,7 +106,6 @@ class MagangController extends Controller
         } catch (Throwable $e) {
             return redirect()->back()->with('error_add', 'Terjadi kesalahan saat input data: ' . $e->getMessage());
         }
-
     }
 
     //function untuk mengedit data Magang
@@ -180,6 +199,4 @@ class MagangController extends Controller
             return redirect()->back()->with('error_message', 'Terjadi kesalahan saat mengimpor data: ' . $e->getMessage());
         }
     }
-
-    
 }

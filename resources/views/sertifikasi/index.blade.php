@@ -138,10 +138,31 @@
                                             @endfor
                                     </select>
                                 </div>
+                                <div style="margin-left: 10px;">
+                                    <select name="dept" id="dept" onchange="this.form.submit()" class="form-select" style="min-width: 150px;">
+                                        <option value="">Pilih Departemen</option>
+                                        <option value="HSE" {{ request('dept') == 'HSE' ? 'selected' : '' }}>HSE</option>
+                                        <option value="FM" {{ request('dept') == 'FM' ? 'selected' : '' }}>FM</option>
+                                        <option value="IT" {{ request('dept') == 'IT' ? 'selected' : '' }}>IT</option>
+                                        <option value="Prod Opts" {{ request('dept') == 'Prod Opts' ? 'selected' : '' }}>PROD OPERATION</option>
+                                        <option value="SPRM" {{ request('dept') == 'SPRM' ? 'selected' : '' }}>SPRM</option>
+                                        <option value="CPS" {{ request('dept') == 'CPS' ? 'selected' : '' }}>CPS</option>
+                                        <option value="OS" {{ request('dept') == 'OS' ? 'selected' : '' }}>OS</option>
+                                        <option value="DWO" {{ request('dept') == 'DWO' ? 'selected' : '' }}>DWO</option>
+                                        <option value="EPT" {{ request('dept') == 'EPT' ? 'selected' : '' }}>EPT</option>
+                                        <option value="EKS" {{ request('dept') == 'EKS' ? 'selected' : '' }}>EKS</option>
+                                        <option value="QHSE Dept" {{ request('dept') == 'QHSE Dept' ? 'selected' : '' }}>QHSE</option>
+                                        <option value="SCM" {{ request('dept') == 'SCM' ? 'selected' : '' }}>SCM</option>
+                                        <option value="EA" {{ request('dept') == 'EA' ? 'selected' : '' }}>EA</option>
+                                        <option value="IA" {{ request('dept') == 'IA' ? 'selected' : '' }}>IA</option>
+                                        <option value="FINEC" {{ request('dept') == 'FINEC' ? 'selected' : '' }}>FINEC & ICT</option>
+                                        <option value="HRM" {{ request('dept') == 'HRM' ? 'selected' : '' }}>HRM</option>
+                                    </select>
+                                </div>
                             </div>
                         </form>
-                        <!-- Filter data berdasarkan departemen -->
-                        <form action="{{ route('sertifikasi.filterByDept') }}" method="GET" class="ms-3" style="margin-bottom: 10px;">
+
+                        <!-- <form action="{{ route('sertifikasi.filterByDept') }}" method="GET" class="ms-3" style="margin-bottom: 10px;">
                             <select name="dept" onchange="this.form.submit()" class="form-select">
                                 <option value=""> Pilih Departement</option>
                                 <option value="HSE">HSE</option>
@@ -161,7 +182,7 @@
                                 <option value="FINEC">FINEC & ICT</option>
                                 <option value="HRM">HRM</option>
                             </select>
-                        </form>
+                        </form> -->
                     </div>
                 </div>
             </div>

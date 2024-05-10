@@ -24,7 +24,7 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body" style="max-height: 500px; overflow-y: auto;">
-                                    <!-- Form untuk menambahkan data -->
+                                        <!-- Form untuk menambahkan data -->
                                         <form action="{{ route('magang.store') }}" method="POST" class="row g-3">
                                             @csrf
                                             <div class="col-md-6">
@@ -180,25 +180,25 @@
                                             @endfor
                                     </select>
                                 </div>
+                                <div style="margin-left: 10px;">
+                                    <select name="dept" id="dept" onchange="this.form.submit()" class="form-select" style="min-width: 150px;">
+                                        <option value="">Pilih Departement</option>
+                                        <option value="GM" {{ request('dept') == 'GM' ? 'selected' : '' }}>GM</option>
+                                        <option value="PROD. OPERATION" {{ request('dept') == 'PROD. OPERATION' ? 'selected' : '' }}>OPS</option>
+                                        <option value="OS" {{ request('dept') == 'OS' ? 'selected' : '' }}>OS</option>
+                                        <option value="DWO" {{ request('dept') == 'DWO' ? 'selected' : '' }}>DWO</option>
+                                        <option value="EPT" {{ request('dept') == 'EPT' ? 'selected' : '' }}>EPT</option>
+                                        <option value="EPT Dept" {{ request('dept') == 'EPT Dept' ? 'selected' : '' }}>EPT Dept</option>
+                                        <option value="EKS Dept" {{ request('dept') == 'EKS Dept' ? 'selected' : '' }}>EKS</option>
+                                        <option value="QHSE Dept" {{ request('dept') == 'QHSE Dept' ? 'selected' : '' }}>QHSE</option>
+                                        <option value="SCM" {{ request('dept') == 'SCM' ? 'selected' : '' }}>SCM</option>
+                                        <option value="EA" {{ request('dept') == 'EA' ? 'selected' : '' }}>EA</option>
+                                        <option value="IA" {{ request('dept') == 'IA' ? 'selected' : '' }}>IA</option>
+                                        <option value="FINEC" {{ request('dept') == 'FINEC' ? 'selected' : '' }}>FINEC & ICT</option>
+                                        <option value="HCM Dept" {{ request('dept') == 'HCM Dept' ? 'selected' : '' }}>HCM</option>
+                                    </select>
+                                </div>
                             </div>
-                        </form>
-                        <!-- Filter data berdasarkan departemen -->
-                        <form action="{{ route('magang.filterByDept') }}" method="GET" class="ms-3" style="margin-bottom: 10px;">
-                            <select name="dept" onchange="this.form.submit()" class="form-select">
-                                <option value=""> Pilih Departement</option>
-                                <option value="GM">GM</option>
-                                <option value="PROD. OPERATION">OPS</option>
-                                <option value="OS">OS</option>
-                                <option value="DWO">DWO</option>
-                                <option value="EPT">EPT</option>
-                                <option value="EKS Dept">EKS</option>
-                                <option value="QHSE Dept">QHSE</option>
-                                <option value="SCM">SCM</option>
-                                <option value="EA">EA</option>
-                                <option value="IA">IA</option>
-                                <option value="FINEC">FINEC & ICT</option>
-                                <option value="HCM Dept">HCM</option>
-                            </select>
                         </form>
                     </div>
                 </div>
