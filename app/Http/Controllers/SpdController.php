@@ -82,29 +82,47 @@ class SpdController extends Controller
         return view('spd.index', compact('spds'));
     }
 
-    //function untuk memfilter data berdasarkan tahun sertifikai
+    // Function untuk memfilter data SPD berdasarkan tahun, bulan, dan departemen
     public function filterByDate(Request $request)
     {
         $tahun = $request->tahun;
         $bulan = $request->bulan;
+        $dept = $request->dept;
 
-        $SpdQuery = Spd::query();
+        $spdQuery = Spd::query();
 
-        if ($tahun && $bulan) {
+        if ($tahun && $bulan && $dept) {
+            // Filter berdasarkan tahun, bulan, dan departemen
+            $spdQuery->whereYear('tanggal_mulai', $tahun)
+                ->whereMonth('tanggal_mulai', $bulan)
+                ->where('dept', $dept);
+        } elseif ($tahun && $bulan) {
             // Filter berdasarkan tahun dan bulan
-            $SpdQuery->whereMonth('tanggal_mulai', $bulan)
-                ->whereYear('tanggal_mulai', $tahun);
+            $spdQuery->whereYear('tanggal_mulai', $tahun)
+                ->whereMonth('tanggal_mulai', $bulan);
+        } elseif ($tahun && $dept) {
+            // Filter berdasarkan tahun dan departemen
+            $spdQuery->whereYear('tanggal_mulai', $tahun)
+                ->where('dept', $dept);
+        } elseif ($bulan && $dept) {
+            // Filter berdasarkan bulan dan departemen
+            $spdQuery->whereMonth('tanggal_mulai', $bulan)
+                ->where('dept', $dept);
         } elseif ($tahun) {
             // Filter hanya berdasarkan tahun
-            $SpdQuery->whereYear('tanggal_mulai', $tahun);
+            $spdQuery->whereYear('tanggal_mulai', $tahun);
         } elseif ($bulan) {
             // Filter hanya berdasarkan bulan
-            $SpdQuery->whereMonth('tanggal_mulai', $bulan);
+            $spdQuery->whereMonth('tanggal_mulai', $bulan);
+        } elseif ($dept) {
+            // Filter hanya berdasarkan departemen
+            $spdQuery->where('dept', $dept);
         }
 
-        $spds = $SpdQuery->paginate(10);
+        $spds = $spdQuery->paginate(10);
         return view('spd.index', compact('spds'));
     }
+
 
     // Function untuk mengedit data SPD
     public function editSpd(Request $request, $id)
@@ -189,10 +207,10 @@ class SpdController extends Controller
         $tahun = $request->input('tahun');
         $bulan = $request->input('bulan');
         $dept = $request->input('dept');
-    
+
         // Retrieve SPD data based on filters
         $query = Spd::query();
-    
+
         if ($searchQuery) {
             $query->where(function ($query) use ($searchQuery) {
                 $query->where('nomor_spd', 'like', '%' . $searchQuery . '%')
@@ -200,24 +218,24 @@ class SpdController extends Controller
                     ->orWhere('dept', 'like', '%' . $searchQuery . '%');
             });
         }
-    
+
         if ($dept) {
             $query->where('dept', $dept);
         }
-    
+
         if ($tahun) {
             $query->whereYear('tanggal_mulai', $tahun);
         }
-    
+
         if ($bulan) {
             $query->whereMonth('tanggal_mulai', $bulan);
         }
-    
+
         $spds = $query->get(); // Retrieve filtered SPD data
-    
+
         // Initialize SpdExport with the request object
         $spdExport = new SpdExport($request);
-    
+
         // Download Excel file using SpdExport and filtered SPD data
         return Excel::download($spdExport, 'Data Rekap SPD.xlsx');
     }

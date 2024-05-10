@@ -117,7 +117,7 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body" style="max-height: 500px; overflow-y: auto;">
-                                        <!-- Form untuk menambahkan data -->
+                                            <!-- Form untuk menambahkan data -->
                                             <form action="{{ route('dpd.store') }}" method="POST" class="row g-3">
                                                 @csrf
                                                 <div class="col-md-6">
@@ -246,32 +246,33 @@
                                     <!-- Filter data berdasarkan hari -->
                                     <div>
                                         <select name="hari" id="hari" onchange="this.form.submit()" class="form-select" style="min-width: 90px;">
-                                            <option value="">Hari</option>
+                                            <option value="">Tanggal</option>
                                             @for ($j = 1; $j <= 31; $j++) <option value="{{ str_pad($j, 2, '0', STR_PAD_LEFT) }}" {{ request('hari') == str_pad($j, 2, '0', STR_PAD_LEFT) ? 'selected' : '' }}>
                                                 {{ str_pad($j, 2, '0', STR_PAD_LEFT) }}
                                                 </option>
                                                 @endfor
                                         </select>
                                     </div>
+
+                                    <div style="margin-left: 10px;">
+                                        <select name="dept" id="dept" onchange="this.form.submit()" class="form-select" style="min-width: 150px;">
+                                            <option value="">Pilih Departement</option>
+                                            <option value="GM" {{ request('dept') == 'GM' ? 'selected' : '' }}>GM</option>
+                                            <option value="OPS" {{ request('dept') == 'OPS' ? 'selected' : '' }}>OPS</option>
+                                            <option value="OS" {{ request('dept') == 'OS' ? 'selected' : '' }}>OS</option>
+                                            <option value="DWO" {{ request('dept') == 'DWO' ? 'selected' : '' }}>DWO</option>
+                                            <option value="EPT" {{ request('dept') == 'EPT' ? 'selected' : '' }}>EPT</option>
+                                            <option value="EKS" {{ request('dept') == 'EKS' ? 'selected' : '' }}>EKS</option>
+                                            <option value="QHSE" {{ request('dept') == 'QHSE' ? 'selected' : '' }}>QHSE</option>
+                                            <option value="SCM" {{ request('dept') == 'SCM' ? 'selected' : '' }}>SCM</option>
+                                            <option value="EA" {{ request('dept') == 'EA' ? 'selected' : '' }}>EA</option>
+                                            <option value="IA" {{ request('dept') == 'IA' ? 'selected' : '' }}>IA</option>
+                                            <option value="FINEC & ICT" {{ request('dept') == 'FINEC & ICT' ? 'selected' : '' }}>FINEC & ICT</option>
+                                            <option value="HCM" {{ request('dept') == 'HCM' ? 'selected' : '' }}>HCM</option>
+                                        </select>
+
+                                    </div>
                                 </div>
-                            </form>
-                            <!-- Filter data berdasarkan departemen -->
-                            <form action="{{ route('dpd.filterByDept') }}" method="GET" class="ms-3" style="margin-bottom: 10px;">
-                                <select name="dept" onchange="this.form.submit()" class="form-select">
-                                    <option value=""> Pilih Departement</option>
-                                    <option value="GM">GM</option>
-                                    <option value="OPS">OPS</option>
-                                    <option value="OS">OS</option>
-                                    <option value="DWO">DWO</option>
-                                    <option value="EPT">EPT</option>
-                                    <option value="EKS">EKS</option>
-                                    <option value="QHSE">QHSE</option>
-                                    <option value="SCM">SCM</option>
-                                    <option value="EA">EA</option>
-                                    <option value="IA">IA</option>
-                                    <option value="FINEC & ICT">FINEC & ICT</option>
-                                    <option value="HCM">HCM</option>
-                                </select>
                             </form>
                     </div>
                 </div>

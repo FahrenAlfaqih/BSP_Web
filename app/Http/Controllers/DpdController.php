@@ -26,7 +26,7 @@ class DpdController extends Controller
         $departments = Department::all();
         foreach ($departments as $department) {
             $department->ensureRemainingFunds();
-        } 
+        }
         // menghitung total biayadpd berdasarkan departement
         $totalDPDFunds = Dpd::selectRaw('dept, SUM(biayadpd) as total')
             ->groupBy('dept')
@@ -47,7 +47,7 @@ class DpdController extends Controller
             ->map(function ($item, $key) {
                 $item->biayadpd = 'Rp. ' . number_format($item->biayadpd, 0, ',', '.');
                 return $item;
-            }); 
+            });
 
         //mengirim semua data dpd dan format rupiah
         $dpdList = Dpd::paginate(10);
@@ -72,18 +72,38 @@ class DpdController extends Controller
         $tahun = $request->tahun;
         $bulan = $request->bulan;
         $hari = $request->hari;
+        $dept = $request->dept;
 
         $dpdQuery = Dpd::query();
 
-        if ($tahun && $bulan && $hari) {
-            // Filter berdasarkan tahun, bulan, dan hari
+        if ($tahun && $bulan && $hari && $dept) {
+            // Filter berdasarkan tahun, bulan, hari, dan departemen
             $dpdQuery->whereYear('submitfinec', $tahun)
                 ->whereMonth('submitfinec', $bulan)
-                ->whereDay('submitfinec', $hari);
+                ->whereDay('submitfinec', $hari)
+                ->where('dept', $dept);
+        } elseif ($tahun && $bulan && $dept) {
+            // Filter berdasarkan tahun, bulan, dan departemen
+            $dpdQuery->whereYear('submitfinec', $tahun)
+                ->whereMonth('submitfinec', $bulan)
+                ->where('dept', $dept);
+        } elseif ($tahun && $hari && $dept) {
+            // Filter berdasarkan tahun, hari, dan departemen
+            $dpdQuery->whereYear('submitfinec', $tahun)
+                ->whereDay('submitfinec', $hari)
+                ->where('dept', $dept);
         } elseif ($tahun && $bulan) {
             // Filter berdasarkan tahun dan bulan
             $dpdQuery->whereYear('submitfinec', $tahun)
                 ->whereMonth('submitfinec', $bulan);
+        } elseif ($tahun && $dept) {
+            // Filter berdasarkan tahun dan departemen
+            $dpdQuery->whereYear('submitfinec', $tahun)
+                ->where('dept', $dept);
+        } elseif ($bulan && $dept) {
+            // Filter berdasarkan bulan dan departemen
+            $dpdQuery->whereMonth('submitfinec', $bulan)
+                ->where('dept', $dept);
         } elseif ($tahun) {
             // Filter hanya berdasarkan tahun
             $dpdQuery->whereYear('submitfinec', $tahun);
@@ -93,6 +113,9 @@ class DpdController extends Controller
         } elseif ($hari) {
             // Filter hanya berdasarkan hari
             $dpdQuery->whereDay('submitfinec', $hari);
+        } elseif ($dept) {
+            // Filter hanya berdasarkan departemen
+            $dpdQuery->where('dept', $dept);
         }
 
         $dpdList = $dpdQuery->paginate(10);
