@@ -11,7 +11,7 @@ class Sertifikasi extends Model
     protected $table = 'sertifikasi';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'noPek', 'namaPekerja', 'dept', 'namaProgram', 'tahunSertifikasi', 'tanggalPelaksanaanMulai', 'tanggalPelaksanaanSelesai', 'days', 'tempat', 'namaPenyelenggara'
+        'noPek', 'namaPekerja', 'dept', 'namaProgram', 'tahunSertifikasi', 'tanggalPelaksanaanMulai', 'tanggalPelaksanaanSelesai', 'days', 'man_hours','total_man_hours','tempat', 'namaPenyelenggara'
     ];
 
     // Di model Anda (Sertifikasi)

@@ -88,11 +88,11 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label for="man_hours" class="form-label">Man Hours</label>
-                                                <input type="text" class="form-control" id="man_hours" name="man_hours">
+                                                <input type="number" class="form-control" id="man_hours" name="man_hours">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="total_man_hours" class="form-label">Total Man Hours</label>
-                                                <input type="text" class="form-control" id="total_man_hours" name="total_man_hours">
+                                                <input type="number" class="form-control" id="total_man_hours" name="total_man_hours">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="namaPenyelenggara" class="form-label">Nama Penyelenggara</label>
@@ -443,19 +443,19 @@
                                         man_hours = Math.min(50, days * 8);
                                         break;
                                     case 'Pelatihan dan Sertifikasi':
-                                        man_hours = days * 8;
+                                        man_hours = 8;
                                         break;
                                     case 'Coaching / Mentoring':
-                                        man_hours = days * 3;
+                                        man_hours = 3;
                                         break;
                                     case 'E Learning / LMS':
-                                        man_hours = days * 4;
+                                        man_hours =  4;
                                         break;
                                     case 'Pembimbing':
-                                        man_hours = days * 3;
+                                        man_hours =  3;
                                         break;
                                     case 'Forum / Management Talks':
-                                        man_hours = days * 4;
+                                        man_hours =  4;
                                         break;
                                     default:
                                         man_hours = 0;
