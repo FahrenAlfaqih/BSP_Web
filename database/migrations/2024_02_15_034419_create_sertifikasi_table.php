@@ -18,6 +18,8 @@ class CreateSertifikasiTable extends Migration
             $table->date('tanggalPelaksanaanMulai');
             $table->date('tanggalPelaksanaanSelesai');
             $table->integer('days');
+            $table->decimal('man_hours', 10, 2)->nullable();
+            $table->decimal('total_man_hours', 10, 2)->nullable();
             $table->string('tempat');
             $table->string('namaPenyelenggara');
             $table->timestamps();

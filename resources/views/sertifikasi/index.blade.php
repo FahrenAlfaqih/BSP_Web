@@ -52,6 +52,17 @@
                                                 </select>
                                             </div>
                                             <div class="mb-3">
+                                                <label for="namaProgram" class="form-label">Jenis Program</label>
+                                                <select class="form-select" id="namaProgram" name="namaProgram" onchange="calculateTotalManHours()">
+                                                    <option value="Assignment">Assignment</option>
+                                                    <option value="Pelatihan dan Sertifikasi">Pelatihan dan Sertifikasi</option>
+                                                    <option value="Coaching / Mentoring">Coaching / Mentoring</option>
+                                                    <option value="E Learning / LMS">E Learning / LMS</option>
+                                                    <option value="Pembimbing">Pembimbing</option>
+                                                    <option value="Forum / Management Talks">Forum / Management Talks</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
                                                 <label for="namaProgram" class="form-label">Nama Program</label>
                                                 <input type="text" class="form-control" id="namaProgram" name="namaProgram">
                                             </div>
@@ -74,6 +85,14 @@
                                             <div class="mb-3">
                                                 <label for="days" class="form-label">Jumlah Hari</label>
                                                 <input type="text" class="form-control" id="days" name="days">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="man_hours" class="form-label">Man Hours</label>
+                                                <input type="text" class="form-control" id="man_hours" name="man_hours">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="total_man_hours" class="form-label">Total Man Hours</label>
+                                                <input type="text" class="form-control" id="total_man_hours" name="total_man_hours">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="namaPenyelenggara" class="form-label">Nama Penyelenggara</label>
@@ -224,6 +243,10 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Days</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
+                                        Man Hours</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
+                                        Toal Man Hours</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Tempat</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Nama Penyelenggara</th>
@@ -243,6 +266,8 @@
                                     <td style="font-size: 14px;">{{ $sertifikasi->tanggalPelaksanaanMulai }}</td>
                                     <td style="font-size: 14px;">{{ $sertifikasi->tanggalPelaksanaanSelesai }}</td>
                                     <td style="font-size: 14px;">{{ $sertifikasi->days }}</td>
+                                    <td style="font-size: 14px;">{{ $sertifikasi->man_hours }}</td>
+                                    <td style="font-size: 14px;">{{ $sertifikasi->total_man_hours }}</td>
                                     <td style="font-size: 14px;">{{ $sertifikasi->tempat }}</td>
                                     <td style="font-size: 14px;">{{ $sertifikasi->namaPenyelenggara }}</td>
                                     <td style="font-size: 14px;">
@@ -314,6 +339,14 @@
                                                         <input type="text" class="form-control" id="days" name="days" value="{{ $sertifikasi->days }}">
                                                     </div>
                                                     <div class="mb-3">
+                                                        <label for="man_hours" class="form-label">Man Hours</label>
+                                                        <input type="text" class="form-control" id="man_hours" name="man_hours" value="{{ $sertifikasi->man_hours }}">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="total_man_hours" class="form-label">Total Man Hours</label>
+                                                        <input type="text" class="form-control" id="total_man_hours" name="total_man_hours" value="{{ $sertifikasi->total_man_hours }}">
+                                                    </div>
+                                                    <div class="mb-3">
                                                         <label for="tempat" class="form-label">Tempat</label>
                                                         <input type="text" class="form-control" id="tempat" name="tempat" value="{{ $sertifikasi->tempat }}">
                                                     </div>
@@ -373,6 +406,64 @@
                         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
                         <script>
+                            // Ambil elemen input untuk tanggal mulai dan selesai
+                            const inputMulai = document.getElementById('tanggalPelaksanaanMulai');
+                            const inputSelesai = document.getElementById('tanggalPelaksanaanSelesai');
+                            const inputDays = document.getElementById('days');
+                            const inputManHours = document.getElementById('man_hours');
+                            const inputTotalManHours = document.getElementById('total_man_hours');
+                            const selectProgram = document.getElementById('namaProgram');
+
+                            // Tambahkan event listener untuk perubahan nilai tanggal
+                            inputMulai.addEventListener('change', hitungJumlahHari);
+                            inputSelesai.addEventListener('change', hitungJumlahHari);
+                            selectProgram.addEventListener('change', calculateTotalManHours);
+
+                            // Fungsi untuk menghitung jumlah hari
+                            function hitungJumlahHari() {
+                                // Ambil nilai dari kedua input tanggal
+                                const tanggalMulai = new Date(inputMulai.value);
+                                const tanggalSelesai = new Date(inputSelesai.value);
+                                // Hitung selisih hari antara kedua tanggal
+                                const selisihHari = Math.ceil((tanggalSelesai - tanggalMulai) / (1000 * 3600 * 24));
+                                // Masukkan nilai selisih hari ke dalam input days
+                                inputDays.value = selisihHari;
+                                // Panggil fungsi untuk menghitung total man hours
+                                calculateTotalManHours();
+                            }
+
+                            // Fungsi untuk menghitung total man hours
+                            function calculateTotalManHours() {
+                                var days = parseInt(inputDays.value);
+                                var man_hours = 0;
+
+                                var program = selectProgram.value;
+                                switch (program) {
+                                    case 'Assignment':
+                                        man_hours = Math.min(50, days * 8);
+                                        break;
+                                    case 'Pelatihan dan Sertifikasi':
+                                        man_hours = days * 8;
+                                        break;
+                                    case 'Coaching / Mentoring':
+                                        man_hours = days * 3;
+                                        break;
+                                    case 'E Learning / LMS':
+                                        man_hours = days * 4;
+                                        break;
+                                    case 'Pembimbing':
+                                        man_hours = days * 3;
+                                        break;
+                                    case 'Forum / Management Talks':
+                                        man_hours = days * 4;
+                                        break;
+                                    default:
+                                        man_hours = 0;
+                                }
+
+                                inputManHours.value = man_hours;
+                                inputTotalManHours.value = days * man_hours;
+                            }
                             //Konfirmasi untuk hapus data
                             document.addEventListener('DOMContentLoaded', function() {
                                 const deleteButtons = document.querySelectorAll('.deleteButton');
@@ -514,23 +605,6 @@
                                     });
                                 }
                             });
-                            // Ambil elemen input untuk tanggal mulai dan selesai
-                            const inputMulai = document.getElementById('tanggalPelaksanaanMulai');
-                            const inputSelesai = document.getElementById('tanggalPelaksanaanSelesai');
-                            const inputDays = document.getElementById('days');
-                            // Tambahkan event listener untuk perubahan nilai tanggal
-                            inputMulai.addEventListener('change', hitungJumlahHari);
-                            inputSelesai.addEventListener('change', hitungJumlahHari);
-                            // Fungsi untuk menghitung jumlah hari
-                            function hitungJumlahHari() {
-                                // Ambil nilai dari kedua input tanggal
-                                const tanggalMulai = new Date(inputMulai.value);
-                                const tanggalSelesai = new Date(inputSelesai.value);
-                                // Hitung selisih hari antara kedua tanggal
-                                const selisihHari = Math.ceil((tanggalSelesai - tanggalMulai) / (1000 * 3600 * 24));
-                                // Masukkan nilai selisih hari ke dalam input days
-                                inputDays.value = selisihHari;
-                            }
                         </script>
                     </div>
                 </div>

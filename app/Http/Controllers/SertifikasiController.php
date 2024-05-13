@@ -110,6 +110,8 @@ class SertifikasiController extends Controller
                 'tanggalPelaksanaanMulai' => 'required',
                 'tanggalPelaksanaanSelesai' => 'required',
                 'days' => 'required',
+                'man_hours' => 'required',
+                'total_man_hours' => 'required',
                 'tempat' => 'required',
                 'namaPenyelenggara' => 'required',
 
