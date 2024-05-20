@@ -99,8 +99,8 @@
             <div class="card mb-3">
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <div class="d-flex">
-                        <a href="{{ route('dpd.download-excel', ['search' => request()->input('search'),'dept' => request()->input('dept'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-success btn-2x me-2">
-                            <i class="fas fa-file-excel"></i> Cetak Excel
+                        <!-- <a href="{{ route('dpd.download-excel', ['search' => request()->input('search'),'dept' => request()->input('dept'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-success btn-2x me-2">
+                            <i class="fas fa-file-excel"></i> Cetak Excel -->
                             <a href="{{ route('dpd.download-pdf', ['search' => request()->input('search'),'dept' => request()->input('dept'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-danger btn-2x me-2">
                                 <i class="fas fa-file-pdf"></i> Cetak PDF
                             </a>
