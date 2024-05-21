@@ -17,7 +17,7 @@
                                 ]) }}" class="btn btn-success btn-2x me-2">
                                 <i class="fas fa-file-excel"></i> Cetak Excel
                             </a> -->
-                            <button type="button" class="btn btn-success btn-2x me-2         " onclick="handleExportToExcel()">Cetak  Excel</button>
+                            <button type="button" class="btn btn-success btn-2x me-2         " onclick="handleExportToExcel()">Cetak Excel</button>
                             <a href="{{ route('spd.download-pdf', [
                                 'search' => request()->input('search'),
                                 'dept' => request()->input('dept'),
@@ -132,8 +132,8 @@
                         <!-- Upload file excel -->
                         <form id="uploadForm" action="{{ route('spd.uploadExcel') }}" method="POST" enctype="multipart/form-data" class="btn btn-light btn-2x me-2">
                             @csrf
-                            <i class="fas fa-file-excel  fa-sm"></i>
-                            <input type="file" name="file" class="rounded">
+                            <i class="fas fa-file-excel fa-sm"></i>
+                            <input type="file" name="file[]" class="rounded" multiple>
                             <button type="submit" class="btn-outline-dark rounded">Unggah Excel</button>
                         </form>
                         <!-- Icon informasi -->
@@ -437,6 +437,25 @@
                         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
                         <script>
+                            //Notifikasi untuk menampilkan pesan sukses atau eror saat upload file excel
+                            document.addEventListener('DOMContentLoaded', function() {
+                                const successMessage = "{{ session('success_message') }}";
+                                const errorMessage = "{{ session('error_message') }}";
+                                if (successMessage) {
+                                    swal({
+                                        title: "Sukses",
+                                        text: successMessage,
+                                        icon: "success",
+                                    });
+                                }
+                                if (errorMessage) {
+                                    swal({
+                                        title: "Error",
+                                        text: errorMessage,
+                                        icon: "error",
+                                    });
+                                }
+                            });
                             let selectedItems = [];
                             // Handle checkbox change event
                             function handleCheckboxChange(event) {
@@ -548,6 +567,7 @@
                                     });
                                 });
                             });
+
                             //Menampilkan notif jika file excel belum diinputkan tetapi sudah pencet unggah
                             document.addEventListener('DOMContentLoaded', function() {
                                 const uploadForm = document.querySelector('#uploadForm');
@@ -596,25 +616,6 @@
                             document.addEventListener('DOMContentLoaded', function() {
                                 const successMessage = "{{ session('success_update') }}";
                                 const errorMessage = "{{ session('error_update') }}";
-                                if (successMessage) {
-                                    swal({
-                                        title: "Sukses",
-                                        text: successMessage,
-                                        icon: "success",
-                                    });
-                                }
-                                if (errorMessage) {
-                                    swal({
-                                        title: "Error",
-                                        text: errorMessage,
-                                        icon: "error",
-                                    });
-                                }
-                            });
-                            //Notifikasi untuk menampilkan pesan sukses atau eror saat upload file excel
-                            document.addEventListener('DOMContentLoaded', function() {
-                                const successMessage = "{{ session('success_message') }}";
-                                const errorMessage = "{{ session('error_message') }}";
                                 if (successMessage) {
                                     swal({
                                         title: "Sukses",

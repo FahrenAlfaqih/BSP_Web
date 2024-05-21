@@ -14,6 +14,7 @@ use App\Http\Controllers\PurchaseReqController;
 use App\Http\Controllers\ServiceEntryController;
 use App\Http\Controllers\PreOrderController;
 use App\Http\Controllers\SpdController;
+use App\Http\Controllers\TrainingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Route;
@@ -43,6 +44,16 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/store', [SertifikasiController::class, 'store'])->name('sertifikasi.store');
         Route::put('/{id}/edit', [SertifikasiController::class, 'editSertifikasi'])->name('sertifikasi.edit');
         Route::delete('/{id}', [SertifikasiController::class, 'deleteSertifikasi'])->name('sertifikasi.destroy');
+    });
+
+    Route::prefix('training')->group(function () {
+        // Menampilkan dan memfilter data sertifikasi
+        Route::get('/', [TrainingController::class, 'index'])->name('training');
+        Route::post('/upload-excel', [TrainingController::class, 'uploadExcel'])->name('training.upload-excel');
+        // CRUD data sertifikasi
+        Route::post('/store', [TrainingController::class, 'store'])->name('training.store');
+        Route::put('/{id}/edit', [TrainingController::class, 'editTraining'])->name('training.edit');
+        Route::delete('/{id}', [TrainingController::class, 'deleteTraining'])->name('training.destroy');
     });
 
     Route::prefix('magang')->group(function () {
