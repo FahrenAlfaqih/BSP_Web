@@ -74,7 +74,7 @@
   </div>
 </div>
 
-<div class="col-mt-4">
+<!-- <div class="col-mt-4">
   <div class="col-lg-6 mb-lg-0 mb-4">
   <div class="card mb-3" style="width: 100%;">
     <div class="card-header pb-0 d-flex justify-content-between align-items-center">
@@ -92,7 +92,7 @@
     </div>
   </div>
   </div>
-</div>
+</div> -->
 
 <script type="text/javascript">
   var _ydata = JSON.parse('{!! json_encode($years) !!}');
