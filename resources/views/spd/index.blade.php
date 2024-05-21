@@ -149,7 +149,7 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body" style="max-height: 450px; overflow-y: auto;">
-                                        <img src="../assets/img/contohExcel.png" class="img-fluid" alt="Contoh Isi Excel">
+                                        <img src="../assets/img/contohExcel/SPD.png" class="img-fluid" alt="Contoh Isi Excel">
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
