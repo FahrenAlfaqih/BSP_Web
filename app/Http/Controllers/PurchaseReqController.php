@@ -45,14 +45,14 @@ class PurchaseReqController extends Controller
         try {
             // Validasi data
             $validatedData = $request->validate([
-                'idReimburstPR' => 'required',
+                'idReimburstPR' => 'required|max:10',
                 'judulPekerjaan' => 'required',
 
             ]);
             PRReimburst::create($validatedData);
             return redirect()->back()->with('success_add', 'Data berhasil ditambahkan!');
         } catch (Throwable $e) {
-            return redirect()->back()->with('error_add', 'Terjadi kesalahan saat input data: ' . $e->getMessage());
+            return redirect()->back()->with('error_add', $e->getMessage());
         }
     }
     public function storeService(Request $request)
@@ -60,14 +60,14 @@ class PurchaseReqController extends Controller
         try {
             // Validasi data
             $validatedData = $request->validate([
-                'idServicePR' => 'required',
+                'idServicePR' => 'required|max:10',
                 'judulPekerjaan' => 'required',
 
             ]);
             PRService::create($validatedData);
             return redirect()->back()->with('success_add', 'Data berhasil ditambahkan!');
         } catch (Throwable $e) {
-            return redirect()->back()->with('error_add', 'Terjadi kesalahan saat input data: ' . $e->getMessage());
+            return redirect()->back()->with('error_add', $e->getMessage());
         }
     }
 
@@ -76,30 +76,29 @@ class PurchaseReqController extends Controller
         try {
             // Validasi data
             $validatedData = $request->validate([
-                'idNonadaPR' => 'required',
+                'idNonadaPR' => 'required|max:10',
                 'judulPekerjaan' => 'required',
 
             ]);
             PRNonada::create($validatedData);
             return redirect()->back()->with('success_add', 'Data berhasil ditambahkan!');
         } catch (Throwable $e) {
-            return redirect()->back()->with('error_add', 'Terjadi kesalahan saat input data: ' . $e->getMessage());
+            return redirect()->back()->with('error_add', $e->getMessage());
         }
     }
-
 
     public function editPrReimburst(Request $request, $id)
     {
         $prreimburst = PRReimburst::findOrFail($id);
         try {
             $validatedData = $request->validate([
-                'idReimburstPR' => 'required',
+                'idReimburstPR' => 'required|max:10',
                 'judulPekerjaan' => 'required',
             ]);
             $prreimburst->update($validatedData);
             return redirect()->back()->with('success_update', 'Data berhasil diperbarui!');
         } catch (Throwable $e) {
-            return redirect()->back()->with('error_update', 'Terjadi kesalahan saat mengupdate data: ' . $e->getMessage());
+            return redirect()->back()->with('error_update', $e->getMessage());
         }
     }
     public function editPrService(Request $request, $id)
@@ -107,13 +106,13 @@ class PurchaseReqController extends Controller
         $prservice = PRService::findOrFail($id);
         try {
             $validatedData = $request->validate([
-                'idServicePR' => 'required',
+                'idServicePR' => 'required|max:10',
                 'judulPekerjaan' => 'required',
             ]);
             $prservice->update($validatedData);
             return redirect()->back()->with('success_update', 'Data berhasil diperbarui!');
         } catch (Throwable $e) {
-            return redirect()->back()->with('error_update', 'Terjadi kesalahan saat mengupdate data: ' . $e->getMessage());
+            return redirect()->back()->with('error_update', $e->getMessage());
         }
     }
     public function editPrNonada(Request $request, $id)
@@ -121,13 +120,13 @@ class PurchaseReqController extends Controller
         $prnonada = PRNonada::findOrFail($id);
         try {
             $validatedData = $request->validate([
-                'idNonadaPR' => 'required',
+                'idNonadaPR' => 'required|max:10',
                 'judulPekerjaan' => 'required',
             ]);
             $prnonada->update($validatedData);
             return redirect()->back()->with('success_update', 'Data berhasil diperbarui!');
         } catch (Throwable $e) {
-            return redirect()->back()->with('error_update', 'Terjadi kesalahan saat mengupdate data: ' . $e->getMessage());
+            return redirect()->back()->with('error_update', $e->getMessage());
         }
     }
 
@@ -160,7 +159,7 @@ class PurchaseReqController extends Controller
             Excel::import(new PrReimburstImport, $request->file('file'));
             return redirect()->back()->with('success_message', 'Data dari Excel berhasil diunggah!');
         } catch (Throwable $e) {
-            return redirect()->back()->with('error_message', 'Terjadi kesalahan saat mengimpor data: ' . $e->getMessage());
+            return redirect()->back()->with('error_message', $e->getMessage());
         }
     }
     public function uploadExcelService(Request $request)
@@ -172,7 +171,7 @@ class PurchaseReqController extends Controller
             Excel::import(new PrServiceImport, $request->file('file'));
             return redirect()->back()->with('success_message', 'Data dari Excel berhasil diunggah!');
         } catch (Throwable $e) {
-            return redirect()->back()->with('error_message', 'Terjadi kesalahan saat mengimpor data: ' . $e->getMessage());
+            return redirect()->back()->with('error_message', $e->getMessage());
         }
     }
     public function uploadExcelNonada(Request $request)
@@ -184,7 +183,7 @@ class PurchaseReqController extends Controller
             Excel::import(new PrNonadaImport, $request->file('file'));
             return redirect()->back()->with('success_message', 'Data dari Excel berhasil diunggah!');
         } catch (Throwable $e) {
-            return redirect()->back()->with('error_message', 'Terjadi kesalahan saat mengimpor data: ' . $e->getMessage());
+            return redirect()->back()->with('error_message', $e->getMessage());
         }
     }
 

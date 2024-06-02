@@ -47,15 +47,15 @@ class PreOrderController extends Controller
         try {
             // Validasi data
             $validatedData = $request->validate([
-                'idReimburstPO' => 'required',
-                'idReimburstPR' => 'required',
+                'idReimburstPO' => 'required|max:10',
+                'idReimburstPR' => 'required|max:10',
                 'judulPekerjaan' => 'required',
 
             ]);
             POReimburst::create($validatedData);
             return redirect()->back()->with('success_add', 'Data berhasil ditambahkan!');
         } catch (Throwable $e) {
-            return redirect()->back()->with('error_add', 'Terjadi kesalahan saat input data: ' . $e->getMessage());
+            return redirect()->back()->with('error_add', $e->getMessage());
         }
     }
     public function storePoService(Request $request)
@@ -63,15 +63,15 @@ class PreOrderController extends Controller
         try {
             // Validasi data
             $validatedData = $request->validate([
-                'idServicePO' => 'required',
-                'idServicePR' => 'required',
+                'idServicePO' => 'required|max:10',
+                'idServicePR' => 'required|max:10',
                 'judulPekerjaan' => 'required',
 
             ]);
             POService::create($validatedData);
             return redirect()->back()->with('success_add', 'Data berhasil ditambahkan!');
         } catch (Throwable $e) {
-            return redirect()->back()->with('error_add', 'Terjadi kesalahan saat input data: ' . $e->getMessage());
+            return redirect()->back()->with('error_add', $e->getMessage());
         }
     }
     public function storePoNonAda(Request $request)
@@ -79,15 +79,15 @@ class PreOrderController extends Controller
         try {
             // Validasi data
             $validatedData = $request->validate([
-                'idNonadaPO' => 'required',
-                'idNonadaPR' => 'required',
+                'idNonadaPO' => 'required|max:10',
+                'idNonadaPR' => 'required|max:10',
                 'judulPekerjaan' => 'required',
 
             ]);
             PONonada::create($validatedData);
             return redirect()->back()->with('success_add', 'Data berhasil ditambahkan!');
         } catch (Throwable $e) {
-            return redirect()->back()->with('error_add', 'Terjadi kesalahan saat input data: ' . $e->getMessage());
+            return redirect()->back()->with('error_add', $e->getMessage());
         }
     }
 
@@ -96,14 +96,14 @@ class PreOrderController extends Controller
         $poreimburst = POReimburst::findOrFail($id);
         try {
             $validatedData = $request->validate([
-                'idReimburstPO' => 'required',
-                'idReimburstPR' => 'required',
+                'idReimburstPO' => 'required|max:10',
+                'idReimburstPR' => 'required|max:10',
                 'judulPekerjaan' => 'required',
             ]);
             $poreimburst->update($validatedData);
             return redirect()->back()->with('success_update', 'Data berhasil diperbarui!');
         } catch (Throwable $e) {
-            return redirect()->back()->with('error_update', 'Terjadi kesalahan saat mengupdate data: ' . $e->getMessage());
+            return redirect()->back()->with('error_update', $e->getMessage());
         }
     }
     public function editPoService(Request $request, $id)
@@ -111,14 +111,14 @@ class PreOrderController extends Controller
         $poservice = POService::findOrFail($id);
         try {
             $validatedData = $request->validate([
-                'idServicePO' => 'required',
-                'idServicePR' => 'required',
+                'idServicePO' => 'required|max:10',
+                'idServicePR' => 'required|max:10',
                 'judulPekerjaan' => 'required',
             ]);
             $poservice->update($validatedData);
             return redirect()->back()->with('success_update', 'Data berhasil diperbarui!');
         } catch (Throwable $e) {
-            return redirect()->back()->with('error_update', 'Terjadi kesalahan saat mengupdate data: ' . $e->getMessage());
+            return redirect()->back()->with('error_update', $e->getMessage());
         }
     }
     public function editPoNonada(Request $request, $id)
@@ -126,14 +126,14 @@ class PreOrderController extends Controller
         $pononada = PONonada::findOrFail($id);
         try {
             $validatedData = $request->validate([
-                'idNonadaPO' => 'required',
-                'idNonadaPR' => 'required',
+                'idNonadaPO' => 'required|max:10',
+                'idNonadaPR' => 'required|max:10',
                 'judulPekerjaan' => 'required',
             ]);
             $pononada->update($validatedData);
             return redirect()->back()->with('success_update', 'Data berhasil diperbarui!');
         } catch (Throwable $e) {
-            return redirect()->back()->with('error_update', 'Terjadi kesalahan saat mengupdate data: ' . $e->getMessage());
+            return redirect()->back()->with('error_update', $e->getMessage());
         }
     }
 

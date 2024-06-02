@@ -24,12 +24,12 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body" style="max-height: 450px; overflow-y: auto;">
-                                    <!-- Form untuk menambahkan data -->
+                                        <!-- Form untuk menambahkan data -->
                                         <form action="{{ route('pr.storePrNonada') }}" method="POST">
                                             @csrf
                                             <div class="mb-3">
                                                 <label for="idNonadaPR" class="form-label">Nomor PR Non Ada</label>
-                                                <input type="number" class="form-control" id="idNonadaPR" name="idNonadaPR">
+                                                <input type="number" class="form-control" id="idNonadaPR" name="idNonadaPR" maxlength="10" oninput="checkLength()">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="judulPekerjaan" class="form-label">Judul Pekerjaan</label>
@@ -133,13 +133,13 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body" style="max-height: 450px; overflow-y: auto;">
-                                            <!-- Form untuk mengedit data -->
+                                                <!-- Form untuk mengedit data -->
                                                 <form action="{{ route('prnonada.edit', $prnonada->idNonadaPR) }}" method="POST" class="editForm">
                                                     @csrf
                                                     @method('PUT')
                                                     <div class="mb-3">
                                                         <label for="idNonadaPR" class="form-label">Nomor PR Non Ada</label>
-                                                        <input type="number" class="form-control" id="idNonadaPR" name="idNonadaPR" value="{{ $prnonada->idNonadaPR }}">
+                                                        <input type="number" class="form-control" id="idNonadaPR" name="idNonadaPR" value="{{ $prnonada->idNonadaPR }}" maxlength="10" oninput="checkLength()">
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="judulPekerjaan" class="form-label">Judul Pekerjaan</label>
@@ -208,6 +208,13 @@
                                     window.location.href = "{{ route('prnonada') }}";
                                 }
                             });
+                            //Limit Karakter pada Nomor PR
+                            function checkLength() {
+                                const idNonadaPR = document.getElementById('idNonadaPR');
+                                if (idNonadaPR.value.length > 10) {
+                                    idNonadaPR.value = idNonadaPR.value.slice(0, 10);
+                                }
+                            }
                             //Konfirmasi untuk hapus data
                             document.addEventListener('DOMContentLoaded', function() {
                                 const deleteButtons = document.querySelectorAll('.deleteButton');

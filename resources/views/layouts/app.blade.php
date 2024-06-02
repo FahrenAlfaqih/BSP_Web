@@ -1,17 +1,11 @@
 <!DOCTYPE html>
 
-@if (\Request::is('rtl'))
-  <html dir="rtl" lang="ar">
-@else
-  <html lang="en" >
-@endif
-
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   @if (env('IS_DEMO'))
-      <x-demo-metas></x-demo-metas>
+  <x-demo-metas></x-demo-metas>
   @endif
 
   @include('sweetalert::alert')
@@ -19,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <title>
-  Bumi Siak Pusako
+    Bumi Siak Pusako
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -36,21 +30,18 @@
 
 <body class="g-sidenav-show  bg-gray-100 {{ (\Request::is('rtl') ? 'rtl' : (Request::is('virtual-reality') ? 'virtual-reality' : '')) }} ">
   @auth
-    @yield('auth')
+  @yield('auth')
   @endauth
   @guest
-    @yield('guest')
+  @yield('guest')
   @endguest
-
+  <!-- Session Limit -->
   @if(session()->has('success'))
-    <div x-data="{ show: true}"
-        x-init="setTimeout(() => show = false, 4000)"
-        x-show="show"
-        class="position-fixed bg-success rounded right-3 text-sm py-2 px-4">
-      <p class="m-0">{{ session('success')}}</p>
-    </div>
+  <div x-data="{ show: true}" x-init="setTimeout(() => show = false, 4000)" x-show="show" class="position-fixed bg-success rounded right-3 text-sm py-2 px-4">
+    <p class="m-0">{{ session('success')}}</p>
+  </div>
   @endif
-    <!--   Core JS Files   -->
+  <!--   Core JS Files   -->
   <script src="../assets/js/core/popper.min.js"></script>
   <script src="../assets/js/core/bootstrap.min.js"></script>
   <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
@@ -73,6 +64,20 @@
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/soft-ui-dashboard.min.js?v=1.0.3"></script>
+  <!-- Reload Captcha -->
+  <script>
+    $('#reload').click(function() {
+      $.ajax({
+        type: 'GET',
+        url: 'reload-captcha',
+        success: function(data) {
+          $(".captcha span").html(data.captcha)
+        }
+      });
+    });
+  </script>
+
+
 </body>
 
 </html>

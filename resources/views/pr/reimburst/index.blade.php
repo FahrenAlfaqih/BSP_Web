@@ -29,7 +29,7 @@
                                             @csrf
                                             <div class="mb-3">
                                                 <label for="idReimburstPR" class="form-label">Nomor PR Reimburst</label>
-                                                <input type="number" class="form-control" id="idReimburstPR" name="idReimburstPR">
+                                                <input type="text" class="form-control" id="idReimburstPR" name="idReimburstPR" maxlength="10" oninput="checkLength()">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="judulPekerjaan" class="form-label">Judul Pekerjaan</label>
@@ -133,13 +133,13 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body" style="max-height: 450px; overflow-y: auto;">
-                                            <!-- Form untuk mengedit data -->
+                                                <!-- Form untuk mengedit data -->
                                                 <form action="{{ route('prreimburst.edit', $prreimburst->idReimburstPR) }}" method="POST" class="editForm">
                                                     @csrf
                                                     @method('PUT')
                                                     <div class="mb-3">
                                                         <label for="idReimburstPR" class="form-label">Nomor PR Reimburst</label>
-                                                        <input type="number" class="form-control" id="idReimburstPR" name="idReimburstPR" value="{{ $prreimburst->idReimburstPR }}">
+                                                        <input type="number" class="form-control" id="idReimburstPR" name="idReimburstPR" value="{{ $prreimburst->idReimburstPR }}" maxlength="10" oninput="checkLength()">
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="judulPekerjaan" class="form-label">Judul Pekerjaan</label>
@@ -208,6 +208,13 @@
                                     window.location.href = "{{ route('prnonada') }}";
                                 }
                             });
+                            //Limit Karakter pada Nomor PR
+                            function checkLength() {
+                                const idReimburstPR = document.getElementById('idReimburstPR');
+                                if (idReimburstPR.value.length > 10) {
+                                    idReimburstPR.value = idReimburstPR.value.slice(0, 10);
+                                }
+                            }
                             //Konfirmasi untuk hapus data
                             document.addEventListener('DOMContentLoaded', function() {
                                 const deleteButtons = document.querySelectorAll('.deleteButton');

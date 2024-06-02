@@ -44,14 +44,14 @@ class ServiceEntryController extends Controller
         try {
             // Validasi data
             $validatedData = $request->validate([
-                'idSReimburstSES' => 'required',
-                'idReimburstPO' => 'required|unique:ses_reimburst,idReimburstPO',
+                'idSReimburstSES' => 'required|max:10',
+                'idReimburstPO' => 'required|unique:ses_reimburst,idReimburstPO|max:10',
                 'judulPekerjaan' => 'required',
             ]);
             SESReimburst::create($validatedData);
             return redirect()->back()->with('success_add', 'Data berhasil ditambahkan!');
         } catch (Throwable $e) {
-            return redirect()->back()->with('error_add', 'Terjadi kesalahan saat input data: ' . $e->getMessage());
+            return redirect()->back()->with('error_add', $e->getMessage());
         }
     }
     public function storeService(Request $request)
@@ -59,14 +59,14 @@ class ServiceEntryController extends Controller
         try {
             // Validasi data
             $validatedData = $request->validate([
-                'idServiceSES' => 'required',
-                'idServicePO' => 'required|unique:ses_service,idServicePO',
+                'idServiceSES' => 'required|max:10',
+                'idServicePO' => 'required|unique:ses_service,idServicePO|max:10',
                 'judulPekerjaan' => 'required',
             ]);
             SESService::create($validatedData);
             return redirect()->back()->with('success_add', 'Data berhasil ditambahkan!');
         } catch (Throwable $e) {
-            return redirect()->back()->with('error_add', 'Terjadi kesalahan saat input data: ' . $e->getMessage());
+            return redirect()->back()->with('error_add', $e->getMessage());
         }
     }
     public function storeNonada(Request $request)
@@ -74,14 +74,14 @@ class ServiceEntryController extends Controller
         try {
             // Validasi data
             $validatedData = $request->validate([
-                'idNonadaSES' => 'required',
-                'idNonadaPO' => 'required|unique:ses_nonada,idNonadaPO',
+                'idNonadaSES' => 'required|max:10',
+                'idNonadaPO' => 'required|unique:ses_nonada,idNonadaPO|max:10',
                 'judulPekerjaan' => 'required',
             ]);
             SESNonada::create($validatedData);
             return redirect()->back()->with('success_add', 'Data berhasil ditambahkan!');
         } catch (Throwable $e) {
-            return redirect()->back()->with('error_add', 'Terjadi kesalahan saat input data: ' . $e->getMessage());
+            return redirect()->back()->with('error_add', $e->getMessage());
         }
     }
 
@@ -90,14 +90,14 @@ class ServiceEntryController extends Controller
         $sesreimburst = SESReimburst::findOrFail($id);
         try {
             $validatedData = $request->validate([
-                'idSReimburstSES' => 'required',
-                'idReimburstPO' => 'required',
+                'idSReimburstSES' => 'required|max:10',
+                'idReimburstPO' => 'required|max:10',
                 'judulPekerjaan' => 'required',
             ]);
             $sesreimburst->update($validatedData);
             return redirect()->back()->with('success_update', 'Data berhasil diperbarui!');
         } catch (Throwable $e) {
-            return redirect()->back()->with('error_update', 'Terjadi kesalahan saat mengupdate data: ' . $e->getMessage());
+            return redirect()->back()->with('error_update', $e->getMessage());
         }
     }
     public function editSesService(Request $request, $id)
@@ -105,14 +105,14 @@ class ServiceEntryController extends Controller
         $sesservice = SESService::findOrFail($id);
         try {
             $validatedData = $request->validate([
-                'idServiceSES' => 'required',
-                'idServicePO' => 'required',
+                'idServiceSES' => 'required|max:10',
+                'idServicePO' => 'required|max:10',
                 'judulPekerjaan' => 'required',
             ]);
             $sesservice->update($validatedData);
             return redirect()->back()->with('success_update', 'Data berhasil diperbarui!');
         } catch (Throwable $e) {
-            return redirect()->back()->with('error_update', 'Terjadi kesalahan saat mengupdate data: ' . $e->getMessage());
+            return redirect()->back()->with('error_update', $e->getMessage());
         }
     }
     public function editSesNonada(Request $request, $id)
@@ -120,14 +120,14 @@ class ServiceEntryController extends Controller
         $sesnonada = SESNonada::findOrFail($id);
         try {
             $validatedData = $request->validate([
-                'idNonadaSES' => 'required',
-                'idNonadaPO' => 'required',
+                'idNonadaSES' => 'required|max:10',
+                'idNonadaPO' => 'required|max:10',
                 'judulPekerjaan' => 'required',
             ]);
             $sesnonada->update($validatedData);
             return redirect()->back()->with('success_update', 'Data berhasil diperbarui!');
         } catch (Throwable $e) {
-            return redirect()->back()->with('error_update', 'Terjadi kesalahan saat mengupdate data: ' . $e->getMessage());
+            return redirect()->back()->with('error_update', $e->getMessage());
         }
     }
 

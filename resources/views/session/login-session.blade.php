@@ -29,6 +29,19 @@
                     <p class="text-danger text-xs mt-2">{{ $message }}</p>
                     @enderror
                   </div>
+                  <label>Captcha</label>
+                  <div class="mb-3">
+                    <input type="text" class="form-control" name="captcha" id="captcha" placeholder="Captcha" aria-label="Captcha">
+                    @error('captcha')
+                    <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                    @enderror
+                  </div>
+                  <div class="mb-3">
+                    <div class="captcha">
+                      <span>{!! captcha_img('math') !!}</span>
+                      <button type="button" class="btn btn-danger reload" id="reload">&#x21bb;</button>
+                    </div>
+                  </div>
                   <!-- <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="rememberMe" checked="">
                     <label class="form-check-label" for="rememberMe">Ingatkan Saya</label>
@@ -37,7 +50,7 @@
                     <button type="submit" class="btn bg-gradient-info w-100 mt-4 mb-0">Masuk </button>
                   </div>
                 </form>
-              </div>  
+              </div>
               <!-- Register & lupa password -->
               <!-- <div class="card-footer text-center pt-0 px-lg-2 px-1">
                 <small class="text-muted">Hubungi IT untuk mendaftar akun atau lupa password

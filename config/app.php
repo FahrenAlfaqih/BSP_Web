@@ -166,6 +166,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Mews\Captcha\CaptchaServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -235,6 +236,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'SweetAlert' => RealRashid\SweetAlert\Facades\Alert::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Captcha' => Mews\Captcha\Facades\Captcha::class,
 
     ],
 
