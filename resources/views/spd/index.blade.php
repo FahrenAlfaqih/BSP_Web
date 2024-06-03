@@ -70,7 +70,7 @@
                                                 </select>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="wbs" class="form-label">WBS</label>
+                                                <label for="wbs" class="form-label">BS</label>
                                                 <input type="text" class="form-control" id="wbs" name="wbs">
                                             </div>
                                             <div class="col-md-6">
@@ -109,10 +109,7 @@
                                                 <label for="biaya_dpd" class="form-label">Biaya DPD</label>
                                                 <input type="text" class="form-control" id="biaya_dpd" name="biaya_dpd">
                                             </div>
-                                            <div class="col-md-6">
-                                                <label for="rkap" class="form-label">RKAP</label>
-                                                <input type="text" class="form-control" id="rkap" name="rkap">
-                                            </div>
+
                                             <div class="col-md-6">
                                                 <label for="accrual" class="form-label">Accrual</label>
                                                 <input type="text" class="form-control" id="accrual" name="accrual">
@@ -251,8 +248,6 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Biaya DPD</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
-                                        RKAP</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         ACCRUAL</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Submit Tanggal</th>
@@ -281,7 +276,6 @@
                                     <td style="font-size: 14px;">{{ $spd->tanggal_selesai  }}</td>
                                     <td style="font-size: 14px;">{{ $spd->keterangan_dinas }}</td>
                                     <td style="font-size: 14px;">{{ $spd->biaya_dpd }}</td>
-                                    <td style="font-size: 14px;">{{ $spd->rkap }}</td>
                                     <td style="font-size: 14px;">{{ $spd->accrual }}</td>
                                     <td style="font-size: 14px;">{{ $spd->submit_tgl }}</td>
                                     <td style="font-size: 14px;">
@@ -334,7 +328,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label for="wbs" class="form-label">WBS</label>
+                                                        <label for="wbs" class="form-label">BS</label>
                                                         <input type="text" class="form-control" id="wbs" name="wbs" value="{{ $spd->wbs }}">
                                                     </div>
                                                     <div class="col-md-6">
