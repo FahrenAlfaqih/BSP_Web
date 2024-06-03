@@ -367,10 +367,7 @@
                                                         <label for="biaya_dpd" class="form-label">Biaya DPD</label>
                                                         <input type="text" class="form-control" id="biaya_dpd" name="biaya_dpd" value="{{ $spd->biaya_dpd }}">
                                                     </div>
-                                                    <div class="col-md-6">
-                                                        <label for="rkap" class="form-label">RKAP</label>
-                                                        <input type="text" class="form-control" id="rkap" name="rkap" value="{{ $spd->rkap }}">
-                                                    </div>
+
                                                     <div class="col-md-6">
                                                         <label for="accrual" class="form-label">Accrual</label>
                                                         <input type="text" class="form-control" id="accrual" name="accrual" value="{{ $spd->accrual }}">
