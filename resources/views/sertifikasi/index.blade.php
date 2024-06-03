@@ -528,7 +528,7 @@
                                 const submitButton = document.querySelector('#submitBtn');
                                 uploadForm.addEventListener('submit', function(event) {
                                     // Periksa apakah file sudah dipilih
-                                    if (!document.querySelector('input[name="file"]').files[0]) {
+                                    if (!document.querySelector('input[name="file[]"]').files[0]) {
                                         event.preventDefault();
                                         swal({
                                             title: "Oops...",
