@@ -119,7 +119,7 @@ class SertifikasiController extends Controller
             Sertifikasi::create($validatedData);
             return redirect()->back()->with('success_add', 'Data berhasil ditambahkan!');
         } catch (Throwable $e) {
-            return redirect()->back()->with('error_add', 'Terjadi kesalahan saat input data: ' . $e->getMessage());
+            return redirect()->back()->with('error_add', $e->getMessage());
         }
     }
 
@@ -143,7 +143,7 @@ class SertifikasiController extends Controller
             $sertifikasi->update($validatedData);
             return redirect()->back()->with('success_update', 'Data berhasil diperbarui!');
         } catch (Throwable $e) {
-            return redirect()->back()->with('error_update', 'Terjadi kesalahan saat mengupdate data: ' . $e->getMessage());
+            return redirect()->back()->with('error_update', $e->getMessage());
         }
     }
 
@@ -213,7 +213,7 @@ class SertifikasiController extends Controller
 
             return redirect()->back()->with('success_message', 'Data dari Excel berhasil diunggah!');
         } catch (Throwable $e) {
-            return redirect()->back()->with('error_message', 'Terjadi kesalahan saat mengimpor data: ' . $e->getMessage());
+            return redirect()->back()->with('error_message', $e->getMessage());
         }
     }
 }
