@@ -332,7 +332,7 @@
                                     <td style="font-size: 14px;">{{ $dpd->pr }}</td>
                                     <td style="font-size: 14px;">{{ $dpd->po }}</td>
                                     <td style="font-size: 14px;">{{ $dpd->ses }}</td>
-                                    <td style="font-size: 14px;">{{ $dpd->biayadpd }}</td>
+                                    <td style="font-size: 14px;">{{ number_format($dpd->biaya_dpd, 0, ',', '.') }}</td>
                                     <td style="font-size: 14px;">{{ $dpd->submitfinec}}</td>
                                     <td style="font-size: 14px;">{{ $dpd->status }}</td>
                                     <td style="font-size: 14px;">{{ $dpd->paymentbyfinec }}</td>
