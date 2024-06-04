@@ -558,13 +558,12 @@
                                     });
                                 });
                             });
-
                             //Menampilkan notif jika file excel belum diinputkan tetapi sudah pencet unggah
                             document.addEventListener('DOMContentLoaded', function() {
                                 const uploadForm = document.querySelector('#uploadForm');
                                 uploadForm.addEventListener('submit', function(event) {
                                     // Periksa apakah file sudah dipilih
-                                    if (!document.querySelector('input[name="file"]').files[0]) {
+                                    if (!document.querySelector('input[name="file[]"]').files[0]) {
                                         event.preventDefault();
                                         swal({
                                             title: "Oops...",
