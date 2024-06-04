@@ -30,6 +30,7 @@
           <span class="nav-link-text ms-1">Dashboard</span>
         </a>
       </li>
+      @if(auth()->user()->email == 'adminhcm@mail.com')
       <!-- Kelola Data -->
       <li class="nav-item mt-2">
         <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Kelola Data </h6>
@@ -78,6 +79,7 @@
       </li>
 
       <!-- Kelola Perjalanan Dinas -->
+      @elseif(auth()->user()->email == 'adminhrm@mail.com')
       <li class="nav-item mt-2">
         <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Kelola Perjalanan Dinas </h6>
       </li>
@@ -124,6 +126,7 @@
         </a>
       </li>
       <!-- Kelola Data Transaksi -->
+      @elseif(auth()->user()->email == 'admin@mail.com')
       <li class="nav-item mt-2">
         <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Kelola Data Transaksi</h6>
       </li>
@@ -192,6 +195,7 @@
       </li>
 
       <!-- Kelola Data Master -->
+      @elseif(auth()->user()->email == 'superadmin@mail.com')
       <li class="nav-item mt-2">
         <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Kelola Data Master</h6>
       </li>
@@ -237,7 +241,7 @@
           <span class="nav-link-text ms-1">Departemen</span>
         </a>
       </li>
-
+      @endif
     </ul>
   </div>
 </aside>

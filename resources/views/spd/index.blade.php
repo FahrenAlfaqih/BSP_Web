@@ -228,7 +228,7 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         Dept</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
-                                        WBS</th>
+                                        BS</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                         PR</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
@@ -290,20 +290,20 @@
                                 @php $index++ @endphp
                                 <!-- Modal edit data -->
                                 <div class="modal fade" id="modalEdit{{ $spd->id }}" tabindex="-1" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                                    <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 60%;">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title">Edit SPD</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
-                                            <div class="modal-body " style="max-height: 450px; overflow-y: auto;">
+                                            <div class="modal-body" style="max-height: 500px; overflow-y: auto;">
                                                 <!-- Form untuk mengedit data -->
-                                                <form action="{{ route('spd.edit', $spd->id) }}" method="POST" class="editForm">
+                                                <form action="{{ route('spd.edit', $spd->id) }}" method="POST" class="row g-3">
                                                     @csrf
                                                     @method('PUT')
                                                     <div class="col-md-6">
                                                         <label for="nomor_spd" class="form-label">Nomor SPD</label>
-                                                        <input type="text" class="form-control" id="nomor_spd" name="nomor_spd" value="{{ $spd->id }}">
+                                                        <input type="text" class="form-control" id="nomor_spd" name="nomor_spd" value="{{ $spd->nomor_spd }}">
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label for="nama" class="form-label">Nama</label>
@@ -367,7 +367,6 @@
                                                         <label for="biaya_dpd" class="form-label">Biaya DPD</label>
                                                         <input type="text" class="form-control" id="biaya_dpd" name="biaya_dpd" value="{{ $spd->biaya_dpd }}">
                                                     </div>
-
                                                     <div class="col-md-6">
                                                         <label for="accrual" class="form-label">Accrual</label>
                                                         <input type="text" class="form-control" id="accrual" name="accrual" value="{{ $spd->accrual }}">
@@ -385,6 +384,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 @endforeach
                             </tbody>
                         </table>
