@@ -10,6 +10,7 @@ use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\SertifikasiController;
 use App\Http\Controllers\MagangController;
 use App\Http\Controllers\DpdController;
+use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\PurchaseReqController;
 use App\Http\Controllers\ServiceEntryController;
 use App\Http\Controllers\PreOrderController;
@@ -44,6 +45,25 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/store', [SertifikasiController::class, 'store'])->name('sertifikasi.store');
         Route::put('/{id}/edit', [SertifikasiController::class, 'editSertifikasi'])->name('sertifikasi.edit');
         Route::delete('/{id}', [SertifikasiController::class, 'deleteSertifikasi'])->name('sertifikasi.destroy');
+    });
+
+    Route::prefix('pegawai')->group(function () {
+        Route::get('/', [PegawaiController::class, 'index'])->name('pegawai');
+        Route::post('/upload-excel', [PegawaiController::class, 'uploadExcel'])->name('pegawai.upload-excel');    
+        Route::get('/filterByDate', [SpdController::class, 'filterByDate'])->name('pegawai.filterByDate');
+        Route::get('/filterData', [SpdController::class, 'filterData'])->name('pegawai.filterData');
+        Route::get('/filterByDept', [SpdController::class, 'filterByDept'])->name('pegawai.filterByDept');
+        // Download file PDF
+        Route::get('/download-pdf', [SpdController::class, 'downloadPDF'])->name('pegawai.download-pdf');
+        // Download file Excel
+        Route::get('/download-excel', [SpdController::class, 'downloadExcel'])->name('pegawai.download-excel');
+        Route::post('/export-selected-pegawais', [SpdController::class, 'exportSelectedSpds'])->name('export-selected-pegawais');
+        // Upload file Excel 
+        // CRUD data pegawai
+        Route::post('/store', [SpdController::class, 'store'])->name('pegawai.store');
+        Route::put('/{id}/edit', [SpdController::class, 'editSpd'])->name('pegawai.edit');
+        Route::delete('/{id}', [SpdController::class, 'deleteSpd'])->name('pegawai.destroy');
+
     });
 
     Route::prefix('training')->group(function () {
