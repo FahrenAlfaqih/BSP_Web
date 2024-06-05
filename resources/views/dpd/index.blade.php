@@ -253,7 +253,6 @@
                                                 @endfor
                                         </select>
                                     </div>
-
                                     <div style="margin-left: 10px;">
                                         <select name="dept" id="dept" onchange="this.form.submit()" class="form-select" style="min-width: 150px;">
                                             <option value="">Pilih Departement</option>
@@ -270,7 +269,6 @@
                                             <option value="FINEC & ICT" {{ request('dept') == 'FINEC & ICT' ? 'selected' : '' }}>FINEC & ICT</option>
                                             <option value="HCM" {{ request('dept') == 'HCM' ? 'selected' : '' }}>HCM</option>
                                         </select>
-
                                     </div>
                                 </div>
                             </form>
@@ -332,8 +330,8 @@
                                     <td style="font-size: 14px;">{{ $dpd->pr }}</td>
                                     <td style="font-size: 14px;">{{ $dpd->po }}</td>
                                     <td style="font-size: 14px;">{{ $dpd->ses }}</td>
-                                    <td style="font-size: 14px;">{{ number_format($dpd->biaya_dpd, 0, ',', '.') }}</td>
-                                    <td style="font-size: 14px;">{{ $dpd->submitfinec}}</td>
+                                    <td style="font-size: 14px;">{{ $dpd->biayadpd }}</td>
+                                    <td style="font-size: 14px;">{{ $dpd->submitfinec }}</td>
                                     <td style="font-size: 14px;">{{ $dpd->status }}</td>
                                     <td style="font-size: 14px;">{{ $dpd->paymentbyfinec }}</td>
                                     <td style="font-size: 14px;">{{ $dpd->keterangan }}</td>
