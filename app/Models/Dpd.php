@@ -10,18 +10,10 @@ class Dpd extends Model
     use HasFactory;
     protected $table = 'dpd';
     protected $fillable = [
-        'nama',
-        'nomorspd',
-        'dept',
-        'bsno',
-        'pr',
-        'po',
-        'ses',
-        'biayadpd',
-        'submitfinec',
-        'status',
-        'paymentbyfinec',
-        'keterangan'
+        'nama','nomorspd','dept',
+        'bsno','pr','po',
+        'ses','biayadpd','submitfinec',
+        'status','paymentbyfinec','keterangan'
     ];
 
     public function department()

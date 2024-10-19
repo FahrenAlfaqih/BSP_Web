@@ -96,7 +96,7 @@
                 <td>{{ $dpd->pr }}</td>
                 <td>{{ $dpd->po }}</td>
                 <td>{{ $dpd->ses }}</td>
-                <td>Rp.{{ number_format($dpd->biayadpd, 0, ',', '.') }}</td>
+                <td>Rp.{{ number_format($dpd->biayadpd, 2, ',', '.') }}</td>
                 <td>{{ $dpd->submitfinec }}</td>
                 <td>{{ $dpd->status }}</td>
                 <td>{{ $dpd->paymentbyfinec }}</td>
@@ -104,8 +104,8 @@
                 <!-- Tambahkan kolom lainnya sesuai kebutuhan -->
             </tr>
             @php
-            // Mengambil nilai biayadpd dari baris saat ini dan mengonversi ke numerik
-            $numericBiayaDPD = (float) str_replace(['Rp.', '.', ','], '', $dpd->biayadpd);
+            // Mengonversi nilai biayadpd dari baris saat ini ke numerik
+            $numericBiayaDPD = (float) $dpd->biayadpd;
             // Menambahkan nilai biayadpd saat ini ke totalBiayaDPD
             $totalBiayaDPD += $numericBiayaDPD;
             $index++;
@@ -114,10 +114,11 @@
             <!-- Baris untuk menampilkan total biaya DPD di luar loop -->
             <tr>
                 <td colspan="8"><strong>Total Biaya DPD</strong></td>
-                <td><strong>Rp.{{ number_format($totalBiayaDPD, 0, ',', '.') }}</strong></td>
+                <td><strong>Rp.{{ number_format($totalBiayaDPD, 2, ',', '.') }}</strong></td>
                 <td colspan="4"></td> <!-- Kolom lainnya tetap kosong untuk menyelaraskan dengan jumlah kolom -->
             </tr>
         </tbody>
+
 
     </table>
 

@@ -18,6 +18,7 @@ class SpdController extends Controller
         $this->middleware('dept');
     }
 
+    //function untuk memfilter data spd berdasarkan departemen
     public function filterByDept(Request $request)
     {
         $dept = $request->dept; // Ubah menjadi $request->dept
@@ -25,7 +26,7 @@ class SpdController extends Controller
         return view('spd.index', compact('spds'));
     }
 
-
+    //function index
     public function index()
     {
         $spds = Spd::paginate(10);
@@ -38,22 +39,13 @@ class SpdController extends Controller
         try {
             // Validasi data
             $validatedData = $request->validate([
-                'nomor_spd' => 'required',
-                'nama' => 'required',
-                'dept' => 'required',
-                'wbs' => 'nullable',
-                'pr' => 'nullable',
-                'po' => 'nullable',
-                'ses' => 'nullable',
-                'dari' => 'required',
-                'tujuan' => 'required',
-                'tanggal_mulai' => 'required',
-                'tanggal_selesai' => 'required',
-                'keterangan_dinas' => 'nullable',
-                'biaya_dpd' => 'nullable',
-                'rkap' => 'nullable',
-                'accrual' => 'nullable',
-                'submit_tgl' => 'nullable',
+                'nomor_spd' => 'required', 'nama' => 'required',
+                'dept' => 'required', 'wbs' => 'nullable', 'pr' => 'nullable',
+                'po' => 'nullable', 'ses' => 'nullable', 'dari' => 'required',
+                'tujuan' => 'required', 'tanggal_mulai' => 'required',
+                'tanggal_selesai' => 'required', 'keterangan_dinas' => 'nullable',
+                'biaya_dpd' => 'nullable', 'rkap' => 'nullable',
+                'accrual' => 'nullable', 'submit_tgl' => 'nullable',
 
             ]);
             Spd::create($validatedData);
@@ -71,7 +63,7 @@ class SpdController extends Controller
         return redirect()->back();
     }
 
-
+    //function untuk filter data berdasarkan pencarian
     public function filterData(Request $request)
     {
         $searchQuery = $request->input('search');
@@ -130,22 +122,13 @@ class SpdController extends Controller
         $spd = Spd::findOrFail($id);
         try {
             $validatedData = $request->validate([
-                'nomor_spd' => 'required',
-                'nama' => 'required',
-                'dept' => 'required',
-                'wbs' => 'nullable',
-                'pr' => 'nullable',
-                'po' => 'nullable',
-                'ses' => 'nullable',
-                'dari' => 'required',
-                'tujuan' => 'required',
-                'tanggal_mulai' => 'required',
-                'tanggal_selesai' => 'required',
-                'keterangan_dinas' => 'nullable',
-                'biaya_dpd' => 'nullable',
-                'rkap' => 'nullable',
-                'accrual' => 'nullable',
-                'submit_tgl' => 'nullable',
+                'nomor_spd' => 'required', 'nama' => 'required',
+                'dept' => 'required', 'wbs' => 'nullable', 'pr' => 'nullable',
+                'po' => 'nullable', 'ses' => 'nullable', 'dari' => 'required',
+                'tujuan' => 'required', 'tanggal_mulai' => 'required',
+                'tanggal_selesai' => 'required', 'keterangan_dinas' => 'nullable',
+                'biaya_dpd' => 'nullable', 'rkap' => 'nullable',
+                'accrual' => 'nullable', 'submit_tgl' => 'nullable',
             ]);
             $spd->update($validatedData);
             return redirect()->back()->with('success_update', 'Data berhasil diperbarui!');
@@ -198,17 +181,13 @@ class SpdController extends Controller
         }
     }
 
-
-
+    //function untuk mendownload data menjadi format excel
     public function downloadExcel(Request $request)
     {
-        // Retrieve filtering parameters from the request
         $searchQuery = $request->input('search');
         $tahun = $request->input('tahun');
         $bulan = $request->input('bulan');
         $dept = $request->input('dept');
-
-        // Retrieve SPD data based on filters
         $query = Spd::query();
 
         if ($searchQuery) {
@@ -231,23 +210,16 @@ class SpdController extends Controller
             $query->whereMonth('tanggal_mulai', $bulan);
         }
 
-        $spds = $query->get(); // Retrieve filtered SPD data
-
-        // Initialize SpdExport with the request object
+        $spds = $query->get();
         $spdExport = new SpdExport($request);
-
-        // Download Excel file using SpdExport and filtered SPD data
         return Excel::download($spdExport, 'Data Rekap SPD.xlsx');
     }
 
+    //function untuk mendownload data yang diceklis menjadi format excel
     public function exportSelectedSpds(Request $request)
     {
         $selectedItems = $request->input('selectedItems', []);
-
-        // Fetch selected SPD records
         $spds = Spd::whereIn('id', $selectedItems)->get();
-
-        // Export selected SPDs to Excel
         return Excel::download(new SelectedSpdExport($spds), 'Data DPD .xlsx');
     }
 

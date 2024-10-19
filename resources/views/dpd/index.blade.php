@@ -9,7 +9,7 @@
             <div class="col-md-4">
                 <div class="card mb-3" style="width: 100%;">
                     <div class="card-header pb-0 d-flex justify-content-between align-items-center">
-                        <h6>List Top Tier Anggaran Pekerja</h6>
+                        <h6>Daftar Pegawai dengan Biaya DPD Tertinggi</h6>
                     </div>
                     <div class="card-body px-4 pt-0 pb-2">
                         <div class="table-responsive p-0">
@@ -101,179 +101,186 @@
                     <div class="d-flex">
                         <!-- <a href="{{ route('dpd.download-excel', ['search' => request()->input('search'),'dept' => request()->input('dept'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-success btn-2x me-2">
                             <i class="fas fa-file-excel"></i> Cetak Excel -->
-                            <a href="{{ route('dpd.download-pdf', ['search' => request()->input('search'),'dept' => request()->input('dept'), 'tahun' => request()->input('tahun'),'bulan' => request()->input('bulan')]) }}" class="btn btn-danger btn-2x me-2">
-                                <i class="fas fa-file-pdf"></i> Cetak PDF
-                            </a>
-                            <!-- Button trigger modal input -->
-                            <button type="button" class="btn btn-dark btn-2x me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                <i class="fas fa-plus"></i> Tambah DPD
-                            </button>
-                            <!-- Modal input data -->
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 60%;">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">Tambah DPD</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body" style="max-height: 500px; overflow-y: auto;">
-                                            <!-- Form untuk menambahkan data -->
-                                            <form action="{{ route('dpd.store') }}" method="POST" class="row g-3">
-                                                @csrf
-                                                <div class="col-md-6">
-                                                    <label for="nama" class="form-label">Nama</label>
-                                                    <input type="text" class="form-control" id="nama" name="nama">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="nomorspd" class="form-label">Nomor SPD</label>
-                                                    <input type="text" class="form-control" id="nomorspd" name="nomorspd">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="dept" class="form-label">Departemen</label>
-                                                    <select class="form-select" id="dept" name="dept">
-                                                        <option value="">Pilih Departemen</option>
-                                                        <option value="GM">GM</option>
-                                                        <option value="OPS">OPS</option>
-                                                        <option value="OS">OS</option>
-                                                        <option value="DWO">DWO</option>
-                                                        <option value="EPT">EPT</option>
-                                                        <option value="EKS">EKS</option>
-                                                        <option value="QHSE">QHSE</option>
-                                                        <option value="SCM">SCM</option>
-                                                        <option value="EA">EA</option>
-                                                        <option value="IA">IA</option>
-                                                        <option value="FINEC & ICT">FINEC & ICT</option>
-                                                        <option value="HCM">HCM</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="bsno" class="form-label">NO BS</label>
-                                                    <input type="text" class="form-control" id="bsno" name="bsno">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="pr" class="form-label">PR</label>
-                                                    <input type="text" class="form-control" id="pr" name="pr">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="po" class="form-label">PO</label>
-                                                    <input type="text" class="form-control" id="po" name="po">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="ses" class="form-label">SES</label>
-                                                    <input type="text" class="form-control" id="ses" name="ses">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="biayadpd" class="form-label">Biaya DPD</label>
-                                                    <input type="number" class="form-control" id="biayadpd" name="biayadpd">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="submitfinec" class="form-label">Submit Finec</label>
-                                                    <input type="date" class="form-control" id="submitfinec" name="submitfinec">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="status" class="form-label">Status</label>
-                                                    <input type="text" class="form-control" id="status" name="status">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="paymentbyfinec" class="form-label">Payment By Finec</label>
-                                                    <input type="text" class="form-control" id="paymentbyfinec" name="paymentbyfinec">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="keterangan" class="form-label">Keterangan</label>
-                                                    <input type="text" class="form-control" id="keterangan" name="keterangan">
-                                                </div>
-                                                <div class="col-12">
-                                                    <button type="submit" class="btn btn-primary">Simpan</button>
-                                                </div>
-                                            </form>
-                                        </div>
+                        <a href="{{ route('dpd.download-pdf', [
+    'search' => request()->input('search'),
+    'dept' => request()->input('dept'),
+    'tahun' => request()->input('tahun'),
+    'bulan' => request()->input('bulan'),
+    'hari' => request()->input('hari')
+]) }}" class="btn btn-danger btn-2x me-2">
+                            <i class="fas fa-file-pdf"></i> Cetak PDF
+                        </a>
+
+                        <!-- Button trigger modal input -->
+                        <button type="button" class="btn btn-dark btn-2x me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <i class="fas fa-plus"></i> Tambah DPD
+                        </button>
+                        <!-- Modal input data -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 60%;">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Tambah DPD</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body" style="max-height: 500px; overflow-y: auto;">
+                                        <!-- Form untuk menambahkan data -->
+                                        <form action="{{ route('dpd.store') }}" method="POST" class="row g-3">
+                                            @csrf
+                                            <div class="col-md-6">
+                                                <label for="nama" class="form-label">Nama</label>
+                                                <input type="text" class="form-control" id="nama" name="nama">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="nomorspd" class="form-label">Nomor SPD</label>
+                                                <input type="text" class="form-control" id="nomorspd" name="nomorspd">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="dept" class="form-label">Departemen</label>
+                                                <select class="form-select" id="dept" name="dept">
+                                                    <option value="">Pilih Departemen</option>
+                                                    <option value="GM">GM</option>
+                                                    <option value="OPS">OPS</option>
+                                                    <option value="OS">OS</option>
+                                                    <option value="DWO">DWO</option>
+                                                    <option value="EPT">EPT</option>
+                                                    <option value="EKS">EKS</option>
+                                                    <option value="QHSE">QHSE</option>
+                                                    <option value="SCM">SCM</option>
+                                                    <option value="EA">EA</option>
+                                                    <option value="IA">IA</option>
+                                                    <option value="FINEC & ICT">FINEC & ICT</option>
+                                                    <option value="HCM">HCM</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="bsno" class="form-label">NO BS</label>
+                                                <input type="text" class="form-control" id="bsno" name="bsno">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="pr" class="form-label">PR</label>
+                                                <input type="text" class="form-control" id="pr" name="pr">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="po" class="form-label">PO</label>
+                                                <input type="text" class="form-control" id="po" name="po">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="ses" class="form-label">SES</label>
+                                                <input type="text" class="form-control" id="ses" name="ses">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="biayadpd" class="form-label">Biaya DPD</label>
+                                                <input type="number" class="form-control" id="biayadpd" name="biayadpd">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="submitfinec" class="form-label">Submit Finec</label>
+                                                <input type="date" class="form-control" id="submitfinec" name="submitfinec">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="status" class="form-label">Status</label>
+                                                <input type="text" class="form-control" id="status" name="status">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="paymentbyfinec" class="form-label">Payment By Finec</label>
+                                                <input type="text" class="form-control" id="paymentbyfinec" name="paymentbyfinec">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="keterangan" class="form-label">Keterangan</label>
+                                                <input type="text" class="form-control" id="keterangan" name="keterangan">
+                                            </div>
+                                            <div class="col-12">
+                                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
-                            <!-- Upload file excel -->
-                            <form id="uploadForm" action="{{ route('dpd.uploadExcel') }}" method="POST" enctype="multipart/form-data" class="btn btn-light btn-2x me-2">
-                                @csrf
-                                <i class="fas fa-file-excel fa-sm"></i>
-                                <input type="file" name="file[]" class="rounded" multiple>
-                                <button type="submit" class="btn-outline-dark rounded">Unggah Excel</button>
-                            </form>
-                            <!-- Icon informasi -->
-                            <a href="#" class="btn btn-light btn-2x me-2" data-bs-toggle="modal" data-bs-target="#modalInformasi">
-                                <i class="fas fa-info-circle fa-2x"></i>
-                            </a>
-                            <!-- Modal informasi-->
-                            <div class="modal fade" id="modalInformasi" tabindex="-1" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-xl">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">Contoh format Excel yang diterima</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body" style="max-height: 450px; overflow-y: auto;">
-                                            <img src="../assets/img/ContohExcel/DPD.png" class="img-fluid" alt="Contoh Isi Excel">
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                                        </div>
+                        </div>
+                        <!-- Upload file excel -->
+                        <form id="uploadForm" action="{{ route('dpd.uploadExcel') }}" method="POST" enctype="multipart/form-data" class="btn btn-light btn-2x me-2">
+                            @csrf
+                            <i class="fas fa-file-excel fa-sm"></i>
+                            <input type="file" name="file[]" class="rounded" multiple>
+                            <button type="submit" class="btn-outline-dark rounded">Unggah Excel</button>
+                        </form>
+                        <!-- Icon informasi -->
+                        <a href="#" class="btn btn-light btn-2x me-2" data-bs-toggle="modal" data-bs-target="#modalInformasi">
+                            <i class="fas fa-info-circle fa-2x"></i>
+                        </a>
+                        <!-- Modal informasi-->
+                        <div class="modal fade" id="modalInformasi" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-xl">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Contoh format Excel yang diterima</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body" style="max-height: 450px; overflow-y: auto;">
+                                        <img src="../assets/img/ContohExcel/DPD.png" class="img-fluid" alt="Contoh Isi Excel">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                                     </div>
                                 </div>
                             </div>
-                            <!-- Reload data terbaru-->
-                            <a href="{{ route('dpd') }}" class="btn btn-light btn-2x me-2">
-                                <i class="fas fa-sync fa-sm"></i> Reload
-                            </a>
-                            <!-- Filter data -->
-                            <form action="{{ route('dpd.filterByDate') }}" method="GET" class="ms-3" id="filterForm">
-                                <div class="d-flex">
-                                    <!-- Filter data berdasarkan tahun -->
-                                    <div class="me-3">
-                                        <select name="tahun" id="tahun" onchange="this.form.submit()" class="form-select" style="min-width: 90px;">
-                                            <option value="">Tahun</option>
-                                            @for ($i = 2003; $i <= 2024; $i++) <option value="{{ $i }}" {{ request('tahun') == $i ? 'selected' : '' }}>{{ $i }}</option>
-                                                @endfor
-                                        </select>
-                                    </div>
-                                    <!-- Filter data berdasarkan bulan -->
-                                    <div class="me-3">
-                                        <select name="bulan" id="bulan" onchange="this.form.submit()" class="form-select" style="min-width: 90px;">
-                                            <option value="">Bulan</option>
-                                            @for ($i = 1; $i <= 12; $i++) <option value="{{ str_pad($i, 2, '0', STR_PAD_LEFT) }}" {{ request('bulan') == str_pad($i, 2, '0', STR_PAD_LEFT) ? 'selected' : '' }}>
-                                                {{ date('F', mktime(0, 0, 0, $i, 1)) }}
-                                                </option>
-                                                @endfor
-                                        </select>
-                                    </div>
-                                    <!-- Filter data berdasarkan hari -->
-                                    <div>
-                                        <select name="hari" id="hari" onchange="this.form.submit()" class="form-select" style="min-width: 90px;">
-                                            <option value="">Tanggal</option>
-                                            @for ($j = 1; $j <= 31; $j++) <option value="{{ str_pad($j, 2, '0', STR_PAD_LEFT) }}" {{ request('hari') == str_pad($j, 2, '0', STR_PAD_LEFT) ? 'selected' : '' }}>
-                                                {{ str_pad($j, 2, '0', STR_PAD_LEFT) }}
-                                                </option>
-                                                @endfor
-                                        </select>
-                                    </div>
-
-                                    <div style="margin-left: 10px;">
-                                        <select name="dept" id="dept" onchange="this.form.submit()" class="form-select" style="min-width: 150px;">
-                                            <option value="">Pilih Departement</option>
-                                            <option value="GM" {{ request('dept') == 'GM' ? 'selected' : '' }}>GM</option>
-                                            <option value="OPS" {{ request('dept') == 'OPS' ? 'selected' : '' }}>OPS</option>
-                                            <option value="OS" {{ request('dept') == 'OS' ? 'selected' : '' }}>OS</option>
-                                            <option value="DWO" {{ request('dept') == 'DWO' ? 'selected' : '' }}>DWO</option>
-                                            <option value="EPT" {{ request('dept') == 'EPT' ? 'selected' : '' }}>EPT</option>
-                                            <option value="EKS" {{ request('dept') == 'EKS' ? 'selected' : '' }}>EKS</option>
-                                            <option value="QHSE" {{ request('dept') == 'QHSE' ? 'selected' : '' }}>QHSE</option>
-                                            <option value="SCM" {{ request('dept') == 'SCM' ? 'selected' : '' }}>SCM</option>
-                                            <option value="EA" {{ request('dept') == 'EA' ? 'selected' : '' }}>EA</option>
-                                            <option value="IA" {{ request('dept') == 'IA' ? 'selected' : '' }}>IA</option>
-                                            <option value="FINEC & ICT" {{ request('dept') == 'FINEC & ICT' ? 'selected' : '' }}>FINEC & ICT</option>
-                                            <option value="HCM" {{ request('dept') == 'HCM' ? 'selected' : '' }}>HCM</option>
-                                        </select>
-
-                                    </div>
+                        </div>
+                        <!-- Reload data terbaru-->
+                        <a href="{{ route('dpd') }}" class="btn btn-light btn-2x me-2">
+                            <i class="fas fa-sync fa-sm"></i> Reload
+                        </a>
+                        <!-- Filter data -->
+                        <form action="{{ route('dpd.filterByDate') }}" method="GET" class="ms-3" id="filterForm">
+                            <div class="d-flex">
+                                <!-- Filter data berdasarkan tahun -->
+                                <div class="me-3">
+                                    <select name="tahun" id="tahun" onchange="this.form.submit()" class="form-select" style="min-width: 90px;">
+                                        <option value="">Tahun</option>
+                                        @for ($i = 2003; $i <= 2024; $i++) <option value="{{ $i }}" {{ request('tahun') == $i ? 'selected' : '' }}>{{ $i }}</option>
+                                            @endfor
+                                    </select>
                                 </div>
-                            </form>
+                                <!-- Filter data berdasarkan bulan -->
+                                <div class="me-3">
+                                    <select name="bulan" id="bulan" onchange="this.form.submit()" class="form-select" style="min-width: 90px;">
+                                        <option value="">Bulan</option>
+                                        @for ($i = 1; $i <= 12; $i++) <option value="{{ str_pad($i, 2, '0', STR_PAD_LEFT) }}" {{ request('bulan') == str_pad($i, 2, '0', STR_PAD_LEFT) ? 'selected' : '' }}>
+                                            {{ date('F', mktime(0, 0, 0, $i, 1)) }}
+                                            </option>
+                                            @endfor
+                                    </select>
+                                </div>
+                                <!-- Filter data berdasarkan hari -->
+                                <div>
+                                    <select name="hari" id="hari" onchange="this.form.submit()" class="form-select" style="min-width: 90px;">
+                                        <option value="">Tanggal</option>
+                                        @for ($j = 1; $j <= 31; $j++) <option value="{{ str_pad($j, 2, '0', STR_PAD_LEFT) }}" {{ request('hari') == str_pad($j, 2, '0', STR_PAD_LEFT) ? 'selected' : '' }}>
+                                            {{ str_pad($j, 2, '0', STR_PAD_LEFT) }}
+                                            </option>
+                                            @endfor
+                                    </select>
+                                </div>
+
+                                <div style="margin-left: 10px;">
+                                    <select name="dept" id="dept" onchange="this.form.submit()" class="form-select" style="min-width: 150px;">
+                                        <option value="">Pilih Departement</option>
+                                        <option value="GM" {{ request('dept') == 'GM' ? 'selected' : '' }}>GM</option>
+                                        <option value="OPS" {{ request('dept') == 'OPS' ? 'selected' : '' }}>OPS</option>
+                                        <option value="OS" {{ request('dept') == 'OS' ? 'selected' : '' }}>OS</option>
+                                        <option value="DWO" {{ request('dept') == 'DWO' ? 'selected' : '' }}>DWO</option>
+                                        <option value="EPT" {{ request('dept') == 'EPT' ? 'selected' : '' }}>EPT</option>
+                                        <option value="EKS" {{ request('dept') == 'EKS' ? 'selected' : '' }}>EKS</option>
+                                        <option value="QHSE" {{ request('dept') == 'QHSE' ? 'selected' : '' }}>QHSE</option>
+                                        <option value="SCM" {{ request('dept') == 'SCM' ? 'selected' : '' }}>SCM</option>
+                                        <option value="EA" {{ request('dept') == 'EA' ? 'selected' : '' }}>EA</option>
+                                        <option value="IA" {{ request('dept') == 'IA' ? 'selected' : '' }}>IA</option>
+                                        <option value="FINEC & ICT" {{ request('dept') == 'FINEC & ICT' ? 'selected' : '' }}>FINEC & ICT</option>
+                                        <option value="HCM" {{ request('dept') == 'HCM' ? 'selected' : '' }}>HCM</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

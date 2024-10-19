@@ -73,19 +73,12 @@
                 <th>Nomor SPD</th>
                 <th>Nama</th>
                 <th>Dept.</th>
-                <th>WBS</th>
-                <th>PR</th>
-                <th>PO</th>
-                <th>SES</th>
-                <th>MIR7</th>
                 <th>Dari</th>
                 <th>Tujuan</th>
-                <th>Tanggal Dinas</th>
+                <th>Tanggal Mulai</th>
+                <th>Tanggal Selesai</th>
                 <th>Ket Dinas</th>
                 <th>Biaya DPD</th>
-                <th>RKAP</th>
-                <th>ACCRUAL</th>
-                <th>Submit Tanggal</th>
             </tr>
         </thead>
 
@@ -97,18 +90,12 @@
                 <td>{{ $spd->nomor_spd }}</td>
                 <td>{{ $spd->nama }}</td>
                 <td>{{ $spd->dept }}</td>
-                <td>{{ $spd->wbs }}</td>
-                <td>{{ $spd->pr }}</td>
-                <td>{{ $spd->po }}</td>
-                <td>{{ $spd->ses }}</td>
-                <td>{{ $spd->mir7 }}</td>
                 <td>{{ $spd->dari }}</td>
                 <td>{{ $spd->tujuan }}</td>
-                <td>{{ $spd->tanggal_dinas  }}</td>
+                <td>{{ $spd->tanggal_mulai  }}</td>
+                <td>{{ $spd->tanggal_selesai  }}</td>
                 <td>{{ $spd->keterangan_dinas }}</td>
-                <td>{{ $spd->rkap }}</td>
-                <td>{{ $spd->accrual }}</td>
-                <td>{{ $spd->submit_tgl }}</td>
+                <td>{{ $spd->biaya_dpd }}</td>
                 <!-- Tambahkan kolom lainnya sesuai kebutuhan -->
             </tr>
             @php $index++ @endphp

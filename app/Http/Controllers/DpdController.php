@@ -60,6 +60,7 @@ class DpdController extends Controller
         return view('dpd.index', compact('topKaryawan', 'dpdList', 'departments', 'topDepartments'));
     }
 
+    //function untuk mengupdate dana setiap departemen
     public function updateDepartmentFunds()
     {
         // Panggil function untuk update remaining_funds
@@ -124,6 +125,7 @@ class DpdController extends Controller
     }
 
 
+    //function untuk memfilter data berdasarkan dropdown departemen
     public function filterByDept(Request $request)
     {
         $dept = $request->dept;
@@ -136,6 +138,7 @@ class DpdController extends Controller
         return view('dpd.index')->with(compact('dpdList'))->with($this->loadData());
     }
 
+    //function untuk memfilter data berdasrkan kolom pencarian
     public function filterData(Request $request)
     {
         $searchQuery = $request->input('search');
@@ -253,34 +256,59 @@ class DpdController extends Controller
         return redirect()->back();
     }
 
-    //function untuk fitur download pdf berdasarkan hasil pencarian, bulan dan tahun
     public function downloadPDF(Request $request)
     {
-        $searchQuery = $request->query('search');
         $tahun = $request->query('tahun');
         $bulan = $request->query('bulan');
         $hari = $request->query('hari');
         $dept = $request->query('dept');
+
         $dpdQuery = Dpd::query();
-        if ($searchQuery) {
-            $dpdQuery->where(function ($query) use ($searchQuery) {
-                $query->where('nama', 'like', '%' . $searchQuery . '%')
-                    ->orWhere('nomorspd', 'like', '%' . $searchQuery . '%');
-            });
-        }
-        if ($dept) {
+
+        if ($tahun && $bulan && $hari && $dept) {
+            // Filter based on year, month, day, and department
+            $dpdQuery->whereYear('submitfinec', $tahun)
+                ->whereMonth('submitfinec', $bulan)
+                ->whereDay('submitfinec', $hari)
+                ->where('dept', $dept);
+        } elseif ($tahun && $bulan && $dept) {
+            // Filter based on year, month, and department
+            $dpdQuery->whereYear('submitfinec', $tahun)
+                ->whereMonth('submitfinec', $bulan)
+                ->where('dept', $dept);
+        } elseif ($tahun && $hari && $dept) {
+            // Filter based on year, day, and department
+            $dpdQuery->whereYear('submitfinec', $tahun)
+                ->whereDay('submitfinec', $hari)
+                ->where('dept', $dept);
+        } elseif ($tahun && $bulan) {
+            // Filter based on year and month
+            $dpdQuery->whereYear('submitfinec', $tahun)
+                ->whereMonth('submitfinec', $bulan);
+        } elseif ($tahun && $dept) {
+            // Filter based on year and department
+            $dpdQuery->whereYear('submitfinec', $tahun)
+                ->where('dept', $dept);
+        } elseif ($bulan && $dept) {
+            // Filter based on month and department
+            $dpdQuery->whereMonth('submitfinec', $bulan)
+                ->where('dept', $dept);
+        } elseif ($tahun) {
+            // Filter based on year
+            $dpdQuery->whereYear('submitfinec', $tahun);
+        } elseif ($bulan) {
+            // Filter based on month
+            $dpdQuery->whereMonth('submitfinec', $bulan);
+        } elseif ($hari) {
+            // Filter based on day
+            $dpdQuery->whereDay('submitfinec', $hari);
+        } elseif ($dept) {
+            // Filter based on department
             $dpdQuery->where('dept', $dept);
         }
-        if ($tahun) {
-            $dpdQuery->whereYear('submitfinec', $tahun);
-        }
-        if ($bulan) {
-            $dpdQuery->whereMonth('submitfinec', $bulan);
-        }
-        if ($hari) {
-            $dpdQuery->whereDay('submitfinec', $hari);
-        }
+
         $dpdList = $dpdQuery->get();
+
         if ($dpdList->isNotEmpty()) {
             $dompdf = new Dompdf();
             $html = view('dpd.pdf', compact('dpdList'))->render();
@@ -293,7 +321,8 @@ class DpdController extends Controller
         }
     }
 
-    //function untuk fitur download pdf berdasarkan hasil pencarian, bulan dan tahun
+
+    //function untuk fitur download excel berdasarkan hasil pencarian, bulan dan tahun
     public function downloadExcel(Request $request)
     {
         $searchQuery = $request->query('search');
