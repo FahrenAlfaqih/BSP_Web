@@ -13,7 +13,7 @@
             <div class="d-flex flex-column h-100">
               <p class="mb-1 pt-2 text-bold">Kelola dengan mudah</p>
               <h5 class="font-weight-bolder">Sertifikasi</h5>
-              <p class="mb-5">Mengelola data sertifikasi menjadi lebih efisien dan apatkan kontrol penuh atas informasi sertifikasi Anda </p>
+              <p class="mb-5">Mengelola data sertifikasi menjadi lebih efisien dan dapatkan kontrol penuh atas informasi sertifikasi Anda </p>
               <a class="text-body text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="{{ url('sertifikasi') }}">
                 Read More
                 <i class="fas fa-arrow-right text-sm ms-1" aria-hidden="true"></i>

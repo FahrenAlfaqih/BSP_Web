@@ -17,7 +17,7 @@
                                 ]) }}" class="btn btn-success btn-2x me-2">
                                 <i class="fas fa-file-excel"></i> Cetak Excel
                             </a> -->
-                            <button type="button" class="btn btn-success btn-2x me-2         " onclick="handleExportToExcel()">Cetak Excel</button>
+                            <button type="button" class="btn btn-success btn-2x me-2" onclick="handleExportToExcel()">Cetak Excel</button>
                             <a href="{{ route('spd.download-pdf', [
                                 'search' => request()->input('search'),
                                 'dept' => request()->input('dept'),
@@ -109,7 +109,6 @@
                                                 <label for="biaya_dpd" class="form-label">Biaya DPD</label>
                                                 <input type="text" class="form-control" id="biaya_dpd" name="biaya_dpd">
                                             </div>
-
                                             <div class="col-md-6">
                                                 <label for="accrual" class="form-label">Accrual</label>
                                                 <input type="text" class="form-control" id="accrual" name="accrual">
@@ -179,7 +178,6 @@
                                             @endfor
                                     </select>
                                 </div>
-
                                 <div style="margin-left: 10px;">
                                     <select name="dept" id="dept" onchange="this.form.submit()" class="form-select" style="min-width: 150px;">
                                         <option value="">Pilih Departement</option>
@@ -196,7 +194,6 @@
                                         <option value="FINEC & ICT" {{ request('dept') == 'FINEC & ICT' ? 'selected' : '' }}>FINEC & ICT</option>
                                         <option value="HCM" {{ request('dept') == 'HCM' ? 'selected' : '' }}>HCM</option>
                                     </select>
-
                                 </div>
                             </div>
                         </form>
@@ -275,7 +272,7 @@
                                     <td style="font-size: 14px;">{{ $spd->tanggal_mulai  }}</td>
                                     <td style="font-size: 14px;">{{ $spd->tanggal_selesai  }}</td>
                                     <td style="font-size: 14px;">{{ $spd->keterangan_dinas }}</td>
-                                    <td style="font-size: 14px;">{{ $spd->biaya_dpd }}</td>
+                                    <td style="font-size: 14px;">Rp. {{ number_format($spd->biaya_dpd, 0, ',', '.') }}</td>
                                     <td style="font-size: 14px;">{{ $spd->accrual }}</td>
                                     <td style="font-size: 14px;">{{ $spd->submit_tgl }}</td>
                                     <td style="font-size: 14px;">
@@ -384,7 +381,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 @endforeach
                             </tbody>
                         </table>

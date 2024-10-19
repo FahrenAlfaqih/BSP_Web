@@ -224,6 +224,7 @@
                                     </div>
                                 </div>
                             </div>
+<<<<<<< HEAD
                         </div>
                         <!-- Reload data terbaru-->
                         <a href="{{ route('dpd') }}" class="btn btn-light btn-2x me-2">
@@ -239,6 +240,60 @@
                                         @for ($i = 2003; $i <= 2024; $i++) <option value="{{ $i }}" {{ request('tahun') == $i ? 'selected' : '' }}>{{ $i }}</option>
                                             @endfor
                                     </select>
+=======
+                            <!-- Reload data terbaru-->
+                            <a href="{{ route('dpd') }}" class="btn btn-light btn-2x me-2">
+                                <i class="fas fa-sync fa-sm"></i> Reload
+                            </a>
+                            <!-- Filter data -->
+                            <form action="{{ route('dpd.filterByDate') }}" method="GET" class="ms-3" id="filterForm">
+                                <div class="d-flex">
+                                    <!-- Filter data berdasarkan tahun -->
+                                    <div class="me-3">
+                                        <select name="tahun" id="tahun" onchange="this.form.submit()" class="form-select" style="min-width: 90px;">
+                                            <option value="">Tahun</option>
+                                            @for ($i = 2003; $i <= 2024; $i++) <option value="{{ $i }}" {{ request('tahun') == $i ? 'selected' : '' }}>{{ $i }}</option>
+                                                @endfor
+                                        </select>
+                                    </div>
+                                    <!-- Filter data berdasarkan bulan -->
+                                    <div class="me-3">
+                                        <select name="bulan" id="bulan" onchange="this.form.submit()" class="form-select" style="min-width: 90px;">
+                                            <option value="">Bulan</option>
+                                            @for ($i = 1; $i <= 12; $i++) <option value="{{ str_pad($i, 2, '0', STR_PAD_LEFT) }}" {{ request('bulan') == str_pad($i, 2, '0', STR_PAD_LEFT) ? 'selected' : '' }}>
+                                                {{ date('F', mktime(0, 0, 0, $i, 1)) }}
+                                                </option>
+                                                @endfor
+                                        </select>
+                                    </div>
+                                    <!-- Filter data berdasarkan hari -->
+                                    <div>
+                                        <select name="hari" id="hari" onchange="this.form.submit()" class="form-select" style="min-width: 90px;">
+                                            <option value="">Tanggal</option>
+                                            @for ($j = 1; $j <= 31; $j++) <option value="{{ str_pad($j, 2, '0', STR_PAD_LEFT) }}" {{ request('hari') == str_pad($j, 2, '0', STR_PAD_LEFT) ? 'selected' : '' }}>
+                                                {{ str_pad($j, 2, '0', STR_PAD_LEFT) }}
+                                                </option>
+                                                @endfor
+                                        </select>
+                                    </div>
+                                    <div style="margin-left: 10px;">
+                                        <select name="dept" id="dept" onchange="this.form.submit()" class="form-select" style="min-width: 150px;">
+                                            <option value="">Pilih Departement</option>
+                                            <option value="GM" {{ request('dept') == 'GM' ? 'selected' : '' }}>GM</option>
+                                            <option value="OPS" {{ request('dept') == 'OPS' ? 'selected' : '' }}>OPS</option>
+                                            <option value="OS" {{ request('dept') == 'OS' ? 'selected' : '' }}>OS</option>
+                                            <option value="DWO" {{ request('dept') == 'DWO' ? 'selected' : '' }}>DWO</option>
+                                            <option value="EPT" {{ request('dept') == 'EPT' ? 'selected' : '' }}>EPT</option>
+                                            <option value="EKS" {{ request('dept') == 'EKS' ? 'selected' : '' }}>EKS</option>
+                                            <option value="QHSE" {{ request('dept') == 'QHSE' ? 'selected' : '' }}>QHSE</option>
+                                            <option value="SCM" {{ request('dept') == 'SCM' ? 'selected' : '' }}>SCM</option>
+                                            <option value="EA" {{ request('dept') == 'EA' ? 'selected' : '' }}>EA</option>
+                                            <option value="IA" {{ request('dept') == 'IA' ? 'selected' : '' }}>IA</option>
+                                            <option value="FINEC & ICT" {{ request('dept') == 'FINEC & ICT' ? 'selected' : '' }}>FINEC & ICT</option>
+                                            <option value="HCM" {{ request('dept') == 'HCM' ? 'selected' : '' }}>HCM</option>
+                                        </select>
+                                    </div>
+>>>>>>> 338831015d5cfbdfe68a5c7562435c37a763385d
                                 </div>
                                 <!-- Filter data berdasarkan bulan -->
                                 <div class="me-3">
@@ -340,7 +395,7 @@
                                     <td style="font-size: 14px;">{{ $dpd->po }}</td>
                                     <td style="font-size: 14px;">{{ $dpd->ses }}</td>
                                     <td style="font-size: 14px;">{{ $dpd->biayadpd }}</td>
-                                    <td style="font-size: 14px;">{{ $dpd->submitfinec}}</td>
+                                    <td style="font-size: 14px;">{{ $dpd->submitfinec }}</td>
                                     <td style="font-size: 14px;">{{ $dpd->status }}</td>
                                     <td style="font-size: 14px;">{{ $dpd->paymentbyfinec }}</td>
                                     <td style="font-size: 14px;">{{ $dpd->keterangan }}</td>
