@@ -2,29 +2,22 @@
 
 @section('content')
 
+<!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" crossorigin="" /> -->
 <div class="row">
 </div>
 <div class="row mt-4">
-  <div class="col-lg-7 mb-lg-0 mb-4">
+  <div class="col-lg-12 mb-lg-0 mb-4"> <!-- Ubah dari col-lg-7 menjadi col-lg-12 -->
     <div class="card">
-      <div class="card-body p-3">
+      <div class="card-body p-6">
         <div class="row">
-          <div class="col-lg-6">
+          <div class="col-lg-12"> <!-- Ubah dari col-lg-16 menjadi col-lg-12 -->
             <div class="d-flex flex-column h-100">
-              <p class="mb-1 pt-2 text-bold">Kelola dengan mudah</p>
-              <h5 class="font-weight-bolder">Sertifikasi</h5>
-              <p class="mb-5">Mengelola data sertifikasi menjadi lebih efisien dan dapatkan kontrol penuh atas informasi sertifikasi Anda </p>
-              <a class="text-body text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="{{ url('sertifikasi') }}">
-                Read More
-                <i class="fas fa-arrow-right text-sm ms-1" aria-hidden="true"></i>
-              </a>
-            </div>
-          </div>
-          <div class="col-lg-5 ms-auto text-center mt-5 mt-lg-0">
-            <div class="border-radius-lg h-100">
-              <img src="../assets/img/shapes/waves-white.svg" class="position-absolute h-100 w-50 top-0 d-lg-block d-none" alt="waves">
-              <div class="position-relative d-flex align-items-center justify-content-center h-100">
-                <img class="w-100 position-relative z-index-2 pt-4" src="../assets/img/lapangan3.jpg" alt="rocket">
+              <h5 class="font-weight-bolder">Grafik Departemen yang Sering Melaksanakan Perjalanan Dinas </h5>
+              <p class="mb-5">Mengelola data Perjalanan Dinas menjadi lebih efisien dan dapatkan kontrol penuh atas informasi Perjalanan Dinas</p>
+              <div class="bg-gradient-dark border-radius-lg ">
+                <div class="chart">
+                  <canvas id="chart-bars" class="chart-canvas" height="350"></canvas>
+                </div>
               </div>
             </div>
           </div>
@@ -32,67 +25,34 @@
       </div>
     </div>
   </div>
-  <div class="col-lg-5">
-    <div class="card h-100 p-3">
-      <div class="overflow-hidden position-relative border-radius-lg bg-cover h-100" style="background-image: url('../assets/img/curved-images/lapangan2.jpg');">
-        <span class="mask bg-gradient-dark"></span>
-        <div class="card-body position-relative z-index-1 d-flex flex-column h-100 p-3">
-          <h5 class="text-white font-weight-bolder mb-4 pt-2">Merekrut pegawai/mahasiswa intern</h5>
-          <p class="text-white">Kelola data terkait riwayat mahasiswa intern dan pegawai paid internship maupun freshgraduate!</p>
-          <a class="text-white text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="{{ url('magang') }}">
-            Read More
-            <i class="fas fa-arrow-right text-sm ms-1" aria-hidden="true"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
 
+
 <div class="row mt-4">
-  <div class="col-lg-6 mb-lg-0 mb-4">
+  <div class="col-lg-7 mb-lg-0 mb-4">
     <div class="card z-index-2">
       <div class="card-body p-3">
-        <p class="font-weight-bolder">Grafik Sertifikasi Per Tahun</p>
-        <div class="bg-gradient-dark border-radius-lg py-3 pe-1 mb-3">
+        <p class="font-weight-bolder">Grafik Perjalanan Dinas dari Tahun ke Tahun</p>
+        <div class="">
           <div class="chart">
-            <canvas id="chart-bars" class="chart-canvas" height="170"></canvas>
+            <canvas id="chart-spd" class="chart-canvas" height="350"></canvas>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="col-lg-6 mb-lg-0 mb-4">
+  <div class="col-lg-5 mb-lg-0 mb-4"> <!-- Ubah dari col-lg-6 menjadi col-lg-5 -->
     <div class="card z-index-2">
       <div class="card-body p-3">
-        <p class="font-weight-bolder">Grafik Magang Per Tahun</p>
+        <p class="font-weight-bolder">Grafik Anggaran Perjalanan Dinas yang Digunakan Setiap Departemen</p>
         <div class="chart">
-          <canvas id="chart-line" class="chart-canvas" height="300"></canvas>
+          <canvas id="pengeluaranDepartemenChart" class="chart-canvas" height="170"></canvas>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- <div class="col-mt-4">
-  <div class="col-lg-6 mb-lg-0 mb-4">
-  <div class="card mb-3" style="width: 100%;">
-    <div class="card-header pb-0 d-flex justify-content-between align-items-center">
-    <p class="font-weight-bolder">Progress Anggaran Dana DPD</p>
-    </div>
-    <div class="card-body px-0 pt-0 pb-2">
-      @foreach ($departmentProgress as $dept => $percentage)
-      <div class="m-3">
-        <p>{{ $dept }}</p>
-        <div class="progress" style="height: 15px;">
-          <div class="progress-bar" style="height: 15px; width: {{ number_format($percentage, 2) }}%;" role="progressbar" aria-valuenow="{{ $percentage }}" aria-valuemin="0" aria-valuemax="100">{{ number_format($percentage, 2) }}%</div>
-        </div>
-      </div>
-      @endforeach
-    </div>
-  </div>
-  </div>
-</div> -->
 
 <script type="text/javascript">
   var _ydata = JSON.parse('{!! json_encode($years) !!}');
@@ -100,118 +60,39 @@
   var _ydata2 = JSON.parse('{!! json_encode($years2) !!}');
   var _xdata2 = JSON.parse('{!! json_encode($yearCount2) !!}');
 </script>
-
-
 @endsection
 @push('dashboard')
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  window.onload = function() {
-    var ctx = document.getElementById("chart-bars").getContext("2d");
+  document.addEventListener("DOMContentLoaded", function() {
+    // Define the gradientStroke variable inside this scope
+    var ctxSpd = document.getElementById("chart-spd").getContext("2d");
+    var gradientStroke = ctxSpd.createLinearGradient(0, 230, 0, 50);
+    gradientStroke.addColorStop(1, 'rgba(203,12,159,0.2)');
+    gradientStroke.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+    gradientStroke.addColorStop(0, 'rgba(203,12,159,0)');
 
-    new Chart(ctx, {
-      type: "bar",
-      data: {
-        labels: _ydata,
-        datasets: [{
-          label: "Jumlah",
-          tension: 0.4,
-          borderWidth: 0,
-          borderRadius: 4,
-          borderSkipped: false,
-          backgroundColor: "#fff",
-          data: _xdata,
-          maxBarThickness: 10
-        }, ],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: false,
-          },
-        },
-        interaction: {
-          intersect: false,
-          mode: 'index',
-        },
-        scales: {
-          y: {
-            grid: {
-              drawBorder: false,
-              display: false,
-              drawOnChartArea: false,
-              drawTicks: false,
-            },
-            ticks: {
-              suggestedMin: 0,
-              suggestedMax: 500,
-              beginAtZero: true,
-              padding: 15,
-              font: {
-                size: 14,
-                family: "Open Sans",
-                style: 'normal',
-                weight: 'bold',
-                lineHeight: 2,
-              },
-              color: "#fff"
-            },
-          },
-          x: {
-            grid: {
-              drawBorder: false,
-              display: false,
-              drawOnChartArea: false,
-              drawTicks: false
-            },
-            ticks: {
-              display: true,
-              font: {
-                size: 14,
-                family: "Open Sans",
-                style: 'normal',
-                weight: 'bold',
-                lineHeight: 2,
-              },
-              color: "#fff"
-            },
-          },
-        },
-      },
-    });
+    // Ambil data dari Blade template
+    var spdYears = @json($spdYears);
+    var spdYearCount = @json($spdYearCount);
 
-
-    var ctx2 = document.getElementById("chart-line").getContext("2d");
-
-    var gradientStroke1 = ctx2.createLinearGradient(0, 230, 0, 50);
-
-    gradientStroke1.addColorStop(1, 'rgba(203,12,159,0.2)');
-    gradientStroke1.addColorStop(0.2, 'rgba(72,72,176,0.0)');
-    gradientStroke1.addColorStop(0, 'rgba(203,12,159,0)'); //purple colors
-
-    var gradientStroke2 = ctx2.createLinearGradient(0, 230, 0, 50);
-
-    gradientStroke2.addColorStop(1, 'rgba(20,23,39,0.2)');
-    gradientStroke2.addColorStop(0.2, 'rgba(72,72,176,0.0)');
-    gradientStroke2.addColorStop(0, 'rgba(20,23,39,0)'); //purple colors
-
-    new Chart(ctx2, {
+    new Chart(ctxSpd, {
       type: "line",
       data: {
-        labels: _ydata2,
+        labels: spdYears,
         datasets: [{
-          label: "Jumlah",
+          label: "Jumlah Perjalanan Dinas",
           tension: 0.4,
           borderWidth: 0,
-          pointRadius: 0,
+          pointRadius: 5,
           borderColor: "#cb0c9f",
           borderWidth: 3,
-          backgroundColor: gradientStroke1,
+          backgroundColor: gradientStroke,
           fill: true,
-          data: _xdata2,
+          data: spdYearCount,
           maxBarThickness: 6
-        }, ],
+        }]
       },
       options: {
         responsive: true,
@@ -243,7 +124,7 @@
                 family: "Open Sans",
                 style: 'normal',
                 lineHeight: 2
-              },
+              }
             }
           },
           x: {
@@ -263,12 +144,149 @@
                 family: "Open Sans",
                 style: 'normal',
                 lineHeight: 2
-              },
+              }
             }
+          }
+        }
+      }
+    });
+  });
+
+  window.onload = function() {
+    var ctx = document.getElementById("chart-bars").getContext("2d");
+
+    // Ambil data dari Blade template
+    var labels_totaldept = @json($labels_totaldept);
+    var data__totaldept = @json($data__totaldept);
+
+    // Pisahkan data berdasarkan nilai
+    var highValues = data__totaldept.map(value => value > 50 ? value : 0);
+    var lowValues = data__totaldept.map(value => value <= 50 ? value : 0);
+
+    new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: labels_totaldept, // Menggunakan label departemen
+        datasets: [{
+          label: "Jumlah Perjalanan Dinas Tinggi (≥ 50)",
+          tension: 0.4,
+          borderWidth: 0,
+          borderRadius: 4,
+          borderSkipped: false,
+          backgroundColor: "#4caf50", // Hijau untuk nilai tinggi
+          data: highValues, // Data untuk nilai tinggi
+          maxBarThickness: 10
+        }, {
+          label: "Jumlah Perjalanan Dinas Rendah (< 50)",
+          tension: 0.4,
+          borderWidth: 0,
+          borderRadius: 4,
+          borderSkipped: false,
+          backgroundColor: "#f44336", // Merah untuk nilai rendah
+          data: lowValues, // Data untuk nilai rendah
+          maxBarThickness: 10
+        }],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: true, // Menampilkan legenda
+          },
+        },
+        interaction: {
+          intersect: false,
+          mode: 'index',
+        },
+        scales: {
+          y: {
+            grid: {
+              drawBorder: true,
+              display: true,
+              color: '#e0e0e0', // Warna grid
+              borderDash: [5, 5],
+            },
+            ticks: {
+              beginAtZero: true,
+              stepSize: 10, // Mengatur langkah interval sumbu Y
+              padding: 15,
+              font: {
+                size: 14,
+                family: "Open Sans",
+                style: 'normal',
+                weight: 'bold',
+                lineHeight: 2,
+              },
+              color: "#b2b9bf"
+            },
+          },
+          x: {
+            grid: {
+              drawBorder: false,
+              display: false,
+            },
+            ticks: {
+              display: true,
+              font: {
+                size: 14,
+                family: "Open Sans",
+                style: 'normal',
+                weight: 'bold',
+                lineHeight: 2,
+              },
+              color: "#b2b9bf"
+            },
           },
         },
       },
     });
-  }
+  };
+
+  // Grafik Anggaran Perjalanan Dinas yang Digunakan Setiap Departemen per Bulan 
+  var pengeluaranData = @json($pengeluaranPerDepartemen);
+  var labels = pengeluaranData.map(function(item) {
+    return item.dept;
+  });
+  var data = pengeluaranData.map(function(item) {
+    return item.total_biaya;
+  });
+  var ctx = document.getElementById('pengeluaranDepartemenChart').getContext('2d');
+  var chart = new Chart(ctx, {
+    type: 'bar', // atau 'pie' untuk pie chart
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Pengeluaran Anggaran per Departemen',
+        data: data,
+        backgroundColor: [
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)'
+        ],
+        borderColor: [
+          'rgba(75, 192, 192, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255, 99, 132, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
 </script>
+
 @endpush

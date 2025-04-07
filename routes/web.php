@@ -49,7 +49,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::prefix('pegawai')->group(function () {
         Route::get('/', [PegawaiController::class, 'index'])->name('pegawai');
-        Route::post('/upload-excel', [PegawaiController::class, 'uploadExcel'])->name('pegawai.upload-excel');    
+        Route::post('/upload-excel', [PegawaiController::class, 'uploadExcel'])->name('pegawai.upload-excel');
         Route::get('/filterByDate', [SpdController::class, 'filterByDate'])->name('pegawai.filterByDate');
         Route::get('/filterData', [SpdController::class, 'filterData'])->name('pegawai.filterData');
         Route::get('/filterByDept', [SpdController::class, 'filterByDept'])->name('pegawai.filterByDept');
@@ -63,8 +63,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/store', [SpdController::class, 'store'])->name('pegawai.store');
         Route::put('/{id}/edit', [SpdController::class, 'editSpd'])->name('pegawai.edit');
         Route::delete('/{id}', [SpdController::class, 'deleteSpd'])->name('pegawai.destroy');
-
     });
+
+    Route::prefix('departemen')->group(function () {
+        Route::get('/', [DepartmentController::class, 'index'])->name('departemen');
+        Route::post('/storeDanaAwal', [DepartmentController::class, 'updateInitialFunds'])->name('updateInitialFunds');
+    });
+
 
     Route::prefix('training')->group(function () {
         // Menampilkan dan memfilter data sertifikasi

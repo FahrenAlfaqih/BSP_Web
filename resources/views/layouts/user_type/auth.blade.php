@@ -29,10 +29,8 @@
                 <div class="container-fluid py-4">
                     @yield('content')
                     @include('layouts.footers.auth.footer')
-                </div>
-            </main>
+                </div> 
+            </main> 
         @endif
-
     @endif
-
 @endsection

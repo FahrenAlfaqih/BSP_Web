@@ -278,7 +278,7 @@
                                         <option value="HCM" {{ request('dept') == 'HCM' ? 'selected' : '' }}>HCM</option>
                                     </select>
 
-                                </div>
+                                </div>  
                             </div>
                         </form>
                     </div>

@@ -9,14 +9,6 @@
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <div class="d-flex">
                         <div class="d-flex">
-                            <!-- <a href="{{ route('spd.download-excel', [
-                                'search' => request()->input('search'),
-                                'tahun' => request()->input('tahun'),
-                                'bulan' => request()->input('bulan'),
-                                'dept' => request()->input('dept')
-                                ]) }}" class="btn btn-success btn-2x me-2">
-                                <i class="fas fa-file-excel"></i> Cetak Excel
-                            </a> -->
                             <button type="button" class="btn btn-success btn-2x me-2" onclick="handleExportToExcel()">Cetak Excel</button>
                             <a href="{{ route('spd.download-pdf', [
                                 'search' => request()->input('search'),
@@ -132,6 +124,7 @@
                             <input type="file" name="file[]" class="rounded" multiple>
                             <button type="submit" class="btn-outline-dark rounded">Unggah Excel</button>
                         </form>
+
                         <!-- Icon informasi -->
                         <a href="#" class="btn btn-light btn-2x me-2" data-bs-toggle="modal" data-bs-target="#modalInformasi">
                             <i class="fas fa-info-circle fa-2x"></i>

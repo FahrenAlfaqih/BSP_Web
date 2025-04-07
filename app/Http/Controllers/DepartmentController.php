@@ -8,6 +8,17 @@ use App\Models\Dpd;
 
 class DepartmentController extends Controller
 {
+
+    public function index()
+    {
+        $departments = Department::with('fundChanges')->paginate(10);
+        $departments->getCollection()->transform(function ($item, $key) {
+            $item->initial_fund = 'Rp. ' . number_format($item->initial_fund, 0, ',', '.');
+            return $item;
+        });
+        return view('masterdata.departemen', compact('departments'));
+    }
+    
     public function updateInitialFunds(Request $request)
     {
         // Ambil data input dari form
@@ -29,5 +40,4 @@ class DepartmentController extends Controller
         // Redirect kembali ke halaman sebelumnya atau ke halaman yang sesuai
         return redirect()->back()->with('success', 'Dana awal departemen berhasil diperbarui.');
     }
-
 }

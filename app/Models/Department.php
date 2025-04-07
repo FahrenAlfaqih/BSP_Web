@@ -13,6 +13,21 @@ class Department extends Model
     protected $table = 'departments'; // Nama tabel dalam basis data
     protected $fillable = ['name', 'initial_fund', 'remaining_funds']; // Kolom-kolom yang dapat diisi
 
+
+    protected static function booted()
+    {
+        static::updated(function ($department) {
+            if ($department->isDirty('initial_fund')) {
+                FundChange::create([
+                    'department_id' => $department->id,
+                    'old_fund' => $department->getOriginal('initial_fund'),
+                    'new_fund' => $department->initial_fund,
+                    'changed_at' => now(),
+                ]);
+            }
+        });
+    }
+
     public static function updateRemainingFunds()
     {
         $dpdSummary = Dpd::select('dept', DB::raw('SUM(biayadpd) AS total_pengeluaran'))
@@ -35,5 +50,10 @@ class Department extends Model
             $this->remaining_funds = $this->initial_fund;
             $this->save();
         }
-    }   
+    }
+
+    public function fundChanges()
+    {
+        return $this->hasMany(FundChange::class);
+    }
 }
